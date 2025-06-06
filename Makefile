@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME ?= terraform-provider-proxmox-bpg
+PROJECT_NAME ?= provider-proxmox-bpg
 PROJECT_REPO ?= github.com/valkiriaaquatica/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION ?= 1.5.7
@@ -11,7 +11,7 @@ export TERRAFORM_VERSION ?= 1.5.7
 TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAFORM_VERSION)\n1.6" | sort -V | head -n1`" ] && echo 1 || echo 0)
 
 export TERRAFORM_PROVIDER_SOURCE ?= bpg/proxmox
-export TERRAFORM_PROVIDER_REPO ?= https://github.com/valkiriaaquatica/provider-proxmox-bpg.git
+export TERRAFORM_PROVIDER_REPO ?= https://github.com/valkiriaaquatica/terraform-provider-proxmox-bpg.git
 export TERRAFORM_PROVIDER_VERSION ?= 0.78.1
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-proxmox
 # this is not used

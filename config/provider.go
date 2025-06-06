@@ -9,8 +9,7 @@ import (
 	_ "embed"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
-
-	"github.com/upbound/upjet-provider-template/config/null"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 )
 
 const (
@@ -36,7 +35,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		virtualenvironmentuser.Configure,
 	} {
 		configure(pc)
 	}

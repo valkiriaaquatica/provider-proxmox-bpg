@@ -1,7 +1,7 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME ?= provider-proxmox-bpg
+PROJECT_NAME ?= terraform-provider-proxmox-bpg
 PROJECT_REPO ?= github.com/valkiriaaquatica/$(PROJECT_NAME)
 
 export TERRAFORM_VERSION ?= 1.5.7

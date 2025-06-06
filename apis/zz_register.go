@@ -12,6 +12,7 @@ import (
 
 	v1alpha1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/v1alpha1"
 	v1beta1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/v1beta1"
+	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
 )
 
 func init() {
@@ -19,6 +20,7 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
 	)
 }
 

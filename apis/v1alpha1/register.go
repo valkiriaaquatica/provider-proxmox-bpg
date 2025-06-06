@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "proxmoxbpg.upbound.io"
+	Group   = "proxmoxbpg.crossplane.io"
 	Version = "v1alpha1"
 )
 

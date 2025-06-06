@@ -4,14 +4,14 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: resources.null.template.upbound.io
+  name: resources.null.proxmoxbpg.upbound.io
 spec:
-  group: null.template.upbound.io
+  group: null.proxmoxbpg.upbound.io
   names:
     categories:
     - crossplane
     - managed
-    - template
+    - proxmoxbpg
     kind: Resource
     listKind: ResourceList
     plural: resources

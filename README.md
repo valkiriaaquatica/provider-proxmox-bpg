@@ -17,9 +17,9 @@ cat <<EOF | kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: upjet-provider-template
+  name: provider-proxmoxbpg
 spec:
-  package: upbound/upjet-provider-template:v0.1.0
+  package: crossplane/provider-proxmoxbpg:v0.1.0
 EOF
 ```
 

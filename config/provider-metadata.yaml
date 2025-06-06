@@ -1,4 +1,4 @@
-name: hashicorp/null
+name: bpg/proxmox
 resources:
     null_resource:
         subCategory: ""

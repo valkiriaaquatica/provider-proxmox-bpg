@@ -9,8 +9,8 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
-	resource "github.com/upbound/upjet-provider-template/internal/controller/null/resource"
-	providerconfig "github.com/upbound/upjet-provider-template/internal/controller/providerconfig"
+	resource "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/null/resource"
+	providerconfig "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/providerconfig"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to

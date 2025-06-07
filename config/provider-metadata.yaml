@@ -1,40 +1,23 @@
 name: bpg/proxmox
 resources:
-    null_resource:
+    virtual_environment_user Resource - terraform-provider-proxmox:
         subCategory: ""
-        description: The null_resource resource implements the standard resource lifecycle but takes no further action. On Terraform 1.4 and later, use the terraform_data resource type https://developer.hashicorp.com/terraform/language/resources/terraform-data instead. The triggers argument allows specifying an arbitrary set of values that, when changed, will cause the resource to be replaced.
-        name: null_resource
-        title: null_resource Resource - terraform-provider-null
-        examples:
-            - name: cluster
-              manifest: |-
-                {
-                  "connection": [
-                    {
-                      "host": "${element(aws_instance.cluster[*].public_ip, 0)}"
-                    }
-                  ],
-                  "provisioner": {
-                    "remote-exec": [
-                      {
-                        "inline": [
-                          "bootstrap-cluster.sh ${join(\" \",\n      aws_instance.cluster[*].private_ip)}"
-                        ]
-                      }
-                    ]
-                  },
-                  "triggers": {
-                    "cluster_instance_ids": "${join(\",\", aws_instance.cluster[*].id)}"
-                  }
-                }
-              dependencies:
-                aws_instance.cluster: |-
-                    {
-                      "ami": "ami-0dcc1e21636832c5d",
-                      "count": 3,
-                      "instance_type": "m5.large"
-                    }
+        description: This resource creates and manages a Proxmox virtual enviroemtn user .
+        name: virtual_environment_user Resource - terraform-provider-proxmox
+        title: virtual_environment_user Resource - terraform-provider-proxmox
         argumentDocs:
-            id: (String) This is set to a random value at create time.
-            triggers: (Map of String) A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
+            acl: '- (Optional) The access control list (multiple blocks supported).'
+            comment: '- (Optional) The user comment.'
+            email: '- (Optional) The user''s email address.'
+            enabled: '- (Optional) Whether the user account is enabled.'
+            expiration_date: '- (Optional) The user account''s expiration date (RFC 3339).'
+            first_name: '- (Optional) The user''s first name.'
+            groups: '- (Optional) The user''s groups.'
+            keys: '- (Optional) The user''s keys.'
+            last_name: '- (Optional) The user''s last name.'
+            password: '- (Optional) The user''s password. Required for PVE or PAM realms.'
+            path: '- The path.'
+            propagate: '- Whether to propagate to child paths.'
+            role_id: '- The role identifier.'
+            user_id: '- (Required) The user identifier.'
         importStatements: []

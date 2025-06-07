@@ -10,6 +10,7 @@ import (
 	"github.com/crossplane/upjet/pkg/controller"
 
 	providerconfig "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/providerconfig"
+	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -17,6 +18,7 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		providerconfig.Setup,
+		environmentuser.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

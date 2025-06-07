@@ -76,20 +76,51 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		// Set credentials in Terraform provider configuration.
-		ps.Configuration = map[string]any{
-			keyEndpoint:            creds[keyEndpoint],
-			keyUsername:            creds[keyUsername],
-			keyPassword:            creds[keyPassword],
-			keyAPIToken:            creds[keyAPIToken],
-			keyAuthTicket:          creds[keyAuthTicket],
-			keyCSRFPreventionToken: creds[keyCSRFPreventionToken],
-			keyInsecure:            creds[keyInsecure],
-			keySSHUsername:         creds[keySSHUsername],
-			keySSHPassword:         creds[keySSHPassword],
-			keySSHPrivateKey:       creds[keySSHPrivateKey],
-			keyTmpDir:              creds[keyTmpDir],
+		// Set credentials in Terraform provider configuration. Only include
+		// keys that have a non-empty value to avoid validation errors from
+		// the Terraform provider.
+		cfg := map[string]any{}
+
+		if v := creds[keyEndpoint]; v != "" {
+			cfg[keyEndpoint] = v
 		}
+		if v := creds[keyUsername]; v != "" {
+			cfg[keyUsername] = v
+		}
+		if v := creds[keyPassword]; v != "" {
+			cfg[keyPassword] = v
+		}
+		if v := creds[keyAPIToken]; v != "" {
+			cfg[keyAPIToken] = v
+		}
+		if v := creds[keyAuthTicket]; v != "" {
+			cfg[keyAuthTicket] = v
+		}
+		if v := creds[keyCSRFPreventionToken]; v != "" {
+			cfg[keyCSRFPreventionToken] = v
+		}
+		if v := creds[keyInsecure]; v != "" {
+			cfg[keyInsecure] = v
+		}
+		if v := creds[keyTmpDir]; v != "" {
+			cfg[keyTmpDir] = v
+		}
+
+		sshCfg := map[string]any{}
+		if v := creds[keySSHUsername]; v != "" {
+			sshCfg["username"] = v
+		}
+		if v := creds[keySSHPassword]; v != "" {
+			sshCfg["password"] = v
+		}
+		if v := creds[keySSHPrivateKey]; v != "" {
+			sshCfg["private_key"] = v
+		}
+		if len(sshCfg) > 0 {
+			cfg["ssh"] = sshCfg
+		}
+
+		ps.Configuration = cfg
 		return ps, nil
 	}
 }

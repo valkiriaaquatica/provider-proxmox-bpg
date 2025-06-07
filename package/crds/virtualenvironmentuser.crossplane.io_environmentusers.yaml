@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: resources.null.proxmoxbpg.upbound.io
+  name: environmentusers.virtualenvironmentuser.crossplane.io
 spec:
-  group: null.proxmoxbpg.upbound.io
+  group: virtualenvironmentuser.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - proxmoxbpg
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    kind: EnvironmentUser
+    listKind: EnvironmentUserList
+    plural: environmentusers
+    singular: environmentuser
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API. The null_resource
-          resource implements the standard resource lifecycle but takes no further
-          action.hashicorp. The triggers argument allows specifying an arbitrary set
-          of values that, when changed, will cause the resource to be replaced.
+        description: EnvironmentUser is the Schema for the EnvironmentUsers API. <no
+          value>
         properties:
           apiVersion:
             description: |-
@@ -57,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: EnvironmentUserSpec defines the desired state of EnvironmentUser
             properties:
               deletionPolicy:
                 default: Delete
@@ -75,14 +73,68 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
+                  acl:
+                    description: The access control list
+                    items:
+                      properties:
+                        path:
+                          description: The path
+                          type: string
+                        propagate:
+                          description: Whether to propagate to child paths
+                          type: boolean
+                        roleId:
+                          description: The role id
+                          type: string
+                      type: object
+                    type: array
+                  comment:
+                    description: The user comment
+                    type: string
+                  email:
+                    description: The user's email address
+                    type: string
+                  enabled:
+                    description: Whether the user account is enabled
+                    type: boolean
+                  expirationDate:
+                    description: The user account's expiration date
+                    type: string
+                  firstName:
+                    description: The user's first name
+                    type: string
+                  groups:
+                    description: The user's groups
+                    items:
                       type: string
-                    description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
+                    type: array
+                    x-kubernetes-list-type: set
+                  keys:
+                    description: The user's keys
+                    type: string
+                  lastName:
+                    description: The user's last name
+                    type: string
+                  passwordSecretRef:
+                    description: The user's password
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
                     type: object
-                    x-kubernetes-map-type: granular
+                  userId:
+                    description: The user id
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -97,14 +149,68 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  triggers:
-                    additionalProperties:
+                  acl:
+                    description: The access control list
+                    items:
+                      properties:
+                        path:
+                          description: The path
+                          type: string
+                        propagate:
+                          description: Whether to propagate to child paths
+                          type: boolean
+                        roleId:
+                          description: The role id
+                          type: string
+                      type: object
+                    type: array
+                  comment:
+                    description: The user comment
+                    type: string
+                  email:
+                    description: The user's email address
+                    type: string
+                  enabled:
+                    description: Whether the user account is enabled
+                    type: boolean
+                  expirationDate:
+                    description: The user account's expiration date
+                    type: string
+                  firstName:
+                    description: The user's first name
+                    type: string
+                  groups:
+                    description: The user's groups
+                    items:
                       type: string
-                    description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
+                    type: array
+                    x-kubernetes-list-type: set
+                  keys:
+                    description: The user's keys
+                    type: string
+                  lastName:
+                    description: The user's last name
+                    type: string
+                  passwordSecretRef:
+                    description: The user's password
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
                     type: object
-                    x-kubernetes-map-type: granular
+                  userId:
+                    description: The user id
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -273,23 +379,63 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.userId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.userId)
+                || (has(self.initProvider) && has(self.initProvider.userId))'
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: EnvironmentUserStatus defines the observed state of EnvironmentUser.
             properties:
               atProvider:
                 properties:
-                  id:
-                    description: (String) This is set to a random value at create
-                      time.
+                  acl:
+                    description: The access control list
+                    items:
+                      properties:
+                        path:
+                          description: The path
+                          type: string
+                        propagate:
+                          description: Whether to propagate to child paths
+                          type: boolean
+                        roleId:
+                          description: The role id
+                          type: string
+                      type: object
+                    type: array
+                  comment:
+                    description: The user comment
                     type: string
-                  triggers:
-                    additionalProperties:
+                  email:
+                    description: The user's email address
+                    type: string
+                  enabled:
+                    description: Whether the user account is enabled
+                    type: boolean
+                  expirationDate:
+                    description: The user account's expiration date
+                    type: string
+                  firstName:
+                    description: The user's first name
+                    type: string
+                  groups:
+                    description: The user's groups
+                    items:
                       type: string
-                    description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
-                    type: object
-                    x-kubernetes-map-type: granular
+                    type: array
+                    x-kubernetes-list-type: set
+                  id:
+                    type: string
+                  keys:
+                    description: The user's keys
+                    type: string
+                  lastName:
+                    description: The user's last name
+                    type: string
+                  userId:
+                    description: The user id
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

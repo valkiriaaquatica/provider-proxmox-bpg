@@ -1,4 +1,4 @@
-apiVersion: proxmoxbpg.upbound.io/v1beta1
+apiVersion: proxmoxbpg.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default

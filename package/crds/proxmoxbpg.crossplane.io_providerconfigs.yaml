@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: providerconfigs.proxmoxbpg.upbound.io
+  name: providerconfigs.proxmoxbpg.crossplane.io
 spec:
-  group: proxmoxbpg.upbound.io
+  group: proxmoxbpg.crossplane.io
   names:
     categories:
     - crossplane

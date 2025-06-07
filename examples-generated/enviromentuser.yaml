@@ -10,22 +10,18 @@ stringData:
 apiVersion: virtualenvironmentuser.crossplane.io/v1alpha1
 kind: EnvironmentUser
 metadata:
-  name: testuser
+  name: testuser2
 spec:
   providerConfigRef:
     name: default
   deletionPolicy: Delete
   forProvider:
-    userId: testuser@pve
+    userId: testuser2@pve
     firstName: Test
     lastName: User
-    email: testuser@example.com
+    email: testuser2@example.com
     comment: "Managed by Crossplane"
     enabled: true
-    acl:
-      - path: "/"
-        propagate: true
-        roleId: "reader"
     passwordSecretRef:
       name: environmentuser-password
       namespace: crossplane-system

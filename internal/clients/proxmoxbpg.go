@@ -28,11 +28,17 @@ const (
 )
 
 const (
-	keyPmApiURL         = "pm_api_url"
-	keyPmUser           = "pm_user"
-	keyPmPassword       = "pm_password"
-	keyPmAPITokenID     = "pm_api_token_id"
-	keyPmAPITokenSecret = "pm_api_token_secret"
+	keyEndpoint            = "endpoint"
+	keyUsername            = "username"
+	keyPassword            = "password"
+	keyAPIToken            = "api_token"
+	keyAuthTicket          = "auth_ticket"
+	keyCSRFPreventionToken = "csrf_prevention_token"
+	keyInsecure            = "insecure"
+	keySSHUsername         = "ssh_username"
+	keySSHPassword         = "ssh_password"
+	keySSHPrivateKey       = "ssh_private_key"
+	keyTmpDir              = "tmp_dir"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -72,11 +78,17 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 
 		// Set credentials in Terraform provider configuration.
 		ps.Configuration = map[string]any{
-			keyPmApiURL:         creds[keyPmApiURL],
-			keyPmUser:           creds[keyPmUser],
-			keyPmPassword:       creds[keyPmPassword],
-			keyPmAPITokenID:     creds[keyPmAPITokenID],
-			keyPmAPITokenSecret: creds[keyPmAPITokenSecret],
+			keyEndpoint:            creds[keyEndpoint],
+			keyUsername:            creds[keyUsername],
+			keyPassword:            creds[keyPassword],
+			keyAPIToken:            creds[keyAPIToken],
+			keyAuthTicket:          creds[keyAuthTicket],
+			keyCSRFPreventionToken: creds[keyCSRFPreventionToken],
+			keyInsecure:            creds[keyInsecure],
+			keySSHUsername:         creds[keySSHUsername],
+			keySSHPassword:         creds[keySSHPassword],
+			keySSHPrivateKey:       creds[keySSHPrivateKey],
+			keyTmpDir:              creds[keyTmpDir],
 		}
 		return ps, nil
 	}

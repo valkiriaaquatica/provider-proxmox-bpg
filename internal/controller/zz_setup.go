@@ -10,6 +10,7 @@ import (
 	"github.com/crossplane/upjet/pkg/controller"
 
 	providerconfig "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/providerconfig"
+	environmentacl "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacl/environmentacl"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
 
@@ -18,6 +19,7 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		providerconfig.Setup,
+		environmentacl.Setup,
 		environmentuser.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

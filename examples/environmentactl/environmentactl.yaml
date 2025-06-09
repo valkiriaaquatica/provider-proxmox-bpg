@@ -1,0 +1,12 @@
+apiVersion: virtualenvironmentacl.crossplane.io/v1alpha1
+kind: EnvironmentACL
+metadata:
+  name: test-acl
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    userId: testuser@pve
+    roleId: PVEPoolUser
+    path: /vms/102
+    propagate: false

@@ -14,6 +14,7 @@ import (
 	environmentacmeaccount "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacmeaccount/environmentacmeaccount"
 	environmentacmednsplugin "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacmednsplugin/environmentacmednsplugin"
 	environmentaptrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentaptrepository/environmentaptrepository"
+	environmentaptstandardrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentaptstandardrepository/environmentaptstandardrepository"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
@@ -27,6 +28,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentacmeaccount.Setup,
 		environmentacmednsplugin.Setup,
 		environmentaptrepository.Setup,
+		environmentaptstandardrepository.Setup,
 		environmentrole.Setup,
 		environmentuser.Setup,
 	} {

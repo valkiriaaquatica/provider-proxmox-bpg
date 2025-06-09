@@ -10,7 +10,6 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacl"
-	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 )
 
@@ -39,7 +38,6 @@ func GetProvider() *ujconfig.Provider {
 		// add custom config functions
 		virtualenvironmentuser.Configure,
 		virtualenvironmentacl.Configure,
-		virtualenvironmentrole.Configure,
 	} {
 		configure(pc)
 	}

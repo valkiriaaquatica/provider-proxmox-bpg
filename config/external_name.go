@@ -12,6 +12,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
 	"proxmox_virtual_environment_user": config.IdentifierFromProvider,
 	"proxmox_virtual_environment_acl":  config.IdentifierFromProvider,
+	"proxmox_virtual_environment_role": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

@@ -15,6 +15,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"proxmox_virtual_environment_role":            config.IdentifierFromProvider,
 	"proxmox_virtual_environment_apt_repository":  config.IdentifierFromProvider,
 	"proxmox_virtual_environment_acme_dns_plugin": config.IdentifierFromProvider,
+	"proxmox_virtual_environment_acme_plugins":    config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

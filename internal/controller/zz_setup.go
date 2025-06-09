@@ -11,7 +11,7 @@ import (
 
 	providerconfig "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/providerconfig"
 	environmentacl "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacl/environmentacl"
-	environmentacmednsplugin "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacmddnsplugin/environmentacmednsplugin"
+	environmentacmednsplugin "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacmednsplugin/environmentacmednsplugin"
 	environmentaptrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentaptrepository/environmentaptrepository"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"

@@ -21,7 +21,7 @@ import (
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacmddnsplugin/v1alpha1"
+	v1alpha1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacmednsplugin/v1alpha1"
 	features "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/features"
 )
 

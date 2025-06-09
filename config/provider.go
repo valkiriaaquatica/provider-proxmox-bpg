@@ -9,9 +9,8 @@ import (
 	_ "embed"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
-	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvioronmentacmednsplugin"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacl"
-	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacmeplugins"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacmednsplugin"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentaptrepository"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
@@ -44,8 +43,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentacl.Configure,
 		virtualenvironmentrole.Configure,
 		virtualenvironmentaptrepository.Configure,
-		virtualenvioronmentacmednsplugin.Configure,
-		virtualenvironmentacmeplugins.Configure,
+		virtualenvironmentacmednsplugin.Configure,
 	} {
 		configure(pc)
 	}

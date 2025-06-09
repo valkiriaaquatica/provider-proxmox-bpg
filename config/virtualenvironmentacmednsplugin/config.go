@@ -1,4 +1,4 @@
-package virtualenvioronmentacmednsplugin
+package virtualenvironmentacmednsplugin
 
 import (
 	ujconfig "github.com/crossplane/upjet/pkg/config"
@@ -7,6 +7,6 @@ import (
 // Configure configures resources for the virtual environment group
 func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("proxmox_virtual_environment_acme_dns_plugin", func(r *ujconfig.Resource) {
-		r.ShortGroup = "VirtualEnvironmentAcmdDnsPlugin"
+		r.ShortGroup = "VirtualEnvironmentAcmeDnsPlugin"
 	})
 }

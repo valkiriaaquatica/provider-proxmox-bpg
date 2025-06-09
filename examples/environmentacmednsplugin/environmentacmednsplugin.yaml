@@ -1,0 +1,14 @@
+apiVersion: virtualenvironmentacmddnsplugin.crossplane.io/v1alpha1
+kind: EnvironmentAcmeDNSPlugin
+metadata:
+  name: acme-plugin-example
+spec:
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+  forProvider:
+    plugin: test
+    api: aws
+    data:
+      AWS_ACCESS_KEY_ID: "EXAMPLE"
+      AWS_SECRET_ACCESS_KEY: "EXAMPLE"

@@ -12,6 +12,7 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacl"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentaptrepository"
 )
 
 const (
@@ -40,6 +41,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentuser.Configure,
 		virtualenvironmentacl.Configure,
 		virtualenvironmentrole.Configure,
+		virtualenvironmentaptrepository.Configure,
 	} {
 		configure(pc)
 	}

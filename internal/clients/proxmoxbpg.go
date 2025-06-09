@@ -44,7 +44,7 @@ const (
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
-	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
+	return func(ctx context.Context, c client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{
 			Version: version,
 			Requirement: terraform.ProviderRequirement{
@@ -52,75 +52,83 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 				Version: providerVersion,
 			},
 		}
-
-		configRef := mg.GetProviderConfigReference()
-		if configRef == nil {
-			return ps, errors.New(errNoProviderConfig)
+		if err := populateProviderConfig(ctx, c, mg, &ps); err != nil {
+			return ps, err
 		}
-		pc := &v1beta1.ProviderConfig{}
-		if err := client.Get(ctx, types.NamespacedName{Name: configRef.Name}, pc); err != nil {
-			return ps, errors.Wrap(err, errGetProviderConfig)
-		}
-
-		t := resource.NewProviderConfigUsageTracker(client, &v1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
-			return ps, errors.Wrap(err, errTrackUsage)
-		}
-
-		data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, client, pc.Spec.Credentials.CommonCredentialSelectors)
-		if err != nil {
-			return ps, errors.Wrap(err, errExtractCredentials)
-		}
-		creds := map[string]string{}
-		if err := json.Unmarshal(data, &creds); err != nil {
-			return ps, errors.Wrap(err, errUnmarshalCredentials)
-		}
-
-		// Set credentials in Terraform provider configuration. Only include
-		// keys that have a non-empty value to avoid validation errors from
-		// the Terraform provider.
-		cfg := map[string]any{}
-
-		if v := creds[keyEndpoint]; v != "" {
-			cfg[keyEndpoint] = v
-		}
-		if v := creds[keyUsername]; v != "" {
-			cfg[keyUsername] = v
-		}
-		if v := creds[keyPassword]; v != "" {
-			cfg[keyPassword] = v
-		}
-		if v := creds[keyAPIToken]; v != "" {
-			cfg[keyAPIToken] = v
-		}
-		if v := creds[keyAuthTicket]; v != "" {
-			cfg[keyAuthTicket] = v
-		}
-		if v := creds[keyCSRFPreventionToken]; v != "" {
-			cfg[keyCSRFPreventionToken] = v
-		}
-		if v := creds[keyInsecure]; v != "" {
-			cfg[keyInsecure] = v
-		}
-		if v := creds[keyTmpDir]; v != "" {
-			cfg[keyTmpDir] = v
-		}
-
-		sshCfg := map[string]any{}
-		if v := creds[keySSHUsername]; v != "" {
-			sshCfg["username"] = v
-		}
-		if v := creds[keySSHPassword]; v != "" {
-			sshCfg["password"] = v
-		}
-		if v := creds[keySSHPrivateKey]; v != "" {
-			sshCfg["private_key"] = v
-		}
-		if len(sshCfg) > 0 {
-			cfg["ssh"] = sshCfg
-		}
-
-		ps.Configuration = cfg
 		return ps, nil
 	}
+}
+
+func populateProviderConfig(ctx context.Context, c client.Client, mg resource.Managed, ps *terraform.Setup) error {
+	ref := mg.GetProviderConfigReference()
+	if ref == nil {
+		return errors.New(errNoProviderConfig)
+	}
+
+	pc := &v1beta1.ProviderConfig{}
+	if err := c.Get(ctx, types.NamespacedName{Name: ref.Name}, pc); err != nil {
+		return errors.Wrap(err, errGetProviderConfig)
+	}
+
+	if err := trackProviderUsage(ctx, c, mg); err != nil {
+		return err
+	}
+
+	creds, err := loadCredentials(ctx, c, pc)
+	if err != nil {
+		return err
+	}
+
+	ps.Configuration = buildConfiguration(creds)
+	return nil
+}
+
+func trackProviderUsage(ctx context.Context, c client.Client, mg resource.Managed) error {
+	tracker := resource.NewProviderConfigUsageTracker(c, &v1beta1.ProviderConfigUsage{})
+	return errors.Wrap(tracker.Track(ctx, mg), errTrackUsage)
+}
+
+func loadCredentials(ctx context.Context, c client.Client, pc *v1beta1.ProviderConfig) (map[string]string, error) {
+	data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, c, pc.Spec.Credentials.CommonCredentialSelectors)
+	if err != nil {
+		return nil, errors.Wrap(err, errExtractCredentials)
+	}
+	creds := map[string]string{}
+	if err := json.Unmarshal(data, &creds); err != nil {
+		return nil, errors.Wrap(err, errUnmarshalCredentials)
+	}
+	return creds, nil
+}
+
+func buildConfiguration(creds map[string]string) map[string]any {
+	cfg := map[string]any{}
+
+	add := func(k string) {
+		if v := creds[k]; v != "" {
+			cfg[k] = v
+		}
+	}
+
+	for _, k := range []string{
+		keyEndpoint, keyUsername, keyPassword, keyAPIToken,
+		keyAuthTicket, keyCSRFPreventionToken, keyInsecure, keyTmpDir,
+	} {
+		add(k)
+	}
+
+	ssh := map[string]any{}
+	if v := creds[keySSHUsername]; v != "" {
+		ssh["username"] = v
+	}
+	if v := creds[keySSHPassword]; v != "" {
+		ssh["password"] = v
+	}
+	if v := creds[keySSHPrivateKey]; v != "" {
+		ssh["private_key"] = v
+	}
+	if len(ssh) > 0 {
+		cfg["ssh"] = ssh
+	}
+
+	return cfg
 }

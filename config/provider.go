@@ -10,6 +10,7 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacl"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacmeaccount"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentacmednsplugin"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentaptrepository"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
@@ -44,6 +45,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentrole.Configure,
 		virtualenvironmentaptrepository.Configure,
 		virtualenvironmentacmednsplugin.Configure,
+		virtualenvironmentacmeaccount.Configure,
 	} {
 		configure(pc)
 	}

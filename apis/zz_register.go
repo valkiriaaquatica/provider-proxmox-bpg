@@ -13,6 +13,7 @@ import (
 	v1alpha1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/v1alpha1"
 	v1beta1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/v1beta1"
 	v1alpha1virtualenvironmentacl "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacl/v1alpha1"
+	v1alpha1virtualenvironmentacmeaccount "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacmeaccount/v1alpha1"
 	v1alpha1virtualenvironmentacmednsplugin "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacmednsplugin/v1alpha1"
 	v1alpha1virtualenvironmentaptrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentaptrepository/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
@@ -25,6 +26,7 @@ func init() {
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentacl.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentacmeaccount.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentacmednsplugin.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentaptrepository.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,

@@ -4,10 +4,10 @@ metadata:
   name: ubuntu-container-sample
 spec:
   providerConfigRef:
-    name: indra
+    name: default
   forProvider:
     nodeName: pve
-    vmId: 1234
+    vmId: 100
     description: Managed by Crossplane
     initialization:
       - hostname: crossplane-proxmox-container
@@ -24,7 +24,7 @@ spec:
     networkInterface:
       - name: veth0
     disk:
-      - datastoreId: local
+      - datastoreId: local-lvm
         size: 4
     operatingSystem:
       - templateFileId: local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz
@@ -32,7 +32,7 @@ spec:
     mountPoint:
 
       - volume: local-lvm
-        size: 10G
+        size: 2G
         path: /mnt/volume
     startup:
       - order: 3

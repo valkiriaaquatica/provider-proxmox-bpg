@@ -22,6 +22,7 @@ import (
 	environmentdns "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentdns/environmentdns"
 	environmentdownloadfile "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentdownloadfile/environmentdownloadfile"
 	environmentfile "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentfile/environmentfile"
+	environmentfirewallalias "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentfirewallalias/environmentfirewallalias"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
@@ -43,6 +44,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentdns.Setup,
 		environmentdownloadfile.Setup,
 		environmentfile.Setup,
+		environmentfirewallalias.Setup,
 		environmentrole.Setup,
 		environmentuser.Setup,
 	} {

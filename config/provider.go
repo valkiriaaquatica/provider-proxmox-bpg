@@ -22,6 +22,7 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentdns"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentdownloadfile"
 )
 
 const (
@@ -60,6 +61,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentcontainer.Configure,
 		virtualenvironmentdatastores.Configure,
 		virtualenvironmentdns.Configure,
+		virtualenvironmentdownloadfile.Configure,
 	} {
 		configure(pc)
 	}

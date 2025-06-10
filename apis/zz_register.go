@@ -12,12 +12,13 @@ import (
 
 	v1alpha1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/v1alpha1"
 	v1beta1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/v1beta1"
+	v1alpha1virtual "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtual/v1alpha1"
+	v1alpha1virtualenvironment "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironment/v1alpha1"
 	v1alpha1virtualenvironmentacl "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacl/v1alpha1"
 	v1alpha1virtualenvironmentacmeaccount "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacmeaccount/v1alpha1"
 	v1alpha1virtualenvironmentacmednsplugin "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentacmednsplugin/v1alpha1"
 	v1alpha1virtualenvironmentaptrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentaptrepository/v1alpha1"
 	v1alpha1virtualenvironmentaptstandardrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentaptstandardrepository/v1alpha1"
-	v1alpha1virtualenvironmentcertificate "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentcertificate/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
 	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
 )
@@ -27,12 +28,13 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1virtual.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironment.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentacl.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentacmeaccount.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentacmednsplugin.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentaptrepository.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentaptstandardrepository.SchemeBuilder.AddToScheme,
-		v1alpha1virtualenvironmentcertificate.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
 	)

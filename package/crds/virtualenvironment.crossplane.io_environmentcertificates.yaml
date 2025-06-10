@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: environmentcertificates.virtualenvironmentcertificate.crossplane.io
+  name: environmentcertificates.virtualenvironment.crossplane.io
 spec:
-  group: virtualenvironmentcertificate.crossplane.io
+  group: virtualenvironment.crossplane.io
   names:
     categories:
     - crossplane

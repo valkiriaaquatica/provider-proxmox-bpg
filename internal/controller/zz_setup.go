@@ -10,12 +10,13 @@ import (
 	"github.com/crossplane/upjet/pkg/controller"
 
 	providerconfig "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/providerconfig"
+	environmentclusterfirewall "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtual/environmentclusterfirewall"
+	environmentcertificate "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironment/environmentcertificate"
 	environmentacl "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacl/environmentacl"
 	environmentacmeaccount "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacmeaccount/environmentacmeaccount"
 	environmentacmednsplugin "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentacmednsplugin/environmentacmednsplugin"
 	environmentaptrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentaptrepository/environmentaptrepository"
 	environmentaptstandardrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentaptstandardrepository/environmentaptstandardrepository"
-	environmentcertificate "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentcertificate/environmentcertificate"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
@@ -25,12 +26,13 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		providerconfig.Setup,
+		environmentclusterfirewall.Setup,
+		environmentcertificate.Setup,
 		environmentacl.Setup,
 		environmentacmeaccount.Setup,
 		environmentacmednsplugin.Setup,
 		environmentaptrepository.Setup,
 		environmentaptstandardrepository.Setup,
-		environmentcertificate.Setup,
 		environmentrole.Setup,
 		environmentuser.Setup,
 	} {

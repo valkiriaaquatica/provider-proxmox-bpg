@@ -21,6 +21,7 @@ import (
 	v1alpha1virtualenvironmentaptstandardrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentaptstandardrepository/v1alpha1"
 	v1alpha1virtualenvironmentclusterfirewallsecuritygroup "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentclusterfirewallsecuritygroup/v1alpha1"
 	v1alpha1virtualenvironmentcontainer "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentcontainer/v1alpha1"
+	v1alpha1virtualenvironmentdns "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentdns/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
 	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
 )
@@ -39,6 +40,7 @@ func init() {
 		v1alpha1virtualenvironmentaptstandardrepository.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentclusterfirewallsecuritygroup.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentcontainer.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentdns.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
 	)

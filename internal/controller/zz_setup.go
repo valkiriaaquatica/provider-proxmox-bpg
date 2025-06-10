@@ -19,6 +19,7 @@ import (
 	environmentaptstandardrepository "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentaptstandardrepository/environmentaptstandardrepository"
 	environmentclusterfirewallsecuritygroup "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentclusterfirewallsecuritygroup/environmentclusterfirewallsecuritygroup"
 	environmentcontainer "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentcontainer/environmentcontainer"
+	environmentdns "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentdns/environmentdns"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
@@ -37,6 +38,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentaptstandardrepository.Setup,
 		environmentclusterfirewallsecuritygroup.Setup,
 		environmentcontainer.Setup,
+		environmentdns.Setup,
 		environmentrole.Setup,
 		environmentuser.Setup,
 	} {

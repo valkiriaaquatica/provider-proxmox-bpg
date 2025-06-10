@@ -1,0 +1,12 @@
+apiVersion: virtualenvironmentdns.crossplane.io/v1alpha1
+kind: EnvironmentDNS
+metadata:
+  name: dns-pve
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    nodeName: pve
+    domain: house.local
+    servers:
+      - 1.1.1.1

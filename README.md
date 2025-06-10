@@ -99,3 +99,4 @@ description: |-
   - proxmox_virtual_environment_cluster_options its pending because of error on schema.json asi ssaid in this issue https://github.com/crossplane/upjet/issues/372  when run make generate
   - CI publish artifactd and use image
   - virtualenvironmentcertificate,virtualenvironmentdatastores  its not getting get
+  - test tge ones wit "file" to try the upload

@@ -24,6 +24,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"proxmox_virtual_environment_datastores":                      config.IdentifierFromProvider,
 	"proxmox_virtual_environment_dns":                             config.IdentifierFromProvider,
 	"proxmox_virtual_environment_download_file":                   config.IdentifierFromProvider,
+	"proxmox_virtual_environment_file":                            config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

@@ -92,3 +92,7 @@ subcategory: ""
 description: |-
   This resource creates and manages a Proxmox description of the resource.
 ---' | cat - "$broken_doc_file" > temp && mv temp "$broken_doc_file"
+
+
+## TODO list:
+  - apply correcctly a virtualenvironmentcertificate

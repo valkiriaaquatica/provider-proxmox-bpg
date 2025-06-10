@@ -23,6 +23,7 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentdownloadfile"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfile"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallalias"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallipset"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 )
@@ -66,6 +67,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentdownloadfile.Configure,
 		virtualenvironmentfile.Configure,
 		virtualenvironmentfirewallalias.Configure,
+		virtualenvironmentfirewallipset.Configure,
 	} {
 		configure(pc)
 	}

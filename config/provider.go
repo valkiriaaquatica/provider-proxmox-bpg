@@ -18,6 +18,7 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentclusterfirewall"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentclusterfirewallsecuritygroup"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentcontainer"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentdatastores"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 )
@@ -56,6 +57,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentclusterfirewall.Configure,
 		virtualenvironmentclusterfirewallsecuritygroup.Configure,
 		virtualenvironmentcontainer.Configure,
+		virtualenvironmentdatastores.Configure,
 	} {
 		configure(pc)
 	}

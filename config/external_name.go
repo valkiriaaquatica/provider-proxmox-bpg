@@ -10,15 +10,16 @@ import "github.com/crossplane/upjet/pkg/config"
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"proxmox_virtual_environment_user":                    config.IdentifierFromProvider,
-	"proxmox_virtual_environment_acl":                     config.IdentifierFromProvider,
-	"proxmox_virtual_environment_role":                    config.IdentifierFromProvider,
-	"proxmox_virtual_environment_apt_repository":          config.IdentifierFromProvider,
-	"proxmox_virtual_environment_acme_dns_plugin":         config.IdentifierFromProvider,
-	"proxmox_virtual_environment_acme_account":            config.IdentifierFromProvider,
-	"proxmox_virtual_environment_apt_standard_repository": config.IdentifierFromProvider,
-	"proxmox_virtual_environment_certificate":             config.IdentifierFromProvider,
-	"proxmox_virtual_environment_cluster_firewall":        config.IdentifierFromProvider,
+	"proxmox_virtual_environment_user":                            config.IdentifierFromProvider,
+	"proxmox_virtual_environment_acl":                             config.IdentifierFromProvider,
+	"proxmox_virtual_environment_role":                            config.IdentifierFromProvider,
+	"proxmox_virtual_environment_apt_repository":                  config.IdentifierFromProvider,
+	"proxmox_virtual_environment_acme_dns_plugin":                 config.IdentifierFromProvider,
+	"proxmox_virtual_environment_acme_account":                    config.IdentifierFromProvider,
+	"proxmox_virtual_environment_apt_standard_repository":         config.IdentifierFromProvider,
+	"proxmox_virtual_environment_certificate":                     config.IdentifierFromProvider,
+	"proxmox_virtual_environment_cluster_firewall":                config.IdentifierFromProvider,
+	"proxmox_virtual_environment_cluster_firewall_security_group": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

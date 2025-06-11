@@ -110,3 +110,4 @@ description: |-
   - add linting to examples
   - proxmox_virtual_environment_metrics_server  check on the tf provider (see https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go) error unmarshalling json with lists observe failed: cannot run refresh: refresh failed: Unable to Refresh Resou │
 │ rce: An unexpected error occurred while attempting to 
+  - proxmox_virtual_environment_network_linux_bridge  terror when applying "observe failed: cannot set critical annotations: cannot get external name: cannot find id in tfstate" try to change in the provider

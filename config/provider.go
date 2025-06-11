@@ -26,9 +26,10 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallipset"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewalloptions"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallrules"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentmetricsserver"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentnetworklinuxbridge"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
-	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentmetricsserver"
 )
 
 const (
@@ -74,6 +75,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentfirewalloptions.Configure,
 		virtualenvironmentfirewallrules.Configure,
 		virtualenvironmentmetricsserver.Configure,
+		virtualenvironmentnetworklinuxbridge.Configure,
 	} {
 		configure(pc)
 	}

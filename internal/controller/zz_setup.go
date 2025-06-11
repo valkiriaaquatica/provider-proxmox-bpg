@@ -27,6 +27,7 @@ import (
 	environmentfirewalloptions "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentfirewalloptions/environmentfirewalloptions"
 	environmentfirewallrules "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentfirewallrules/environmentfirewallrules"
 	environmentmetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentmetricsserver/environmentmetricsserver"
+	environmentnetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentnetworklinuxbridge/environmentnetworklinuxbridge"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
@@ -53,6 +54,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentfirewalloptions.Setup,
 		environmentfirewallrules.Setup,
 		environmentmetricsserver.Setup,
+		environmentnetworklinuxbridge.Setup,
 		environmentrole.Setup,
 		environmentuser.Setup,
 	} {

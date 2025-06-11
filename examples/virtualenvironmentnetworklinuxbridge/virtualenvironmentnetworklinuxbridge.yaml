@@ -1,0 +1,15 @@
+apiVersion: virtualenvironmentnetworklinuxbridge.crossplane.io/v1alpha1
+kind: EnvironmentNetworkLinuxBridge
+metadata:
+  name: vmbr99
+spec:
+  deletionPolicy: Delete
+  providerConfigRef:
+    name: default
+  forProvider:
+    nodeName: pve
+    name: vmbr99
+    address: 99.99.99.99/16
+    comment: vmbr99
+    ports:
+      - ens18.99

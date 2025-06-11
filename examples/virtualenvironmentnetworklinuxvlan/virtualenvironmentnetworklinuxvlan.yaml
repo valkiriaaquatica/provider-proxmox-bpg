@@ -1,0 +1,15 @@
+apiVersion: virtualenvironmentnetworklinuxvlan.crossplane.io/v1alpha1
+kind: EnvironmentNetworkLinuxVlan
+metadata:
+  name: vlan-lab
+spec:
+  deletionPolicy: Delete
+  providerConfigRef:
+    name: default
+  forProvider:
+    nodeName: pve
+    name: vlan_lab     
+    interface: eno0     
+    vlan: 98 
+    comment: VLAN 98
+    autostart: true

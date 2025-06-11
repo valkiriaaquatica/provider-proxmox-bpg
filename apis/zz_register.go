@@ -30,6 +30,7 @@ import (
 	v1alpha1virtualenvironmentfirewallrules "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentfirewallrules/v1alpha1"
 	v1alpha1virtualenvironmentmetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentmetricsserver/v1alpha1"
 	v1alpha1virtualenvironmentnetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentnetworklinuxbridge/v1alpha1"
+	v1alpha1virtualenvironmentnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentnetworklinuxvlan/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
 	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
 )
@@ -57,6 +58,7 @@ func init() {
 		v1alpha1virtualenvironmentfirewallrules.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentmetricsserver.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentnetworklinuxbridge.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentnetworklinuxvlan.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
 	)

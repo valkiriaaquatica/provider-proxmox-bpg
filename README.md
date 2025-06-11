@@ -29,6 +29,13 @@ You can see the API reference [here](https://doc.crds.dev/github.com/valkiriaaqu
 
 ## Developing
 
+If you have devbox or want to work with it, it makes life easier for packages like go, do the following:
+```console
+cd devbox/
+devbox install
+devbox shell
+```
+
 Run code-generation pipeline:
 ```console
 go run cmd/generator/main.go "$PWD"

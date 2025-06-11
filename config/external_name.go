@@ -32,6 +32,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"proxmox_virtual_environment_metrics_server":                  config.IdentifierFromProvider,
 	"proxmox_virtual_environment_network_linux_bridge":            config.IdentifierFromProvider,
 	"proxmox_virtual_environment_network_linux_vlan":              config.IdentifierFromProvider,
+	"proxmox_virtual_environment_pool":                            config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

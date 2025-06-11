@@ -21,7 +21,6 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentdatastores"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentdns"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentdownloadfile"
-	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentenvironmentnetworklinuxvlan"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfile"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallalias"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallipset"
@@ -29,6 +28,8 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallrules"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentmetricsserver"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentnetworklinuxbridge"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentnetworklinuxvlan"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentpool"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 )
@@ -77,7 +78,8 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentfirewallrules.Configure,
 		virtualenvironmentmetricsserver.Configure,
 		virtualenvironmentnetworklinuxbridge.Configure,
-		virtualenvironmentenvironmentnetworklinuxvlan.Configure,
+		virtualenvironmentnetworklinuxvlan.Configure,
+		virtualenvironmentpool.Configure,
 	} {
 		configure(pc)
 	}

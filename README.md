@@ -107,3 +107,6 @@ description: |-
   - CI publish artifactd and use image
   - virtualenvironmentcertificate,virtualenvironmentdatastores  its not getting get
   - test tge ones wit "file" to try the upload
+  - add linting to examples
+  - proxmox_virtual_environment_metrics_server  check on the tf provider (see https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go) error unmarshalling json with lists observe failed: cannot run refresh: refresh failed: Unable to Refresh Resou │
+│ rce: An unexpected error occurred while attempting to 

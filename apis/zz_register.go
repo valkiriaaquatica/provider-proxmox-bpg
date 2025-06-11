@@ -27,6 +27,7 @@ import (
 	v1alpha1virtualenvironmentfirewallalias "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentfirewallalias/v1alpha1"
 	v1alpha1virtualenvironmentfirewallipset "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentfirewallipset/v1alpha1"
 	v1alpha1virtualenvironmentfirewalloptions "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentfirewalloptions/v1alpha1"
+	v1alpha1virtualenvironmentgroup "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentgroup/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
 	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
 )
@@ -51,6 +52,7 @@ func init() {
 		v1alpha1virtualenvironmentfirewallalias.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentfirewallipset.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentfirewalloptions.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentgroup.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
 	)

@@ -28,6 +28,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"proxmox_virtual_environment_firewall_alias":                  config.IdentifierFromProvider,
 	"proxmox_virtual_environment_firewall_ipset":                  config.IdentifierFromProvider,
 	"proxmox_virtual_environment_firewall_options": 			   config.IdentifierFromProvider,
+	"proxmox_virtual_environment_group": 						   config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

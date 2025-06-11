@@ -28,6 +28,7 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewalloptions"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentgroup"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmenthagroup"
 )
 
 const (
@@ -72,6 +73,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentfirewallipset.Configure,
 		virtualenvironmentfirewalloptions.Configure,
 		virtualenvironmentgroup.Configure,
+		virtualenvironmenthagroup.Configure,
 	} {
 		configure(pc)
 	}

@@ -1,0 +1,13 @@
+apiVersion: virtualenv.crossplane.io/v1alpha1
+kind: EnvironmentHagroup
+metadata:
+  name: ha-example
+spec:
+  group: "example"
+  comment: "This is a comment."
+  restricted: true
+  noFailback: false
+  nodes:
+    node1: null
+    node2: 2
+    node3: 1

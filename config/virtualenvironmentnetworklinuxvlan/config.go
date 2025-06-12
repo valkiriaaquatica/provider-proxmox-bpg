@@ -8,9 +8,9 @@ import (
 func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("proxmox_virtual_environment_network_linux_vlan", func(r *ujconfig.Resource) {
 		r.ShortGroup = "VirtualEnvironmentNetworkLinuxVlan"
-		r.ExternalName = ujconfig.TemplatedStringAsIdentifier(
-			"",
-			"{{ .parameters.node_name }}:{{ .parameters.name }}",
-		)
+		// 	r.ExternalName = ujconfig.TemplatedStringAsIdentifier(
+		// 		"",
+		// 		"{{ .parameters.node_name }}:{{ .parameters.name }}",
+		// 	)
 	})
 }

@@ -110,4 +110,4 @@ description: |-
   - add linting to examples
   - proxmox_virtual_environment_metrics_server  check on the tf provider (see https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go) error unmarshalling json with lists observe failed: cannot run refresh: refresh failed: Unable to Refresh Resou -- pending to test with terraform
 │ rce: An unexpected error occurred while attempting to 
-  - proxmox_virtual_environment_network_linux_bridge  + proxmox_virtual_environment_network_linux_vlan terror when applying "observe failed: cannot set critical annotations: cannot get external name: cannot find id in tfstate" try to change in the provider -- pending to test with terraform
+  - proxmox_virtual_environment_network_linux_bridge  + proxmox_virtual_environment_network_linux_vlan terror when applying "observe failed: cannot set critical annotations: cannot get external name: cannot find id in tfstate" try to change in the provider -- pending to test with terraform  -> ¿¿ check this?? -> using terraform show and test -> test ot bump the upjet to >1-5-0 that do not has the skp fix external name when != id

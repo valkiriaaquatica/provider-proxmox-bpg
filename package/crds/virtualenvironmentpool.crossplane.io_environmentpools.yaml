@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: environmentnetworklinuxbridges.virtualenvironmentnetworklinuxbridge.crossplane.io
+  name: environmentpools.virtualenvironmentpool.crossplane.io
 spec:
-  group: virtualenvironmentnetworklinuxbridge.crossplane.io
+  group: virtualenvironmentpool.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - proxmoxbpg
-    kind: EnvironmentNetworkLinuxBridge
-    listKind: EnvironmentNetworkLinuxBridgeList
-    plural: environmentnetworklinuxbridges
-    singular: environmentnetworklinuxbridge
+    kind: EnvironmentPool
+    listKind: EnvironmentPoolList
+    plural: environmentpools
+    singular: environmentpool
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentNetworkLinuxBridge is the Schema for the EnvironmentNetworkLinuxBridges
-          API. <no value>
+        description: EnvironmentPool is the Schema for the EnvironmentPools API. <no
+          value>
         properties:
           apiVersion:
             description: |-
@@ -55,8 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: EnvironmentNetworkLinuxBridgeSpec defines the desired state
-              of EnvironmentNetworkLinuxBridge
+            description: EnvironmentPoolSpec defines the desired state of EnvironmentPool
             properties:
               deletionPolicy:
                 default: Delete
@@ -74,48 +73,12 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  address:
-                    description: The interface IPv4/CIDR address.
-                    type: string
-                  address6:
-                    description: The interface IPv6/CIDR address.
-                    type: string
-                  autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
-                    type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: The pool comment
                     type: string
-                  gateway:
-                    description: Default gateway address.
+                  poolId:
+                    description: The pool id
                     type: string
-                  gateway6:
-                    description: Default IPv6 gateway address.
-                    type: string
-                  mtu:
-                    description: The interface MTU.
-                    type: number
-                  name:
-                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
-                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
-                      that starts with a character and is at most 10 characters long.
-                    type: string
-                  nodeName:
-                    description: The name of the node.
-                    type: string
-                  ports:
-                    description: The interface bridge ports.
-                    items:
-                      type: string
-                    type: array
-                  vlanAware:
-                    description: Whether the interface bridge is VLAN aware (defaults
-                      to `false`).
-                    type: boolean
-                required:
-                - name
-                - nodeName
                 type: object
               initProvider:
                 description: |-
@@ -130,37 +93,12 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  address:
-                    description: The interface IPv4/CIDR address.
-                    type: string
-                  address6:
-                    description: The interface IPv6/CIDR address.
-                    type: string
-                  autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
-                    type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: The pool comment
                     type: string
-                  gateway:
-                    description: Default gateway address.
+                  poolId:
+                    description: The pool id
                     type: string
-                  gateway6:
-                    description: Default IPv6 gateway address.
-                    type: string
-                  mtu:
-                    description: The interface MTU.
-                    type: number
-                  ports:
-                    description: The interface bridge ports.
-                    items:
-                      type: string
-                    type: array
-                  vlanAware:
-                    description: Whether the interface bridge is VLAN aware (defaults
-                      to `false`).
-                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -329,53 +267,40 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.poolId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.poolId)
+                || (has(self.initProvider) && has(self.initProvider.poolId))'
           status:
-            description: EnvironmentNetworkLinuxBridgeStatus defines the observed
-              state of EnvironmentNetworkLinuxBridge.
+            description: EnvironmentPoolStatus defines the observed state of EnvironmentPool.
             properties:
               atProvider:
                 properties:
-                  address:
-                    description: The interface IPv4/CIDR address.
-                    type: string
-                  address6:
-                    description: The interface IPv6/CIDR address.
-                    type: string
-                  autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
-                    type: boolean
                   comment:
-                    description: Comment for the interface.
-                    type: string
-                  gateway:
-                    description: Default gateway address.
-                    type: string
-                  gateway6:
-                    description: Default IPv6 gateway address.
+                    description: The pool comment
                     type: string
                   id:
                     type: string
-                  mtu:
-                    description: The interface MTU.
-                    type: number
-                  name:
-                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
-                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
-                      that starts with a character and is at most 10 characters long.
-                    type: string
-                  nodeName:
-                    description: The name of the node.
-                    type: string
-                  ports:
-                    description: The interface bridge ports.
+                  members:
+                    description: The pool members
                     items:
-                      type: string
+                      properties:
+                        datastoreId:
+                          type: string
+                        id:
+                          type: string
+                        nodeName:
+                          type: string
+                        type:
+                          type: string
+                        vmId:
+                          type: number
+                      type: object
                     type: array
-                  vlanAware:
-                    description: Whether the interface bridge is VLAN aware (defaults
-                      to `false`).
-                    type: boolean
+                  poolId:
+                    description: The pool id
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

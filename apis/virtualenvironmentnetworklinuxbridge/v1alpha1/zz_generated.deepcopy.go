@@ -77,16 +77,6 @@ func (in *EnvironmentNetworkLinuxBridgeInitParameters) DeepCopyInto(out *Environ
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
-	if in.NodeName != nil {
-		in, out := &in.NodeName, &out.NodeName
-		*out = new(string)
-		**out = **in
-	}
 	if in.Ports != nil {
 		in, out := &in.Ports, &out.Ports
 		*out = make([]*string, len(*in))

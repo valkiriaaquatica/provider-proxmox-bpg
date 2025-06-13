@@ -31,6 +31,7 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentnetworklinuxvlan"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentpool"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmenttime"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 )
 
@@ -80,6 +81,7 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentnetworklinuxbridge.Configure,
 		virtualenvironmentnetworklinuxvlan.Configure,
 		virtualenvironmentpool.Configure,
+		virtualenvironmenttime.Configure,
 	} {
 		configure(pc)
 	}

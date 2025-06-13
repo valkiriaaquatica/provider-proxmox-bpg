@@ -31,6 +31,7 @@ import (
 	environmentnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentnetworklinuxvlan/environmentnetworklinuxvlan"
 	environmentpool "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentpool/environmentpool"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
+	environmenttime "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmenttime/environmenttime"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
 )
 
@@ -60,6 +61,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentnetworklinuxvlan.Setup,
 		environmentpool.Setup,
 		environmentrole.Setup,
+		environmenttime.Setup,
 		environmentuser.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

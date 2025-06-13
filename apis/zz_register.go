@@ -33,6 +33,7 @@ import (
 	v1alpha1virtualenvironmentnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentnetworklinuxvlan/v1alpha1"
 	v1alpha1virtualenvironmentpool "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentpool/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
+	v1alpha1virtualenvironmenttime "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmenttime/v1alpha1"
 	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
 )
 
@@ -62,6 +63,7 @@ func init() {
 		v1alpha1virtualenvironmentnetworklinuxvlan.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentpool.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmenttime.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
 	)
 }

@@ -110,4 +110,53 @@ description: |-
   - add linting to examples
   - proxmox_virtual_environment_metrics_server  check on the tf provider (see https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go) error unmarshalling json with lists observe failed: cannot run refresh: refresh failed: Unable to Refresh Resou -- pending to test with terraform
 │ rce: An unexpected error occurred while attempting to 
-  - proxmox_virtual_environment_network_linux_bridge  + proxmox_virtual_environment_network_linux_vlan terror when applying "observe failed: cannot set critical annotations: cannot get external name: cannot find id in tfstate" try to change in the provider -- pending to test with terraform  -> ¿¿ check this?? -> using terraform show and test -> test ot bump the upjet to >1-5-0 that do not has the skp fix external name when != id
+  - proxmox_virtual_environment_network_linux_bridge  + proxmox_virtual_environment_network_linux_vlan terror when applying "observe failed: cannot set critical annotations: cannot get external name: cannot find id in tfstate" try to change in the provider -- pending to test with terraform  -> ¿¿ check this?? -> using terraform show and test -> test ot bump the upjet to >1-5-0 that do not has the skp fix external name when != id , when not placing externalnem and leaving the repsonability to the tf provider, the problem is that the first tfstate it created it a state with te resourc ebut without the id so thats wrong.
+  The tfstate that should be created after init and just refreshing terraform apply -refresh-only -auto-approve -input=false -lock=false -json  but it is creating th biiger one 
+  {
+  "version": 4,
+  "terraform_version": "1.9.8",
+  "serial": 1,
+  "lineage": "855beeb4-2f45-b7d0-4682-09e670bf79ec",
+  "outputs": {},
+  "resources": [],
+  "check_results": null
+}
+
+
+wrong one 
+{
+  "version": 4,
+  "terraform_version": "1.9.8",
+  "serial": 2,
+  "lineage": "a88587ad-5e67-4acb-96b8-84f103dcc7be",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "proxmox_virtual_environment_network_linux_bridge",
+      "name": "vmbr11",
+      "provider": "provider[\"registry.terraform.io/bpg/proxmox\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address": null,
+            "address6": null,
+            "autostart": null,
+            "comment": null,
+            "gateway": null,
+            "gateway6": null,
+            "id": "",
+            "mtu": null,
+            "name": "vmbr11",
+            "node_name": "pve",
+            "ports": null,
+            "vlan_aware": null
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

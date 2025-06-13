@@ -35,6 +35,7 @@ import (
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
 	v1alpha1virtualenvironmenttime "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmenttime/v1alpha1"
 	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
+	v1alpha1virtualenvironmentvm "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentvm/v1alpha1"
 )
 
 func init() {
@@ -65,6 +66,7 @@ func init() {
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmenttime.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentvm.SchemeBuilder.AddToScheme,
 	)
 }
 

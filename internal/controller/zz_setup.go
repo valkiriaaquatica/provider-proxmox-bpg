@@ -33,6 +33,7 @@ import (
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentrole/environmentrole"
 	environmenttime "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmenttime/environmenttime"
 	environmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentuser/environmentuser"
+	environmentvm "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentvm/environmentvm"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -63,6 +64,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentrole.Setup,
 		environmenttime.Setup,
 		environmentuser.Setup,
+		environmentvm.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

@@ -1,0 +1,11 @@
+apiVersion: virtualenvironmenttime.crossplane.io/v1alpha1
+kind: EnvironmentTime
+metadata:
+  name: node-time-example
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    nodeName: pve
+    timeZone: America/Mexico_City
+  providerConfigRef:
+    name: default

@@ -1,13 +1,19 @@
 apiVersion: virtualenv.crossplane.io/v1alpha1
-kind: EnvironmentHagroup
+kind: EnvironmentHaGroup
 metadata:
-  name: ha-example
+  name: ha-group-main
 spec:
-  group: "example"
-  comment: "This is a comment."
-  restricted: true
-  noFailback: false
-  nodes:
-    node1: null
-    node2: 2
-    node3: 1
+  parameters:
+    groupId: ha-group-main
+    comment: HA group managed by Crossplane
+    nodes:
+      - pve
+      - pve-node2
+      - pve-node3
+    restricted: false
+  compositionRef:
+    name: environmenthagroup-default
+  writeConnectionSecretToRef:
+    name: ha-group-main-connection
+  publishConnectionDetailsTo:
+    name: crossplane-secrets

@@ -36,6 +36,8 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmenttime"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentvm"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentharesource"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmenthosts"
 )
 
 const (
@@ -88,6 +90,8 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentpool.Configure,
 		virtualenvironmenttime.Configure,
 		virtualenvironmentvm.Configure,
+		virtualenvironmentharesource.Configure,
+		virtualenvironmenthosts.Configure,
 	} {
 		configure(pc)
 	}

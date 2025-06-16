@@ -68,9 +68,6 @@ type EnvironmentNetworkLinuxBridgeObservation struct {
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
-	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
@@ -110,10 +107,6 @@ type EnvironmentNetworkLinuxBridgeParameters struct {
 	// The interface MTU.
 	// +kubebuilder:validation:Optional
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
-
-	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
 
 	// The name of the node.
 	// +kubebuilder:validation:Required

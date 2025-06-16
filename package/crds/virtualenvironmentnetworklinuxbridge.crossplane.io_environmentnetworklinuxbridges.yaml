@@ -96,11 +96,6 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
-                  name:
-                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
-                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
-                      that starts with a character and is at most 10 characters long.
-                    type: string
                   nodeName:
                     description: The name of the node.
                     type: string
@@ -114,7 +109,6 @@ spec:
                       to `false`).
                     type: boolean
                 required:
-                - name
                 - nodeName
                 type: object
               initProvider:
@@ -359,11 +353,6 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
-                  name:
-                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
-                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
-                      that starts with a character and is at most 10 characters long.
-                    type: string
                   nodeName:
                     description: The name of the node.
                     type: string

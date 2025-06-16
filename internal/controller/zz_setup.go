@@ -26,6 +26,10 @@ import (
 	environmentfirewallipset "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentfirewallipset/environmentfirewallipset"
 	environmentfirewalloptions "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentfirewalloptions/environmentfirewalloptions"
 	environmentfirewallrules "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentfirewallrules/environmentfirewallrules"
+	environmentgroup "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentgroup/environmentgroup"
+	environmenthagroup "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmenthagroup/environmenthagroup"
+	environmentharesource "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentharesource/environmentharesource"
+	environmenthosts "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmenthosts/environmenthosts"
 	environmentmetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentmetricsserver/environmentmetricsserver"
 	environmentnetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentnetworklinuxbridge/environmentnetworklinuxbridge"
 	environmentnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/virtualenvironmentnetworklinuxvlan/environmentnetworklinuxvlan"
@@ -57,6 +61,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentfirewallipset.Setup,
 		environmentfirewalloptions.Setup,
 		environmentfirewallrules.Setup,
+		environmentgroup.Setup,
+		environmenthagroup.Setup,
+		environmentharesource.Setup,
+		environmenthosts.Setup,
 		environmentmetricsserver.Setup,
 		environmentnetworklinuxbridge.Setup,
 		environmentnetworklinuxvlan.Setup,

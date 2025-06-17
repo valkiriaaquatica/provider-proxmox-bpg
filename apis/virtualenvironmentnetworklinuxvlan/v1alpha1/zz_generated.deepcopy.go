@@ -82,16 +82,6 @@ func (in *EnvironmentNetworkLinuxVlanInitParameters) DeepCopyInto(out *Environme
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
-	if in.NodeName != nil {
-		in, out := &in.NodeName, &out.NodeName
-		*out = new(string)
-		**out = **in
-	}
 	if in.Vlan != nil {
 		in, out := &in.Vlan, &out.Vlan
 		*out = new(float64)
@@ -189,11 +179,6 @@ func (in *EnvironmentNetworkLinuxVlanObservation) DeepCopyInto(out *EnvironmentN
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.NodeName != nil {
 		in, out := &in.NodeName, &out.NodeName
 		*out = new(string)
@@ -257,11 +242,6 @@ func (in *EnvironmentNetworkLinuxVlanParameters) DeepCopyInto(out *EnvironmentNe
 	if in.Mtu != nil {
 		in, out := &in.Mtu, &out.Mtu
 		*out = new(float64)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
 		**out = **in
 	}
 	if in.NodeName != nil {

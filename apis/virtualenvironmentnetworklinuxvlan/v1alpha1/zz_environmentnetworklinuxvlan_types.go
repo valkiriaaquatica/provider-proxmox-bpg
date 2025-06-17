@@ -39,12 +39,6 @@ type EnvironmentNetworkLinuxVlanInitParameters struct {
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
-	// The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// The name of the node.
-	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
-
 	// The VLAN tag. See also `name`.
 	Vlan *float64 `json:"vlan,omitempty" tf:"vlan,omitempty"`
 }
@@ -76,9 +70,6 @@ type EnvironmentNetworkLinuxVlanObservation struct {
 
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
-
-	// The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
@@ -121,13 +112,9 @@ type EnvironmentNetworkLinuxVlanParameters struct {
 	// +kubebuilder:validation:Optional
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
-	// The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The name of the node.
-	// +kubebuilder:validation:Optional
-	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
+	// +kubebuilder:validation:Required
+	NodeName *string `json:"nodeName" tf:"node_name,omitempty"`
 
 	// The VLAN tag. See also `name`.
 	// +kubebuilder:validation:Optional
@@ -170,10 +157,8 @@ type EnvironmentNetworkLinuxVlanStatus struct {
 type EnvironmentNetworkLinuxVlan struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.nodeName) || (has(self.initProvider) && has(self.initProvider.nodeName))",message="spec.forProvider.nodeName is a required parameter"
-	Spec   EnvironmentNetworkLinuxVlanSpec   `json:"spec"`
-	Status EnvironmentNetworkLinuxVlanStatus `json:"status,omitempty"`
+	Spec              EnvironmentNetworkLinuxVlanSpec   `json:"spec"`
+	Status            EnvironmentNetworkLinuxVlanStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

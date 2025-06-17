@@ -99,18 +99,14 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
-                  name:
-                    description: The interface name. Either add the VLAN tag number
-                      to an existing interface name, e.g. `ens18.21` (and do not set
-                      `interface` and `vlan`), or use custom name, e.g. `vlan_lab`
-                      (`interface` and `vlan` are then required).
-                    type: string
                   nodeName:
                     description: The name of the node.
                     type: string
                   vlan:
                     description: The VLAN tag. See also `name`.
                     type: number
+                required:
+                - nodeName
                 type: object
               initProvider:
                 description: |-
@@ -150,15 +146,6 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
-                  name:
-                    description: The interface name. Either add the VLAN tag number
-                      to an existing interface name, e.g. `ens18.21` (and do not set
-                      `interface` and `vlan`), or use custom name, e.g. `vlan_lab`
-                      (`interface` and `vlan` are then required).
-                    type: string
-                  nodeName:
-                    description: The name of the node.
-                    type: string
                   vlan:
                     description: The VLAN tag. See also `name`.
                     type: number
@@ -330,15 +317,6 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.name is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
-            - message: spec.forProvider.nodeName is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.nodeName)
-                || (has(self.initProvider) && has(self.initProvider.nodeName))'
           status:
             description: EnvironmentNetworkLinuxVlanStatus defines the observed state
               of EnvironmentNetworkLinuxVlan.
@@ -372,12 +350,6 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
-                  name:
-                    description: The interface name. Either add the VLAN tag number
-                      to an existing interface name, e.g. `ens18.21` (and do not set
-                      `interface` and `vlan`), or use custom name, e.g. `vlan_lab`
-                      (`interface` and `vlan` are then required).
-                    type: string
                   nodeName:
                     description: The name of the node.
                     type: string

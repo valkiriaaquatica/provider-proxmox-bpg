@@ -100,6 +100,13 @@ description: |-
   This resource creates and manages a Proxmox description of the resource.
 ---' | cat - "$broken_doc_file" > temp && mv temp "$broken_doc_file"
 
+## HOW TO TEST WITH ANOTHER TERRAFORM PROVIDER
+  In case you need t test with your own forked terraform provider, some adjustes need to be take in charge.
+  1. Fork the original terraform provider and make the changes u want. Follow the contriobution guide and check it exists on ls -l $(go env GOPATH)/bin/terraform-provider-proxmox
+  2. After testing in local it works well
+
+## KNOWN ISSUES
+- On the resources proxmox_virtual_environment_network_linux_vlan+proxmox_virtual_environment_network_linux_bridge  sometimes there is an error that also happens with terraform whe, that is "Could not reload net work configuration on node 'pve', unexpected error" that will make even if the resource its well applied on terraform to be on Synced False and Ready False , that is like "False Negative" because it was well created on Proxmox
 
 ## TODO list:
   - apply correcctly a virtualenvironmentcertificate

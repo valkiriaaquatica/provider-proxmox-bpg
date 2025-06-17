@@ -2,10 +2,9 @@ apiVersion: virtualenvironmentnetworklinuxbridge.crossplane.io/v1alpha1
 kind: EnvironmentNetworkLinuxBridge
 metadata:
   name: vmbr11
-  # annotations:
-  #   crossplane.io/external-name: pve:vmbr11
 spec:
   providerConfigRef:
     name: default
   forProvider:
     nodeName: pve
+    comment: "This is a comment"

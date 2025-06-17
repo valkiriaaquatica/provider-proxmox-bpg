@@ -1,17 +1,13 @@
 apiVersion: virtualenvironmentnetworklinuxvlan.crossplane.io/v1alpha1
 kind: EnvironmentNetworkLinuxVlan
 metadata:
-  name: vlan-lan
-  annotations:
-    crossplane.io/external-name: pve:vlan_lan
-    upjet.crossplane.io/lifecycle: allow-destroy
+  name: vlanlab
 spec:
   deletionPolicy: Delete
   providerConfigRef:
     name: default
   forProvider:
     nodeName: pve
-    name: "vlan_lan"         
-    comment: "VLAN"
-    vlan: 45
-    interface: "ens33"
+    interface: ens33
+    vlan: 11
+    name: vlanlab

@@ -10,3 +10,6 @@ cover.out
 .vscode/
 .idea/
 /terraform-tests
+
+# local provider development
+cluster/images/provider-proxmox-bpg/tempo_image/

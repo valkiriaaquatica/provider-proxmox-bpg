@@ -36,6 +36,12 @@ type EnvironmentNetworkLinuxBridgeInitParameters struct {
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The name of the node.
+	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
+
 	// The interface bridge ports.
 	Ports []*string `json:"ports,omitempty" tf:"ports,omitempty"`
 
@@ -67,6 +73,9 @@ type EnvironmentNetworkLinuxBridgeObservation struct {
 
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
+
+	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
@@ -108,9 +117,13 @@ type EnvironmentNetworkLinuxBridgeParameters struct {
 	// +kubebuilder:validation:Optional
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The name of the node.
-	// +kubebuilder:validation:Required
-	NodeName *string `json:"nodeName" tf:"node_name,omitempty"`
+	// +kubebuilder:validation:Optional
+	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
 	// The interface bridge ports.
 	// +kubebuilder:validation:Optional
@@ -157,8 +170,10 @@ type EnvironmentNetworkLinuxBridgeStatus struct {
 type EnvironmentNetworkLinuxBridge struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              EnvironmentNetworkLinuxBridgeSpec   `json:"spec"`
-	Status            EnvironmentNetworkLinuxBridgeStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.nodeName) || (has(self.initProvider) && has(self.initProvider.nodeName))",message="spec.forProvider.nodeName is a required parameter"
+	Spec   EnvironmentNetworkLinuxBridgeSpec   `json:"spec"`
+	Status EnvironmentNetworkLinuxBridgeStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

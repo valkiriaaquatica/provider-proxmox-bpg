@@ -8,3 +8,4 @@ spec:
   forProvider:
     nodeName: pve
     comment: "This is a comment"
+    name: vmbr11

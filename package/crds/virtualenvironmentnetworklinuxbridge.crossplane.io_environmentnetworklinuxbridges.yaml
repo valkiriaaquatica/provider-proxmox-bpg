@@ -96,6 +96,11 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
+                  name:
+                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
+                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
+                      that starts with a character and is at most 10 characters long.
+                    type: string
                   nodeName:
                     description: The name of the node.
                     type: string
@@ -108,8 +113,6 @@ spec:
                     description: Whether the interface bridge is VLAN aware (defaults
                       to `false`).
                     type: boolean
-                required:
-                - nodeName
                 type: object
               initProvider:
                 description: |-
@@ -146,6 +149,14 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
+                  name:
+                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
+                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
+                      that starts with a character and is at most 10 characters long.
+                    type: string
+                  nodeName:
+                    description: The name of the node.
+                    type: string
                   ports:
                     description: The interface bridge ports.
                     items:
@@ -323,6 +334,15 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.nodeName is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.nodeName)
+                || (has(self.initProvider) && has(self.initProvider.nodeName))'
           status:
             description: EnvironmentNetworkLinuxBridgeStatus defines the observed
               state of EnvironmentNetworkLinuxBridge.
@@ -353,6 +373,11 @@ spec:
                   mtu:
                     description: The interface MTU.
                     type: number
+                  name:
+                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
+                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
+                      that starts with a character and is at most 10 characters long.
+                    type: string
                   nodeName:
                     description: The name of the node.
                     type: string

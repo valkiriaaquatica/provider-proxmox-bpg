@@ -10,3 +10,4 @@ spec:
     nodeName: pve
     interface: ens33
     vlan: 11
+    name: vlanlab

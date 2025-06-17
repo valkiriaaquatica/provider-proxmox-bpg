@@ -30,11 +30,13 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"proxmox_virtual_environment_firewall_options":                config.IdentifierFromProvider,
 	"proxmox_virtual_environment_firewall_rules":                  config.IdentifierFromProvider,
 	"proxmox_virtual_environment_metrics_server":                  config.IdentifierFromProvider,
-	"proxmox_virtual_environment_network_linux_bridge":            config.TemplatedStringAsIdentifier("name", "{{ .parameters.node_name }}:{{ .external_name }}"),
-	"proxmox_virtual_environment_network_linux_vlan":              config.TemplatedStringAsIdentifier("name", "{{ .parameters.node_name }}:{{ .external_name }}"),
-	"proxmox_virtual_environment_pool":                            config.IdentifierFromProvider,
-	"proxmox_virtual_environment_time":                            config.IdentifierFromProvider,
-	"proxmox_virtual_environment_vm":                              config.IdentifierFromProvider,
+	// "proxmox_virtual_environment_network_linux_bridge":            config.TemplatedStringAsIdentifier("name", "{{ .parameters.node_name }}:{{ .external_name }}"),
+	// "proxmox_virtual_environment_network_linux_vlan":              config.TemplatedStringAsIdentifier("name", "{{ .parameters.node_name }}:{{ .external_name }}"),
+	"proxmox_virtual_environment_network_linux_bridge": config.IdentifierFromProvider,
+	"proxmox_virtual_environment_network_linux_vlan":   config.IdentifierFromProvider,
+	"proxmox_virtual_environment_pool":                 config.IdentifierFromProvider,
+	"proxmox_virtual_environment_time":                 config.IdentifierFromProvider,
+	"proxmox_virtual_environment_vm":                   config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

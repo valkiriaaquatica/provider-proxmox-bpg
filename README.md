@@ -124,3 +124,4 @@ description: |-
   - add linting to examples
   - proxmox_virtual_environment_metrics_server  check on the tf provider (see https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go) error unmarshalling json with lists observe failed: cannot run refresh: refresh failed: Unable to Refresh Resou -- pending to test with terraform
 │ rce: An unexpected error occurred while attempting to 
+  - Test and update the Makefile with the new terraform provider 0.78.3 as its have the fix error on some resources

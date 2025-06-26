@@ -11,7 +11,7 @@ export TERRAFORM_VERSION ?= 1.5.7
 TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAFORM_VERSION)\n1.6" | sort -V | head -n1`" ] && echo 1 || echo 0)
 
 export TERRAFORM_PROVIDER_SOURCE ?= bpg/proxmox
-export TERRAFORM_PROVIDER_REPO ?= https://github.com/valkiriaaquatica/terraform-provider-proxmox-bpg.git
+export TERRAFORM_PROVIDER_REPO ?= https://github.com/bpg/terraform-provider-proxmox.git
 export TERRAFORM_PROVIDER_VERSION ?= 0.78.1
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-proxmox
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/bpg/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download//v$(TERRAFORM_PROVIDER_VERSION) 

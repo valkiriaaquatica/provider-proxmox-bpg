@@ -25,13 +25,19 @@ import (
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallalias"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallipset"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewalloptions"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentgroup"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmenthagroup"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentfirewallrules"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentmetricsserver"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentnetworklinuxbridge"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentnetworklinuxvlan"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentpool"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentrole"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmenttime"
 	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentuser"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentvm"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmentharesource"
+	"github.com/valkiriaaquatica/provider-proxmox-bpg/config/virtualenvironmenthosts"
 )
 
 const (
@@ -75,11 +81,17 @@ func GetProvider() *ujconfig.Provider {
 		virtualenvironmentfirewallalias.Configure,
 		virtualenvironmentfirewallipset.Configure,
 		virtualenvironmentfirewalloptions.Configure,
+		virtualenvironmentgroup.Configure,
+		virtualenvironmenthagroup.Configure,
 		virtualenvironmentfirewallrules.Configure,
 		virtualenvironmentmetricsserver.Configure,
 		virtualenvironmentnetworklinuxbridge.Configure,
 		virtualenvironmentnetworklinuxvlan.Configure,
 		virtualenvironmentpool.Configure,
+		virtualenvironmenttime.Configure,
+		virtualenvironmentvm.Configure,
+		virtualenvironmentharesource.Configure,
+		virtualenvironmenthosts.Configure,
 	} {
 		configure(pc)
 	}

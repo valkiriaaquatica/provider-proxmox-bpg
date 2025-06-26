@@ -28,12 +28,18 @@ import (
 	v1alpha1virtualenvironmentfirewallipset "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentfirewallipset/v1alpha1"
 	v1alpha1virtualenvironmentfirewalloptions "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentfirewalloptions/v1alpha1"
 	v1alpha1virtualenvironmentfirewallrules "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentfirewallrules/v1alpha1"
+	v1alpha1virtualenvironmentgroup "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentgroup/v1alpha1"
+	v1alpha1virtualenvironmenthagroup "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmenthagroup/v1alpha1"
+	v1alpha1virtualenvironmentharesource "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentharesource/v1alpha1"
+	v1alpha1virtualenvironmenthosts "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmenthosts/v1alpha1"
 	v1alpha1virtualenvironmentmetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentmetricsserver/v1alpha1"
 	v1alpha1virtualenvironmentnetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentnetworklinuxbridge/v1alpha1"
 	v1alpha1virtualenvironmentnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentnetworklinuxvlan/v1alpha1"
 	v1alpha1virtualenvironmentpool "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentpool/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentrole/v1alpha1"
+	v1alpha1virtualenvironmenttime "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmenttime/v1alpha1"
 	v1alpha1virtualenvironmentuser "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentuser/v1alpha1"
+	v1alpha1virtualenvironmentvm "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/virtualenvironmentvm/v1alpha1"
 )
 
 func init() {
@@ -57,12 +63,18 @@ func init() {
 		v1alpha1virtualenvironmentfirewallipset.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentfirewalloptions.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentfirewallrules.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentgroup.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmenthagroup.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentharesource.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmenthosts.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentmetricsserver.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentnetworklinuxbridge.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentnetworklinuxvlan.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentpool.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmenttime.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentuser.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentvm.SchemeBuilder.AddToScheme,
 	)
 }
 

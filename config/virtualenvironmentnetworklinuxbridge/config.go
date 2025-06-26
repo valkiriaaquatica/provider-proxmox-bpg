@@ -1,7 +1,6 @@
 package virtualenvironmentnetworklinuxbridge
 
 import (
-	"github.com/crossplane/upjet/pkg/config"
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 )
 
@@ -9,10 +8,6 @@ import (
 func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("proxmox_virtual_environment_network_linux_bridge", func(r *ujconfig.Resource) {
 		r.ShortGroup = "VirtualEnvironmentNetworkLinuxBridge"
-		r.ExternalName = config.TemplatedStringAsIdentifier(
-			"",
-			"{{ .parameters.node_name }}:{{ .parameters.name }}",
-		)
 	})
 
 }

@@ -35,7 +35,9 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallIPSet is the Schema for the EnvironmentFirewallIPSets
-          API. <no value>
+          API. |An IPSet allows us to group multiple IP addresses, IP subnets and
+          aliases. Aliases can be created on the cluster level, on VM / Container
+          level.
         properties:
           apiVersion:
             description: |-
@@ -75,34 +77,53 @@ spec:
               forProvider:
                 properties:
                   cidr:
-                    description: List of IP or Networks
+                    description: |-
+                      IP/CIDR block (multiple blocks supported).
+                      List of IP or Networks
                     items:
                       properties:
                         comment:
-                          description: IP/CIDR comment
+                          description: |-
+                            IPSet comment.
+                            IP/CIDR comment
                           type: string
                         name:
-                          description: Network/IP specification in CIDR format
+                          description: |-
+                            IPSet name.
+                            Network/IP specification in CIDR format
                           type: string
                         nomatch:
-                          description: No match this IP/CIDR
+                          description: |-
+                            Entries marked as nomatch are skipped as if those
+                            were not added to the set.
+                            No match this IP/CIDR
                           type: boolean
                       type: object
                     type: array
                   comment:
-                    description: IPSet comment
+                    description: |-
+                      IPSet comment.
+                      IPSet comment
                     type: string
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   name:
-                    description: IPSet name
+                    description: |-
+                      IPSet name.
+                      IPSet name
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level aliases.
+                      The name of the node.
                     type: string
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               initProvider:
@@ -119,34 +140,53 @@ spec:
                   autoscaler.
                 properties:
                   cidr:
-                    description: List of IP or Networks
+                    description: |-
+                      IP/CIDR block (multiple blocks supported).
+                      List of IP or Networks
                     items:
                       properties:
                         comment:
-                          description: IP/CIDR comment
+                          description: |-
+                            IPSet comment.
+                            IP/CIDR comment
                           type: string
                         name:
-                          description: Network/IP specification in CIDR format
+                          description: |-
+                            IPSet name.
+                            Network/IP specification in CIDR format
                           type: string
                         nomatch:
-                          description: No match this IP/CIDR
+                          description: |-
+                            Entries marked as nomatch are skipped as if those
+                            were not added to the set.
+                            No match this IP/CIDR
                           type: boolean
                       type: object
                     type: array
                   comment:
-                    description: IPSet comment
+                    description: |-
+                      IPSet comment.
+                      IPSet comment
                     type: string
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   name:
-                    description: IPSet name
+                    description: |-
+                      IPSet name.
+                      IPSet name
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level aliases.
+                      The name of the node.
                     type: string
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               managementPolicies:
@@ -328,36 +368,55 @@ spec:
               atProvider:
                 properties:
                   cidr:
-                    description: List of IP or Networks
+                    description: |-
+                      IP/CIDR block (multiple blocks supported).
+                      List of IP or Networks
                     items:
                       properties:
                         comment:
-                          description: IP/CIDR comment
+                          description: |-
+                            IPSet comment.
+                            IP/CIDR comment
                           type: string
                         name:
-                          description: Network/IP specification in CIDR format
+                          description: |-
+                            IPSet name.
+                            Network/IP specification in CIDR format
                           type: string
                         nomatch:
-                          description: No match this IP/CIDR
+                          description: |-
+                            Entries marked as nomatch are skipped as if those
+                            were not added to the set.
+                            No match this IP/CIDR
                           type: boolean
                       type: object
                     type: array
                   comment:
-                    description: IPSet comment
+                    description: |-
+                      IPSet comment.
+                      IPSet comment
                     type: string
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   id:
                     type: string
                   name:
-                    description: IPSet name
+                    description: |-
+                      IPSet name.
+                      IPSet name
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level aliases.
+                      The name of the node.
                     type: string
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               conditions:

@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentGroup is the Schema for the EnvironmentGroups API.
-          <no value>
+          |Manages a user group.
         properties:
           apiVersion:
             description: |-
@@ -74,25 +74,37 @@ spec:
               forProvider:
                 properties:
                   acl:
-                    description: The access control list
+                    description: |-
+                      The access control list (multiple blocks supported).
+                      The access control list
                     items:
                       properties:
                         path:
-                          description: The path
+                          description: |-
+                            The path.
+                            The path
                           type: string
                         propagate:
-                          description: Whether to propagate to child paths
+                          description: |-
+                            Whether to propagate to child paths.
+                            Whether to propagate to child paths
                           type: boolean
                         roleId:
-                          description: The role id
+                          description: |-
+                            The role identifier.
+                            The role id
                           type: string
                       type: object
                     type: array
                   comment:
-                    description: The group comment
+                    description: |-
+                      The group comment.
+                      The group comment
                     type: string
                   groupId:
-                    description: The group id
+                    description: |-
+                      The group identifier.
+                      The group id
                     type: string
                 type: object
               initProvider:
@@ -109,25 +121,37 @@ spec:
                   autoscaler.
                 properties:
                   acl:
-                    description: The access control list
+                    description: |-
+                      The access control list (multiple blocks supported).
+                      The access control list
                     items:
                       properties:
                         path:
-                          description: The path
+                          description: |-
+                            The path.
+                            The path
                           type: string
                         propagate:
-                          description: Whether to propagate to child paths
+                          description: |-
+                            Whether to propagate to child paths.
+                            Whether to propagate to child paths
                           type: boolean
                         roleId:
-                          description: The role id
+                          description: |-
+                            The role identifier.
+                            The role id
                           type: string
                       type: object
                     type: array
                   comment:
-                    description: The group comment
+                    description: |-
+                      The group comment.
+                      The group comment
                     type: string
                   groupId:
-                    description: The group id
+                    description: |-
+                      The group identifier.
+                      The group id
                     type: string
                 type: object
               managementPolicies:
@@ -308,30 +332,44 @@ spec:
               atProvider:
                 properties:
                   acl:
-                    description: The access control list
+                    description: |-
+                      The access control list (multiple blocks supported).
+                      The access control list
                     items:
                       properties:
                         path:
-                          description: The path
+                          description: |-
+                            The path.
+                            The path
                           type: string
                         propagate:
-                          description: Whether to propagate to child paths
+                          description: |-
+                            Whether to propagate to child paths.
+                            Whether to propagate to child paths
                           type: boolean
                         roleId:
-                          description: The role id
+                          description: |-
+                            The role identifier.
+                            The role id
                           type: string
                       type: object
                     type: array
                   comment:
-                    description: The group comment
+                    description: |-
+                      The group comment.
+                      The group comment
                     type: string
                   groupId:
-                    description: The group id
+                    description: |-
+                      The group identifier.
+                      The group id
                     type: string
                   id:
                     type: string
                   members:
-                    description: The group members
+                    description: |-
+                      The group members as a list of username@realm entries
+                      The group members
                     items:
                       type: string
                     type: array

@@ -15,140 +15,209 @@ import (
 
 type EnvironmentFirewallOptionsInitParameters struct {
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// Enable DHCP.
 	// Enable DHCP
 	DHCP *bool `json:"dhcp,omitempty" tf:"dhcp,omitempty"`
 
+	// Enable or disable the firewall.
 	// Enable or disable the firewall
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The default input
+	// policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic
 	InputPolicy *string `json:"inputPolicy,omitempty" tf:"input_policy,omitempty"`
 
+	// Enable default IP filters. This is equivalent to
+	// adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
+	// implicitly contain sane default restrictions such as restricting IPv6 link
+	// local addresses to the one derived from the interface's MAC address. For
+	// containers the configured IP addresses will be implicitly added.
 	// Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
 	Ipfilter *bool `json:"ipfilter,omitempty" tf:"ipfilter,omitempty"`
 
+	// Log level for incoming
+	// packets (emerg, alert, crit, err, warning, notice, info,
+	// debug, nolog).
 	// Log level for incoming traffic.
 	LogLevelIn *string `json:"logLevelIn,omitempty" tf:"log_level_in,omitempty"`
 
+	// Log level for outgoing
+	// packets (emerg, alert, crit, err, warning, notice, info,
+	// debug, nolog).
 	// Log level for outgoing traffic.
 	LogLevelOut *string `json:"logLevelOut,omitempty" tf:"log_level_out,omitempty"`
 
+	// Enable/disable MAC address filter.
 	// Enable MAC address filtering
 	Macfilter *bool `json:"macfilter,omitempty" tf:"macfilter,omitempty"`
 
+	// Enable NDP (Neighbor Discovery Protocol).
 	// Enable NDP (Neighbor Discovery Protocol)
 	Ndp *bool `json:"ndp,omitempty" tf:"ndp,omitempty"`
 
+	// Node name.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The default output
+	// policy (ACCEPT, DROP, REJECT).
 	// Default policy for outgoing traffic
 	OutputPolicy *string `json:"outputPolicy,omitempty" tf:"output_policy,omitempty"`
 
+	// Enable Router Advertisement.
 	// Allow sending Router Advertisement
 	Radv *bool `json:"radv,omitempty" tf:"radv,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallOptionsObservation struct {
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// Enable DHCP.
 	// Enable DHCP
 	DHCP *bool `json:"dhcp,omitempty" tf:"dhcp,omitempty"`
 
+	// Enable or disable the firewall.
 	// Enable or disable the firewall
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The default input
+	// policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic
 	InputPolicy *string `json:"inputPolicy,omitempty" tf:"input_policy,omitempty"`
 
+	// Enable default IP filters. This is equivalent to
+	// adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
+	// implicitly contain sane default restrictions such as restricting IPv6 link
+	// local addresses to the one derived from the interface's MAC address. For
+	// containers the configured IP addresses will be implicitly added.
 	// Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
 	Ipfilter *bool `json:"ipfilter,omitempty" tf:"ipfilter,omitempty"`
 
+	// Log level for incoming
+	// packets (emerg, alert, crit, err, warning, notice, info,
+	// debug, nolog).
 	// Log level for incoming traffic.
 	LogLevelIn *string `json:"logLevelIn,omitempty" tf:"log_level_in,omitempty"`
 
+	// Log level for outgoing
+	// packets (emerg, alert, crit, err, warning, notice, info,
+	// debug, nolog).
 	// Log level for outgoing traffic.
 	LogLevelOut *string `json:"logLevelOut,omitempty" tf:"log_level_out,omitempty"`
 
+	// Enable/disable MAC address filter.
 	// Enable MAC address filtering
 	Macfilter *bool `json:"macfilter,omitempty" tf:"macfilter,omitempty"`
 
+	// Enable NDP (Neighbor Discovery Protocol).
 	// Enable NDP (Neighbor Discovery Protocol)
 	Ndp *bool `json:"ndp,omitempty" tf:"ndp,omitempty"`
 
+	// Node name.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The default output
+	// policy (ACCEPT, DROP, REJECT).
 	// Default policy for outgoing traffic
 	OutputPolicy *string `json:"outputPolicy,omitempty" tf:"output_policy,omitempty"`
 
+	// Enable Router Advertisement.
 	// Allow sending Router Advertisement
 	Radv *bool `json:"radv,omitempty" tf:"radv,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallOptionsParameters struct {
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// Enable DHCP.
 	// Enable DHCP
 	// +kubebuilder:validation:Optional
 	DHCP *bool `json:"dhcp,omitempty" tf:"dhcp,omitempty"`
 
+	// Enable or disable the firewall.
 	// Enable or disable the firewall
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The default input
+	// policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic
 	// +kubebuilder:validation:Optional
 	InputPolicy *string `json:"inputPolicy,omitempty" tf:"input_policy,omitempty"`
 
+	// Enable default IP filters. This is equivalent to
+	// adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
+	// implicitly contain sane default restrictions such as restricting IPv6 link
+	// local addresses to the one derived from the interface's MAC address. For
+	// containers the configured IP addresses will be implicitly added.
 	// Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
 	// +kubebuilder:validation:Optional
 	Ipfilter *bool `json:"ipfilter,omitempty" tf:"ipfilter,omitempty"`
 
+	// Log level for incoming
+	// packets (emerg, alert, crit, err, warning, notice, info,
+	// debug, nolog).
 	// Log level for incoming traffic.
 	// +kubebuilder:validation:Optional
 	LogLevelIn *string `json:"logLevelIn,omitempty" tf:"log_level_in,omitempty"`
 
+	// Log level for outgoing
+	// packets (emerg, alert, crit, err, warning, notice, info,
+	// debug, nolog).
 	// Log level for outgoing traffic.
 	// +kubebuilder:validation:Optional
 	LogLevelOut *string `json:"logLevelOut,omitempty" tf:"log_level_out,omitempty"`
 
+	// Enable/disable MAC address filter.
 	// Enable MAC address filtering
 	// +kubebuilder:validation:Optional
 	Macfilter *bool `json:"macfilter,omitempty" tf:"macfilter,omitempty"`
 
+	// Enable NDP (Neighbor Discovery Protocol).
 	// Enable NDP (Neighbor Discovery Protocol)
 	// +kubebuilder:validation:Optional
 	Ndp *bool `json:"ndp,omitempty" tf:"ndp,omitempty"`
 
+	// Node name.
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The default output
+	// policy (ACCEPT, DROP, REJECT).
 	// Default policy for outgoing traffic
 	// +kubebuilder:validation:Optional
 	OutputPolicy *string `json:"outputPolicy,omitempty" tf:"output_policy,omitempty"`
 
+	// Enable Router Advertisement.
 	// Allow sending Router Advertisement
 	// +kubebuilder:validation:Optional
 	Radv *bool `json:"radv,omitempty" tf:"radv,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
@@ -181,7 +250,7 @@ type EnvironmentFirewallOptionsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallOptions is the Schema for the EnvironmentFirewallOptionss API. <no value>
+// EnvironmentFirewallOptions is the Schema for the EnvironmentFirewallOptionss API. |Manages firewall options on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

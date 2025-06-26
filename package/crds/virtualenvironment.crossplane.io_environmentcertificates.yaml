@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentCertificate is the Schema for the EnvironmentCertificates
-          API. <no value>
+          API. |Manages the custom SSL/TLS certificate for a specific node.
         properties:
           apiVersion:
             description: |-
@@ -74,19 +74,27 @@ spec:
               forProvider:
                 properties:
                   certificate:
-                    description: The PEM encoded certificate
+                    description: |-
+                      The PEM encoded certificate.
+                      The PEM encoded certificate
                     type: string
                   certificateChain:
-                    description: The PEM encoded certificate chain
+                    description: |-
+                      The PEM encoded certificate chain.
+                      The PEM encoded certificate chain
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                   overwrite:
                     description: Whether to overwrite an existing certificate
                     type: boolean
                   privateKeySecretRef:
-                    description: The PEM encoded private key
+                    description: |-
+                      The PEM encoded private key.
+                      The PEM encoded private key
                     properties:
                       key:
                         description: The key to select.
@@ -117,19 +125,27 @@ spec:
                   autoscaler.
                 properties:
                   certificate:
-                    description: The PEM encoded certificate
+                    description: |-
+                      The PEM encoded certificate.
+                      The PEM encoded certificate
                     type: string
                   certificateChain:
-                    description: The PEM encoded certificate chain
+                    description: |-
+                      The PEM encoded certificate chain.
+                      The PEM encoded certificate chain
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                   overwrite:
                     description: Whether to overwrite an existing certificate
                     type: boolean
                   privateKeySecretRef:
-                    description: The PEM encoded private key
+                    description: |-
+                      The PEM encoded private key.
+                      The PEM encoded private key
                     properties:
                       key:
                         description: The key to select.
@@ -334,45 +350,69 @@ spec:
               atProvider:
                 properties:
                   certificate:
-                    description: The PEM encoded certificate
+                    description: |-
+                      The PEM encoded certificate.
+                      The PEM encoded certificate
                     type: string
                   certificateChain:
-                    description: The PEM encoded certificate chain
+                    description: |-
+                      The PEM encoded certificate chain.
+                      The PEM encoded certificate chain
                     type: string
                   expirationDate:
-                    description: The expiration date
+                    description: |-
+                      The expiration date (RFC 3339).
+                      The expiration date
                     type: string
                   fileName:
-                    description: The file name
+                    description: |-
+                      The file name.
+                      The file name
                     type: string
                   id:
                     type: string
                   issuer:
-                    description: The issuer
+                    description: |-
+                      The issuer.
+                      The issuer
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                   overwrite:
                     description: Whether to overwrite an existing certificate
                     type: boolean
                   publicKeySize:
-                    description: The public key size
+                    description: |-
+                      The public key size.
+                      The public key size
                     type: number
                   publicKeyType:
-                    description: The public key type
+                    description: |-
+                      The public key type.
+                      The public key type
                     type: string
                   sslFingerprint:
-                    description: The SSL fingerprint
+                    description: |-
+                      The SSL fingerprint.
+                      The SSL fingerprint
                     type: string
                   startDate:
-                    description: The start date
+                    description: |-
+                      The start date (RFC 3339).
+                      The start date
                     type: string
                   subject:
-                    description: The subject
+                    description: |-
+                      The subject.
+                      The subject
                     type: string
                   subjectAlternativeNames:
-                    description: The subject alternative names
+                    description: |-
+                      The subject alternative names.
+                      The subject alternative names
                     items:
                       type: string
                     type: array

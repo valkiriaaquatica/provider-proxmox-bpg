@@ -1,0 +1,14 @@
+apiVersion: virtualenvironmentharesource.crossplane.io/v1alpha1
+kind: EnvironmentHaresource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentharesource/v1alpha1/environmentharesource
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    comment: Managed by Terraform
+    group: example
+    resourceId: vm:123
+    state: started

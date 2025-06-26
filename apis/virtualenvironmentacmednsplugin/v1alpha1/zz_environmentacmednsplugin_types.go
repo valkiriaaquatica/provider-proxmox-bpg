@@ -15,73 +15,91 @@ import (
 
 type EnvironmentAcmeDNSPluginInitParameters struct {
 
+	// (String) API plugin name.
 	// API plugin name.
 	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
+	// (Map of String) DNS plugin data.
 	// DNS plugin data.
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
 
+	// (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	// SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	Digest *string `json:"digest,omitempty" tf:"digest,omitempty"`
 
+	// (Boolean) Flag to disable the config.
 	// Flag to disable the config.
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
+	// (String) ACME Plugin ID name.
 	// ACME Plugin ID name.
 	Plugin *string `json:"plugin,omitempty" tf:"plugin,omitempty"`
 
+	// 172800).
 	// Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records (0 - 172800).
 	ValidationDelay *float64 `json:"validationDelay,omitempty" tf:"validation_delay,omitempty"`
 }
 
 type EnvironmentAcmeDNSPluginObservation struct {
 
+	// (String) API plugin name.
 	// API plugin name.
 	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
+	// (Map of String) DNS plugin data.
 	// DNS plugin data.
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
 
+	// (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	// SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	Digest *string `json:"digest,omitempty" tf:"digest,omitempty"`
 
+	// (Boolean) Flag to disable the config.
 	// Flag to disable the config.
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) ACME Plugin ID name.
 	// ACME Plugin ID name.
 	Plugin *string `json:"plugin,omitempty" tf:"plugin,omitempty"`
 
+	// 172800).
 	// Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records (0 - 172800).
 	ValidationDelay *float64 `json:"validationDelay,omitempty" tf:"validation_delay,omitempty"`
 }
 
 type EnvironmentAcmeDNSPluginParameters struct {
 
+	// (String) API plugin name.
 	// API plugin name.
 	// +kubebuilder:validation:Optional
 	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
+	// (Map of String) DNS plugin data.
 	// DNS plugin data.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
 
+	// (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	// SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	// +kubebuilder:validation:Optional
 	Digest *string `json:"digest,omitempty" tf:"digest,omitempty"`
 
+	// (Boolean) Flag to disable the config.
 	// Flag to disable the config.
 	// +kubebuilder:validation:Optional
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
+	// (String) ACME Plugin ID name.
 	// ACME Plugin ID name.
 	// +kubebuilder:validation:Optional
 	Plugin *string `json:"plugin,omitempty" tf:"plugin,omitempty"`
 
+	// 172800).
 	// Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records (0 - 172800).
 	// +kubebuilder:validation:Optional
 	ValidationDelay *float64 `json:"validationDelay,omitempty" tf:"validation_delay,omitempty"`
@@ -114,7 +132,7 @@ type EnvironmentAcmeDNSPluginStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentAcmeDNSPlugin is the Schema for the EnvironmentAcmeDNSPlugins API. <no value>
+// EnvironmentAcmeDNSPlugin is the Schema for the EnvironmentAcmeDNSPlugins API. Manages an ACME plugin in a Proxmox VE cluster.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

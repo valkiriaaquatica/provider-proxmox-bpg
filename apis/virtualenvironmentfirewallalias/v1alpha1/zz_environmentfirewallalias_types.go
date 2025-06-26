@@ -15,70 +15,88 @@ import (
 
 type EnvironmentFirewallAliasInitParameters struct {
 
+	// Network/IP specification in CIDR format.
 	// IP/CIDR block
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Alias comment.
 	// Alias comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// Alias name.
 	// Alias name
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Node name. Leave empty for cluster level aliases.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallAliasObservation struct {
 
+	// Network/IP specification in CIDR format.
 	// IP/CIDR block
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Alias comment.
 	// Alias comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Alias name.
 	// Alias name
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Node name. Leave empty for cluster level aliases.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallAliasParameters struct {
 
+	// Network/IP specification in CIDR format.
 	// IP/CIDR block
 	// +kubebuilder:validation:Optional
 	Cidr *string `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// Alias comment.
 	// Alias comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// Alias name.
 	// Alias name
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Node name. Leave empty for cluster level aliases.
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
@@ -111,7 +129,7 @@ type EnvironmentFirewallAliasStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallAlias is the Schema for the EnvironmentFirewallAliass API. <no value>
+// EnvironmentFirewallAlias is the Schema for the EnvironmentFirewallAliass API. |Aliases are used to see what devices or group of devices are affected by a rule. We can create aliases to identify an IP address or a network. Aliases can be created on the cluster level, on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -15,9 +15,11 @@ import (
 
 type EnvironmentTimeInitParameters struct {
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The node's time zone.
 	// The time zone
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 }
@@ -25,25 +27,31 @@ type EnvironmentTimeInitParameters struct {
 type EnvironmentTimeObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The node's local time.
 	// The local timestamp
 	LocalTime *string `json:"localTime,omitempty" tf:"local_time,omitempty"`
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The node's time zone.
 	// The time zone
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
+	// The node's local time formatted as UTC.
 	// The UTC timestamp
 	UtcTime *string `json:"utcTime,omitempty" tf:"utc_time,omitempty"`
 }
 
 type EnvironmentTimeParameters struct {
 
+	// A node name.
 	// The node name
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The node's time zone.
 	// The time zone
 	// +kubebuilder:validation:Optional
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
@@ -76,7 +84,7 @@ type EnvironmentTimeStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentTime is the Schema for the EnvironmentTimes API. <no value>
+// EnvironmentTime is the Schema for the EnvironmentTimes API. |Manages the time for a specific node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

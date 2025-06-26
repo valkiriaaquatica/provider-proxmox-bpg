@@ -15,76 +15,95 @@ import (
 
 type EnvironmentCertificateInitParameters struct {
 
+	// The PEM encoded certificate.
 	// The PEM encoded certificate
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
+	// The PEM encoded certificate chain.
 	// The PEM encoded certificate chain
 	CertificateChain *string `json:"certificateChain,omitempty" tf:"certificate_chain,omitempty"`
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
 	// Whether to overwrite an existing certificate
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// The PEM encoded private key.
 	// The PEM encoded private key
 	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type EnvironmentCertificateObservation struct {
 
+	// The PEM encoded certificate.
 	// The PEM encoded certificate
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
+	// The PEM encoded certificate chain.
 	// The PEM encoded certificate chain
 	CertificateChain *string `json:"certificateChain,omitempty" tf:"certificate_chain,omitempty"`
 
+	// The expiration date (RFC 3339).
 	// The expiration date
 	ExpirationDate *string `json:"expirationDate,omitempty" tf:"expiration_date,omitempty"`
 
+	// The file name.
 	// The file name
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The issuer.
 	// The issuer
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
 	// Whether to overwrite an existing certificate
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// The public key size.
 	// The public key size
 	PublicKeySize *float64 `json:"publicKeySize,omitempty" tf:"public_key_size,omitempty"`
 
+	// The public key type.
 	// The public key type
 	PublicKeyType *string `json:"publicKeyType,omitempty" tf:"public_key_type,omitempty"`
 
+	// The SSL fingerprint.
 	// The SSL fingerprint
 	SSLFingerprint *string `json:"sslFingerprint,omitempty" tf:"ssl_fingerprint,omitempty"`
 
+	// The start date (RFC 3339).
 	// The start date
 	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
 
+	// The subject.
 	// The subject
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
 
+	// The subject alternative names.
 	// The subject alternative names
 	SubjectAlternativeNames []*string `json:"subjectAlternativeNames,omitempty" tf:"subject_alternative_names,omitempty"`
 }
 
 type EnvironmentCertificateParameters struct {
 
+	// The PEM encoded certificate.
 	// The PEM encoded certificate
 	// +kubebuilder:validation:Optional
 	Certificate *string `json:"certificate,omitempty" tf:"certificate,omitempty"`
 
+	// The PEM encoded certificate chain.
 	// The PEM encoded certificate chain
 	// +kubebuilder:validation:Optional
 	CertificateChain *string `json:"certificateChain,omitempty" tf:"certificate_chain,omitempty"`
 
+	// A node name.
 	// The node name
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
@@ -93,6 +112,7 @@ type EnvironmentCertificateParameters struct {
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// The PEM encoded private key.
 	// The PEM encoded private key
 	// +kubebuilder:validation:Optional
 	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
@@ -125,7 +145,7 @@ type EnvironmentCertificateStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentCertificate is the Schema for the EnvironmentCertificates API. <no value>
+// EnvironmentCertificate is the Schema for the EnvironmentCertificates API. |Manages the custom SSL/TLS certificate for a specific node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

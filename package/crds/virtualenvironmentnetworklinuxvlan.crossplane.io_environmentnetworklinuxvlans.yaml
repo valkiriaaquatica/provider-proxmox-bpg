@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentNetworkLinuxVlan is the Schema for the EnvironmentNetworkLinuxVlans
-          API. <no value>
+          API. Manages a Linux VLAN network interface in a Proxmox VE node.
         properties:
           apiVersion:
             description: |-
@@ -75,41 +75,59 @@ spec:
               forProvider:
                 properties:
                   address:
-                    description: The interface IPv4/CIDR address.
+                    description: |-
+                      (String) The interface IPv4/CIDR address.
+                      The interface IPv4/CIDR address.
                     type: string
                   address6:
-                    description: The interface IPv6/CIDR address.
+                    description: |-
+                      (String) The interface IPv6/CIDR address.
+                      The interface IPv6/CIDR address.
                     type: string
                   autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
+                    description: |-
+                      (Boolean) Automatically start interface on boot (defaults to true).
+                      Automatically start interface on boot (defaults to `true`).
                     type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: |-
+                      (String) Comment for the interface.
+                      Comment for the interface.
                     type: string
                   gateway:
-                    description: Default gateway address.
+                    description: |-
+                      (String) Default gateway address.
+                      Default gateway address.
                     type: string
                   gateway6:
-                    description: Default IPv6 gateway address.
+                    description: |-
+                      (String) Default IPv6 gateway address.
+                      Default IPv6 gateway address.
                     type: string
                   interface:
-                    description: The VLAN raw device. See also `name`.
+                    description: |-
+                      (String) The VLAN raw device. See also name.
+                      The VLAN raw device. See also `name`.
                     type: string
                   mtu:
-                    description: The interface MTU.
+                    description: |-
+                      (Number) The interface MTU.
+                      The interface MTU.
                     type: number
                   name:
-                    description: The interface name. Either add the VLAN tag number
-                      to an existing interface name, e.g. `ens18.21` (and do not set
-                      `interface` and `vlan`), or use custom name, e.g. `vlan_lab`
-                      (`interface` and `vlan` are then required).
+                    description: |-
+                      (String) The interface name. Either add the VLAN tag number to an existing interface name, e.g. ens18.21 (and do not set interface and vlan), or use custom name, e.g. vlan_lab (interface and vlan are then required).
+                      The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      (String) The name of the node.
+                      The name of the node.
                     type: string
                   vlan:
-                    description: The VLAN tag. See also `name`.
+                    description: |-
+                      (Number) The VLAN tag. See also name.
+                      The VLAN tag. See also `name`.
                     type: number
                 type: object
               initProvider:
@@ -126,41 +144,59 @@ spec:
                   autoscaler.
                 properties:
                   address:
-                    description: The interface IPv4/CIDR address.
+                    description: |-
+                      (String) The interface IPv4/CIDR address.
+                      The interface IPv4/CIDR address.
                     type: string
                   address6:
-                    description: The interface IPv6/CIDR address.
+                    description: |-
+                      (String) The interface IPv6/CIDR address.
+                      The interface IPv6/CIDR address.
                     type: string
                   autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
+                    description: |-
+                      (Boolean) Automatically start interface on boot (defaults to true).
+                      Automatically start interface on boot (defaults to `true`).
                     type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: |-
+                      (String) Comment for the interface.
+                      Comment for the interface.
                     type: string
                   gateway:
-                    description: Default gateway address.
+                    description: |-
+                      (String) Default gateway address.
+                      Default gateway address.
                     type: string
                   gateway6:
-                    description: Default IPv6 gateway address.
+                    description: |-
+                      (String) Default IPv6 gateway address.
+                      Default IPv6 gateway address.
                     type: string
                   interface:
-                    description: The VLAN raw device. See also `name`.
+                    description: |-
+                      (String) The VLAN raw device. See also name.
+                      The VLAN raw device. See also `name`.
                     type: string
                   mtu:
-                    description: The interface MTU.
+                    description: |-
+                      (Number) The interface MTU.
+                      The interface MTU.
                     type: number
                   name:
-                    description: The interface name. Either add the VLAN tag number
-                      to an existing interface name, e.g. `ens18.21` (and do not set
-                      `interface` and `vlan`), or use custom name, e.g. `vlan_lab`
-                      (`interface` and `vlan` are then required).
+                    description: |-
+                      (String) The interface name. Either add the VLAN tag number to an existing interface name, e.g. ens18.21 (and do not set interface and vlan), or use custom name, e.g. vlan_lab (interface and vlan are then required).
+                      The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      (String) The name of the node.
+                      The name of the node.
                     type: string
                   vlan:
-                    description: The VLAN tag. See also `name`.
+                    description: |-
+                      (Number) The VLAN tag. See also name.
+                      The VLAN tag. See also `name`.
                     type: number
                 type: object
               managementPolicies:
@@ -346,43 +382,62 @@ spec:
               atProvider:
                 properties:
                   address:
-                    description: The interface IPv4/CIDR address.
+                    description: |-
+                      (String) The interface IPv4/CIDR address.
+                      The interface IPv4/CIDR address.
                     type: string
                   address6:
-                    description: The interface IPv6/CIDR address.
+                    description: |-
+                      (String) The interface IPv6/CIDR address.
+                      The interface IPv6/CIDR address.
                     type: string
                   autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
+                    description: |-
+                      (Boolean) Automatically start interface on boot (defaults to true).
+                      Automatically start interface on boot (defaults to `true`).
                     type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: |-
+                      (String) Comment for the interface.
+                      Comment for the interface.
                     type: string
                   gateway:
-                    description: Default gateway address.
+                    description: |-
+                      (String) Default gateway address.
+                      Default gateway address.
                     type: string
                   gateway6:
-                    description: Default IPv6 gateway address.
+                    description: |-
+                      (String) Default IPv6 gateway address.
+                      Default IPv6 gateway address.
                     type: string
                   id:
+                    description: (String) A unique identifier with format <node name>:<iface>.
                     type: string
                   interface:
-                    description: The VLAN raw device. See also `name`.
+                    description: |-
+                      (String) The VLAN raw device. See also name.
+                      The VLAN raw device. See also `name`.
                     type: string
                   mtu:
-                    description: The interface MTU.
+                    description: |-
+                      (Number) The interface MTU.
+                      The interface MTU.
                     type: number
                   name:
-                    description: The interface name. Either add the VLAN tag number
-                      to an existing interface name, e.g. `ens18.21` (and do not set
-                      `interface` and `vlan`), or use custom name, e.g. `vlan_lab`
-                      (`interface` and `vlan` are then required).
+                    description: |-
+                      (String) The interface name. Either add the VLAN tag number to an existing interface name, e.g. ens18.21 (and do not set interface and vlan), or use custom name, e.g. vlan_lab (interface and vlan are then required).
+                      The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      (String) The name of the node.
+                      The name of the node.
                     type: string
                   vlan:
-                    description: The VLAN tag. See also `name`.
+                    description: |-
+                      (Number) The VLAN tag. See also name.
+                      The VLAN tag. See also `name`.
                     type: number
                 type: object
               conditions:

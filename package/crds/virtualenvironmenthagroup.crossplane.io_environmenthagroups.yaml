@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentHagroup is the Schema for the EnvironmentHagroups
-          API. <no value>
+          API. Manages a High Availability group in a Proxmox VE cluster.
         properties:
           apiVersion:
             description: |-
@@ -74,29 +74,32 @@ spec:
               forProvider:
                 properties:
                   comment:
-                    description: The comment associated with this group
+                    description: |-
+                      (String) The comment associated with this group
+                      The comment associated with this group
                     type: string
                   group:
-                    description: The identifier of the High Availability group to
-                      manage.
+                    description: |-
+                      (String) The identifier of the High Availability group to manage.
+                      The identifier of the High Availability group to manage.
                     type: string
                   noFailback:
-                    description: A flag that indicates that failing back to a higher
-                      priority node is disabled for this HA group. Defaults to `false`.
+                    description: |-
+                      (Boolean) A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to false.
+                      A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to `false`.
                     type: boolean
                   nodes:
                     additionalProperties:
                       type: number
-                    description: 'The member nodes for this group. They are provided
-                      as a map, where the keys are the node names and the values represent
-                      their priority: integers for known priorities or `null` for
-                      unset priorities.'
+                    description: |-
+                      (Map of Number) The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or null for unset priorities.
+                      The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or `null` for unset priorities.
                     type: object
                     x-kubernetes-map-type: granular
                   restricted:
-                    description: A flag that indicates that other nodes may not be
-                      used to run resources associated to this HA group. Defaults
-                      to `false`.
+                    description: |-
+                      (Boolean) A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to false.
+                      A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to `false`.
                     type: boolean
                 type: object
               initProvider:
@@ -113,29 +116,32 @@ spec:
                   autoscaler.
                 properties:
                   comment:
-                    description: The comment associated with this group
+                    description: |-
+                      (String) The comment associated with this group
+                      The comment associated with this group
                     type: string
                   group:
-                    description: The identifier of the High Availability group to
-                      manage.
+                    description: |-
+                      (String) The identifier of the High Availability group to manage.
+                      The identifier of the High Availability group to manage.
                     type: string
                   noFailback:
-                    description: A flag that indicates that failing back to a higher
-                      priority node is disabled for this HA group. Defaults to `false`.
+                    description: |-
+                      (Boolean) A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to false.
+                      A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to `false`.
                     type: boolean
                   nodes:
                     additionalProperties:
                       type: number
-                    description: 'The member nodes for this group. They are provided
-                      as a map, where the keys are the node names and the values represent
-                      their priority: integers for known priorities or `null` for
-                      unset priorities.'
+                    description: |-
+                      (Map of Number) The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or null for unset priorities.
+                      The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or `null` for unset priorities.
                     type: object
                     x-kubernetes-map-type: granular
                   restricted:
-                    description: A flag that indicates that other nodes may not be
-                      used to run resources associated to this HA group. Defaults
-                      to `false`.
+                    description: |-
+                      (Boolean) A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to false.
+                      A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to `false`.
                     type: boolean
                 type: object
               managementPolicies:
@@ -320,31 +326,35 @@ spec:
               atProvider:
                 properties:
                   comment:
-                    description: The comment associated with this group
+                    description: |-
+                      (String) The comment associated with this group
+                      The comment associated with this group
                     type: string
                   group:
-                    description: The identifier of the High Availability group to
-                      manage.
+                    description: |-
+                      (String) The identifier of the High Availability group to manage.
+                      The identifier of the High Availability group to manage.
                     type: string
                   id:
+                    description: (String) The unique identifier of this resource.
                     type: string
                   noFailback:
-                    description: A flag that indicates that failing back to a higher
-                      priority node is disabled for this HA group. Defaults to `false`.
+                    description: |-
+                      (Boolean) A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to false.
+                      A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to `false`.
                     type: boolean
                   nodes:
                     additionalProperties:
                       type: number
-                    description: 'The member nodes for this group. They are provided
-                      as a map, where the keys are the node names and the values represent
-                      their priority: integers for known priorities or `null` for
-                      unset priorities.'
+                    description: |-
+                      (Map of Number) The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or null for unset priorities.
+                      The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or `null` for unset priorities.
                     type: object
                     x-kubernetes-map-type: granular
                   restricted:
-                    description: A flag that indicates that other nodes may not be
-                      used to run resources associated to this HA group. Defaults
-                      to `false`.
+                    description: |-
+                      (Boolean) A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to false.
+                      A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to `false`.
                     type: boolean
                 type: object
               conditions:

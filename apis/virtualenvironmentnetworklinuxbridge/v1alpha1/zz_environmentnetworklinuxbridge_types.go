@@ -15,120 +15,154 @@ import (
 
 type EnvironmentNetworkLinuxBridgeInitParameters struct {
 
+	// (String) The interface IPv4/CIDR address.
 	// The interface IPv4/CIDR address.
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// (String) The interface IPv6/CIDR address.
 	// The interface IPv6/CIDR address.
 	Address6 *string `json:"address6,omitempty" tf:"address6,omitempty"`
 
+	// (Boolean) Automatically start interface on boot (defaults to true).
 	// Automatically start interface on boot (defaults to `true`).
 	Autostart *bool `json:"autostart,omitempty" tf:"autostart,omitempty"`
 
+	// (String) Comment for the interface.
 	// Comment for the interface.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) Default gateway address.
 	// Default gateway address.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) Default IPv6 gateway address.
 	// Default IPv6 gateway address.
 	Gateway6 *string `json:"gateway6,omitempty" tf:"gateway6,omitempty"`
 
+	// (Number) The interface MTU.
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
 	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The name of the node.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (List of String) The interface bridge ports.
 	// The interface bridge ports.
 	Ports []*string `json:"ports,omitempty" tf:"ports,omitempty"`
 
+	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).
 	VlanAware *bool `json:"vlanAware,omitempty" tf:"vlan_aware,omitempty"`
 }
 
 type EnvironmentNetworkLinuxBridgeObservation struct {
 
+	// (String) The interface IPv4/CIDR address.
 	// The interface IPv4/CIDR address.
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// (String) The interface IPv6/CIDR address.
 	// The interface IPv6/CIDR address.
 	Address6 *string `json:"address6,omitempty" tf:"address6,omitempty"`
 
+	// (Boolean) Automatically start interface on boot (defaults to true).
 	// Automatically start interface on boot (defaults to `true`).
 	Autostart *bool `json:"autostart,omitempty" tf:"autostart,omitempty"`
 
+	// (String) Comment for the interface.
 	// Comment for the interface.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) Default gateway address.
 	// Default gateway address.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) Default IPv6 gateway address.
 	// Default IPv6 gateway address.
 	Gateway6 *string `json:"gateway6,omitempty" tf:"gateway6,omitempty"`
 
+	// (String) A unique identifier with format <node name>:<iface>
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Number) The interface MTU.
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
 	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The name of the node.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (List of String) The interface bridge ports.
 	// The interface bridge ports.
 	Ports []*string `json:"ports,omitempty" tf:"ports,omitempty"`
 
+	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).
 	VlanAware *bool `json:"vlanAware,omitempty" tf:"vlan_aware,omitempty"`
 }
 
 type EnvironmentNetworkLinuxBridgeParameters struct {
 
+	// (String) The interface IPv4/CIDR address.
 	// The interface IPv4/CIDR address.
 	// +kubebuilder:validation:Optional
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// (String) The interface IPv6/CIDR address.
 	// The interface IPv6/CIDR address.
 	// +kubebuilder:validation:Optional
 	Address6 *string `json:"address6,omitempty" tf:"address6,omitempty"`
 
+	// (Boolean) Automatically start interface on boot (defaults to true).
 	// Automatically start interface on boot (defaults to `true`).
 	// +kubebuilder:validation:Optional
 	Autostart *bool `json:"autostart,omitempty" tf:"autostart,omitempty"`
 
+	// (String) Comment for the interface.
 	// Comment for the interface.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) Default gateway address.
 	// Default gateway address.
 	// +kubebuilder:validation:Optional
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) Default IPv6 gateway address.
 	// Default IPv6 gateway address.
 	// +kubebuilder:validation:Optional
 	Gateway6 *string `json:"gateway6,omitempty" tf:"gateway6,omitempty"`
 
+	// (Number) The interface MTU.
 	// The interface MTU.
 	// +kubebuilder:validation:Optional
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
 	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The name of the node.
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (List of String) The interface bridge ports.
 	// The interface bridge ports.
 	// +kubebuilder:validation:Optional
 	Ports []*string `json:"ports,omitempty" tf:"ports,omitempty"`
 
+	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).
 	// +kubebuilder:validation:Optional
 	VlanAware *bool `json:"vlanAware,omitempty" tf:"vlan_aware,omitempty"`
@@ -161,7 +195,7 @@ type EnvironmentNetworkLinuxBridgeStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentNetworkLinuxBridge is the Schema for the EnvironmentNetworkLinuxBridges API. <no value>
+// EnvironmentNetworkLinuxBridge is the Schema for the EnvironmentNetworkLinuxBridges API. Manages a Linux Bridge network interface in a Proxmox VE node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

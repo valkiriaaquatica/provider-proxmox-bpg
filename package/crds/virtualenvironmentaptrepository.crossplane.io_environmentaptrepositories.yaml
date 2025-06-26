@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentAptRepository is the Schema for the EnvironmentAptRepositorys
-          API. <no value>
+          API. Manages an APT repository of a Proxmox VE node.
         properties:
           apiVersion:
             description: |-
@@ -75,17 +75,24 @@ spec:
               forProvider:
                 properties:
                   enabled:
-                    description: Indicates the activation status.
+                    description: |-
+                      (Boolean) Indicates the activation status.
+                      Indicates the activation status.
                     type: boolean
                   filePath:
-                    description: The absolute path of the source list file that contains
-                      this repository.
+                    description: |-
+                      (String) The absolute path of the source list file that contains this repository.
+                      The absolute path of the source list file that contains this repository.
                     type: string
                   index:
-                    description: The index within the defining source list file.
+                    description: |-
+                      (Number) The index within the defining source list file.
+                      The index within the defining source list file.
                     type: number
                   node:
-                    description: The name of the target Proxmox VE node.
+                    description: |-
+                      (String) The name of the target Proxmox VE node.
+                      The name of the target Proxmox VE node.
                     type: string
                 type: object
               initProvider:
@@ -102,17 +109,24 @@ spec:
                   autoscaler.
                 properties:
                   enabled:
-                    description: Indicates the activation status.
+                    description: |-
+                      (Boolean) Indicates the activation status.
+                      Indicates the activation status.
                     type: boolean
                   filePath:
-                    description: The absolute path of the source list file that contains
-                      this repository.
+                    description: |-
+                      (String) The absolute path of the source list file that contains this repository.
+                      The absolute path of the source list file that contains this repository.
                     type: string
                   index:
-                    description: The index within the defining source list file.
+                    description: |-
+                      (Number) The index within the defining source list file.
+                      The index within the defining source list file.
                     type: number
                   node:
-                    description: The name of the target Proxmox VE node.
+                    description: |-
+                      (String) The name of the target Proxmox VE node.
+                      The name of the target Proxmox VE node.
                     type: string
                 type: object
               managementPolicies:
@@ -302,43 +316,64 @@ spec:
               atProvider:
                 properties:
                   comment:
-                    description: The associated comment.
+                    description: |-
+                      (String) The associated comment.
+                      The associated comment.
                     type: string
                   components:
-                    description: The list of components.
+                    description: |-
+                      (List of String) The list of components.
+                      The list of components.
                     items:
                       type: string
                     type: array
                   enabled:
-                    description: Indicates the activation status.
+                    description: |-
+                      (Boolean) Indicates the activation status.
+                      Indicates the activation status.
                     type: boolean
                   filePath:
-                    description: The absolute path of the source list file that contains
-                      this repository.
+                    description: |-
+                      (String) The absolute path of the source list file that contains this repository.
+                      The absolute path of the source list file that contains this repository.
                     type: string
                   fileType:
-                    description: The format of the defining source list file.
+                    description: |-
+                      (String) The format of the defining source list file.
+                      The format of the defining source list file.
                     type: string
                   id:
+                    description: (String) The unique identifier of this APT repository
+                      resource.
                     type: string
                   index:
-                    description: The index within the defining source list file.
+                    description: |-
+                      (Number) The index within the defining source list file.
+                      The index within the defining source list file.
                     type: number
                   node:
-                    description: The name of the target Proxmox VE node.
+                    description: |-
+                      (String) The name of the target Proxmox VE node.
+                      The name of the target Proxmox VE node.
                     type: string
                   packageTypes:
-                    description: The list of package types.
+                    description: |-
+                      (List of String) The list of package types.
+                      The list of package types.
                     items:
                       type: string
                     type: array
                   suites:
-                    description: The list of package distributions.
+                    description: |-
+                      (List of String) The list of package distributions.
+                      The list of package distributions.
                     items:
                       type: string
                     type: array
                   uris:
-                    description: The list of repository URIs.
+                    description: |-
+                      (List of String) The list of repository URIs.
+                      The list of repository URIs.
                     items:
                       type: string
                     type: array

@@ -15,120 +15,154 @@ import (
 
 type EnvironmentNetworkLinuxVlanInitParameters struct {
 
+	// (String) The interface IPv4/CIDR address.
 	// The interface IPv4/CIDR address.
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// (String) The interface IPv6/CIDR address.
 	// The interface IPv6/CIDR address.
 	Address6 *string `json:"address6,omitempty" tf:"address6,omitempty"`
 
+	// (Boolean) Automatically start interface on boot (defaults to true).
 	// Automatically start interface on boot (defaults to `true`).
 	Autostart *bool `json:"autostart,omitempty" tf:"autostart,omitempty"`
 
+	// (String) Comment for the interface.
 	// Comment for the interface.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) Default gateway address.
 	// Default gateway address.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) Default IPv6 gateway address.
 	// Default IPv6 gateway address.
 	Gateway6 *string `json:"gateway6,omitempty" tf:"gateway6,omitempty"`
 
+	// (String) The VLAN raw device. See also name.
 	// The VLAN raw device. See also `name`.
 	Interface *string `json:"interface,omitempty" tf:"interface,omitempty"`
 
+	// (Number) The interface MTU.
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// (String) The interface name. Either add the VLAN tag number to an existing interface name, e.g. ens18.21 (and do not set interface and vlan), or use custom name, e.g. vlan_lab (interface and vlan are then required).
 	// The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The name of the node.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (Number) The VLAN tag. See also name.
 	// The VLAN tag. See also `name`.
 	Vlan *float64 `json:"vlan,omitempty" tf:"vlan,omitempty"`
 }
 
 type EnvironmentNetworkLinuxVlanObservation struct {
 
+	// (String) The interface IPv4/CIDR address.
 	// The interface IPv4/CIDR address.
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// (String) The interface IPv6/CIDR address.
 	// The interface IPv6/CIDR address.
 	Address6 *string `json:"address6,omitempty" tf:"address6,omitempty"`
 
+	// (Boolean) Automatically start interface on boot (defaults to true).
 	// Automatically start interface on boot (defaults to `true`).
 	Autostart *bool `json:"autostart,omitempty" tf:"autostart,omitempty"`
 
+	// (String) Comment for the interface.
 	// Comment for the interface.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) Default gateway address.
 	// Default gateway address.
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) Default IPv6 gateway address.
 	// Default IPv6 gateway address.
 	Gateway6 *string `json:"gateway6,omitempty" tf:"gateway6,omitempty"`
 
+	// (String) A unique identifier with format <node name>:<iface>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The VLAN raw device. See also name.
 	// The VLAN raw device. See also `name`.
 	Interface *string `json:"interface,omitempty" tf:"interface,omitempty"`
 
+	// (Number) The interface MTU.
 	// The interface MTU.
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// (String) The interface name. Either add the VLAN tag number to an existing interface name, e.g. ens18.21 (and do not set interface and vlan), or use custom name, e.g. vlan_lab (interface and vlan are then required).
 	// The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The name of the node.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (Number) The VLAN tag. See also name.
 	// The VLAN tag. See also `name`.
 	Vlan *float64 `json:"vlan,omitempty" tf:"vlan,omitempty"`
 }
 
 type EnvironmentNetworkLinuxVlanParameters struct {
 
+	// (String) The interface IPv4/CIDR address.
 	// The interface IPv4/CIDR address.
 	// +kubebuilder:validation:Optional
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// (String) The interface IPv6/CIDR address.
 	// The interface IPv6/CIDR address.
 	// +kubebuilder:validation:Optional
 	Address6 *string `json:"address6,omitempty" tf:"address6,omitempty"`
 
+	// (Boolean) Automatically start interface on boot (defaults to true).
 	// Automatically start interface on boot (defaults to `true`).
 	// +kubebuilder:validation:Optional
 	Autostart *bool `json:"autostart,omitempty" tf:"autostart,omitempty"`
 
+	// (String) Comment for the interface.
 	// Comment for the interface.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) Default gateway address.
 	// Default gateway address.
 	// +kubebuilder:validation:Optional
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
 
+	// (String) Default IPv6 gateway address.
 	// Default IPv6 gateway address.
 	// +kubebuilder:validation:Optional
 	Gateway6 *string `json:"gateway6,omitempty" tf:"gateway6,omitempty"`
 
+	// (String) The VLAN raw device. See also name.
 	// The VLAN raw device. See also `name`.
 	// +kubebuilder:validation:Optional
 	Interface *string `json:"interface,omitempty" tf:"interface,omitempty"`
 
+	// (Number) The interface MTU.
 	// The interface MTU.
 	// +kubebuilder:validation:Optional
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// (String) The interface name. Either add the VLAN tag number to an existing interface name, e.g. ens18.21 (and do not set interface and vlan), or use custom name, e.g. vlan_lab (interface and vlan are then required).
 	// The interface name. Either add the VLAN tag number to an existing interface name, e.g. `ens18.21` (and do not set `interface` and `vlan`), or use custom name, e.g. `vlan_lab` (`interface` and `vlan` are then required).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The name of the node.
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (Number) The VLAN tag. See also name.
 	// The VLAN tag. See also `name`.
 	// +kubebuilder:validation:Optional
 	Vlan *float64 `json:"vlan,omitempty" tf:"vlan,omitempty"`
@@ -161,7 +195,7 @@ type EnvironmentNetworkLinuxVlanStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentNetworkLinuxVlan is the Schema for the EnvironmentNetworkLinuxVlans API. <no value>
+// EnvironmentNetworkLinuxVlan is the Schema for the EnvironmentNetworkLinuxVlans API. Manages a Linux VLAN network interface in a Proxmox VE node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

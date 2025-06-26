@@ -34,8 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentACL is the Schema for the EnvironmentACLs API. <no
-          value>
+        description: EnvironmentACL is the Schema for the EnvironmentACLs API. Manages
+          ACLs on the Proxmox cluster. ACLs are used to control access to resources
+          in the Proxmox cluster. Each ACL consists of a path, a user, group or token,
+          a role, and a flag to allow propagation of permissions.
         properties:
           apiVersion:
             description: |-
@@ -74,25 +76,34 @@ spec:
               forProvider:
                 properties:
                   groupId:
-                    description: The group the ACL should apply to (mutually exclusive
-                      with `token_id` and `user_id`)
+                    description: |-
+                      (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
+                      The group the ACL should apply to (mutually exclusive with `token_id` and `user_id`)
                     type: string
                   path:
-                    description: Access control path
+                    description: |-
+                      (String) Access control path
+                      Access control path
                     type: string
                   propagate:
-                    description: Allow to propagate (inherit) permissions.
+                    description: |-
+                      (Boolean) Allow to propagate (inherit) permissions.
+                      Allow to propagate (inherit) permissions.
                     type: boolean
                   roleId:
-                    description: The role to apply
+                    description: |-
+                      (String) The role to apply
+                      The role to apply
                     type: string
                   tokenId:
-                    description: The token the ACL should apply to (mutually exclusive
-                      with `group_id` and `user_id`)
+                    description: |-
+                      (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
+                      The token the ACL should apply to (mutually exclusive with `group_id` and `user_id`)
                     type: string
                   userId:
-                    description: The user the ACL should apply to (mutually exclusive
-                      with `group_id` and `token_id`)
+                    description: |-
+                      (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
+                      The user the ACL should apply to (mutually exclusive with `group_id` and `token_id`)
                     type: string
                 type: object
               initProvider:
@@ -109,25 +120,34 @@ spec:
                   autoscaler.
                 properties:
                   groupId:
-                    description: The group the ACL should apply to (mutually exclusive
-                      with `token_id` and `user_id`)
+                    description: |-
+                      (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
+                      The group the ACL should apply to (mutually exclusive with `token_id` and `user_id`)
                     type: string
                   path:
-                    description: Access control path
+                    description: |-
+                      (String) Access control path
+                      Access control path
                     type: string
                   propagate:
-                    description: Allow to propagate (inherit) permissions.
+                    description: |-
+                      (Boolean) Allow to propagate (inherit) permissions.
+                      Allow to propagate (inherit) permissions.
                     type: boolean
                   roleId:
-                    description: The role to apply
+                    description: |-
+                      (String) The role to apply
+                      The role to apply
                     type: string
                   tokenId:
-                    description: The token the ACL should apply to (mutually exclusive
-                      with `group_id` and `user_id`)
+                    description: |-
+                      (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
+                      The token the ACL should apply to (mutually exclusive with `group_id` and `user_id`)
                     type: string
                   userId:
-                    description: The user the ACL should apply to (mutually exclusive
-                      with `group_id` and `token_id`)
+                    description: |-
+                      (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
+                      The user the ACL should apply to (mutually exclusive with `group_id` and `token_id`)
                     type: string
                 type: object
               managementPolicies:
@@ -312,27 +332,37 @@ spec:
               atProvider:
                 properties:
                   groupId:
-                    description: The group the ACL should apply to (mutually exclusive
-                      with `token_id` and `user_id`)
+                    description: |-
+                      (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
+                      The group the ACL should apply to (mutually exclusive with `token_id` and `user_id`)
                     type: string
                   id:
+                    description: (String) The unique identifier of this resource.
                     type: string
                   path:
-                    description: Access control path
+                    description: |-
+                      (String) Access control path
+                      Access control path
                     type: string
                   propagate:
-                    description: Allow to propagate (inherit) permissions.
+                    description: |-
+                      (Boolean) Allow to propagate (inherit) permissions.
+                      Allow to propagate (inherit) permissions.
                     type: boolean
                   roleId:
-                    description: The role to apply
+                    description: |-
+                      (String) The role to apply
+                      The role to apply
                     type: string
                   tokenId:
-                    description: The token the ACL should apply to (mutually exclusive
-                      with `group_id` and `user_id`)
+                    description: |-
+                      (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
+                      The token the ACL should apply to (mutually exclusive with `group_id` and `user_id`)
                     type: string
                   userId:
-                    description: The user the ACL should apply to (mutually exclusive
-                      with `group_id` and `token_id`)
+                    description: |-
+                      (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
+                      The user the ACL should apply to (mutually exclusive with `group_id` and `token_id`)
                     type: string
                 type: object
               conditions:

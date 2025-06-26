@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentHosts is the Schema for the EnvironmentHostss API.
-          <no value>
+          |Manages the host entries on a specific node.
         properties:
           apiVersion:
             description: |-
@@ -74,21 +74,29 @@ spec:
               forProvider:
                 properties:
                   entry:
-                    description: The host entries
+                    description: |-
+                      A host entry (multiple blocks supported).
+                      The host entries
                     items:
                       properties:
                         address:
-                          description: The address
+                          description: |-
+                            The IP address.
+                            The address
                           type: string
                         hostnames:
-                          description: The hostnames
+                          description: |-
+                            The hostnames.
+                            The hostnames
                           items:
                             type: string
                           type: array
                       type: object
                     type: array
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                 type: object
               initProvider:
@@ -105,21 +113,29 @@ spec:
                   autoscaler.
                 properties:
                   entry:
-                    description: The host entries
+                    description: |-
+                      A host entry (multiple blocks supported).
+                      The host entries
                     items:
                       properties:
                         address:
-                          description: The address
+                          description: |-
+                            The IP address.
+                            The address
                           type: string
                         hostnames:
-                          description: The hostnames
+                          description: |-
+                            The hostnames.
+                            The hostnames
                           items:
                             type: string
                           type: array
                       type: object
                     type: array
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                 type: object
               managementPolicies:
@@ -304,41 +320,58 @@ spec:
               atProvider:
                 properties:
                   addresses:
-                    description: The addresses
+                    description: |-
+                      The IP addresses.
+                      The addresses
                     items:
                       type: string
                     type: array
                   digest:
-                    description: The SHA1 digest
+                    description: |-
+                      The SHA1 digest.
+                      The SHA1 digest
                     type: string
                   entries:
-                    description: The host entries
+                    description: |-
+                      The host entries (conversion of addresses and hostnames into
+                      objects).
+                      The host entries
                     items:
                       properties:
                         address:
+                          description: The IP address.
                           type: string
                         hostnames:
+                          description: The hostnames.
                           items:
                             type: string
                           type: array
                       type: object
                     type: array
                   entry:
-                    description: The host entries
+                    description: |-
+                      A host entry (multiple blocks supported).
+                      The host entries
                     items:
                       properties:
                         address:
-                          description: The address
+                          description: |-
+                            The IP address.
+                            The address
                           type: string
                         hostnames:
-                          description: The hostnames
+                          description: |-
+                            The hostnames.
+                            The hostnames
                           items:
                             type: string
                           type: array
                       type: object
                     type: array
                   hostnames:
-                    description: The hostnames
+                    description: |-
+                      The hostnames.
+                      The hostnames
                     items:
                       items:
                         type: string
@@ -347,7 +380,9 @@ spec:
                   id:
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                 type: object
               conditions:

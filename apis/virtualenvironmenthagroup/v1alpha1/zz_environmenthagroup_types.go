@@ -15,63 +15,79 @@ import (
 
 type EnvironmentHagroupInitParameters struct {
 
+	// (String) The comment associated with this group
 	// The comment associated with this group
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) The identifier of the High Availability group to manage.
 	// The identifier of the High Availability group to manage.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// (Boolean) A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to false.
 	// A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to `false`.
 	NoFailback *bool `json:"noFailback,omitempty" tf:"no_failback,omitempty"`
 
+	// (Map of Number) The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or null for unset priorities.
 	// The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or `null` for unset priorities.
 	// +mapType=granular
 	Nodes map[string]*float64 `json:"nodes,omitempty" tf:"nodes,omitempty"`
 
+	// (Boolean) A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to false.
 	// A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to `false`.
 	Restricted *bool `json:"restricted,omitempty" tf:"restricted,omitempty"`
 }
 
 type EnvironmentHagroupObservation struct {
 
+	// (String) The comment associated with this group
 	// The comment associated with this group
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) The identifier of the High Availability group to manage.
 	// The identifier of the High Availability group to manage.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// (String) The unique identifier of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Boolean) A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to false.
 	// A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to `false`.
 	NoFailback *bool `json:"noFailback,omitempty" tf:"no_failback,omitempty"`
 
+	// (Map of Number) The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or null for unset priorities.
 	// The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or `null` for unset priorities.
 	// +mapType=granular
 	Nodes map[string]*float64 `json:"nodes,omitempty" tf:"nodes,omitempty"`
 
+	// (Boolean) A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to false.
 	// A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to `false`.
 	Restricted *bool `json:"restricted,omitempty" tf:"restricted,omitempty"`
 }
 
 type EnvironmentHagroupParameters struct {
 
+	// (String) The comment associated with this group
 	// The comment associated with this group
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) The identifier of the High Availability group to manage.
 	// The identifier of the High Availability group to manage.
 	// +kubebuilder:validation:Optional
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// (Boolean) A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to false.
 	// A flag that indicates that failing back to a higher priority node is disabled for this HA group. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	NoFailback *bool `json:"noFailback,omitempty" tf:"no_failback,omitempty"`
 
+	// (Map of Number) The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or null for unset priorities.
 	// The member nodes for this group. They are provided as a map, where the keys are the node names and the values represent their priority: integers for known priorities or `null` for unset priorities.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Nodes map[string]*float64 `json:"nodes,omitempty" tf:"nodes,omitempty"`
 
+	// (Boolean) A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to false.
 	// A flag that indicates that other nodes may not be used to run resources associated to this HA group. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Restricted *bool `json:"restricted,omitempty" tf:"restricted,omitempty"`
@@ -104,7 +120,7 @@ type EnvironmentHagroupStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentHagroup is the Schema for the EnvironmentHagroups API. <no value>
+// EnvironmentHagroup is the Schema for the EnvironmentHagroups API. Manages a High Availability group in a Proxmox VE cluster.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

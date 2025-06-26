@@ -15,38 +15,47 @@ import (
 
 type ACLInitParameters struct {
 
+	// The path.
 	// The path
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Whether to propagate to child paths.
 	// Whether to propagate to child paths
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// The role identifier.
 	// The role id
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 }
 
 type ACLObservation struct {
 
+	// The path.
 	// The path
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Whether to propagate to child paths.
 	// Whether to propagate to child paths
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// The role identifier.
 	// The role id
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 }
 
 type ACLParameters struct {
 
+	// The path.
 	// The path
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path" tf:"path,omitempty"`
 
+	// Whether to propagate to child paths.
 	// Whether to propagate to child paths
 	// +kubebuilder:validation:Optional
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// The role identifier.
 	// The role id
 	// +kubebuilder:validation:Optional
 	RoleID *string `json:"roleId" tf:"role_id,omitempty"`
@@ -54,120 +63,152 @@ type ACLParameters struct {
 
 type EnvironmentUserInitParameters struct {
 
+	// The access control list (multiple blocks supported).
 	// The access control list
 	ACL []ACLInitParameters `json:"acl,omitempty" tf:"acl,omitempty"`
 
+	// The user comment.
 	// The user comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The user's email address.
 	// The user's email address
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
+	// Whether the user account is enabled.
 	// Whether the user account is enabled
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The user account's expiration date (RFC 3339).
 	// The user account's expiration date
 	ExpirationDate *string `json:"expirationDate,omitempty" tf:"expiration_date,omitempty"`
 
+	// The user's first name.
 	// The user's first name
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
+	// The user's groups.
 	// The user's groups
 	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 
+	// The user's keys.
 	// The user's keys
 	Keys *string `json:"keys,omitempty" tf:"keys,omitempty"`
 
+	// The user's last name.
 	// The user's last name
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
+	// The user's password. Required for PVE or PAM realms.
 	// The user's password
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
+	// The user identifier.
 	// The user id
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type EnvironmentUserObservation struct {
 
+	// The access control list (multiple blocks supported).
 	// The access control list
 	ACL []ACLObservation `json:"acl,omitempty" tf:"acl,omitempty"`
 
+	// The user comment.
 	// The user comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The user's email address.
 	// The user's email address
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
+	// Whether the user account is enabled.
 	// Whether the user account is enabled
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The user account's expiration date (RFC 3339).
 	// The user account's expiration date
 	ExpirationDate *string `json:"expirationDate,omitempty" tf:"expiration_date,omitempty"`
 
+	// The user's first name.
 	// The user's first name
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
+	// The user's groups.
 	// The user's groups
 	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The user's keys.
 	// The user's keys
 	Keys *string `json:"keys,omitempty" tf:"keys,omitempty"`
 
+	// The user's last name.
 	// The user's last name
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
+	// The user identifier.
 	// The user id
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type EnvironmentUserParameters struct {
 
+	// The access control list (multiple blocks supported).
 	// The access control list
 	// +kubebuilder:validation:Optional
 	ACL []ACLParameters `json:"acl,omitempty" tf:"acl,omitempty"`
 
+	// The user comment.
 	// The user comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The user's email address.
 	// The user's email address
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
+	// Whether the user account is enabled.
 	// Whether the user account is enabled
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The user account's expiration date (RFC 3339).
 	// The user account's expiration date
 	// +kubebuilder:validation:Optional
 	ExpirationDate *string `json:"expirationDate,omitempty" tf:"expiration_date,omitempty"`
 
+	// The user's first name.
 	// The user's first name
 	// +kubebuilder:validation:Optional
 	FirstName *string `json:"firstName,omitempty" tf:"first_name,omitempty"`
 
+	// The user's groups.
 	// The user's groups
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 
+	// The user's keys.
 	// The user's keys
 	// +kubebuilder:validation:Optional
 	Keys *string `json:"keys,omitempty" tf:"keys,omitempty"`
 
+	// The user's last name.
 	// The user's last name
 	// +kubebuilder:validation:Optional
 	LastName *string `json:"lastName,omitempty" tf:"last_name,omitempty"`
 
+	// The user's password. Required for PVE or PAM realms.
 	// The user's password
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
+	// The user identifier.
 	// The user id
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
@@ -200,7 +241,7 @@ type EnvironmentUserStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentUser is the Schema for the EnvironmentUsers API. <no value>
+// EnvironmentUser is the Schema for the EnvironmentUsers API. |Manages a user.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -1,0 +1,36 @@
+apiVersion: virtualenvironmentuser.crossplane.io/v1alpha1
+kind: EnvironmentUser
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentuser/v1alpha1/environmentuser
+  labels:
+    testing.upbound.io/example-name: operations_automation
+  name: operations-automation
+spec:
+  forProvider:
+    acl:
+    - path: /vms/1234
+      propagate: true
+      roleId: ${proxmox_virtual_environment_role.operations_monitoring.role_id}
+    comment: Managed by Terraform
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    userId: operations-automation@pve
+
+---
+
+apiVersion: virtualenvironmentrole.crossplane.io/v1alpha1
+kind: EnvironmentRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentuser/v1alpha1/environmentuser
+  labels:
+    testing.upbound.io/example-name: operations_monitoring
+  name: operations-monitoring
+spec:
+  forProvider:
+    privileges:
+    - VM.Monitor
+    roleId: operations-monitoring

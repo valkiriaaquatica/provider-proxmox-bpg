@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentPool is the Schema for the EnvironmentPools API. <no
-          value>
+        description: EnvironmentPool is the Schema for the EnvironmentPools API. |Manages
+          a resource pool.
         properties:
           apiVersion:
             description: |-
@@ -74,10 +74,14 @@ spec:
               forProvider:
                 properties:
                   comment:
-                    description: The pool comment
+                    description: |-
+                      The pool comment.
+                      The pool comment
                     type: string
                   poolId:
-                    description: The pool id
+                    description: |-
+                      The pool identifier.
+                      The pool id
                     type: string
                 type: object
               initProvider:
@@ -94,10 +98,14 @@ spec:
                   autoscaler.
                 properties:
                   comment:
-                    description: The pool comment
+                    description: |-
+                      The pool comment.
+                      The pool comment
                     type: string
                   poolId:
-                    description: The pool id
+                    description: |-
+                      The pool identifier.
+                      The pool id
                     type: string
                 type: object
               managementPolicies:
@@ -278,28 +286,40 @@ spec:
               atProvider:
                 properties:
                   comment:
-                    description: The pool comment
+                    description: |-
+                      The pool comment.
+                      The pool comment
                     type: string
                   id:
+                    description: The member identifier.
                     type: string
                   members:
-                    description: The pool members
+                    description: |-
+                      The pool members.
+                      The pool members
                     items:
                       properties:
                         datastoreId:
+                          description: The datastore identifier.
                           type: string
                         id:
+                          description: The member identifier.
                           type: string
                         nodeName:
+                          description: The node name.
                           type: string
                         type:
+                          description: The member type.
                           type: string
                         vmId:
+                          description: The virtual machine identifier.
                           type: number
                       type: object
                     type: array
                   poolId:
-                    description: The pool id
+                    description: |-
+                      The pool identifier.
+                      The pool id
                     type: string
                 type: object
               conditions:

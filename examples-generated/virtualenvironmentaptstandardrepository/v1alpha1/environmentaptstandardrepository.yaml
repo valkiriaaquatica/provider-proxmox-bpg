@@ -1,0 +1,29 @@
+apiVersion: virtualenvironmentaptstandardrepository.crossplane.io/v1alpha1
+kind: EnvironmentAptStandardRepository
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentaptstandardrepository/v1alpha1/environmentaptstandardrepository
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    handle: no-subscription
+    node: pve
+
+---
+
+apiVersion: virtualenvironmentaptrepository.crossplane.io/v1alpha1
+kind: EnvironmentAptRepository
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentaptstandardrepository/v1alpha1/environmentaptstandardrepository
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    enabled: true
+    filePath: ${proxmox_virtual_environment_apt_standard_repository.example.file_path}
+    index: ${proxmox_virtual_environment_apt_standard_repository.example.index}
+    node: pve

@@ -15,40 +15,49 @@ import (
 
 type EnvironmentDNSInitParameters struct {
 
+	// The DNS search domain.
 	// The DNS search domain
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The DNS servers.
 	// The DNS servers
 	Servers []*string `json:"servers,omitempty" tf:"servers,omitempty"`
 }
 
 type EnvironmentDNSObservation struct {
 
+	// The DNS search domain.
 	// The DNS search domain
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The DNS servers.
 	// The DNS servers
 	Servers []*string `json:"servers,omitempty" tf:"servers,omitempty"`
 }
 
 type EnvironmentDNSParameters struct {
 
+	// The DNS search domain.
 	// The DNS search domain
 	// +kubebuilder:validation:Optional
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
+	// A node name.
 	// The node name
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The DNS servers.
 	// The DNS servers
 	// +kubebuilder:validation:Optional
 	Servers []*string `json:"servers,omitempty" tf:"servers,omitempty"`
@@ -81,7 +90,7 @@ type EnvironmentDNSStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentDNS is the Schema for the EnvironmentDNSs API. <no value>
+// EnvironmentDNS is the Schema for the EnvironmentDNSs API. |Manages the DNS configuration for a specific node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

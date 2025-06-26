@@ -35,7 +35,9 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallAlias is the Schema for the EnvironmentFirewallAliass
-          API. <no value>
+          API. |Aliases are used to see what devices or group of devices are affected
+          by a rule. We can create aliases to identify an IP address or a network.
+          Aliases can be created on the cluster level, on VM / Container level.
         properties:
           apiVersion:
             description: |-
@@ -75,22 +77,34 @@ spec:
               forProvider:
                 properties:
                   cidr:
-                    description: IP/CIDR block
+                    description: |-
+                      Network/IP specification in CIDR format.
+                      IP/CIDR block
                     type: string
                   comment:
-                    description: Alias comment
+                    description: |-
+                      Alias comment.
+                      Alias comment
                     type: string
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   name:
-                    description: Alias name
+                    description: |-
+                      Alias name.
+                      Alias name
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level aliases.
+                      The name of the node.
                     type: string
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               initProvider:
@@ -107,22 +121,34 @@ spec:
                   autoscaler.
                 properties:
                   cidr:
-                    description: IP/CIDR block
+                    description: |-
+                      Network/IP specification in CIDR format.
+                      IP/CIDR block
                     type: string
                   comment:
-                    description: Alias comment
+                    description: |-
+                      Alias comment.
+                      Alias comment
                     type: string
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   name:
-                    description: Alias name
+                    description: |-
+                      Alias name.
+                      Alias name
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level aliases.
+                      The name of the node.
                     type: string
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               managementPolicies:
@@ -308,24 +334,36 @@ spec:
               atProvider:
                 properties:
                   cidr:
-                    description: IP/CIDR block
+                    description: |-
+                      Network/IP specification in CIDR format.
+                      IP/CIDR block
                     type: string
                   comment:
-                    description: Alias comment
+                    description: |-
+                      Alias comment.
+                      Alias comment
                     type: string
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   id:
                     type: string
                   name:
-                    description: Alias name
+                    description: |-
+                      Alias name.
+                      Alias name
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level aliases.
+                      The name of the node.
                     type: string
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               conditions:

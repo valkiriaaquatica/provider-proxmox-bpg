@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentClusterFirewall is the Schema for the EnvironmentClusterFirewalls
-          API. <no value>
+          API. |Manages firewall options on the cluster level.
         properties:
           apiVersion:
             description: |-
@@ -75,33 +75,49 @@ spec:
               forProvider:
                 properties:
                   ebtables:
-                    description: Enable ebtables cluster-wide
+                    description: |-
+                      Enable ebtables rules cluster wide.
+                      Enable ebtables cluster-wide
                     type: boolean
                   enabled:
-                    description: Enable or disable the firewall cluster-wide
+                    description: |-
+                      Enable or disable the firewall cluster wide.
+                      Enable or disable the firewall cluster-wide
                     type: boolean
                   inputPolicy:
-                    description: Default policy for incoming traffic
+                    description: |-
+                      The default input policy (ACCEPT, DROP, REJECT).
+                      Default policy for incoming traffic
                     type: string
                   logRatelimit:
-                    description: Log ratelimiting settings
+                    description: |-
+                      The log rate limit.
+                      Log ratelimiting settings
                     items:
                       properties:
                         burst:
-                          description: Initial burst of packages which will always
-                            get logged before the rate is applied
+                          description: |-
+                            Initial burst of packages which will always get
+                            logged before the rate is applied (defaults to 5).
+                            Initial burst of packages which will always get logged before the rate is applied
                           type: number
                         enabled:
-                          description: Enable or disable log ratelimiting
+                          description: |-
+                            Enable or disable the firewall cluster wide.
+                            Enable or disable log ratelimiting
                           type: boolean
                         rate:
-                          description: Frequency with which the burst bucket gets
-                            refilled
+                          description: |-
+                            Frequency with which the burst bucket gets refilled
+                            (defaults to 1/second).
+                            Frequency with which the burst bucket gets refilled
                           type: string
                       type: object
                     type: array
                   outputPolicy:
-                    description: Default policy for outgoing traffic
+                    description: |-
+                      The default output policy (ACCEPT, DROP, REJECT).
+                      Default policy for outgoing traffic
                     type: string
                 type: object
               initProvider:
@@ -118,33 +134,49 @@ spec:
                   autoscaler.
                 properties:
                   ebtables:
-                    description: Enable ebtables cluster-wide
+                    description: |-
+                      Enable ebtables rules cluster wide.
+                      Enable ebtables cluster-wide
                     type: boolean
                   enabled:
-                    description: Enable or disable the firewall cluster-wide
+                    description: |-
+                      Enable or disable the firewall cluster wide.
+                      Enable or disable the firewall cluster-wide
                     type: boolean
                   inputPolicy:
-                    description: Default policy for incoming traffic
+                    description: |-
+                      The default input policy (ACCEPT, DROP, REJECT).
+                      Default policy for incoming traffic
                     type: string
                   logRatelimit:
-                    description: Log ratelimiting settings
+                    description: |-
+                      The log rate limit.
+                      Log ratelimiting settings
                     items:
                       properties:
                         burst:
-                          description: Initial burst of packages which will always
-                            get logged before the rate is applied
+                          description: |-
+                            Initial burst of packages which will always get
+                            logged before the rate is applied (defaults to 5).
+                            Initial burst of packages which will always get logged before the rate is applied
                           type: number
                         enabled:
-                          description: Enable or disable log ratelimiting
+                          description: |-
+                            Enable or disable the firewall cluster wide.
+                            Enable or disable log ratelimiting
                           type: boolean
                         rate:
-                          description: Frequency with which the burst bucket gets
-                            refilled
+                          description: |-
+                            Frequency with which the burst bucket gets refilled
+                            (defaults to 1/second).
+                            Frequency with which the burst bucket gets refilled
                           type: string
                       type: object
                     type: array
                   outputPolicy:
-                    description: Default policy for outgoing traffic
+                    description: |-
+                      The default output policy (ACCEPT, DROP, REJECT).
+                      Default policy for outgoing traffic
                     type: string
                 type: object
               managementPolicies:
@@ -321,35 +353,51 @@ spec:
               atProvider:
                 properties:
                   ebtables:
-                    description: Enable ebtables cluster-wide
+                    description: |-
+                      Enable ebtables rules cluster wide.
+                      Enable ebtables cluster-wide
                     type: boolean
                   enabled:
-                    description: Enable or disable the firewall cluster-wide
+                    description: |-
+                      Enable or disable the firewall cluster wide.
+                      Enable or disable the firewall cluster-wide
                     type: boolean
                   id:
                     type: string
                   inputPolicy:
-                    description: Default policy for incoming traffic
+                    description: |-
+                      The default input policy (ACCEPT, DROP, REJECT).
+                      Default policy for incoming traffic
                     type: string
                   logRatelimit:
-                    description: Log ratelimiting settings
+                    description: |-
+                      The log rate limit.
+                      Log ratelimiting settings
                     items:
                       properties:
                         burst:
-                          description: Initial burst of packages which will always
-                            get logged before the rate is applied
+                          description: |-
+                            Initial burst of packages which will always get
+                            logged before the rate is applied (defaults to 5).
+                            Initial burst of packages which will always get logged before the rate is applied
                           type: number
                         enabled:
-                          description: Enable or disable log ratelimiting
+                          description: |-
+                            Enable or disable the firewall cluster wide.
+                            Enable or disable log ratelimiting
                           type: boolean
                         rate:
-                          description: Frequency with which the burst bucket gets
-                            refilled
+                          description: |-
+                            Frequency with which the burst bucket gets refilled
+                            (defaults to 1/second).
+                            Frequency with which the burst bucket gets refilled
                           type: string
                       type: object
                     type: array
                   outputPolicy:
-                    description: Default policy for outgoing traffic
+                    description: |-
+                      The default output policy (ACCEPT, DROP, REJECT).
+                      Default policy for outgoing traffic
                     type: string
                 type: object
               conditions:

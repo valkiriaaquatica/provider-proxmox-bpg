@@ -15,167 +15,215 @@ import (
 
 type EnvironmentMetricsServerInitParameters struct {
 
+	// (Boolean) Set this to true to disable this metric server.
 	// Set this to `true` to disable this metric server.
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
+	// (String) Root graphite path (ex: proxmox.mycluster.mykey).
 	// Root graphite path (ex: `proxmox.mycluster.mykey`).
 	GraphitePath *string `json:"graphitePath,omitempty" tf:"graphite_path,omitempty"`
 
+	// (String) Protocol to send graphite data. Choice is between udp | tcp. If not set, PVE default is udp.
 	// Protocol to send graphite data. Choice is between `udp` | `tcp`. If not set, PVE default is `udp`.
 	GraphiteProto *string `json:"graphiteProto,omitempty" tf:"graphite_proto,omitempty"`
 
+	// (String) An API path prefix inserted between <host>:<port>/ and /api2/. Can be useful if the InfluxDB service runs behind a reverse proxy.
 	// An API path prefix inserted between `<host>:<port>/` and `/api2/`. Can be useful if the InfluxDB service runs behind a reverse proxy.
 	InfluxAPIPathPrefix *string `json:"influxApiPathPrefix,omitempty" tf:"influx_api_path_prefix,omitempty"`
 
+	// (String) The InfluxDB bucket/db. Only necessary when using the http v2 api.
 	// The InfluxDB bucket/db. Only necessary when using the http v2 api.
 	InfluxBucket *string `json:"influxBucket,omitempty" tf:"influx_bucket,omitempty"`
 
+	// (String) Protocol for InfluxDB. Choice is between udp | http | https. If not set, PVE default is udp.
 	// Protocol for InfluxDB. Choice is between `udp` | `http` | `https`. If not set, PVE default is `udp`.
 	InfluxDBProto *string `json:"influxDbProto,omitempty" tf:"influx_db_proto,omitempty"`
 
+	// body-size in bytes. Requests are batched up to this size. If not set, PVE default is 25000000.
 	// InfluxDB max-body-size in bytes. Requests are batched up to this size. If not set, PVE default is `25000000`.
 	InfluxMaxBodySize *float64 `json:"influxMaxBodySize,omitempty" tf:"influx_max_body_size,omitempty"`
 
+	// (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	// The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	InfluxOrganization *string `json:"influxOrganization,omitempty" tf:"influx_organization,omitempty"`
 
+	// (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
 	// The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
 	InfluxTokenSecretRef *v1.SecretKeySelector `json:"influxTokenSecretRef,omitempty" tf:"-"`
 
+	// (Boolean) Set to false to disable certificate verification for https endpoints.
 	// Set to `false` to disable certificate verification for https endpoints.
 	InfluxVerify *bool `json:"influxVerify,omitempty" tf:"influx_verify,omitempty"`
 
+	// 65536).
 	// MTU (maximum transmission unit) for metrics transmission over UDP. If not set, PVE default is `1500` (allowed `512` - `65536`).
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// (String) Unique name that will be ID of this metric server in PVE.
 	// Unique name that will be ID of this metric server in PVE.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Number) Server network port.
 	// Server network port.
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
 
+	// (String) Server dns name or IP address.
 	// Server dns name or IP address.
 	Server *string `json:"server,omitempty" tf:"server,omitempty"`
 
+	// (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
 	// TCP socket timeout in seconds. If not set, PVE default is `1`.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
+	// (String) Plugin type. Choice is between graphite | influxdb.
 	// Plugin type. Choice is between `graphite` | `influxdb`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EnvironmentMetricsServerObservation struct {
 
+	// (Boolean) Set this to true to disable this metric server.
 	// Set this to `true` to disable this metric server.
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
+	// (String) Root graphite path (ex: proxmox.mycluster.mykey).
 	// Root graphite path (ex: `proxmox.mycluster.mykey`).
 	GraphitePath *string `json:"graphitePath,omitempty" tf:"graphite_path,omitempty"`
 
+	// (String) Protocol to send graphite data. Choice is between udp | tcp. If not set, PVE default is udp.
 	// Protocol to send graphite data. Choice is between `udp` | `tcp`. If not set, PVE default is `udp`.
 	GraphiteProto *string `json:"graphiteProto,omitempty" tf:"graphite_proto,omitempty"`
 
+	// (String) The unique identifier of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) An API path prefix inserted between <host>:<port>/ and /api2/. Can be useful if the InfluxDB service runs behind a reverse proxy.
 	// An API path prefix inserted between `<host>:<port>/` and `/api2/`. Can be useful if the InfluxDB service runs behind a reverse proxy.
 	InfluxAPIPathPrefix *string `json:"influxApiPathPrefix,omitempty" tf:"influx_api_path_prefix,omitempty"`
 
+	// (String) The InfluxDB bucket/db. Only necessary when using the http v2 api.
 	// The InfluxDB bucket/db. Only necessary when using the http v2 api.
 	InfluxBucket *string `json:"influxBucket,omitempty" tf:"influx_bucket,omitempty"`
 
+	// (String) Protocol for InfluxDB. Choice is between udp | http | https. If not set, PVE default is udp.
 	// Protocol for InfluxDB. Choice is between `udp` | `http` | `https`. If not set, PVE default is `udp`.
 	InfluxDBProto *string `json:"influxDbProto,omitempty" tf:"influx_db_proto,omitempty"`
 
+	// body-size in bytes. Requests are batched up to this size. If not set, PVE default is 25000000.
 	// InfluxDB max-body-size in bytes. Requests are batched up to this size. If not set, PVE default is `25000000`.
 	InfluxMaxBodySize *float64 `json:"influxMaxBodySize,omitempty" tf:"influx_max_body_size,omitempty"`
 
+	// (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	// The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	InfluxOrganization *string `json:"influxOrganization,omitempty" tf:"influx_organization,omitempty"`
 
+	// (Boolean) Set to false to disable certificate verification for https endpoints.
 	// Set to `false` to disable certificate verification for https endpoints.
 	InfluxVerify *bool `json:"influxVerify,omitempty" tf:"influx_verify,omitempty"`
 
+	// 65536).
 	// MTU (maximum transmission unit) for metrics transmission over UDP. If not set, PVE default is `1500` (allowed `512` - `65536`).
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// (String) Unique name that will be ID of this metric server in PVE.
 	// Unique name that will be ID of this metric server in PVE.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Number) Server network port.
 	// Server network port.
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
 
+	// (String) Server dns name or IP address.
 	// Server dns name or IP address.
 	Server *string `json:"server,omitempty" tf:"server,omitempty"`
 
+	// (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
 	// TCP socket timeout in seconds. If not set, PVE default is `1`.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
+	// (String) Plugin type. Choice is between graphite | influxdb.
 	// Plugin type. Choice is between `graphite` | `influxdb`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EnvironmentMetricsServerParameters struct {
 
+	// (Boolean) Set this to true to disable this metric server.
 	// Set this to `true` to disable this metric server.
 	// +kubebuilder:validation:Optional
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
+	// (String) Root graphite path (ex: proxmox.mycluster.mykey).
 	// Root graphite path (ex: `proxmox.mycluster.mykey`).
 	// +kubebuilder:validation:Optional
 	GraphitePath *string `json:"graphitePath,omitempty" tf:"graphite_path,omitempty"`
 
+	// (String) Protocol to send graphite data. Choice is between udp | tcp. If not set, PVE default is udp.
 	// Protocol to send graphite data. Choice is between `udp` | `tcp`. If not set, PVE default is `udp`.
 	// +kubebuilder:validation:Optional
 	GraphiteProto *string `json:"graphiteProto,omitempty" tf:"graphite_proto,omitempty"`
 
+	// (String) An API path prefix inserted between <host>:<port>/ and /api2/. Can be useful if the InfluxDB service runs behind a reverse proxy.
 	// An API path prefix inserted between `<host>:<port>/` and `/api2/`. Can be useful if the InfluxDB service runs behind a reverse proxy.
 	// +kubebuilder:validation:Optional
 	InfluxAPIPathPrefix *string `json:"influxApiPathPrefix,omitempty" tf:"influx_api_path_prefix,omitempty"`
 
+	// (String) The InfluxDB bucket/db. Only necessary when using the http v2 api.
 	// The InfluxDB bucket/db. Only necessary when using the http v2 api.
 	// +kubebuilder:validation:Optional
 	InfluxBucket *string `json:"influxBucket,omitempty" tf:"influx_bucket,omitempty"`
 
+	// (String) Protocol for InfluxDB. Choice is between udp | http | https. If not set, PVE default is udp.
 	// Protocol for InfluxDB. Choice is between `udp` | `http` | `https`. If not set, PVE default is `udp`.
 	// +kubebuilder:validation:Optional
 	InfluxDBProto *string `json:"influxDbProto,omitempty" tf:"influx_db_proto,omitempty"`
 
+	// body-size in bytes. Requests are batched up to this size. If not set, PVE default is 25000000.
 	// InfluxDB max-body-size in bytes. Requests are batched up to this size. If not set, PVE default is `25000000`.
 	// +kubebuilder:validation:Optional
 	InfluxMaxBodySize *float64 `json:"influxMaxBodySize,omitempty" tf:"influx_max_body_size,omitempty"`
 
+	// (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	// The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	// +kubebuilder:validation:Optional
 	InfluxOrganization *string `json:"influxOrganization,omitempty" tf:"influx_organization,omitempty"`
 
+	// (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
 	// The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
 	// +kubebuilder:validation:Optional
 	InfluxTokenSecretRef *v1.SecretKeySelector `json:"influxTokenSecretRef,omitempty" tf:"-"`
 
+	// (Boolean) Set to false to disable certificate verification for https endpoints.
 	// Set to `false` to disable certificate verification for https endpoints.
 	// +kubebuilder:validation:Optional
 	InfluxVerify *bool `json:"influxVerify,omitempty" tf:"influx_verify,omitempty"`
 
+	// 65536).
 	// MTU (maximum transmission unit) for metrics transmission over UDP. If not set, PVE default is `1500` (allowed `512` - `65536`).
 	// +kubebuilder:validation:Optional
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
+	// (String) Unique name that will be ID of this metric server in PVE.
 	// Unique name that will be ID of this metric server in PVE.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Number) Server network port.
 	// Server network port.
 	// +kubebuilder:validation:Optional
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
 
+	// (String) Server dns name or IP address.
 	// Server dns name or IP address.
 	// +kubebuilder:validation:Optional
 	Server *string `json:"server,omitempty" tf:"server,omitempty"`
 
+	// (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
 	// TCP socket timeout in seconds. If not set, PVE default is `1`.
 	// +kubebuilder:validation:Optional
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
+	// (String) Plugin type. Choice is between graphite | influxdb.
 	// Plugin type. Choice is between `graphite` | `influxdb`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -208,7 +256,7 @@ type EnvironmentMetricsServerStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentMetricsServer is the Schema for the EnvironmentMetricsServers API. <no value>
+// EnvironmentMetricsServer is the Schema for the EnvironmentMetricsServers API. Manages PVE metrics server.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

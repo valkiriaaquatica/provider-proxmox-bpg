@@ -34,8 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentFile is the Schema for the EnvironmentFiles API. <no
-          value>
+        description: EnvironmentFile is the Schema for the EnvironmentFiles API. |Use
+          this resource to upload files to a Proxmox VE node. The file can be a backup,
+          an ISO image, a snippet, or a container template depending on the content_type
+          attribute.
         properties:
           apiVersion:
             description: |-
@@ -74,25 +76,38 @@ spec:
               forProvider:
                 properties:
                   contentType:
-                    description: The content type
+                    description: |-
+                      The content type. If not specified, the content
+                      type will be inferred from the file extension. Valid values are:
+                      The content type
                     type: string
                   datastoreId:
-                    description: The datastore id
+                    description: |-
+                      The datastore id.
+                      The datastore id
                     type: string
                   fileMode:
-                    description: The file mode in octal format, e.g. "0700" or "600".Note
-                      that the prefixes "0o" and "0x" are not supported!Setting this
-                      attribute is also only allowed for "root@pam" authenticated
-                      user.
+                    description: |-
+                      The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
+                      The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      The node name.
+                      The node name
                     type: string
                   overwrite:
-                    description: Whether to overwrite the file if it already exists
+                    description: |-
+                      Whether to overwrite an existing file (defaults to
+                      true).
+                      Whether to overwrite the file if it already exists
                     type: boolean
                   sourceFile:
-                    description: The source file
+                    description: |-
+                      The source file (conflicts with source_raw),
+                      could be a local file or a URL. If the source file is a URL, the file will
+                      be downloaded and stored locally before uploading it to Proxmox VE.
+                      The source file
                     items:
                       properties:
                         changed:
@@ -100,43 +115,66 @@ spec:
                             last run
                           type: boolean
                         checksum:
-                          description: The SHA256 checksum of the source file
+                          description: |-
+                            The SHA256 checksum of the source file.
+                            The SHA256 checksum of the source file
                           type: string
                         fileName:
-                          description: The file name to use instead of the source
-                            file name
+                          description: |-
+                            The file name to use instead of the source file
+                            name. Useful when the source file does not have a valid file extension,
+                            for example when the source file is a URL referencing a .qcow2 image.
+                            The file name to use instead of the source file name
                           type: string
                         insecure:
-                          description: Whether to skip the TLS verification step for
-                            HTTPS sources
+                          description: |-
+                            Whether to skip the TLS verification step for
+                            HTTPS sources (defaults to false).
+                            Whether to skip the TLS verification step for HTTPS sources
                           type: boolean
                         minTls:
-                          description: 'The minimum required TLS version for HTTPS
-                            sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults
-                            to `1.3`.'
+                          description: |-
+                            The minimum required TLS version for HTTPS
+                            sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
+                            The minimum required TLS version for HTTPS sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults to `1.3`.
                           type: string
                         path:
-                          description: A path to a local file or a URL
+                          description: |-
+                            A path to a local file or a URL.
+                            A path to a local file or a URL
                           type: string
                       type: object
                     type: array
                   sourceRaw:
-                    description: The raw source
+                    description: |-
+                      The raw source (conflicts with source_file).
+                      The raw source
                     items:
                       properties:
                         data:
-                          description: The raw data
+                          description: |-
+                            The raw data.
+                            The raw data
                           type: string
                         fileName:
-                          description: The file name
+                          description: |-
+                            The file name to use instead of the source file
+                            name. Useful when the source file does not have a valid file extension,
+                            for example when the source file is a URL referencing a .qcow2 image.
+                            The file name
                           type: string
                         resize:
-                          description: The number of bytes to resize the file to
+                          description: |-
+                            The number of bytes to resize the file to.
+                            The number of bytes to resize the file to
                           type: number
                       type: object
                     type: array
                   timeoutUpload:
-                    description: Timeout for uploading ISO/VSTMPL files in seconds
+                    description: |-
+                      Timeout for uploading ISO/VSTMPL files in
+                      seconds (defaults to 1800).
+                      Timeout for uploading ISO/VSTMPL files in seconds
                     type: number
                 type: object
               initProvider:
@@ -153,25 +191,38 @@ spec:
                   autoscaler.
                 properties:
                   contentType:
-                    description: The content type
+                    description: |-
+                      The content type. If not specified, the content
+                      type will be inferred from the file extension. Valid values are:
+                      The content type
                     type: string
                   datastoreId:
-                    description: The datastore id
+                    description: |-
+                      The datastore id.
+                      The datastore id
                     type: string
                   fileMode:
-                    description: The file mode in octal format, e.g. "0700" or "600".Note
-                      that the prefixes "0o" and "0x" are not supported!Setting this
-                      attribute is also only allowed for "root@pam" authenticated
-                      user.
+                    description: |-
+                      The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
+                      The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      The node name.
+                      The node name
                     type: string
                   overwrite:
-                    description: Whether to overwrite the file if it already exists
+                    description: |-
+                      Whether to overwrite an existing file (defaults to
+                      true).
+                      Whether to overwrite the file if it already exists
                     type: boolean
                   sourceFile:
-                    description: The source file
+                    description: |-
+                      The source file (conflicts with source_raw),
+                      could be a local file or a URL. If the source file is a URL, the file will
+                      be downloaded and stored locally before uploading it to Proxmox VE.
+                      The source file
                     items:
                       properties:
                         changed:
@@ -179,43 +230,66 @@ spec:
                             last run
                           type: boolean
                         checksum:
-                          description: The SHA256 checksum of the source file
+                          description: |-
+                            The SHA256 checksum of the source file.
+                            The SHA256 checksum of the source file
                           type: string
                         fileName:
-                          description: The file name to use instead of the source
-                            file name
+                          description: |-
+                            The file name to use instead of the source file
+                            name. Useful when the source file does not have a valid file extension,
+                            for example when the source file is a URL referencing a .qcow2 image.
+                            The file name to use instead of the source file name
                           type: string
                         insecure:
-                          description: Whether to skip the TLS verification step for
-                            HTTPS sources
+                          description: |-
+                            Whether to skip the TLS verification step for
+                            HTTPS sources (defaults to false).
+                            Whether to skip the TLS verification step for HTTPS sources
                           type: boolean
                         minTls:
-                          description: 'The minimum required TLS version for HTTPS
-                            sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults
-                            to `1.3`.'
+                          description: |-
+                            The minimum required TLS version for HTTPS
+                            sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
+                            The minimum required TLS version for HTTPS sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults to `1.3`.
                           type: string
                         path:
-                          description: A path to a local file or a URL
+                          description: |-
+                            A path to a local file or a URL.
+                            A path to a local file or a URL
                           type: string
                       type: object
                     type: array
                   sourceRaw:
-                    description: The raw source
+                    description: |-
+                      The raw source (conflicts with source_file).
+                      The raw source
                     items:
                       properties:
                         data:
-                          description: The raw data
+                          description: |-
+                            The raw data.
+                            The raw data
                           type: string
                         fileName:
-                          description: The file name
+                          description: |-
+                            The file name to use instead of the source file
+                            name. Useful when the source file does not have a valid file extension,
+                            for example when the source file is a URL referencing a .qcow2 image.
+                            The file name
                           type: string
                         resize:
-                          description: The number of bytes to resize the file to
+                          description: |-
+                            The number of bytes to resize the file to.
+                            The number of bytes to resize the file to
                           type: number
                       type: object
                     type: array
                   timeoutUpload:
-                    description: Timeout for uploading ISO/VSTMPL files in seconds
+                    description: |-
+                      Timeout for uploading ISO/VSTMPL files in
+                      seconds (defaults to 1800).
+                      Timeout for uploading ISO/VSTMPL files in seconds
                     type: number
                 type: object
               managementPolicies:
@@ -400,39 +474,62 @@ spec:
               atProvider:
                 properties:
                   contentType:
-                    description: The content type
+                    description: |-
+                      The content type. If not specified, the content
+                      type will be inferred from the file extension. Valid values are:
+                      The content type
                     type: string
                   datastoreId:
-                    description: The datastore id
+                    description: |-
+                      The datastore id.
+                      The datastore id
                     type: string
                   fileMode:
-                    description: The file mode in octal format, e.g. "0700" or "600".Note
-                      that the prefixes "0o" and "0x" are not supported!Setting this
-                      attribute is also only allowed for "root@pam" authenticated
-                      user.
+                    description: |-
+                      The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
+                      The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
                     type: string
                   fileModificationDate:
-                    description: The file modification date
+                    description: |-
+                      The file modification date (RFC 3339).
+                      The file modification date
                     type: string
                   fileName:
-                    description: The file name
+                    description: |-
+                      The file name to use instead of the source file
+                      name. Useful when the source file does not have a valid file extension,
+                      for example when the source file is a URL referencing a .qcow2 image.
+                      The file name
                     type: string
                   fileSize:
-                    description: The file size in bytes
+                    description: |-
+                      The file size in bytes.
+                      The file size in bytes
                     type: number
                   fileTag:
-                    description: The file tag
+                    description: |-
+                      The file tag.
+                      The file tag
                     type: string
                   id:
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      The node name.
+                      The node name
                     type: string
                   overwrite:
-                    description: Whether to overwrite the file if it already exists
+                    description: |-
+                      Whether to overwrite an existing file (defaults to
+                      true).
+                      Whether to overwrite the file if it already exists
                     type: boolean
                   sourceFile:
-                    description: The source file
+                    description: |-
+                      The source file (conflicts with source_raw),
+                      could be a local file or a URL. If the source file is a URL, the file will
+                      be downloaded and stored locally before uploading it to Proxmox VE.
+                      The source file
                     items:
                       properties:
                         changed:
@@ -440,43 +537,66 @@ spec:
                             last run
                           type: boolean
                         checksum:
-                          description: The SHA256 checksum of the source file
+                          description: |-
+                            The SHA256 checksum of the source file.
+                            The SHA256 checksum of the source file
                           type: string
                         fileName:
-                          description: The file name to use instead of the source
-                            file name
+                          description: |-
+                            The file name to use instead of the source file
+                            name. Useful when the source file does not have a valid file extension,
+                            for example when the source file is a URL referencing a .qcow2 image.
+                            The file name to use instead of the source file name
                           type: string
                         insecure:
-                          description: Whether to skip the TLS verification step for
-                            HTTPS sources
+                          description: |-
+                            Whether to skip the TLS verification step for
+                            HTTPS sources (defaults to false).
+                            Whether to skip the TLS verification step for HTTPS sources
                           type: boolean
                         minTls:
-                          description: 'The minimum required TLS version for HTTPS
-                            sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults
-                            to `1.3`.'
+                          description: |-
+                            The minimum required TLS version for HTTPS
+                            sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
+                            The minimum required TLS version for HTTPS sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults to `1.3`.
                           type: string
                         path:
-                          description: A path to a local file or a URL
+                          description: |-
+                            A path to a local file or a URL.
+                            A path to a local file or a URL
                           type: string
                       type: object
                     type: array
                   sourceRaw:
-                    description: The raw source
+                    description: |-
+                      The raw source (conflicts with source_file).
+                      The raw source
                     items:
                       properties:
                         data:
-                          description: The raw data
+                          description: |-
+                            The raw data.
+                            The raw data
                           type: string
                         fileName:
-                          description: The file name
+                          description: |-
+                            The file name to use instead of the source file
+                            name. Useful when the source file does not have a valid file extension,
+                            for example when the source file is a URL referencing a .qcow2 image.
+                            The file name
                           type: string
                         resize:
-                          description: The number of bytes to resize the file to
+                          description: |-
+                            The number of bytes to resize the file to.
+                            The number of bytes to resize the file to
                           type: number
                       type: object
                     type: array
                   timeoutUpload:
-                    description: Timeout for uploading ISO/VSTMPL files in seconds
+                    description: |-
+                      Timeout for uploading ISO/VSTMPL files in
+                      seconds (defaults to 1800).
+                      Timeout for uploading ISO/VSTMPL files in seconds
                     type: number
                 type: object
               conditions:

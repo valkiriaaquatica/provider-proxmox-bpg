@@ -145,6 +145,11 @@ jobs:
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
+      - name: Run pre-make-generate patch
+        run: |
+          chmod +x ./pre-make-generate.sh
+          ./pre-make-generate.sh
+
       - name: Check Diff
         run: make check-diff
 

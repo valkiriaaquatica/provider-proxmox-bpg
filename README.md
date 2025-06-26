@@ -23,11 +23,18 @@ spec:
 EOF
 ```
 
+
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
 You can see the API reference [here](https://doc.crds.dev/github.com/valkiriaaquatica/provider-proxmox-bpg)
 
 ## Developing
+
+### Fix for the make generate
+When applying the make generate that does automatically docs, it pulls the /docs from the Terraform provider. As it's a know issue that can be found in other providers (see e.g: https://github.com/crossplane-contrib/provider-confluent?tab=readme-ov-file#getting-started) we need to fix the README.md as for the moment it's a walkaround to skip this error: ../.work/bpg/proxmox/docs/resources/virtual_environment_acl.md: failed to find the prelude of the document using the xpath expressions: //text()[contains(., "description") and contains(., "page_title")". To fix it we need to do the following:
+
+
+
 
 If you have devbox or want to work with it, it makes life easier for packages like go, do the following:
 ```console
@@ -108,11 +115,8 @@ description: |-
   4. Zip your terraform provider binary and copy the binary and the zip into cluster/images/provider-proxmox-bpg/tempo_image
   5. Comment the line "DD ${TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX}/${TERRAFORM_PROVIDER_DOWNLOAD_NAME}_${TERRAFORM_PROVIDER_VERSION}_${TARGETOS}_${TARGETARCH}.zip /tmp"  in  cluster/images/provider-proxmox-bpg/Dockerfile and add this one: COPY tempo_image/terraform-provider-proxmox_0.78.1_linux_amd64.zip /tmp/   (make sure the version is correct) 
 
-## KNOWN ISSUES
-- On the resources proxmox_virtual_environment_network_linux_vlan+proxmox_virtual_environment_network_linux_bridge  sometimes there is an error that also happens with terraform whe, that is "Could not reload net work configuration on node 'pve', unexpected error" that will make even if the resource its well applied on terraform to be on Synced False and Ready False , that is like "False Negative" because it was well created on Proxmox
 
 ## TODO list:
-  - apply correcctly a virtualenvironmentcertificate
   - proxmox_virtual_environment_cluster_options + proxmox_virtual_environment_hardware_mapping_dir + EnvironmentHardwareMappingPci + proxmox_virtual_environment_hardware_mapping_usb its pending because of error on schema.json asi ssaid in this issue https://github.com/crossplane/upjet/issues/372  when run make generate (this error reports cannot infer type from schema of field map: invalid schema type TypeInvalid)
   - CI publish artifactd and use image
   - virtualenvironmentcertificate,virtualenvironmentdatastores  its not getting get
@@ -120,53 +124,3 @@ description: |-
   - add linting to examples
   - proxmox_virtual_environment_metrics_server  check on the tf provider (see https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go) error unmarshalling json with lists observe failed: cannot run refresh: refresh failed: Unable to Refresh Resou -- pending to test with terraform
 │ rce: An unexpected error occurred while attempting to 
-  - proxmox_virtual_environment_network_linux_bridge  + proxmox_virtual_environment_network_linux_vlan terror when applying "observe failed: cannot set critical annotations: cannot get external name: cannot find id in tfstate" try to change in the provider -- pending to test with terraform  -> ¿¿ check this?? -> using terraform show and test -> test ot bump the upjet to >1-5-0 that do not has the skp fix external name when != id , when not placing externalnem and leaving the repsonability to the tf provider, the problem is that the first tfstate it created it a state with te resourc ebut without the id so thats wrong.
-  The tfstate that should be created after init and just refreshing terraform apply -refresh-only -auto-approve -input=false -lock=false -json  but it is creating th biiger one 
-  {
-  "version": 4,
-  "terraform_version": "1.9.8",
-  "serial": 1,
-  "lineage": "855beeb4-2f45-b7d0-4682-09e670bf79ec",
-  "outputs": {},
-  "resources": [],
-  "check_results": null
-}
-
-
-wrong one 
-{
-  "version": 4,
-  "terraform_version": "1.9.8",
-  "serial": 2,
-  "lineage": "a88587ad-5e67-4acb-96b8-84f103dcc7be",
-  "outputs": {},
-  "resources": [
-    {
-      "mode": "managed",
-      "type": "proxmox_virtual_environment_network_linux_bridge",
-      "name": "vmbr11",
-      "provider": "provider[\"registry.terraform.io/bpg/proxmox\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "address": null,
-            "address6": null,
-            "autostart": null,
-            "comment": null,
-            "gateway": null,
-            "gateway6": null,
-            "id": "",
-            "mtu": null,
-            "name": "vmbr11",
-            "node_name": "pve",
-            "ports": null,
-            "vlan_aware": null
-          },
-          "sensitive_attributes": []
-        }
-      ]
-    }
-  ],
-  "check_results": null
-}

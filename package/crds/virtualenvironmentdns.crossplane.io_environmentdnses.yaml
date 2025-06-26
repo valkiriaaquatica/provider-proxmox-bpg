@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentDNS is the Schema for the EnvironmentDNSs API. <no
-          value>
+        description: EnvironmentDNS is the Schema for the EnvironmentDNSs API. |Manages
+          the DNS configuration for a specific node.
         properties:
           apiVersion:
             description: |-
@@ -74,13 +74,19 @@ spec:
               forProvider:
                 properties:
                   domain:
-                    description: The DNS search domain
+                    description: |-
+                      The DNS search domain.
+                      The DNS search domain
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                   servers:
-                    description: The DNS servers
+                    description: |-
+                      The DNS servers.
+                      The DNS servers
                     items:
                       type: string
                     type: array
@@ -99,13 +105,19 @@ spec:
                   autoscaler.
                 properties:
                   domain:
-                    description: The DNS search domain
+                    description: |-
+                      The DNS search domain.
+                      The DNS search domain
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                   servers:
-                    description: The DNS servers
+                    description: |-
+                      The DNS servers.
+                      The DNS servers
                     items:
                       type: string
                     type: array
@@ -292,15 +304,21 @@ spec:
               atProvider:
                 properties:
                   domain:
-                    description: The DNS search domain
+                    description: |-
+                      The DNS search domain.
+                      The DNS search domain
                     type: string
                   id:
                     type: string
                   nodeName:
-                    description: The node name
+                    description: |-
+                      A node name.
+                      The node name
                     type: string
                   servers:
-                    description: The DNS servers
+                    description: |-
+                      The DNS servers.
+                      The DNS servers
                     items:
                       type: string
                     type: array

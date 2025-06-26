@@ -15,102 +15,147 @@ import (
 
 type EnvironmentFileInitParameters struct {
 
+	// The content type. If not specified, the content
+	// type will be inferred from the file extension. Valid values are:
 	// The content type
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// The datastore id.
 	// The datastore id
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
 	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
 	FileMode *string `json:"fileMode,omitempty" tf:"file_mode,omitempty"`
 
+	// The node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// Whether to overwrite an existing file (defaults to
+	// true).
 	// Whether to overwrite the file if it already exists
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// The source file (conflicts with source_raw),
+	// could be a local file or a URL. If the source file is a URL, the file will
+	// be downloaded and stored locally before uploading it to Proxmox VE.
 	// The source file
 	SourceFile []SourceFileInitParameters `json:"sourceFile,omitempty" tf:"source_file,omitempty"`
 
+	// The raw source (conflicts with source_file).
 	// The raw source
 	SourceRaw []SourceRawInitParameters `json:"sourceRaw,omitempty" tf:"source_raw,omitempty"`
 
+	// Timeout for uploading ISO/VSTMPL files in
+	// seconds (defaults to 1800).
 	// Timeout for uploading ISO/VSTMPL files in seconds
 	TimeoutUpload *float64 `json:"timeoutUpload,omitempty" tf:"timeout_upload,omitempty"`
 }
 
 type EnvironmentFileObservation struct {
 
+	// The content type. If not specified, the content
+	// type will be inferred from the file extension. Valid values are:
 	// The content type
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// The datastore id.
 	// The datastore id
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
 	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
 	FileMode *string `json:"fileMode,omitempty" tf:"file_mode,omitempty"`
 
+	// The file modification date (RFC 3339).
 	// The file modification date
 	FileModificationDate *string `json:"fileModificationDate,omitempty" tf:"file_modification_date,omitempty"`
 
+	// The file name to use instead of the source file
+	// name. Useful when the source file does not have a valid file extension,
+	// for example when the source file is a URL referencing a .qcow2 image.
 	// The file name
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// The file size in bytes.
 	// The file size in bytes
 	FileSize *float64 `json:"fileSize,omitempty" tf:"file_size,omitempty"`
 
+	// The file tag.
 	// The file tag
 	FileTag *string `json:"fileTag,omitempty" tf:"file_tag,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// Whether to overwrite an existing file (defaults to
+	// true).
 	// Whether to overwrite the file if it already exists
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// The source file (conflicts with source_raw),
+	// could be a local file or a URL. If the source file is a URL, the file will
+	// be downloaded and stored locally before uploading it to Proxmox VE.
 	// The source file
 	SourceFile []SourceFileObservation `json:"sourceFile,omitempty" tf:"source_file,omitempty"`
 
+	// The raw source (conflicts with source_file).
 	// The raw source
 	SourceRaw []SourceRawObservation `json:"sourceRaw,omitempty" tf:"source_raw,omitempty"`
 
+	// Timeout for uploading ISO/VSTMPL files in
+	// seconds (defaults to 1800).
 	// Timeout for uploading ISO/VSTMPL files in seconds
 	TimeoutUpload *float64 `json:"timeoutUpload,omitempty" tf:"timeout_upload,omitempty"`
 }
 
 type EnvironmentFileParameters struct {
 
+	// The content type. If not specified, the content
+	// type will be inferred from the file extension. Valid values are:
 	// The content type
 	// +kubebuilder:validation:Optional
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// The datastore id.
 	// The datastore id
 	// +kubebuilder:validation:Optional
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
 	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
 	// +kubebuilder:validation:Optional
 	FileMode *string `json:"fileMode,omitempty" tf:"file_mode,omitempty"`
 
+	// The node name.
 	// The node name
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// Whether to overwrite an existing file (defaults to
+	// true).
 	// Whether to overwrite the file if it already exists
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// The source file (conflicts with source_raw),
+	// could be a local file or a URL. If the source file is a URL, the file will
+	// be downloaded and stored locally before uploading it to Proxmox VE.
 	// The source file
 	// +kubebuilder:validation:Optional
 	SourceFile []SourceFileParameters `json:"sourceFile,omitempty" tf:"source_file,omitempty"`
 
+	// The raw source (conflicts with source_file).
 	// The raw source
 	// +kubebuilder:validation:Optional
 	SourceRaw []SourceRawParameters `json:"sourceRaw,omitempty" tf:"source_raw,omitempty"`
 
+	// Timeout for uploading ISO/VSTMPL files in
+	// seconds (defaults to 1800).
 	// Timeout for uploading ISO/VSTMPL files in seconds
 	// +kubebuilder:validation:Optional
 	TimeoutUpload *float64 `json:"timeoutUpload,omitempty" tf:"timeout_upload,omitempty"`
@@ -121,18 +166,27 @@ type SourceFileInitParameters struct {
 	// Whether the source file has changed since the last run
 	Changed *bool `json:"changed,omitempty" tf:"changed,omitempty"`
 
+	// The SHA256 checksum of the source file.
 	// The SHA256 checksum of the source file
 	Checksum *string `json:"checksum,omitempty" tf:"checksum,omitempty"`
 
+	// The file name to use instead of the source file
+	// name. Useful when the source file does not have a valid file extension,
+	// for example when the source file is a URL referencing a .qcow2 image.
 	// The file name to use instead of the source file name
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// Whether to skip the TLS verification step for
+	// HTTPS sources (defaults to false).
 	// Whether to skip the TLS verification step for HTTPS sources
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
+	// The minimum required TLS version for HTTPS
+	// sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
 	// The minimum required TLS version for HTTPS sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults to `1.3`.
 	MinTLS *string `json:"minTls,omitempty" tf:"min_tls,omitempty"`
 
+	// A path to a local file or a URL.
 	// A path to a local file or a URL
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 }
@@ -142,18 +196,27 @@ type SourceFileObservation struct {
 	// Whether the source file has changed since the last run
 	Changed *bool `json:"changed,omitempty" tf:"changed,omitempty"`
 
+	// The SHA256 checksum of the source file.
 	// The SHA256 checksum of the source file
 	Checksum *string `json:"checksum,omitempty" tf:"checksum,omitempty"`
 
+	// The file name to use instead of the source file
+	// name. Useful when the source file does not have a valid file extension,
+	// for example when the source file is a URL referencing a .qcow2 image.
 	// The file name to use instead of the source file name
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// Whether to skip the TLS verification step for
+	// HTTPS sources (defaults to false).
 	// Whether to skip the TLS verification step for HTTPS sources
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
+	// The minimum required TLS version for HTTPS
+	// sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
 	// The minimum required TLS version for HTTPS sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults to `1.3`.
 	MinTLS *string `json:"minTls,omitempty" tf:"min_tls,omitempty"`
 
+	// A path to a local file or a URL.
 	// A path to a local file or a URL
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 }
@@ -164,22 +227,31 @@ type SourceFileParameters struct {
 	// +kubebuilder:validation:Optional
 	Changed *bool `json:"changed,omitempty" tf:"changed,omitempty"`
 
+	// The SHA256 checksum of the source file.
 	// The SHA256 checksum of the source file
 	// +kubebuilder:validation:Optional
 	Checksum *string `json:"checksum,omitempty" tf:"checksum,omitempty"`
 
+	// The file name to use instead of the source file
+	// name. Useful when the source file does not have a valid file extension,
+	// for example when the source file is a URL referencing a .qcow2 image.
 	// The file name to use instead of the source file name
 	// +kubebuilder:validation:Optional
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// Whether to skip the TLS verification step for
+	// HTTPS sources (defaults to false).
 	// Whether to skip the TLS verification step for HTTPS sources
 	// +kubebuilder:validation:Optional
 	Insecure *bool `json:"insecure,omitempty" tf:"insecure,omitempty"`
 
+	// The minimum required TLS version for HTTPS
+	// sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
 	// The minimum required TLS version for HTTPS sources.Supported values: `1.0|1.1|1.2|1.3`. Defaults to `1.3`.
 	// +kubebuilder:validation:Optional
 	MinTLS *string `json:"minTls,omitempty" tf:"min_tls,omitempty"`
 
+	// A path to a local file or a URL.
 	// A path to a local file or a URL
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path" tf:"path,omitempty"`
@@ -187,38 +259,53 @@ type SourceFileParameters struct {
 
 type SourceRawInitParameters struct {
 
+	// The raw data.
 	// The raw data
 	Data *string `json:"data,omitempty" tf:"data,omitempty"`
 
+	// The file name to use instead of the source file
+	// name. Useful when the source file does not have a valid file extension,
+	// for example when the source file is a URL referencing a .qcow2 image.
 	// The file name
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// The number of bytes to resize the file to.
 	// The number of bytes to resize the file to
 	Resize *float64 `json:"resize,omitempty" tf:"resize,omitempty"`
 }
 
 type SourceRawObservation struct {
 
+	// The raw data.
 	// The raw data
 	Data *string `json:"data,omitempty" tf:"data,omitempty"`
 
+	// The file name to use instead of the source file
+	// name. Useful when the source file does not have a valid file extension,
+	// for example when the source file is a URL referencing a .qcow2 image.
 	// The file name
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// The number of bytes to resize the file to.
 	// The number of bytes to resize the file to
 	Resize *float64 `json:"resize,omitempty" tf:"resize,omitempty"`
 }
 
 type SourceRawParameters struct {
 
+	// The raw data.
 	// The raw data
 	// +kubebuilder:validation:Optional
 	Data *string `json:"data" tf:"data,omitempty"`
 
+	// The file name to use instead of the source file
+	// name. Useful when the source file does not have a valid file extension,
+	// for example when the source file is a URL referencing a .qcow2 image.
 	// The file name
 	// +kubebuilder:validation:Optional
 	FileName *string `json:"fileName" tf:"file_name,omitempty"`
 
+	// The number of bytes to resize the file to.
 	// The number of bytes to resize the file to
 	// +kubebuilder:validation:Optional
 	Resize *float64 `json:"resize,omitempty" tf:"resize,omitempty"`
@@ -251,7 +338,7 @@ type EnvironmentFileStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFile is the Schema for the EnvironmentFiles API. <no value>
+// EnvironmentFile is the Schema for the EnvironmentFiles API. |Use this resource to upload files to a Proxmox VE node. The file can be a backup, an ISO image, a snippet, or a container template depending on the content_type attribute.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

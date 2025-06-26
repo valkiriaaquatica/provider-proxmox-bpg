@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentUser is the Schema for the EnvironmentUsers API. <no
-          value>
+        description: EnvironmentUser is the Schema for the EnvironmentUsers API. |Manages
+          a user.
         properties:
           apiVersion:
             description: |-
@@ -74,49 +74,75 @@ spec:
               forProvider:
                 properties:
                   acl:
-                    description: The access control list
+                    description: |-
+                      The access control list (multiple blocks supported).
+                      The access control list
                     items:
                       properties:
                         path:
-                          description: The path
+                          description: |-
+                            The path.
+                            The path
                           type: string
                         propagate:
-                          description: Whether to propagate to child paths
+                          description: |-
+                            Whether to propagate to child paths.
+                            Whether to propagate to child paths
                           type: boolean
                         roleId:
-                          description: The role id
+                          description: |-
+                            The role identifier.
+                            The role id
                           type: string
                       type: object
                     type: array
                   comment:
-                    description: The user comment
+                    description: |-
+                      The user comment.
+                      The user comment
                     type: string
                   email:
-                    description: The user's email address
+                    description: |-
+                      The user's email address.
+                      The user's email address
                     type: string
                   enabled:
-                    description: Whether the user account is enabled
+                    description: |-
+                      Whether the user account is enabled.
+                      Whether the user account is enabled
                     type: boolean
                   expirationDate:
-                    description: The user account's expiration date
+                    description: |-
+                      The user account's expiration date (RFC 3339).
+                      The user account's expiration date
                     type: string
                   firstName:
-                    description: The user's first name
+                    description: |-
+                      The user's first name.
+                      The user's first name
                     type: string
                   groups:
-                    description: The user's groups
+                    description: |-
+                      The user's groups.
+                      The user's groups
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   keys:
-                    description: The user's keys
+                    description: |-
+                      The user's keys.
+                      The user's keys
                     type: string
                   lastName:
-                    description: The user's last name
+                    description: |-
+                      The user's last name.
+                      The user's last name
                     type: string
                   passwordSecretRef:
-                    description: The user's password
+                    description: |-
+                      The user's password. Required for PVE or PAM realms.
+                      The user's password
                     properties:
                       key:
                         description: The key to select.
@@ -133,7 +159,9 @@ spec:
                     - namespace
                     type: object
                   userId:
-                    description: The user id
+                    description: |-
+                      The user identifier.
+                      The user id
                     type: string
                 type: object
               initProvider:
@@ -150,49 +178,75 @@ spec:
                   autoscaler.
                 properties:
                   acl:
-                    description: The access control list
+                    description: |-
+                      The access control list (multiple blocks supported).
+                      The access control list
                     items:
                       properties:
                         path:
-                          description: The path
+                          description: |-
+                            The path.
+                            The path
                           type: string
                         propagate:
-                          description: Whether to propagate to child paths
+                          description: |-
+                            Whether to propagate to child paths.
+                            Whether to propagate to child paths
                           type: boolean
                         roleId:
-                          description: The role id
+                          description: |-
+                            The role identifier.
+                            The role id
                           type: string
                       type: object
                     type: array
                   comment:
-                    description: The user comment
+                    description: |-
+                      The user comment.
+                      The user comment
                     type: string
                   email:
-                    description: The user's email address
+                    description: |-
+                      The user's email address.
+                      The user's email address
                     type: string
                   enabled:
-                    description: Whether the user account is enabled
+                    description: |-
+                      Whether the user account is enabled.
+                      Whether the user account is enabled
                     type: boolean
                   expirationDate:
-                    description: The user account's expiration date
+                    description: |-
+                      The user account's expiration date (RFC 3339).
+                      The user account's expiration date
                     type: string
                   firstName:
-                    description: The user's first name
+                    description: |-
+                      The user's first name.
+                      The user's first name
                     type: string
                   groups:
-                    description: The user's groups
+                    description: |-
+                      The user's groups.
+                      The user's groups
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   keys:
-                    description: The user's keys
+                    description: |-
+                      The user's keys.
+                      The user's keys
                     type: string
                   lastName:
-                    description: The user's last name
+                    description: |-
+                      The user's last name.
+                      The user's last name
                     type: string
                   passwordSecretRef:
-                    description: The user's password
+                    description: |-
+                      The user's password. Required for PVE or PAM realms.
+                      The user's password
                     properties:
                       key:
                         description: The key to select.
@@ -209,7 +263,9 @@ spec:
                     - namespace
                     type: object
                   userId:
-                    description: The user id
+                    description: |-
+                      The user identifier.
+                      The user id
                     type: string
                 type: object
               managementPolicies:
@@ -390,37 +446,57 @@ spec:
               atProvider:
                 properties:
                   acl:
-                    description: The access control list
+                    description: |-
+                      The access control list (multiple blocks supported).
+                      The access control list
                     items:
                       properties:
                         path:
-                          description: The path
+                          description: |-
+                            The path.
+                            The path
                           type: string
                         propagate:
-                          description: Whether to propagate to child paths
+                          description: |-
+                            Whether to propagate to child paths.
+                            Whether to propagate to child paths
                           type: boolean
                         roleId:
-                          description: The role id
+                          description: |-
+                            The role identifier.
+                            The role id
                           type: string
                       type: object
                     type: array
                   comment:
-                    description: The user comment
+                    description: |-
+                      The user comment.
+                      The user comment
                     type: string
                   email:
-                    description: The user's email address
+                    description: |-
+                      The user's email address.
+                      The user's email address
                     type: string
                   enabled:
-                    description: Whether the user account is enabled
+                    description: |-
+                      Whether the user account is enabled.
+                      Whether the user account is enabled
                     type: boolean
                   expirationDate:
-                    description: The user account's expiration date
+                    description: |-
+                      The user account's expiration date (RFC 3339).
+                      The user account's expiration date
                     type: string
                   firstName:
-                    description: The user's first name
+                    description: |-
+                      The user's first name.
+                      The user's first name
                     type: string
                   groups:
-                    description: The user's groups
+                    description: |-
+                      The user's groups.
+                      The user's groups
                     items:
                       type: string
                     type: array
@@ -428,13 +504,19 @@ spec:
                   id:
                     type: string
                   keys:
-                    description: The user's keys
+                    description: |-
+                      The user's keys.
+                      The user's keys
                     type: string
                   lastName:
-                    description: The user's last name
+                    description: |-
+                      The user's last name.
+                      The user's last name
                     type: string
                   userId:
-                    description: The user id
+                    description: |-
+                      The user identifier.
+                      The user id
                     type: string
                 type: object
               conditions:

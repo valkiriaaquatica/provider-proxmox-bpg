@@ -35,5 +35,4 @@ spec:
     started: true
   providerConfigRef:
     name: default
----
 # -- add more exmaples here, like lunch from URL or from template

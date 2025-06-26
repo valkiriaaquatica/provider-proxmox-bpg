@@ -35,7 +35,9 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentDownloadFile is the Schema for the EnvironmentDownloadFiles
-          API. <no value>
+          API. Manages files upload using PVE download-url API. It can be fully compatible
+          and faster replacement for image files created using proxmox_virtual_environment_file.
+          Supports images for VMs (ISO images) and LXC (CT Templates).
         properties:
           apiVersion:
             description: |-
@@ -75,55 +77,64 @@ spec:
               forProvider:
                 properties:
                   checksum:
-                    description: The expected checksum of the file.
+                    description: |-
+                      (String) The expected checksum of the file.
+                      The expected checksum of the file.
                     type: string
                   checksumAlgorithm:
-                    description: The algorithm to calculate the checksum of the file.
-                      Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
+                    description: |-
+                      (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
+                      The algorithm to calculate the checksum of the file. Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
                     type: string
                   contentType:
-                    description: The file content type. Must be `iso` for VM images
-                      or `vztmpl` for LXC images.
+                    description: |-
+                      (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
+                      The file content type. Must be `iso` for VM images or `vztmpl` for LXC images.
                     type: string
                   datastoreId:
-                    description: The identifier for the target datastore.
+                    description: |-
+                      (String) The identifier for the target datastore.
+                      The identifier for the target datastore.
                     type: string
                   decompressionAlgorithm:
-                    description: Decompress the downloaded file using the specified
-                      compression algorithm. Must be one of `gz` | `lzo` | `zst` |
-                      `bz2`.
+                    description: |-
+                      (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
+                      Decompress the downloaded file using the specified compression algorithm. Must be one of `gz` | `lzo` | `zst` | `bz2`.
                     type: string
                   fileName:
-                    description: The file name. If not provided, it is calculated
-                      using `url`. PVE will raise 'wrong file extension' error for
-                      some popular extensions file `.raw` or `.qcow2`. Workaround
-                      is to use e.g. `.img` instead.
+                    description: |-
+                      (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
+                      The file name. If not provided, it is calculated using `url`. PVE will raise 'wrong file extension' error for some popular extensions file `.raw` or `.qcow2`. Workaround is to use e.g. `.img` instead.
                     type: string
                   nodeName:
-                    description: The node name.
+                    description: |-
+                      (String) The node name.
+                      The node name.
                     type: string
                   overwrite:
-                    description: If `true` and size of uploaded file is different,
-                      than size from `url` Content-Length header, file will be downloaded
-                      again. If `false`, there will be no checks.
+                    description: |-
+                      (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
+                      If `true` and size of uploaded file is different, than size from `url` Content-Length header, file will be downloaded again. If `false`, there will be no checks.
                     type: boolean
                   overwriteUnmanaged:
-                    description: If `true` and a file with the same name already exists
-                      in the datastore, it will be deleted and the new file will be
-                      downloaded. If `false` and the file already exists, an error
-                      will be returned.
+                    description: |-
+                      (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
+                      If `true` and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If `false` and the file already exists, an error will be returned.
                     type: boolean
                   uploadTimeout:
-                    description: The file download timeout seconds. Default is 600
-                      (10min).
+                    description: |-
+                      (Number) The file download timeout seconds. Default is 600 (10min).
+                      The file download timeout seconds. Default is 600 (10min).
                     type: number
                   url:
-                    description: 'The URL to download the file from. Must match regex:
-                      `https?://.*`.'
+                    description: |-
+                      (String) The URL to download the file from. Must match regex: https?://.*.
+                      The URL to download the file from. Must match regex: `https?://.*`.
                     type: string
                   verify:
-                    description: By default `true`. If `false`, no SSL/TLS certificates
-                      will be verified.
+                    description: |-
+                      (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
+                      By default `true`. If `false`, no SSL/TLS certificates will be verified.
                     type: boolean
                 type: object
               initProvider:
@@ -140,55 +151,64 @@ spec:
                   autoscaler.
                 properties:
                   checksum:
-                    description: The expected checksum of the file.
+                    description: |-
+                      (String) The expected checksum of the file.
+                      The expected checksum of the file.
                     type: string
                   checksumAlgorithm:
-                    description: The algorithm to calculate the checksum of the file.
-                      Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
+                    description: |-
+                      (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
+                      The algorithm to calculate the checksum of the file. Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
                     type: string
                   contentType:
-                    description: The file content type. Must be `iso` for VM images
-                      or `vztmpl` for LXC images.
+                    description: |-
+                      (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
+                      The file content type. Must be `iso` for VM images or `vztmpl` for LXC images.
                     type: string
                   datastoreId:
-                    description: The identifier for the target datastore.
+                    description: |-
+                      (String) The identifier for the target datastore.
+                      The identifier for the target datastore.
                     type: string
                   decompressionAlgorithm:
-                    description: Decompress the downloaded file using the specified
-                      compression algorithm. Must be one of `gz` | `lzo` | `zst` |
-                      `bz2`.
+                    description: |-
+                      (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
+                      Decompress the downloaded file using the specified compression algorithm. Must be one of `gz` | `lzo` | `zst` | `bz2`.
                     type: string
                   fileName:
-                    description: The file name. If not provided, it is calculated
-                      using `url`. PVE will raise 'wrong file extension' error for
-                      some popular extensions file `.raw` or `.qcow2`. Workaround
-                      is to use e.g. `.img` instead.
+                    description: |-
+                      (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
+                      The file name. If not provided, it is calculated using `url`. PVE will raise 'wrong file extension' error for some popular extensions file `.raw` or `.qcow2`. Workaround is to use e.g. `.img` instead.
                     type: string
                   nodeName:
-                    description: The node name.
+                    description: |-
+                      (String) The node name.
+                      The node name.
                     type: string
                   overwrite:
-                    description: If `true` and size of uploaded file is different,
-                      than size from `url` Content-Length header, file will be downloaded
-                      again. If `false`, there will be no checks.
+                    description: |-
+                      (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
+                      If `true` and size of uploaded file is different, than size from `url` Content-Length header, file will be downloaded again. If `false`, there will be no checks.
                     type: boolean
                   overwriteUnmanaged:
-                    description: If `true` and a file with the same name already exists
-                      in the datastore, it will be deleted and the new file will be
-                      downloaded. If `false` and the file already exists, an error
-                      will be returned.
+                    description: |-
+                      (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
+                      If `true` and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If `false` and the file already exists, an error will be returned.
                     type: boolean
                   uploadTimeout:
-                    description: The file download timeout seconds. Default is 600
-                      (10min).
+                    description: |-
+                      (Number) The file download timeout seconds. Default is 600 (10min).
+                      The file download timeout seconds. Default is 600 (10min).
                     type: number
                   url:
-                    description: 'The URL to download the file from. Must match regex:
-                      `https?://.*`.'
+                    description: |-
+                      (String) The URL to download the file from. Must match regex: https?://.*.
+                      The URL to download the file from. Must match regex: `https?://.*`.
                     type: string
                   verify:
-                    description: By default `true`. If `false`, no SSL/TLS certificates
-                      will be verified.
+                    description: |-
+                      (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
+                      By default `true`. If `false`, no SSL/TLS certificates will be verified.
                     type: boolean
                 type: object
               managementPolicies:
@@ -382,60 +402,72 @@ spec:
               atProvider:
                 properties:
                   checksum:
-                    description: The expected checksum of the file.
+                    description: |-
+                      (String) The expected checksum of the file.
+                      The expected checksum of the file.
                     type: string
                   checksumAlgorithm:
-                    description: The algorithm to calculate the checksum of the file.
-                      Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
+                    description: |-
+                      (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
+                      The algorithm to calculate the checksum of the file. Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
                     type: string
                   contentType:
-                    description: The file content type. Must be `iso` for VM images
-                      or `vztmpl` for LXC images.
+                    description: |-
+                      (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
+                      The file content type. Must be `iso` for VM images or `vztmpl` for LXC images.
                     type: string
                   datastoreId:
-                    description: The identifier for the target datastore.
+                    description: |-
+                      (String) The identifier for the target datastore.
+                      The identifier for the target datastore.
                     type: string
                   decompressionAlgorithm:
-                    description: Decompress the downloaded file using the specified
-                      compression algorithm. Must be one of `gz` | `lzo` | `zst` |
-                      `bz2`.
+                    description: |-
+                      (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
+                      Decompress the downloaded file using the specified compression algorithm. Must be one of `gz` | `lzo` | `zst` | `bz2`.
                     type: string
                   fileName:
-                    description: The file name. If not provided, it is calculated
-                      using `url`. PVE will raise 'wrong file extension' error for
-                      some popular extensions file `.raw` or `.qcow2`. Workaround
-                      is to use e.g. `.img` instead.
+                    description: |-
+                      (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
+                      The file name. If not provided, it is calculated using `url`. PVE will raise 'wrong file extension' error for some popular extensions file `.raw` or `.qcow2`. Workaround is to use e.g. `.img` instead.
                     type: string
                   id:
+                    description: (String) The unique identifier of this resource.
                     type: string
                   nodeName:
-                    description: The node name.
+                    description: |-
+                      (String) The node name.
+                      The node name.
                     type: string
                   overwrite:
-                    description: If `true` and size of uploaded file is different,
-                      than size from `url` Content-Length header, file will be downloaded
-                      again. If `false`, there will be no checks.
+                    description: |-
+                      (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
+                      If `true` and size of uploaded file is different, than size from `url` Content-Length header, file will be downloaded again. If `false`, there will be no checks.
                     type: boolean
                   overwriteUnmanaged:
-                    description: If `true` and a file with the same name already exists
-                      in the datastore, it will be deleted and the new file will be
-                      downloaded. If `false` and the file already exists, an error
-                      will be returned.
+                    description: |-
+                      (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
+                      If `true` and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If `false` and the file already exists, an error will be returned.
                     type: boolean
                   size:
-                    description: The file size.
+                    description: |-
+                      (Number) The file size in PVE.
+                      The file size.
                     type: number
                   uploadTimeout:
-                    description: The file download timeout seconds. Default is 600
-                      (10min).
+                    description: |-
+                      (Number) The file download timeout seconds. Default is 600 (10min).
+                      The file download timeout seconds. Default is 600 (10min).
                     type: number
                   url:
-                    description: 'The URL to download the file from. Must match regex:
-                      `https?://.*`.'
+                    description: |-
+                      (String) The URL to download the file from. Must match regex: https?://.*.
+                      The URL to download the file from. Must match regex: `https?://.*`.
                     type: string
                   verify:
-                    description: By default `true`. If `false`, no SSL/TLS certificates
-                      will be verified.
+                    description: |-
+                      (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
+                      By default `true`. If `false`, no SSL/TLS certificates will be verified.
                     type: boolean
                 type: object
               conditions:

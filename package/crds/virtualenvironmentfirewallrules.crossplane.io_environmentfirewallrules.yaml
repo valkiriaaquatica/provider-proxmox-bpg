@@ -35,7 +35,10 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallRules is the Schema for the EnvironmentFirewallRuless
-          API. <no value>
+          API. |A security group is a collection of rules, defined at cluster level,
+          which can be used in all VMs' rules. For example, you can define a group
+          named “webserver” with rules to open the http and https ports. Rules can
+          be created on the cluster level, on VM / Container level.
         properties:
           apiVersion:
             description: |-
@@ -75,81 +78,117 @@ spec:
               forProvider:
                 properties:
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level
+                      rules.
+                      The ID of the container to manage the firewall for.
                     type: number
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level rules.
+                      The name of the node.
                     type: string
                   rule:
-                    description: List of rules
+                    description: |-
+                      Firewall rule block (multiple blocks supported).
+                      The provider supports two types of the rule blocks:
+                      List of rules
                     items:
                       properties:
                         action:
-                          description: Rules action ('ACCEPT', 'DROP', 'REJECT')
+                          description: |-
+                            Rule action (ACCEPT, DROP, REJECT).
+                            Rules action ('ACCEPT', 'DROP', 'REJECT')
                           type: string
                         comment:
-                          description: Rules comment
+                          description: |-
+                            Rule comment.
+                            Rules comment
                           type: string
                         dest:
-                          description: Restrict packet destination address. This can
-                            refer to a single IP address, an IP set ('+ipsetname')
-                            or an IP alias definition. You can also specify an address
-                            range like '20.34.101.207-201.3.9.99', or a list of IP
-                            addresses and networks (entries are separated by comma).
-                            Please do not mix IPv4 and IPv6 addresses inside such
-                            lists.
+                          description: |-
+                            Restrict packet destination address. This can
+                            refer to a single IP address, an IP set ('+ipsetname') or an IP
+                            alias definition. You can also specify an address range
+                            like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                            networks (entries are separated by comma). Please do not mix IPv4
+                            and IPv6 addresses inside such lists.
+                            Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
                           type: string
                         dport:
-                          description: Restrict TCP/UDP destination port. You can
-                            use service names or simple numbers (0-65535), as defined
-                            in '/etc/services'. Port ranges can be specified with
-                            '\d+:\d+', for example '80:85', and you can use comma
-                            separated list to match several ports or ranges.
+                          description: |-
+                            Restrict TCP/UDP destination port. You can use
+                            service names or simple numbers (0-65535), as defined
+                            in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                            example 80:85, and you can use comma separated list to match
+                            several ports or ranges.
+                            Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
                           type: string
                         enabled:
-                          description: Enable rule
+                          description: |-
+                            Enable this rule. Defaults to true.
+                            Enable rule
                           type: boolean
                         iface:
-                          description: Network interface name. You have to use network
-                            configuration key names for VMs and containers ('net\d+').
-                            Host related rules can use arbitrary strings.
+                          description: |-
+                            Network interface name. You have to use network
+                            configuration key names for VMs and containers ('net\d+'). Host
+                            related rules can use arbitrary strings.
+                            Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
                           type: string
                         log:
-                          description: Log level for this rule ('emerg', 'alert',
-                            'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
+                          description: |-
+                            Log level for this rule (emerg, alert, crit,
+                            err, warning, notice, info, debug, nolog).
+                            Log level for this rule ('emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
                           type: string
                         macro:
-                          description: Use predefined standard macro
+                          description: |-
+                            Macro name. Use predefined standard macro
+                            from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
+                            Use predefined standard macro
                           type: string
                         proto:
-                          description: Restrict packet protocol. You can use protocol
-                            names or simple numbers (0-255), as defined in '/etc/protocols'.
+                          description: |-
+                            Restrict packet protocol. You can use protocol
+                            names as defined in '/etc/protocols'.
+                            Restrict packet protocol. You can use protocol names or simple numbers (0-255), as defined in '/etc/protocols'.
                           type: string
                         securityGroup:
-                          description: Security group name
+                          description: |-
+                            Security group name.
+                            Security group name
                           type: string
                         source:
-                          description: Restrict packet source address. This can refer
-                            to a single IP address, an IP set ('+ipsetname') or an
-                            IP alias definition. You can also specify an address range
-                            like '20.34.101.207-201.3.9.99', or a list of IP addresses
-                            and networks (entries are separated by comma). Please
-                            do not mix IPv4 and IPv6 addresses inside such lists.
+                          description: |-
+                            Restrict packet source address. This can refer
+                            to a single IP address, an IP set ('+ipsetname') or an IP alias
+                            definition. You can also specify an address range
+                            like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                            networks (entries are separated by comma). Please do not mix IPv4
+                            and IPv6 addresses inside such lists.
+                            Restrict packet source address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
                           type: string
                         sport:
-                          description: Restrict TCP/UDP source port. You can use service
-                            names or simple numbers (0-65535), as defined in '/etc/services'.
-                            Port ranges can be specified with '\d+:\d+', for example
-                            '80:85', and you can use comma separated list to match
+                          description: |-
+                            Restrict TCP/UDP source port. You can use
+                            service names or simple numbers (0-65535), as defined
+                            in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                            example 80:85, and you can use comma separated list to match
                             several ports or ranges.
+                            Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
                           type: string
                         type:
-                          description: Rules type ('in', 'out')
+                          description: |-
+                            Rule type (in, out).
+                            Rules type ('in', 'out')
                           type: string
                       type: object
                     type: array
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level rules.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               initProvider:
@@ -166,81 +205,117 @@ spec:
                   autoscaler.
                 properties:
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level
+                      rules.
+                      The ID of the container to manage the firewall for.
                     type: number
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level rules.
+                      The name of the node.
                     type: string
                   rule:
-                    description: List of rules
+                    description: |-
+                      Firewall rule block (multiple blocks supported).
+                      The provider supports two types of the rule blocks:
+                      List of rules
                     items:
                       properties:
                         action:
-                          description: Rules action ('ACCEPT', 'DROP', 'REJECT')
+                          description: |-
+                            Rule action (ACCEPT, DROP, REJECT).
+                            Rules action ('ACCEPT', 'DROP', 'REJECT')
                           type: string
                         comment:
-                          description: Rules comment
+                          description: |-
+                            Rule comment.
+                            Rules comment
                           type: string
                         dest:
-                          description: Restrict packet destination address. This can
-                            refer to a single IP address, an IP set ('+ipsetname')
-                            or an IP alias definition. You can also specify an address
-                            range like '20.34.101.207-201.3.9.99', or a list of IP
-                            addresses and networks (entries are separated by comma).
-                            Please do not mix IPv4 and IPv6 addresses inside such
-                            lists.
+                          description: |-
+                            Restrict packet destination address. This can
+                            refer to a single IP address, an IP set ('+ipsetname') or an IP
+                            alias definition. You can also specify an address range
+                            like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                            networks (entries are separated by comma). Please do not mix IPv4
+                            and IPv6 addresses inside such lists.
+                            Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
                           type: string
                         dport:
-                          description: Restrict TCP/UDP destination port. You can
-                            use service names or simple numbers (0-65535), as defined
-                            in '/etc/services'. Port ranges can be specified with
-                            '\d+:\d+', for example '80:85', and you can use comma
-                            separated list to match several ports or ranges.
+                          description: |-
+                            Restrict TCP/UDP destination port. You can use
+                            service names or simple numbers (0-65535), as defined
+                            in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                            example 80:85, and you can use comma separated list to match
+                            several ports or ranges.
+                            Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
                           type: string
                         enabled:
-                          description: Enable rule
+                          description: |-
+                            Enable this rule. Defaults to true.
+                            Enable rule
                           type: boolean
                         iface:
-                          description: Network interface name. You have to use network
-                            configuration key names for VMs and containers ('net\d+').
-                            Host related rules can use arbitrary strings.
+                          description: |-
+                            Network interface name. You have to use network
+                            configuration key names for VMs and containers ('net\d+'). Host
+                            related rules can use arbitrary strings.
+                            Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
                           type: string
                         log:
-                          description: Log level for this rule ('emerg', 'alert',
-                            'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
+                          description: |-
+                            Log level for this rule (emerg, alert, crit,
+                            err, warning, notice, info, debug, nolog).
+                            Log level for this rule ('emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
                           type: string
                         macro:
-                          description: Use predefined standard macro
+                          description: |-
+                            Macro name. Use predefined standard macro
+                            from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
+                            Use predefined standard macro
                           type: string
                         proto:
-                          description: Restrict packet protocol. You can use protocol
-                            names or simple numbers (0-255), as defined in '/etc/protocols'.
+                          description: |-
+                            Restrict packet protocol. You can use protocol
+                            names as defined in '/etc/protocols'.
+                            Restrict packet protocol. You can use protocol names or simple numbers (0-255), as defined in '/etc/protocols'.
                           type: string
                         securityGroup:
-                          description: Security group name
+                          description: |-
+                            Security group name.
+                            Security group name
                           type: string
                         source:
-                          description: Restrict packet source address. This can refer
-                            to a single IP address, an IP set ('+ipsetname') or an
-                            IP alias definition. You can also specify an address range
-                            like '20.34.101.207-201.3.9.99', or a list of IP addresses
-                            and networks (entries are separated by comma). Please
-                            do not mix IPv4 and IPv6 addresses inside such lists.
+                          description: |-
+                            Restrict packet source address. This can refer
+                            to a single IP address, an IP set ('+ipsetname') or an IP alias
+                            definition. You can also specify an address range
+                            like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                            networks (entries are separated by comma). Please do not mix IPv4
+                            and IPv6 addresses inside such lists.
+                            Restrict packet source address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
                           type: string
                         sport:
-                          description: Restrict TCP/UDP source port. You can use service
-                            names or simple numbers (0-65535), as defined in '/etc/services'.
-                            Port ranges can be specified with '\d+:\d+', for example
-                            '80:85', and you can use comma separated list to match
+                          description: |-
+                            Restrict TCP/UDP source port. You can use
+                            service names or simple numbers (0-65535), as defined
+                            in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                            example 80:85, and you can use comma separated list to match
                             several ports or ranges.
+                            Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
                           type: string
                         type:
-                          description: Rules type ('in', 'out')
+                          description: |-
+                            Rule type (in, out).
+                            Rules type ('in', 'out')
                           type: string
                       type: object
                     type: array
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level rules.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               managementPolicies:
@@ -422,86 +497,124 @@ spec:
               atProvider:
                 properties:
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level
+                      rules.
+                      The ID of the container to manage the firewall for.
                     type: number
                   id:
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name. Leave empty for cluster level rules.
+                      The name of the node.
                     type: string
                   rule:
-                    description: List of rules
+                    description: |-
+                      Firewall rule block (multiple blocks supported).
+                      The provider supports two types of the rule blocks:
+                      List of rules
                     items:
                       properties:
                         action:
-                          description: Rules action ('ACCEPT', 'DROP', 'REJECT')
+                          description: |-
+                            Rule action (ACCEPT, DROP, REJECT).
+                            Rules action ('ACCEPT', 'DROP', 'REJECT')
                           type: string
                         comment:
-                          description: Rules comment
+                          description: |-
+                            Rule comment.
+                            Rules comment
                           type: string
                         dest:
-                          description: Restrict packet destination address. This can
-                            refer to a single IP address, an IP set ('+ipsetname')
-                            or an IP alias definition. You can also specify an address
-                            range like '20.34.101.207-201.3.9.99', or a list of IP
-                            addresses and networks (entries are separated by comma).
-                            Please do not mix IPv4 and IPv6 addresses inside such
-                            lists.
+                          description: |-
+                            Restrict packet destination address. This can
+                            refer to a single IP address, an IP set ('+ipsetname') or an IP
+                            alias definition. You can also specify an address range
+                            like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                            networks (entries are separated by comma). Please do not mix IPv4
+                            and IPv6 addresses inside such lists.
+                            Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
                           type: string
                         dport:
-                          description: Restrict TCP/UDP destination port. You can
-                            use service names or simple numbers (0-65535), as defined
-                            in '/etc/services'. Port ranges can be specified with
-                            '\d+:\d+', for example '80:85', and you can use comma
-                            separated list to match several ports or ranges.
+                          description: |-
+                            Restrict TCP/UDP destination port. You can use
+                            service names or simple numbers (0-65535), as defined
+                            in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                            example 80:85, and you can use comma separated list to match
+                            several ports or ranges.
+                            Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
                           type: string
                         enabled:
-                          description: Enable rule
+                          description: |-
+                            Enable this rule. Defaults to true.
+                            Enable rule
                           type: boolean
                         iface:
-                          description: Network interface name. You have to use network
-                            configuration key names for VMs and containers ('net\d+').
-                            Host related rules can use arbitrary strings.
+                          description: |-
+                            Network interface name. You have to use network
+                            configuration key names for VMs and containers ('net\d+'). Host
+                            related rules can use arbitrary strings.
+                            Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
                           type: string
                         log:
-                          description: Log level for this rule ('emerg', 'alert',
-                            'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
+                          description: |-
+                            Log level for this rule (emerg, alert, crit,
+                            err, warning, notice, info, debug, nolog).
+                            Log level for this rule ('emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
                           type: string
                         macro:
-                          description: Use predefined standard macro
+                          description: |-
+                            Macro name. Use predefined standard macro
+                            from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
+                            Use predefined standard macro
                           type: string
                         pos:
-                          description: Rules position
+                          description: |-
+                            Position of the rule in the list.
+                            Rules position
                           type: number
                         proto:
-                          description: Restrict packet protocol. You can use protocol
-                            names or simple numbers (0-255), as defined in '/etc/protocols'.
+                          description: |-
+                            Restrict packet protocol. You can use protocol
+                            names as defined in '/etc/protocols'.
+                            Restrict packet protocol. You can use protocol names or simple numbers (0-255), as defined in '/etc/protocols'.
                           type: string
                         securityGroup:
-                          description: Security group name
+                          description: |-
+                            Security group name.
+                            Security group name
                           type: string
                         source:
-                          description: Restrict packet source address. This can refer
-                            to a single IP address, an IP set ('+ipsetname') or an
-                            IP alias definition. You can also specify an address range
-                            like '20.34.101.207-201.3.9.99', or a list of IP addresses
-                            and networks (entries are separated by comma). Please
-                            do not mix IPv4 and IPv6 addresses inside such lists.
+                          description: |-
+                            Restrict packet source address. This can refer
+                            to a single IP address, an IP set ('+ipsetname') or an IP alias
+                            definition. You can also specify an address range
+                            like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                            networks (entries are separated by comma). Please do not mix IPv4
+                            and IPv6 addresses inside such lists.
+                            Restrict packet source address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
                           type: string
                         sport:
-                          description: Restrict TCP/UDP source port. You can use service
-                            names or simple numbers (0-65535), as defined in '/etc/services'.
-                            Port ranges can be specified with '\d+:\d+', for example
-                            '80:85', and you can use comma separated list to match
+                          description: |-
+                            Restrict TCP/UDP source port. You can use
+                            service names or simple numbers (0-65535), as defined
+                            in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                            example 80:85, and you can use comma separated list to match
                             several ports or ranges.
+                            Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
                           type: string
                         type:
-                          description: Rules type ('in', 'out')
+                          description: |-
+                            Rule type (in, out).
+                            Rules type ('in', 'out')
                           type: string
                       type: object
                     type: array
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level rules.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               conditions:

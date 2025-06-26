@@ -1,0 +1,13 @@
+apiVersion: virtualenvironmentrole.crossplane.io/v1alpha1
+kind: EnvironmentRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentrole/v1alpha1/environmentrole
+  labels:
+    testing.upbound.io/example-name: operations_monitoring
+  name: operations-monitoring
+spec:
+  forProvider:
+    privileges:
+    - VM.Monitor
+    roleId: operations-monitoring

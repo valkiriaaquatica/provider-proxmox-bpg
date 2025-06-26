@@ -1,0 +1,12 @@
+apiVersion: virtualenvironmentpool.crossplane.io/v1alpha1
+kind: EnvironmentPool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentpool/v1alpha1/environmentpool
+  labels:
+    testing.upbound.io/example-name: operations_pool
+  name: operations-pool
+spec:
+  forProvider:
+    comment: Managed by Terraform
+    poolId: operations-pool

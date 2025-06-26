@@ -15,33 +15,41 @@ import (
 
 type EnvironmentPoolInitParameters struct {
 
+	// The pool comment.
 	// The pool comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The pool identifier.
 	// The pool id
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 }
 
 type EnvironmentPoolObservation struct {
 
+	// The pool comment.
 	// The pool comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The member identifier.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The pool members.
 	// The pool members
 	Members []MembersObservation `json:"members,omitempty" tf:"members,omitempty"`
 
+	// The pool identifier.
 	// The pool id
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 }
 
 type EnvironmentPoolParameters struct {
 
+	// The pool comment.
 	// The pool comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The pool identifier.
 	// The pool id
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
@@ -51,14 +59,20 @@ type MembersInitParameters struct {
 }
 
 type MembersObservation struct {
+
+	// The datastore identifier.
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// The member identifier.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The node name.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// The member type.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// The virtual machine identifier.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
@@ -92,7 +106,7 @@ type EnvironmentPoolStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentPool is the Schema for the EnvironmentPools API. <no value>
+// EnvironmentPool is the Schema for the EnvironmentPools API. |Manages a resource pool.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

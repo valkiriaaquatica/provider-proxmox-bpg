@@ -1,0 +1,12 @@
+apiVersion: virtualenvironmenttime.crossplane.io/v1alpha1
+kind: EnvironmentTime
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmenttime/v1alpha1/environmenttime
+  labels:
+    testing.upbound.io/example-name: first_node_time
+  name: first-node-time
+spec:
+  forProvider:
+    nodeName: first-node
+    timeZone: UTC

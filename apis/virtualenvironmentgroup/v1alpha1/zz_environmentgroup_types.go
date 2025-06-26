@@ -15,38 +15,47 @@ import (
 
 type ACLInitParameters struct {
 
+	// The path.
 	// The path
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Whether to propagate to child paths.
 	// Whether to propagate to child paths
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// The role identifier.
 	// The role id
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 }
 
 type ACLObservation struct {
 
+	// The path.
 	// The path
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Whether to propagate to child paths.
 	// Whether to propagate to child paths
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// The role identifier.
 	// The role id
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 }
 
 type ACLParameters struct {
 
+	// The path.
 	// The path
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path" tf:"path,omitempty"`
 
+	// Whether to propagate to child paths.
 	// Whether to propagate to child paths
 	// +kubebuilder:validation:Optional
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// The role identifier.
 	// The role id
 	// +kubebuilder:validation:Optional
 	RoleID *string `json:"roleId" tf:"role_id,omitempty"`
@@ -54,29 +63,36 @@ type ACLParameters struct {
 
 type EnvironmentGroupInitParameters struct {
 
+	// The access control list (multiple blocks supported).
 	// The access control list
 	ACL []ACLInitParameters `json:"acl,omitempty" tf:"acl,omitempty"`
 
+	// The group comment.
 	// The group comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The group identifier.
 	// The group id
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 }
 
 type EnvironmentGroupObservation struct {
 
+	// The access control list (multiple blocks supported).
 	// The access control list
 	ACL []ACLObservation `json:"acl,omitempty" tf:"acl,omitempty"`
 
+	// The group comment.
 	// The group comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The group identifier.
 	// The group id
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The group members as a list of username@realm entries
 	// The group members
 	// +listType=set
 	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
@@ -84,14 +100,17 @@ type EnvironmentGroupObservation struct {
 
 type EnvironmentGroupParameters struct {
 
+	// The access control list (multiple blocks supported).
 	// The access control list
 	// +kubebuilder:validation:Optional
 	ACL []ACLParameters `json:"acl,omitempty" tf:"acl,omitempty"`
 
+	// The group comment.
 	// The group comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The group identifier.
 	// The group id
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
@@ -124,7 +143,7 @@ type EnvironmentGroupStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentGroup is the Schema for the EnvironmentGroups API. <no value>
+// EnvironmentGroup is the Schema for the EnvironmentGroups API. |Manages a user group.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

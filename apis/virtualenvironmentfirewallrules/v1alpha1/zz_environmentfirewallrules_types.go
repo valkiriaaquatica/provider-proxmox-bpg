@@ -15,50 +15,68 @@ import (
 
 type EnvironmentFirewallRulesInitParameters struct {
 
+	// Container ID. Leave empty for cluster level
+	// rules.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// Node name. Leave empty for cluster level rules.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// Firewall rule block (multiple blocks supported).
+	// The provider supports two types of the rule blocks:
 	// List of rules
 	Rule []RuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 
+	// VM ID. Leave empty for cluster level rules.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallRulesObservation struct {
 
+	// Container ID. Leave empty for cluster level
+	// rules.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Node name. Leave empty for cluster level rules.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// Firewall rule block (multiple blocks supported).
+	// The provider supports two types of the rule blocks:
 	// List of rules
 	Rule []RuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
 
+	// VM ID. Leave empty for cluster level rules.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallRulesParameters struct {
 
+	// Container ID. Leave empty for cluster level
+	// rules.
 	// The ID of the container to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// Node name. Leave empty for cluster level rules.
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// Firewall rule block (multiple blocks supported).
+	// The provider supports two types of the rule blocks:
 	// List of rules
 	// +kubebuilder:validation:Optional
 	Rule []RuleParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 
+	// VM ID. Leave empty for cluster level rules.
 	// The ID of the VM to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
@@ -66,141 +84,250 @@ type EnvironmentFirewallRulesParameters struct {
 
 type RuleInitParameters struct {
 
+	// Rule action (ACCEPT, DROP, REJECT).
 	// Rules action ('ACCEPT', 'DROP', 'REJECT')
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// Rule comment.
 	// Rules comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Restrict packet destination address. This can
+	// refer to a single IP address, an IP set ('+ipsetname') or an IP
+	// alias definition. You can also specify an address range
+	// like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+	// networks (entries are separated by comma). Please do not mix IPv4
+	// and IPv6 addresses inside such lists.
 	// Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
 	Dest *string `json:"dest,omitempty" tf:"dest,omitempty"`
 
+	// Restrict TCP/UDP destination port. You can use
+	// service names or simple numbers (0-65535), as defined
+	// in /etc/services. Port ranges can be specified with '\d+:\d+', for
+	// example 80:85, and you can use comma separated list to match
+	// several ports or ranges.
 	// Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	Dport *string `json:"dport,omitempty" tf:"dport,omitempty"`
 
+	// Enable this rule. Defaults to true.
 	// Enable rule
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Network interface name. You have to use network
+	// configuration key names for VMs and containers ('net\d+'). Host
+	// related rules can use arbitrary strings.
 	// Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
 	Iface *string `json:"iface,omitempty" tf:"iface,omitempty"`
 
+	// Log level for this rule (emerg, alert, crit,
+	// err, warning, notice, info, debug, nolog).
 	// Log level for this rule ('emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
 	Log *string `json:"log,omitempty" tf:"log,omitempty"`
 
+	// Macro name. Use predefined standard macro
+	// from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
 	// Use predefined standard macro
 	Macro *string `json:"macro,omitempty" tf:"macro,omitempty"`
 
+	// Restrict packet protocol. You can use protocol
+	// names as defined in '/etc/protocols'.
 	// Restrict packet protocol. You can use protocol names or simple numbers (0-255), as defined in '/etc/protocols'.
 	Proto *string `json:"proto,omitempty" tf:"proto,omitempty"`
 
+	// Security group name.
 	// Security group name
 	SecurityGroup *string `json:"securityGroup,omitempty" tf:"security_group,omitempty"`
 
+	// Restrict packet source address. This can refer
+	// to a single IP address, an IP set ('+ipsetname') or an IP alias
+	// definition. You can also specify an address range
+	// like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+	// networks (entries are separated by comma). Please do not mix IPv4
+	// and IPv6 addresses inside such lists.
 	// Restrict packet source address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
+	// Restrict TCP/UDP source port. You can use
+	// service names or simple numbers (0-65535), as defined
+	// in /etc/services. Port ranges can be specified with '\d+:\d+', for
+	// example 80:85, and you can use comma separated list to match
+	// several ports or ranges.
 	// Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	Sport *string `json:"sport,omitempty" tf:"sport,omitempty"`
 
+	// Rule type (in, out).
 	// Rules type ('in', 'out')
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type RuleObservation struct {
 
+	// Rule action (ACCEPT, DROP, REJECT).
 	// Rules action ('ACCEPT', 'DROP', 'REJECT')
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// Rule comment.
 	// Rules comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Restrict packet destination address. This can
+	// refer to a single IP address, an IP set ('+ipsetname') or an IP
+	// alias definition. You can also specify an address range
+	// like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+	// networks (entries are separated by comma). Please do not mix IPv4
+	// and IPv6 addresses inside such lists.
 	// Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
 	Dest *string `json:"dest,omitempty" tf:"dest,omitempty"`
 
+	// Restrict TCP/UDP destination port. You can use
+	// service names or simple numbers (0-65535), as defined
+	// in /etc/services. Port ranges can be specified with '\d+:\d+', for
+	// example 80:85, and you can use comma separated list to match
+	// several ports or ranges.
 	// Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	Dport *string `json:"dport,omitempty" tf:"dport,omitempty"`
 
+	// Enable this rule. Defaults to true.
 	// Enable rule
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Network interface name. You have to use network
+	// configuration key names for VMs and containers ('net\d+'). Host
+	// related rules can use arbitrary strings.
 	// Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
 	Iface *string `json:"iface,omitempty" tf:"iface,omitempty"`
 
+	// Log level for this rule (emerg, alert, crit,
+	// err, warning, notice, info, debug, nolog).
 	// Log level for this rule ('emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
 	Log *string `json:"log,omitempty" tf:"log,omitempty"`
 
+	// Macro name. Use predefined standard macro
+	// from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
 	// Use predefined standard macro
 	Macro *string `json:"macro,omitempty" tf:"macro,omitempty"`
 
+	// Position of the rule in the list.
 	// Rules position
 	Pos *float64 `json:"pos,omitempty" tf:"pos,omitempty"`
 
+	// Restrict packet protocol. You can use protocol
+	// names as defined in '/etc/protocols'.
 	// Restrict packet protocol. You can use protocol names or simple numbers (0-255), as defined in '/etc/protocols'.
 	Proto *string `json:"proto,omitempty" tf:"proto,omitempty"`
 
+	// Security group name.
 	// Security group name
 	SecurityGroup *string `json:"securityGroup,omitempty" tf:"security_group,omitempty"`
 
+	// Restrict packet source address. This can refer
+	// to a single IP address, an IP set ('+ipsetname') or an IP alias
+	// definition. You can also specify an address range
+	// like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+	// networks (entries are separated by comma). Please do not mix IPv4
+	// and IPv6 addresses inside such lists.
 	// Restrict packet source address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
+	// Restrict TCP/UDP source port. You can use
+	// service names or simple numbers (0-65535), as defined
+	// in /etc/services. Port ranges can be specified with '\d+:\d+', for
+	// example 80:85, and you can use comma separated list to match
+	// several ports or ranges.
 	// Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	Sport *string `json:"sport,omitempty" tf:"sport,omitempty"`
 
+	// Rule type (in, out).
 	// Rules type ('in', 'out')
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type RuleParameters struct {
 
+	// Rule action (ACCEPT, DROP, REJECT).
 	// Rules action ('ACCEPT', 'DROP', 'REJECT')
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
+	// Rule comment.
 	// Rules comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Restrict packet destination address. This can
+	// refer to a single IP address, an IP set ('+ipsetname') or an IP
+	// alias definition. You can also specify an address range
+	// like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+	// networks (entries are separated by comma). Please do not mix IPv4
+	// and IPv6 addresses inside such lists.
 	// Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
 	// +kubebuilder:validation:Optional
 	Dest *string `json:"dest,omitempty" tf:"dest,omitempty"`
 
+	// Restrict TCP/UDP destination port. You can use
+	// service names or simple numbers (0-65535), as defined
+	// in /etc/services. Port ranges can be specified with '\d+:\d+', for
+	// example 80:85, and you can use comma separated list to match
+	// several ports or ranges.
 	// Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	// +kubebuilder:validation:Optional
 	Dport *string `json:"dport,omitempty" tf:"dport,omitempty"`
 
+	// Enable this rule. Defaults to true.
 	// Enable rule
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Network interface name. You have to use network
+	// configuration key names for VMs and containers ('net\d+'). Host
+	// related rules can use arbitrary strings.
 	// Network interface name. You have to use network configuration key names for VMs and containers ('net\d+'). Host related rules can use arbitrary strings.
 	// +kubebuilder:validation:Optional
 	Iface *string `json:"iface,omitempty" tf:"iface,omitempty"`
 
+	// Log level for this rule (emerg, alert, crit,
+	// err, warning, notice, info, debug, nolog).
 	// Log level for this rule ('emerg', 'alert', 'crit', 'err', 'warning', 'notice', 'info', 'debug', 'nolog')
 	// +kubebuilder:validation:Optional
 	Log *string `json:"log,omitempty" tf:"log,omitempty"`
 
+	// Macro name. Use predefined standard macro
+	// from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
 	// Use predefined standard macro
 	// +kubebuilder:validation:Optional
 	Macro *string `json:"macro,omitempty" tf:"macro,omitempty"`
 
+	// Restrict packet protocol. You can use protocol
+	// names as defined in '/etc/protocols'.
 	// Restrict packet protocol. You can use protocol names or simple numbers (0-255), as defined in '/etc/protocols'.
 	// +kubebuilder:validation:Optional
 	Proto *string `json:"proto,omitempty" tf:"proto,omitempty"`
 
+	// Security group name.
 	// Security group name
 	// +kubebuilder:validation:Optional
 	SecurityGroup *string `json:"securityGroup,omitempty" tf:"security_group,omitempty"`
 
+	// Restrict packet source address. This can refer
+	// to a single IP address, an IP set ('+ipsetname') or an IP alias
+	// definition. You can also specify an address range
+	// like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+	// networks (entries are separated by comma). Please do not mix IPv4
+	// and IPv6 addresses inside such lists.
 	// Restrict packet source address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
+	// Restrict TCP/UDP source port. You can use
+	// service names or simple numbers (0-65535), as defined
+	// in /etc/services. Port ranges can be specified with '\d+:\d+', for
+	// example 80:85, and you can use comma separated list to match
+	// several ports or ranges.
 	// Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	// +kubebuilder:validation:Optional
 	Sport *string `json:"sport,omitempty" tf:"sport,omitempty"`
 
+	// Rule type (in, out).
 	// Rules type ('in', 'out')
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -233,7 +360,7 @@ type EnvironmentFirewallRulesStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallRules is the Schema for the EnvironmentFirewallRuless API. <no value>
+// EnvironmentFirewallRules is the Schema for the EnvironmentFirewallRuless API. |A security group is a collection of rules, defined at cluster level, which can be used in all VMs' rules. For example, you can define a group named “webserver” with rules to open the http and https ports. Rules can be created on the cluster level, on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

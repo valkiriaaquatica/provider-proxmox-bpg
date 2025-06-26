@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentNetworkLinuxBridge is the Schema for the EnvironmentNetworkLinuxBridges
-          API. <no value>
+          API. Manages a Linux Bridge network interface in a Proxmox VE node.
         properties:
           apiVersion:
             description: |-
@@ -75,43 +75,61 @@ spec:
               forProvider:
                 properties:
                   address:
-                    description: The interface IPv4/CIDR address.
+                    description: |-
+                      (String) The interface IPv4/CIDR address.
+                      The interface IPv4/CIDR address.
                     type: string
                   address6:
-                    description: The interface IPv6/CIDR address.
+                    description: |-
+                      (String) The interface IPv6/CIDR address.
+                      The interface IPv6/CIDR address.
                     type: string
                   autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
+                    description: |-
+                      (Boolean) Automatically start interface on boot (defaults to true).
+                      Automatically start interface on boot (defaults to `true`).
                     type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: |-
+                      (String) Comment for the interface.
+                      Comment for the interface.
                     type: string
                   gateway:
-                    description: Default gateway address.
+                    description: |-
+                      (String) Default gateway address.
+                      Default gateway address.
                     type: string
                   gateway6:
-                    description: Default IPv6 gateway address.
+                    description: |-
+                      (String) Default IPv6 gateway address.
+                      Default IPv6 gateway address.
                     type: string
                   mtu:
-                    description: The interface MTU.
+                    description: |-
+                      (Number) The interface MTU.
+                      The interface MTU.
                     type: number
                   name:
-                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
-                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
-                      that starts with a character and is at most 10 characters long.
+                    description: |-
+                      vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+                      The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      (String) The name of the node.
+                      The name of the node.
                     type: string
                   ports:
-                    description: The interface bridge ports.
+                    description: |-
+                      (List of String) The interface bridge ports.
+                      The interface bridge ports.
                     items:
                       type: string
                     type: array
                   vlanAware:
-                    description: Whether the interface bridge is VLAN aware (defaults
-                      to `false`).
+                    description: |-
+                      (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
+                      Whether the interface bridge is VLAN aware (defaults to `false`).
                     type: boolean
                 type: object
               initProvider:
@@ -128,43 +146,61 @@ spec:
                   autoscaler.
                 properties:
                   address:
-                    description: The interface IPv4/CIDR address.
+                    description: |-
+                      (String) The interface IPv4/CIDR address.
+                      The interface IPv4/CIDR address.
                     type: string
                   address6:
-                    description: The interface IPv6/CIDR address.
+                    description: |-
+                      (String) The interface IPv6/CIDR address.
+                      The interface IPv6/CIDR address.
                     type: string
                   autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
+                    description: |-
+                      (Boolean) Automatically start interface on boot (defaults to true).
+                      Automatically start interface on boot (defaults to `true`).
                     type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: |-
+                      (String) Comment for the interface.
+                      Comment for the interface.
                     type: string
                   gateway:
-                    description: Default gateway address.
+                    description: |-
+                      (String) Default gateway address.
+                      Default gateway address.
                     type: string
                   gateway6:
-                    description: Default IPv6 gateway address.
+                    description: |-
+                      (String) Default IPv6 gateway address.
+                      Default IPv6 gateway address.
                     type: string
                   mtu:
-                    description: The interface MTU.
+                    description: |-
+                      (Number) The interface MTU.
+                      The interface MTU.
                     type: number
                   name:
-                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
-                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
-                      that starts with a character and is at most 10 characters long.
+                    description: |-
+                      vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+                      The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      (String) The name of the node.
+                      The name of the node.
                     type: string
                   ports:
-                    description: The interface bridge ports.
+                    description: |-
+                      (List of String) The interface bridge ports.
+                      The interface bridge ports.
                     items:
                       type: string
                     type: array
                   vlanAware:
-                    description: Whether the interface bridge is VLAN aware (defaults
-                      to `false`).
+                    description: |-
+                      (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
+                      Whether the interface bridge is VLAN aware (defaults to `false`).
                     type: boolean
                 type: object
               managementPolicies:
@@ -350,45 +386,64 @@ spec:
               atProvider:
                 properties:
                   address:
-                    description: The interface IPv4/CIDR address.
+                    description: |-
+                      (String) The interface IPv4/CIDR address.
+                      The interface IPv4/CIDR address.
                     type: string
                   address6:
-                    description: The interface IPv6/CIDR address.
+                    description: |-
+                      (String) The interface IPv6/CIDR address.
+                      The interface IPv6/CIDR address.
                     type: string
                   autostart:
-                    description: Automatically start interface on boot (defaults to
-                      `true`).
+                    description: |-
+                      (Boolean) Automatically start interface on boot (defaults to true).
+                      Automatically start interface on boot (defaults to `true`).
                     type: boolean
                   comment:
-                    description: Comment for the interface.
+                    description: |-
+                      (String) Comment for the interface.
+                      Comment for the interface.
                     type: string
                   gateway:
-                    description: Default gateway address.
+                    description: |-
+                      (String) Default gateway address.
+                      Default gateway address.
                     type: string
                   gateway6:
-                    description: Default IPv6 gateway address.
+                    description: |-
+                      (String) Default IPv6 gateway address.
+                      Default IPv6 gateway address.
                     type: string
                   id:
+                    description: (String) A unique identifier with format <node name>:<iface>
                     type: string
                   mtu:
-                    description: The interface MTU.
+                    description: |-
+                      (Number) The interface MTU.
+                      The interface MTU.
                     type: number
                   name:
-                    description: The interface name. Commonly vmbr[N], where 0 ≤ N
-                      ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string
-                      that starts with a character and is at most 10 characters long.
+                    description: |-
+                      vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+                      The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
                     type: string
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      (String) The name of the node.
+                      The name of the node.
                     type: string
                   ports:
-                    description: The interface bridge ports.
+                    description: |-
+                      (List of String) The interface bridge ports.
+                      The interface bridge ports.
                     items:
                       type: string
                     type: array
                   vlanAware:
-                    description: Whether the interface bridge is VLAN aware (defaults
-                      to `false`).
+                    description: |-
+                      (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
+                      Whether the interface bridge is VLAN aware (defaults to `false`).
                     type: boolean
                 type: object
               conditions:

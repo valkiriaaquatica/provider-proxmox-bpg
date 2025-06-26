@@ -1,0 +1,15 @@
+apiVersion: virtualenvironmentdns.crossplane.io/v1alpha1
+kind: EnvironmentDNS
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentdns/v1alpha1/environmentdns
+  labels:
+    testing.upbound.io/example-name: first_node_dns_configuration
+  name: first-node-dns-configuration
+spec:
+  forProvider:
+    domain: ${data.proxmox_virtual_environment_dns.first_node_dns_configuration.domain}
+    nodeName: ${data.proxmox_virtual_environment_dns.first_node_dns_configuration.node_name}
+    servers:
+    - 1.1.1.1
+    - 1.0.0.1

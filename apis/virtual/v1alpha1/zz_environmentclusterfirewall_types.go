@@ -15,60 +15,75 @@ import (
 
 type EnvironmentClusterFirewallInitParameters struct {
 
+	// Enable ebtables rules cluster wide.
 	// Enable ebtables cluster-wide
 	Ebtables *bool `json:"ebtables,omitempty" tf:"ebtables,omitempty"`
 
+	// Enable or disable the firewall cluster wide.
 	// Enable or disable the firewall cluster-wide
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The default input policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic
 	InputPolicy *string `json:"inputPolicy,omitempty" tf:"input_policy,omitempty"`
 
+	// The log rate limit.
 	// Log ratelimiting settings
 	LogRatelimit []LogRatelimitInitParameters `json:"logRatelimit,omitempty" tf:"log_ratelimit,omitempty"`
 
+	// The default output policy (ACCEPT, DROP, REJECT).
 	// Default policy for outgoing traffic
 	OutputPolicy *string `json:"outputPolicy,omitempty" tf:"output_policy,omitempty"`
 }
 
 type EnvironmentClusterFirewallObservation struct {
 
+	// Enable ebtables rules cluster wide.
 	// Enable ebtables cluster-wide
 	Ebtables *bool `json:"ebtables,omitempty" tf:"ebtables,omitempty"`
 
+	// Enable or disable the firewall cluster wide.
 	// Enable or disable the firewall cluster-wide
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The default input policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic
 	InputPolicy *string `json:"inputPolicy,omitempty" tf:"input_policy,omitempty"`
 
+	// The log rate limit.
 	// Log ratelimiting settings
 	LogRatelimit []LogRatelimitObservation `json:"logRatelimit,omitempty" tf:"log_ratelimit,omitempty"`
 
+	// The default output policy (ACCEPT, DROP, REJECT).
 	// Default policy for outgoing traffic
 	OutputPolicy *string `json:"outputPolicy,omitempty" tf:"output_policy,omitempty"`
 }
 
 type EnvironmentClusterFirewallParameters struct {
 
+	// Enable ebtables rules cluster wide.
 	// Enable ebtables cluster-wide
 	// +kubebuilder:validation:Optional
 	Ebtables *bool `json:"ebtables,omitempty" tf:"ebtables,omitempty"`
 
+	// Enable or disable the firewall cluster wide.
 	// Enable or disable the firewall cluster-wide
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The default input policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic
 	// +kubebuilder:validation:Optional
 	InputPolicy *string `json:"inputPolicy,omitempty" tf:"input_policy,omitempty"`
 
+	// The log rate limit.
 	// Log ratelimiting settings
 	// +kubebuilder:validation:Optional
 	LogRatelimit []LogRatelimitParameters `json:"logRatelimit,omitempty" tf:"log_ratelimit,omitempty"`
 
+	// The default output policy (ACCEPT, DROP, REJECT).
 	// Default policy for outgoing traffic
 	// +kubebuilder:validation:Optional
 	OutputPolicy *string `json:"outputPolicy,omitempty" tf:"output_policy,omitempty"`
@@ -76,38 +91,53 @@ type EnvironmentClusterFirewallParameters struct {
 
 type LogRatelimitInitParameters struct {
 
+	// Initial burst of packages which will always get
+	// logged before the rate is applied (defaults to 5).
 	// Initial burst of packages which will always get logged before the rate is applied
 	Burst *float64 `json:"burst,omitempty" tf:"burst,omitempty"`
 
+	// Enable or disable the firewall cluster wide.
 	// Enable or disable log ratelimiting
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Frequency with which the burst bucket gets refilled
+	// (defaults to 1/second).
 	// Frequency with which the burst bucket gets refilled
 	Rate *string `json:"rate,omitempty" tf:"rate,omitempty"`
 }
 
 type LogRatelimitObservation struct {
 
+	// Initial burst of packages which will always get
+	// logged before the rate is applied (defaults to 5).
 	// Initial burst of packages which will always get logged before the rate is applied
 	Burst *float64 `json:"burst,omitempty" tf:"burst,omitempty"`
 
+	// Enable or disable the firewall cluster wide.
 	// Enable or disable log ratelimiting
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Frequency with which the burst bucket gets refilled
+	// (defaults to 1/second).
 	// Frequency with which the burst bucket gets refilled
 	Rate *string `json:"rate,omitempty" tf:"rate,omitempty"`
 }
 
 type LogRatelimitParameters struct {
 
+	// Initial burst of packages which will always get
+	// logged before the rate is applied (defaults to 5).
 	// Initial burst of packages which will always get logged before the rate is applied
 	// +kubebuilder:validation:Optional
 	Burst *float64 `json:"burst,omitempty" tf:"burst,omitempty"`
 
+	// Enable or disable the firewall cluster wide.
 	// Enable or disable log ratelimiting
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Frequency with which the burst bucket gets refilled
+	// (defaults to 1/second).
 	// Frequency with which the burst bucket gets refilled
 	// +kubebuilder:validation:Optional
 	Rate *string `json:"rate,omitempty" tf:"rate,omitempty"`
@@ -140,7 +170,7 @@ type EnvironmentClusterFirewallStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentClusterFirewall is the Schema for the EnvironmentClusterFirewalls API. <no value>
+// EnvironmentClusterFirewall is the Schema for the EnvironmentClusterFirewalls API. |Manages firewall options on the cluster level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -15,76 +15,96 @@ import (
 
 type EnvironmentAcmeAccountInitParameters struct {
 
+	// (String) The contact email addresses.
 	// The contact email addresses.
 	Contact *string `json:"contact,omitempty" tf:"contact,omitempty"`
 
+	// (String) The URL of the ACME CA directory endpoint.
 	// The URL of the ACME CA directory endpoint.
 	Directory *string `json:"directory,omitempty" tf:"directory,omitempty"`
 
+	// (String) The HMAC key for External Account Binding.
 	// The HMAC key for External Account Binding.
 	EabHMACKey *string `json:"eabHmacKey,omitempty" tf:"eab_hmac_key,omitempty"`
 
+	// (String) The Key Identifier for External Account Binding.
 	// The Key Identifier for External Account Binding.
 	EabKid *string `json:"eabKid,omitempty" tf:"eab_kid,omitempty"`
 
+	// (String) The ACME account config file name.
 	// The ACME account config file name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// setting this indicates agreement.
 	// The URL of CA TermsOfService - setting this indicates agreement.
 	Tos *string `json:"tos,omitempty" tf:"tos,omitempty"`
 }
 
 type EnvironmentAcmeAccountObservation struct {
 
+	// (String) The contact email addresses.
 	// The contact email addresses.
 	Contact *string `json:"contact,omitempty" tf:"contact,omitempty"`
 
+	// (String) The timestamp of the ACME account creation.
 	// The timestamp of the ACME account creation.
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// (String) The URL of the ACME CA directory endpoint.
 	// The URL of the ACME CA directory endpoint.
 	Directory *string `json:"directory,omitempty" tf:"directory,omitempty"`
 
+	// (String) The HMAC key for External Account Binding.
 	// The HMAC key for External Account Binding.
 	EabHMACKey *string `json:"eabHmacKey,omitempty" tf:"eab_hmac_key,omitempty"`
 
+	// (String) The Key Identifier for External Account Binding.
 	// The Key Identifier for External Account Binding.
 	EabKid *string `json:"eabKid,omitempty" tf:"eab_kid,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The location of the ACME account.
 	// The location of the ACME account.
 	Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
+	// (String) The ACME account config file name.
 	// The ACME account config file name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// setting this indicates agreement.
 	// The URL of CA TermsOfService - setting this indicates agreement.
 	Tos *string `json:"tos,omitempty" tf:"tos,omitempty"`
 }
 
 type EnvironmentAcmeAccountParameters struct {
 
+	// (String) The contact email addresses.
 	// The contact email addresses.
 	// +kubebuilder:validation:Optional
 	Contact *string `json:"contact,omitempty" tf:"contact,omitempty"`
 
+	// (String) The URL of the ACME CA directory endpoint.
 	// The URL of the ACME CA directory endpoint.
 	// +kubebuilder:validation:Optional
 	Directory *string `json:"directory,omitempty" tf:"directory,omitempty"`
 
+	// (String) The HMAC key for External Account Binding.
 	// The HMAC key for External Account Binding.
 	// +kubebuilder:validation:Optional
 	EabHMACKey *string `json:"eabHmacKey,omitempty" tf:"eab_hmac_key,omitempty"`
 
+	// (String) The Key Identifier for External Account Binding.
 	// The Key Identifier for External Account Binding.
 	// +kubebuilder:validation:Optional
 	EabKid *string `json:"eabKid,omitempty" tf:"eab_kid,omitempty"`
 
+	// (String) The ACME account config file name.
 	// The ACME account config file name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// setting this indicates agreement.
 	// The URL of CA TermsOfService - setting this indicates agreement.
 	// +kubebuilder:validation:Optional
 	Tos *string `json:"tos,omitempty" tf:"tos,omitempty"`
@@ -117,7 +137,7 @@ type EnvironmentAcmeAccountStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentAcmeAccount is the Schema for the EnvironmentAcmeAccounts API. <no value>
+// EnvironmentAcmeAccount is the Schema for the EnvironmentAcmeAccounts API. Manages an ACME account in a Proxmox VE cluster. ~> This resource requires root@pam authentication.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

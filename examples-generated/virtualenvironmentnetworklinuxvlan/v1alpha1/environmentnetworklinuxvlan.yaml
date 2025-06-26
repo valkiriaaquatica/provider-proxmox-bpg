@@ -1,0 +1,13 @@
+apiVersion: virtualenvironmentnetworklinuxvlan.crossplane.io/v1alpha1
+kind: EnvironmentNetworkLinuxVlan
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentnetworklinuxvlan/v1alpha1/environmentnetworklinuxvlan
+  labels:
+    testing.upbound.io/example-name: vlan99
+  name: vlan99
+spec:
+  forProvider:
+    comment: VLAN 99
+    name: eno0.99
+    nodeName: pve

@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentHaresource is the Schema for the EnvironmentHaresources
-          API. <no value>
+          API. Manages Proxmox HA resources.
         properties:
           apiVersion:
             description: |-
@@ -74,27 +74,39 @@ spec:
               forProvider:
                 properties:
                   comment:
-                    description: The comment associated with this resource.
+                    description: |-
+                      (String) The comment associated with this resource.
+                      The comment associated with this resource.
                     type: string
                   group:
-                    description: The identifier of the High Availability group this
-                      resource is a member of.
+                    description: |-
+                      (String) The identifier of the High Availability group this resource is a member of.
+                      The identifier of the High Availability group this resource is a member of.
                     type: string
                   maxRelocate:
-                    description: The maximal number of relocation attempts.
+                    description: |-
+                      (Number) The maximal number of relocation attempts.
+                      The maximal number of relocation attempts.
                     type: number
                   maxRestart:
-                    description: The maximal number of restart attempts.
+                    description: |-
+                      (Number) The maximal number of restart attempts.
+                      The maximal number of restart attempts.
                     type: number
                   resourceId:
-                    description: The Proxmox HA resource identifier
+                    description: |-
+                      (String) The Proxmox HA resource identifier
+                      The Proxmox HA resource identifier
                     type: string
                   state:
-                    description: The desired state of the resource.
+                    description: |-
+                      (String) The desired state of the resource.
+                      The desired state of the resource.
                     type: string
                   type:
-                    description: The type of HA resources to create. If unset, it
-                      will be deduced from the `resource_id`.
+                    description: |-
+                      (String) The type of HA resources to create. If unset, it will be deduced from the resource_id.
+                      The type of HA resources to create. If unset, it will be deduced from the `resource_id`.
                     type: string
                 type: object
               initProvider:
@@ -111,27 +123,39 @@ spec:
                   autoscaler.
                 properties:
                   comment:
-                    description: The comment associated with this resource.
+                    description: |-
+                      (String) The comment associated with this resource.
+                      The comment associated with this resource.
                     type: string
                   group:
-                    description: The identifier of the High Availability group this
-                      resource is a member of.
+                    description: |-
+                      (String) The identifier of the High Availability group this resource is a member of.
+                      The identifier of the High Availability group this resource is a member of.
                     type: string
                   maxRelocate:
-                    description: The maximal number of relocation attempts.
+                    description: |-
+                      (Number) The maximal number of relocation attempts.
+                      The maximal number of relocation attempts.
                     type: number
                   maxRestart:
-                    description: The maximal number of restart attempts.
+                    description: |-
+                      (Number) The maximal number of restart attempts.
+                      The maximal number of restart attempts.
                     type: number
                   resourceId:
-                    description: The Proxmox HA resource identifier
+                    description: |-
+                      (String) The Proxmox HA resource identifier
+                      The Proxmox HA resource identifier
                     type: string
                   state:
-                    description: The desired state of the resource.
+                    description: |-
+                      (String) The desired state of the resource.
+                      The desired state of the resource.
                     type: string
                   type:
-                    description: The type of HA resources to create. If unset, it
-                      will be deduced from the `resource_id`.
+                    description: |-
+                      (String) The type of HA resources to create. If unset, it will be deduced from the resource_id.
+                      The type of HA resources to create. If unset, it will be deduced from the `resource_id`.
                     type: string
                 type: object
               managementPolicies:
@@ -313,29 +337,42 @@ spec:
               atProvider:
                 properties:
                   comment:
-                    description: The comment associated with this resource.
+                    description: |-
+                      (String) The comment associated with this resource.
+                      The comment associated with this resource.
                     type: string
                   group:
-                    description: The identifier of the High Availability group this
-                      resource is a member of.
+                    description: |-
+                      (String) The identifier of the High Availability group this resource is a member of.
+                      The identifier of the High Availability group this resource is a member of.
                     type: string
                   id:
+                    description: (String) The unique identifier of this resource.
                     type: string
                   maxRelocate:
-                    description: The maximal number of relocation attempts.
+                    description: |-
+                      (Number) The maximal number of relocation attempts.
+                      The maximal number of relocation attempts.
                     type: number
                   maxRestart:
-                    description: The maximal number of restart attempts.
+                    description: |-
+                      (Number) The maximal number of restart attempts.
+                      The maximal number of restart attempts.
                     type: number
                   resourceId:
-                    description: The Proxmox HA resource identifier
+                    description: |-
+                      (String) The Proxmox HA resource identifier
+                      The Proxmox HA resource identifier
                     type: string
                   state:
-                    description: The desired state of the resource.
+                    description: |-
+                      (String) The desired state of the resource.
+                      The desired state of the resource.
                     type: string
                   type:
-                    description: The type of HA resources to create. If unset, it
-                      will be deduced from the `resource_id`.
+                    description: |-
+                      (String) The type of HA resources to create. If unset, it will be deduced from the resource_id.
+                      The type of HA resources to create. If unset, it will be deduced from the `resource_id`.
                     type: string
                 type: object
               conditions:

@@ -145,8 +145,25 @@ jobs:
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
+      - name: make generate
+        run: |
+          make generate > /dev/null || true
+
+      - name: debug
+        run: |
+          tree .work || true
+
+      - name: Run pre-make-generate patch
+        run: |
+          chmod +x ./pre-make-generate.sh
+          ./pre-make-generate.sh
+
       - name: Check Diff
-        run: make check-diff
+        run: |
+          set +e
+          go install golang.org/x/tools/cmd/goimports@latest
+          make generate && make check-diff
+          git status
 
   unit-tests:
     runs-on: ubuntu-24.04

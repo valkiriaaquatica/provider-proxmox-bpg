@@ -15,38 +15,50 @@ import (
 
 type CidrInitParameters struct {
 
+	// IPSet comment.
 	// IP/CIDR comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// IPSet name.
 	// Network/IP specification in CIDR format
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Entries marked as nomatch are skipped as if those
+	// were not added to the set.
 	// No match this IP/CIDR
 	Nomatch *bool `json:"nomatch,omitempty" tf:"nomatch,omitempty"`
 }
 
 type CidrObservation struct {
 
+	// IPSet comment.
 	// IP/CIDR comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// IPSet name.
 	// Network/IP specification in CIDR format
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Entries marked as nomatch are skipped as if those
+	// were not added to the set.
 	// No match this IP/CIDR
 	Nomatch *bool `json:"nomatch,omitempty" tf:"nomatch,omitempty"`
 }
 
 type CidrParameters struct {
 
+	// IPSet comment.
 	// IP/CIDR comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// IPSet name.
 	// Network/IP specification in CIDR format
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Entries marked as nomatch are skipped as if those
+	// were not added to the set.
 	// No match this IP/CIDR
 	// +kubebuilder:validation:Optional
 	Nomatch *bool `json:"nomatch,omitempty" tf:"nomatch,omitempty"`
@@ -54,70 +66,88 @@ type CidrParameters struct {
 
 type EnvironmentFirewallIPSetInitParameters struct {
 
+	// IP/CIDR block (multiple blocks supported).
 	// List of IP or Networks
 	Cidr []CidrInitParameters `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// IPSet comment.
 	// IPSet comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// IPSet name.
 	// IPSet name
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Node name. Leave empty for cluster level aliases.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallIPSetObservation struct {
 
+	// IP/CIDR block (multiple blocks supported).
 	// List of IP or Networks
 	Cidr []CidrObservation `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// IPSet comment.
 	// IPSet comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// IPSet name.
 	// IPSet name
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Node name. Leave empty for cluster level aliases.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallIPSetParameters struct {
 
+	// IP/CIDR block (multiple blocks supported).
 	// List of IP or Networks
 	// +kubebuilder:validation:Optional
 	Cidr []CidrParameters `json:"cidr,omitempty" tf:"cidr,omitempty"`
 
+	// IPSet comment.
 	// IPSet comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Container ID. Leave empty for cluster level aliases.
 	// The ID of the container to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
+	// IPSet name.
 	// IPSet name
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Node name. Leave empty for cluster level aliases.
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// VM ID. Leave empty for cluster level aliases.
 	// The ID of the VM to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
@@ -150,7 +180,7 @@ type EnvironmentFirewallIPSetStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallIPSet is the Schema for the EnvironmentFirewallIPSets API. <no value>
+// EnvironmentFirewallIPSet is the Schema for the EnvironmentFirewallIPSets API. |An IPSet allows us to group multiple IP addresses, IP subnets and aliases. Aliases can be created on the cluster level, on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

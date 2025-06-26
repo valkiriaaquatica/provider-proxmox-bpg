@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentAptStandardRepository is the Schema for the EnvironmentAptStandardRepositorys
-          API. <no value>
+          API. Manages an APT standard repository of a Proxmox VE node.
         properties:
           apiVersion:
             description: |-
@@ -75,13 +75,14 @@ spec:
               forProvider:
                 properties:
                   handle:
-                    description: The handle of the APT standard repository. Must be
-                      `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test`
-                      | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test`
-                      | `enterprise` | `no-subscription` | `test`.
+                    description: |-
+                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
+                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `enterprise` | `no-subscription` | `test`.
                     type: string
                   node:
-                    description: The name of the target Proxmox VE node.
+                    description: |-
+                      (String) The name of the target Proxmox VE node.
+                      The name of the target Proxmox VE node.
                     type: string
                 type: object
               initProvider:
@@ -98,13 +99,14 @@ spec:
                   autoscaler.
                 properties:
                   handle:
-                    description: The handle of the APT standard repository. Must be
-                      `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test`
-                      | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test`
-                      | `enterprise` | `no-subscription` | `test`.
+                    description: |-
+                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
+                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `enterprise` | `no-subscription` | `test`.
                     type: string
                   node:
-                    description: The name of the target Proxmox VE node.
+                    description: |-
+                      (String) The name of the target Proxmox VE node.
+                      The name of the target Proxmox VE node.
                     type: string
                 type: object
               managementPolicies:
@@ -290,31 +292,43 @@ spec:
               atProvider:
                 properties:
                   description:
-                    description: The description of the APT standard repository.
+                    description: |-
+                      (String) The description of the APT standard repository.
+                      The description of the APT standard repository.
                     type: string
                   filePath:
-                    description: The absolute path of the source list file that contains
-                      this standard repository.
+                    description: |-
+                      (String) The absolute path of the source list file that contains this standard repository.
+                      The absolute path of the source list file that contains this standard repository.
                     type: string
                   handle:
-                    description: The handle of the APT standard repository. Must be
-                      `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test`
-                      | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test`
-                      | `enterprise` | `no-subscription` | `test`.
+                    description: |-
+                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
+                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `enterprise` | `no-subscription` | `test`.
                     type: string
                   id:
+                    description: (String) The unique identifier of this APT standard
+                      repository resource.
                     type: string
                   index:
-                    description: The index within the defining source list file.
+                    description: |-
+                      (Number) The index within the defining source list file.
+                      The index within the defining source list file.
                     type: number
                   name:
-                    description: The name of the APT standard repository.
+                    description: |-
+                      (String) The name of the APT standard repository.
+                      The name of the APT standard repository.
                     type: string
                   node:
-                    description: The name of the target Proxmox VE node.
+                    description: |-
+                      (String) The name of the target Proxmox VE node.
+                      The name of the target Proxmox VE node.
                     type: string
                   status:
-                    description: Indicates the activation status.
+                    description: |-
+                      (Number) Indicates the activation status.
+                      Indicates the activation status.
                     type: number
                 type: object
               conditions:

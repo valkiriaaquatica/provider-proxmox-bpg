@@ -15,70 +15,89 @@ import (
 
 type EnvironmentACLInitParameters struct {
 
+	// (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
 	// The group the ACL should apply to (mutually exclusive with `token_id` and `user_id`)
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
+	// (String) Access control path
 	// Access control path
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// (Boolean) Allow to propagate (inherit) permissions.
 	// Allow to propagate (inherit) permissions.
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// (String) The role to apply
 	// The role to apply
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 
+	// (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
 	// The token the ACL should apply to (mutually exclusive with `group_id` and `user_id`)
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
 
+	// (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
 	// The user the ACL should apply to (mutually exclusive with `group_id` and `token_id`)
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type EnvironmentACLObservation struct {
 
+	// (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
 	// The group the ACL should apply to (mutually exclusive with `token_id` and `user_id`)
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
+	// (String) The unique identifier of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Access control path
 	// Access control path
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// (Boolean) Allow to propagate (inherit) permissions.
 	// Allow to propagate (inherit) permissions.
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// (String) The role to apply
 	// The role to apply
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 
+	// (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
 	// The token the ACL should apply to (mutually exclusive with `group_id` and `user_id`)
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
 
+	// (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
 	// The user the ACL should apply to (mutually exclusive with `group_id` and `token_id`)
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type EnvironmentACLParameters struct {
 
+	// (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
 	// The group the ACL should apply to (mutually exclusive with `token_id` and `user_id`)
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
+	// (String) Access control path
 	// Access control path
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// (Boolean) Allow to propagate (inherit) permissions.
 	// Allow to propagate (inherit) permissions.
 	// +kubebuilder:validation:Optional
 	Propagate *bool `json:"propagate,omitempty" tf:"propagate,omitempty"`
 
+	// (String) The role to apply
 	// The role to apply
 	// +kubebuilder:validation:Optional
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 
+	// (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
 	// The token the ACL should apply to (mutually exclusive with `group_id` and `user_id`)
 	// +kubebuilder:validation:Optional
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
 
+	// (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
 	// The user the ACL should apply to (mutually exclusive with `group_id` and `token_id`)
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
@@ -111,7 +130,7 @@ type EnvironmentACLStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentACL is the Schema for the EnvironmentACLs API. <no value>
+// EnvironmentACL is the Schema for the EnvironmentACLs API. Manages ACLs on the Proxmox cluster. ACLs are used to control access to resources in the Proxmox cluster. Each ACL consists of a path, a user, group or token, a role, and a flag to allow propagation of permissions.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

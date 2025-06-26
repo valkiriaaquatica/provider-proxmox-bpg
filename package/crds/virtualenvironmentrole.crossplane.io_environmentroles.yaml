@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentRole is the Schema for the EnvironmentRoles API. <no
-          value>
+        description: EnvironmentRole is the Schema for the EnvironmentRoles API. |Manages
+          a role.
         properties:
           apiVersion:
             description: |-
@@ -74,13 +74,17 @@ spec:
               forProvider:
                 properties:
                   privileges:
-                    description: The role privileges
+                    description: |-
+                      The role privileges.
+                      The role privileges
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   roleId:
-                    description: The role id
+                    description: |-
+                      The role identifier.
+                      The role id
                     type: string
                 type: object
               initProvider:
@@ -97,13 +101,17 @@ spec:
                   autoscaler.
                 properties:
                   privileges:
-                    description: The role privileges
+                    description: |-
+                      The role privileges.
+                      The role privileges
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   roleId:
-                    description: The role id
+                    description: |-
+                      The role identifier.
+                      The role id
                     type: string
                 type: object
               managementPolicies:
@@ -290,13 +298,17 @@ spec:
                   id:
                     type: string
                   privileges:
-                    description: The role privileges
+                    description: |-
+                      The role privileges.
+                      The role privileges
                     items:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
                   roleId:
-                    description: The role id
+                    description: |-
+                      The role identifier.
+                      The role id
                     type: string
                 type: object
               conditions:

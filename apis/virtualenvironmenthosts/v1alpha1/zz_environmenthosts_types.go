@@ -17,8 +17,11 @@ type EntriesInitParameters struct {
 }
 
 type EntriesObservation struct {
+
+	// The IP address.
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// The hostnames.
 	Hostnames []*string `json:"hostnames,omitempty" tf:"hostnames,omitempty"`
 }
 
@@ -27,28 +30,34 @@ type EntriesParameters struct {
 
 type EntryInitParameters struct {
 
+	// The IP address.
 	// The address
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// The hostnames.
 	// The hostnames
 	Hostnames []*string `json:"hostnames,omitempty" tf:"hostnames,omitempty"`
 }
 
 type EntryObservation struct {
 
+	// The IP address.
 	// The address
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
+	// The hostnames.
 	// The hostnames
 	Hostnames []*string `json:"hostnames,omitempty" tf:"hostnames,omitempty"`
 }
 
 type EntryParameters struct {
 
+	// The IP address.
 	// The address
 	// +kubebuilder:validation:Optional
 	Address *string `json:"address" tf:"address,omitempty"`
 
+	// The hostnames.
 	// The hostnames
 	// +kubebuilder:validation:Optional
 	Hostnames []*string `json:"hostnames" tf:"hostnames,omitempty"`
@@ -56,42 +65,53 @@ type EntryParameters struct {
 
 type EnvironmentHostsInitParameters struct {
 
+	// A host entry (multiple blocks supported).
 	// The host entries
 	Entry []EntryInitParameters `json:"entry,omitempty" tf:"entry,omitempty"`
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 }
 
 type EnvironmentHostsObservation struct {
 
+	// The IP addresses.
 	// The addresses
 	Addresses []*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
 
+	// The SHA1 digest.
 	// The SHA1 digest
 	Digest *string `json:"digest,omitempty" tf:"digest,omitempty"`
 
+	// The host entries (conversion of addresses and hostnames into
+	// objects).
 	// The host entries
 	Entries []EntriesObservation `json:"entries,omitempty" tf:"entries,omitempty"`
 
+	// A host entry (multiple blocks supported).
 	// The host entries
 	Entry []EntryObservation `json:"entry,omitempty" tf:"entry,omitempty"`
 
+	// The hostnames.
 	// The hostnames
 	Hostnames [][]*string `json:"hostnames,omitempty" tf:"hostnames,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// A node name.
 	// The node name
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 }
 
 type EnvironmentHostsParameters struct {
 
+	// A host entry (multiple blocks supported).
 	// The host entries
 	// +kubebuilder:validation:Optional
 	Entry []EntryParameters `json:"entry,omitempty" tf:"entry,omitempty"`
 
+	// A node name.
 	// The node name
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
@@ -124,7 +144,7 @@ type EnvironmentHostsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentHosts is the Schema for the EnvironmentHostss API. <no value>
+// EnvironmentHosts is the Schema for the EnvironmentHostss API. |Manages the host entries on a specific node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

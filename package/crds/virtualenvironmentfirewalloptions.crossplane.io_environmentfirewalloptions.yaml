@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallOptions is the Schema for the EnvironmentFirewallOptionss
-          API. <no value>
+          API. |Manages firewall options on VM / Container level.
         properties:
           apiVersion:
             description: |-
@@ -75,48 +75,79 @@ spec:
               forProvider:
                 properties:
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   dhcp:
-                    description: Enable DHCP
+                    description: |-
+                      Enable DHCP.
+                      Enable DHCP
                     type: boolean
                   enabled:
-                    description: Enable or disable the firewall
+                    description: |-
+                      Enable or disable the firewall.
+                      Enable or disable the firewall
                     type: boolean
                   inputPolicy:
-                    description: Default policy for incoming traffic
+                    description: |-
+                      The default input
+                      policy (ACCEPT, DROP, REJECT).
+                      Default policy for incoming traffic
                     type: string
                   ipfilter:
-                    description: Enable default IP filters. This is equivalent to
-                      adding an empty ipfilter-net<id> ipset for every interface.
-                      Such ipsets implicitly contain sane default restrictions such
-                      as restricting IPv6 link local addresses to the one derived
-                      from the interface's MAC address. For containers the configured
-                      IP addresses will be implicitly added.
+                    description: |-
+                      Enable default IP filters. This is equivalent to
+                      adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
+                      implicitly contain sane default restrictions such as restricting IPv6 link
+                      local addresses to the one derived from the interface's MAC address. For
+                      containers the configured IP addresses will be implicitly added.
+                      Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
                     type: boolean
                   logLevelIn:
-                    description: Log level for incoming traffic.
+                    description: |-
+                      Log level for incoming
+                      packets (emerg, alert, crit, err, warning, notice, info,
+                      debug, nolog).
+                      Log level for incoming traffic.
                     type: string
                   logLevelOut:
-                    description: Log level for outgoing traffic.
+                    description: |-
+                      Log level for outgoing
+                      packets (emerg, alert, crit, err, warning, notice, info,
+                      debug, nolog).
+                      Log level for outgoing traffic.
                     type: string
                   macfilter:
-                    description: Enable MAC address filtering
+                    description: |-
+                      Enable/disable MAC address filter.
+                      Enable MAC address filtering
                     type: boolean
                   ndp:
-                    description: Enable NDP (Neighbor Discovery Protocol)
+                    description: |-
+                      Enable NDP (Neighbor Discovery Protocol).
+                      Enable NDP (Neighbor Discovery Protocol)
                     type: boolean
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name.
+                      The name of the node.
                     type: string
                   outputPolicy:
-                    description: Default policy for outgoing traffic
+                    description: |-
+                      The default output
+                      policy (ACCEPT, DROP, REJECT).
+                      Default policy for outgoing traffic
                     type: string
                   radv:
-                    description: Allow sending Router Advertisement
+                    description: |-
+                      Enable Router Advertisement.
+                      Allow sending Router Advertisement
                     type: boolean
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               initProvider:
@@ -133,48 +164,79 @@ spec:
                   autoscaler.
                 properties:
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   dhcp:
-                    description: Enable DHCP
+                    description: |-
+                      Enable DHCP.
+                      Enable DHCP
                     type: boolean
                   enabled:
-                    description: Enable or disable the firewall
+                    description: |-
+                      Enable or disable the firewall.
+                      Enable or disable the firewall
                     type: boolean
                   inputPolicy:
-                    description: Default policy for incoming traffic
+                    description: |-
+                      The default input
+                      policy (ACCEPT, DROP, REJECT).
+                      Default policy for incoming traffic
                     type: string
                   ipfilter:
-                    description: Enable default IP filters. This is equivalent to
-                      adding an empty ipfilter-net<id> ipset for every interface.
-                      Such ipsets implicitly contain sane default restrictions such
-                      as restricting IPv6 link local addresses to the one derived
-                      from the interface's MAC address. For containers the configured
-                      IP addresses will be implicitly added.
+                    description: |-
+                      Enable default IP filters. This is equivalent to
+                      adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
+                      implicitly contain sane default restrictions such as restricting IPv6 link
+                      local addresses to the one derived from the interface's MAC address. For
+                      containers the configured IP addresses will be implicitly added.
+                      Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
                     type: boolean
                   logLevelIn:
-                    description: Log level for incoming traffic.
+                    description: |-
+                      Log level for incoming
+                      packets (emerg, alert, crit, err, warning, notice, info,
+                      debug, nolog).
+                      Log level for incoming traffic.
                     type: string
                   logLevelOut:
-                    description: Log level for outgoing traffic.
+                    description: |-
+                      Log level for outgoing
+                      packets (emerg, alert, crit, err, warning, notice, info,
+                      debug, nolog).
+                      Log level for outgoing traffic.
                     type: string
                   macfilter:
-                    description: Enable MAC address filtering
+                    description: |-
+                      Enable/disable MAC address filter.
+                      Enable MAC address filtering
                     type: boolean
                   ndp:
-                    description: Enable NDP (Neighbor Discovery Protocol)
+                    description: |-
+                      Enable NDP (Neighbor Discovery Protocol).
+                      Enable NDP (Neighbor Discovery Protocol)
                     type: boolean
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name.
+                      The name of the node.
                     type: string
                   outputPolicy:
-                    description: Default policy for outgoing traffic
+                    description: |-
+                      The default output
+                      policy (ACCEPT, DROP, REJECT).
+                      Default policy for outgoing traffic
                     type: string
                   radv:
-                    description: Allow sending Router Advertisement
+                    description: |-
+                      Enable Router Advertisement.
+                      Allow sending Router Advertisement
                     type: boolean
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               managementPolicies:
@@ -356,50 +418,81 @@ spec:
               atProvider:
                 properties:
                   containerId:
-                    description: The ID of the container to manage the firewall for.
+                    description: |-
+                      Container ID. Leave empty for cluster level aliases.
+                      The ID of the container to manage the firewall for.
                     type: number
                   dhcp:
-                    description: Enable DHCP
+                    description: |-
+                      Enable DHCP.
+                      Enable DHCP
                     type: boolean
                   enabled:
-                    description: Enable or disable the firewall
+                    description: |-
+                      Enable or disable the firewall.
+                      Enable or disable the firewall
                     type: boolean
                   id:
                     type: string
                   inputPolicy:
-                    description: Default policy for incoming traffic
+                    description: |-
+                      The default input
+                      policy (ACCEPT, DROP, REJECT).
+                      Default policy for incoming traffic
                     type: string
                   ipfilter:
-                    description: Enable default IP filters. This is equivalent to
-                      adding an empty ipfilter-net<id> ipset for every interface.
-                      Such ipsets implicitly contain sane default restrictions such
-                      as restricting IPv6 link local addresses to the one derived
-                      from the interface's MAC address. For containers the configured
-                      IP addresses will be implicitly added.
+                    description: |-
+                      Enable default IP filters. This is equivalent to
+                      adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
+                      implicitly contain sane default restrictions such as restricting IPv6 link
+                      local addresses to the one derived from the interface's MAC address. For
+                      containers the configured IP addresses will be implicitly added.
+                      Enable default IP filters. This is equivalent to adding an empty ipfilter-net<id> ipset for every interface. Such ipsets implicitly contain sane default restrictions such as restricting IPv6 link local addresses to the one derived from the interface's MAC address. For containers the configured IP addresses will be implicitly added.
                     type: boolean
                   logLevelIn:
-                    description: Log level for incoming traffic.
+                    description: |-
+                      Log level for incoming
+                      packets (emerg, alert, crit, err, warning, notice, info,
+                      debug, nolog).
+                      Log level for incoming traffic.
                     type: string
                   logLevelOut:
-                    description: Log level for outgoing traffic.
+                    description: |-
+                      Log level for outgoing
+                      packets (emerg, alert, crit, err, warning, notice, info,
+                      debug, nolog).
+                      Log level for outgoing traffic.
                     type: string
                   macfilter:
-                    description: Enable MAC address filtering
+                    description: |-
+                      Enable/disable MAC address filter.
+                      Enable MAC address filtering
                     type: boolean
                   ndp:
-                    description: Enable NDP (Neighbor Discovery Protocol)
+                    description: |-
+                      Enable NDP (Neighbor Discovery Protocol).
+                      Enable NDP (Neighbor Discovery Protocol)
                     type: boolean
                   nodeName:
-                    description: The name of the node.
+                    description: |-
+                      Node name.
+                      The name of the node.
                     type: string
                   outputPolicy:
-                    description: Default policy for outgoing traffic
+                    description: |-
+                      The default output
+                      policy (ACCEPT, DROP, REJECT).
+                      Default policy for outgoing traffic
                     type: string
                   radv:
-                    description: Allow sending Router Advertisement
+                    description: |-
+                      Enable Router Advertisement.
+                      Allow sending Router Advertisement
                     type: boolean
                   vmId:
-                    description: The ID of the VM to manage the firewall for.
+                    description: |-
+                      VM ID. Leave empty for cluster level aliases.
+                      The ID of the VM to manage the firewall for.
                     type: number
                 type: object
               conditions:

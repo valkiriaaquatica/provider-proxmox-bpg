@@ -15,80 +15,102 @@ import (
 
 type EnvironmentHaresourceInitParameters struct {
 
+	// (String) The comment associated with this resource.
 	// The comment associated with this resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) The identifier of the High Availability group this resource is a member of.
 	// The identifier of the High Availability group this resource is a member of.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// (Number) The maximal number of relocation attempts.
 	// The maximal number of relocation attempts.
 	MaxRelocate *float64 `json:"maxRelocate,omitempty" tf:"max_relocate,omitempty"`
 
+	// (Number) The maximal number of restart attempts.
 	// The maximal number of restart attempts.
 	MaxRestart *float64 `json:"maxRestart,omitempty" tf:"max_restart,omitempty"`
 
+	// (String) The Proxmox HA resource identifier
 	// The Proxmox HA resource identifier
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
+	// (String) The desired state of the resource.
 	// The desired state of the resource.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
+	// (String) The type of HA resources to create. If unset, it will be deduced from the resource_id.
 	// The type of HA resources to create. If unset, it will be deduced from the `resource_id`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EnvironmentHaresourceObservation struct {
 
+	// (String) The comment associated with this resource.
 	// The comment associated with this resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) The identifier of the High Availability group this resource is a member of.
 	// The identifier of the High Availability group this resource is a member of.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// (String) The unique identifier of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Number) The maximal number of relocation attempts.
 	// The maximal number of relocation attempts.
 	MaxRelocate *float64 `json:"maxRelocate,omitempty" tf:"max_relocate,omitempty"`
 
+	// (Number) The maximal number of restart attempts.
 	// The maximal number of restart attempts.
 	MaxRestart *float64 `json:"maxRestart,omitempty" tf:"max_restart,omitempty"`
 
+	// (String) The Proxmox HA resource identifier
 	// The Proxmox HA resource identifier
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
+	// (String) The desired state of the resource.
 	// The desired state of the resource.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
+	// (String) The type of HA resources to create. If unset, it will be deduced from the resource_id.
 	// The type of HA resources to create. If unset, it will be deduced from the `resource_id`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EnvironmentHaresourceParameters struct {
 
+	// (String) The comment associated with this resource.
 	// The comment associated with this resource.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String) The identifier of the High Availability group this resource is a member of.
 	// The identifier of the High Availability group this resource is a member of.
 	// +kubebuilder:validation:Optional
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
+	// (Number) The maximal number of relocation attempts.
 	// The maximal number of relocation attempts.
 	// +kubebuilder:validation:Optional
 	MaxRelocate *float64 `json:"maxRelocate,omitempty" tf:"max_relocate,omitempty"`
 
+	// (Number) The maximal number of restart attempts.
 	// The maximal number of restart attempts.
 	// +kubebuilder:validation:Optional
 	MaxRestart *float64 `json:"maxRestart,omitempty" tf:"max_restart,omitempty"`
 
+	// (String) The Proxmox HA resource identifier
 	// The Proxmox HA resource identifier
 	// +kubebuilder:validation:Optional
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
+	// (String) The desired state of the resource.
 	// The desired state of the resource.
 	// +kubebuilder:validation:Optional
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
+	// (String) The type of HA resources to create. If unset, it will be deduced from the resource_id.
 	// The type of HA resources to create. If unset, it will be deduced from the `resource_id`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -121,7 +143,7 @@ type EnvironmentHaresourceStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentHaresource is the Schema for the EnvironmentHaresources API. <no value>
+// EnvironmentHaresource is the Schema for the EnvironmentHaresources API. Manages Proxmox HA resources.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

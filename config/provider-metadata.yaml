@@ -1,10 +1,1145 @@
 name: bpg/proxmox
 resources:
-    /virtual_environment_hagroup Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment hagroup.
-        name: /virtual_environment_hagroup Resource - terraform-provider-proxmox
-        title: /virtual_environment_hagroup Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_acl:
+        subCategory: Virtual Environment
+        description: Manages ACLs on the Proxmox cluster. ACLs are used to control access to resources in the Proxmox cluster. Each ACL consists of a path, a user, group or token, a role, and a flag to allow propagation of permissions.
+        name: proxmox_virtual_environment_acl
+        title: proxmox_virtual_environment_acl
+        examples:
+            - name: operations_automation_monitoring
+              manifest: |-
+                {
+                  "path": "/vms/1234",
+                  "propagate": true,
+                  "role_id": "${proxmox_virtual_environment_role.operations_monitoring.role_id}",
+                  "user_id": "${proxmox_virtual_environment_user.operations_automation.user_id}"
+                }
+              references:
+                role_id: proxmox_virtual_environment_role.operations_monitoring.role_id
+                user_id: proxmox_virtual_environment_user.operations_automation.user_id
+              dependencies:
+                proxmox_virtual_environment_role.operations_monitoring: |-
+                    {
+                      "privileges": [
+                        "VM.Monitor"
+                      ],
+                      "role_id": "operations-monitoring"
+                    }
+                proxmox_virtual_environment_user.operations_automation: |-
+                    {
+                      "comment": "Managed by Terraform",
+                      "password": "a-strong-password",
+                      "user_id": "operations-automation@pve"
+                    }
+        argumentDocs:
+            group_id: (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
+            id: (String) The unique identifier of this resource.
+            path: (String) Access control path
+            propagate: (Boolean) Allow to propagate (inherit) permissions.
+            role_id: (String) The role to apply
+            token_id: (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
+            user_id: (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # ACL can be imported using its unique identifier, e.g.: {path}?{group|user@realm|user@realm!token}?{role}
+              terraform import proxmox_virtual_environment_acl.operations_automation_monitoring /?monitor@pve?operations-monitoring
+    proxmox_virtual_environment_acme_account:
+        subCategory: Virtual Environment
+        description: Manages an ACME account in a Proxmox VE cluster. ~> This resource requires root@pam authentication.
+        name: proxmox_virtual_environment_acme_account
+        title: proxmox_virtual_environment_acme_account
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "contact": "example@email.com",
+                  "directory": "https://acme-staging-v02.api.letsencrypt.org/directory",
+                  "name": "example",
+                  "tos": "https://letsencrypt.org/documents/LE-SA-v1.3-September-21-2022.pdf"
+                }
+        argumentDocs:
+            contact: (String) The contact email addresses.
+            created_at: (String) The timestamp of the ACME account creation.
+            directory: (String) The URL of the ACME CA directory endpoint.
+            eab_hmac_key: (String) The HMAC key for External Account Binding.
+            eab_kid: (String) The Key Identifier for External Account Binding.
+            location: (String) The location of the ACME account.
+            name: (String) The ACME account config file name.
+            tos: (String) The URL of CA TermsOfService - setting this indicates agreement.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # ACME accounts can be imported using their name, e.g.:
+              terraform import proxmox_virtual_environment_acme_account.example example
+    proxmox_virtual_environment_acme_dns_plugin:
+        subCategory: Virtual Environment
+        description: Manages an ACME plugin in a Proxmox VE cluster.
+        name: proxmox_virtual_environment_acme_dns_plugin
+        title: proxmox_virtual_environment_acme_dns_plugin
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "api": "aws",
+                  "data": {
+                    "AWS_ACCESS_KEY_ID": "EXAMPLE",
+                    "AWS_SECRET_ACCESS_KEY": "EXAMPLE"
+                  },
+                  "plugin": "test"
+                }
+        argumentDocs:
+            api: (String) API plugin name.
+            data: (Map of String) DNS plugin data.
+            digest: (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
+            disable: (Boolean) Flag to disable the config.
+            plugin: (String) ACME Plugin ID name.
+            validation_delay: (Number) Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records (0 - 172800).
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # ACME accounts can be imported using their name, e.g.:
+              terraform import proxmox_virtual_environment_acme_dns_plugin.example test
+    proxmox_virtual_environment_apt_repository:
+        subCategory: Virtual Environment
+        description: Manages an APT repository of a Proxmox VE node.
+        name: proxmox_virtual_environment_apt_repository
+        title: proxmox_virtual_environment_apt_repository
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "enabled": true,
+                  "file_path": "/etc/apt/sources.list",
+                  "index": 0,
+                  "node": "pve"
+                }
+        argumentDocs:
+            comment: (String) The associated comment.
+            components: (List of String) The list of components.
+            enabled: (Boolean) Indicates the activation status.
+            file_path: (String) The absolute path of the source list file that contains this repository.
+            file_type: (String) The format of the defining source list file.
+            id: (String) The unique identifier of this APT repository resource.
+            index: (Number) The index within the defining source list file.
+            node: (String) The name of the target Proxmox VE node.
+            package_types: (List of String) The list of package types.
+            suites: (List of String) The list of package distributions.
+            uris: (List of String) The list of repository URIs.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # An APT repository can be imported using a comma-separated list consisting of the name of the Proxmox VE node,
+              # the absolute source list file path, and the index in the exact same order, e.g.:
+              terraform import proxmox_virtual_environment_apt_repository.example pve,/etc/apt/sources.list,0
+    proxmox_virtual_environment_apt_standard_repository:
+        subCategory: Virtual Environment
+        description: Manages an APT standard repository of a Proxmox VE node.
+        name: proxmox_virtual_environment_apt_standard_repository
+        title: proxmox_virtual_environment_apt_standard_repository
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "handle": "no-subscription",
+                  "node": "pve"
+                }
+              dependencies:
+                proxmox_virtual_environment_apt_repository.example: |-
+                    {
+                      "enabled": true,
+                      "file_path": "${proxmox_virtual_environment_apt_standard_repository.example.file_path}",
+                      "index": "${proxmox_virtual_environment_apt_standard_repository.example.index}",
+                      "node": "${proxmox_virtual_environment_apt_standard_repository.example.node}"
+                    }
+        argumentDocs:
+            description: (String) The description of the APT standard repository.
+            file_path: (String) The absolute path of the source list file that contains this standard repository.
+            handle: (String) The handle of the APT standard repository. Must be ceph-quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
+            id: (String) The unique identifier of this APT standard repository resource.
+            index: (Number) The index within the defining source list file.
+            name: (String) The name of the APT standard repository.
+            node: (String) The name of the target Proxmox VE node.
+            status: (Number) Indicates the activation status.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # An APT standard repository can be imported using a comma-separated list consisting of the name of the Proxmox VE node,
+              # and the standard repository handle in the exact same order, e.g.:
+              terraform import proxmox_virtual_environment_apt_standard_repository.example pve,no-subscription
+    proxmox_virtual_environment_certificate:
+        subCategory: Virtual Environment
+        description: '|Manages the custom SSL/TLS certificate for a specific node.'
+        name: proxmox_virtual_environment_certificate
+        title: proxmox_virtual_environment_certificate
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "certificate": "${tls_self_signed_cert.proxmox_virtual_environment_certificate.cert_pem}",
+                  "node_name": "first-node",
+                  "private_key": "${tls_private_key.proxmox_virtual_environment_certificate.private_key_pem}"
+                }
+              references:
+                certificate: tls_self_signed_cert.proxmox_virtual_environment_certificate.cert_pem
+                private_key: tls_private_key.proxmox_virtual_environment_certificate.private_key_pem
+              dependencies:
+                tls_private_key.proxmox_virtual_environment_certificate: |-
+                    {
+                      "algorithm": "RSA",
+                      "rsa_bits": 2048
+                    }
+                tls_self_signed_cert.proxmox_virtual_environment_certificate: |-
+                    {
+                      "allowed_uses": [
+                        "key_encipherment",
+                        "digital_signature",
+                        "server_auth"
+                      ],
+                      "key_algorithm": "${tls_private_key.proxmox_virtual_environment_certificate.algorithm}",
+                      "private_key_pem": "${tls_private_key.proxmox_virtual_environment_certificate.private_key_pem}",
+                      "subject": [
+                        {
+                          "common_name": "example.com",
+                          "organization": "Terraform Provider for Proxmox"
+                        }
+                      ],
+                      "validity_period_hours": 8760
+                    }
+        argumentDocs:
+            certificate: '- (Required) The PEM encoded certificate.'
+            certificate_chain: '- (Optional) The PEM encoded certificate chain.'
+            expiration_date: '- The expiration date (RFC 3339).'
+            file_name: '- The file name.'
+            issuer: '- The issuer.'
+            node_name: '- (Required) A node name.'
+            private_key: '- (Required) The PEM encoded private key.'
+            public_key_size: '- The public key size.'
+            public_key_type: '- The public key type.'
+            ssl_fingerprint: '- The SSL fingerprint.'
+            start_date: '- The start date (RFC 3339).'
+            subject: '- The subject.'
+            subject_alternative_names: '- The subject alternative names.'
+        importStatements: []
+    proxmox_virtual_environment_cluster_firewall:
+        subCategory: Virtual Environment
+        description: '|Manages firewall options on the cluster level.'
+        name: proxmox_virtual_environment_cluster_firewall
+        title: proxmox_virtual_environment_cluster_firewall
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "ebtables": false,
+                  "enabled": false,
+                  "input_policy": "DROP",
+                  "log_ratelimit": [
+                    {
+                      "burst": 10,
+                      "enabled": false,
+                      "rate": "5/second"
+                    }
+                  ],
+                  "output_policy": "ACCEPT"
+                }
+        argumentDocs:
+            burst: |-
+                - (Optional) Initial burst of packages which will always get
+                logged before the rate is applied (defaults to 5).
+            ebtables: '- (Optional) Enable ebtables rules cluster wide.'
+            enabled: '- (Optional) Enable or disable the firewall cluster wide.'
+            input_policy: '- (Optional) The default input policy (ACCEPT, DROP, REJECT).'
+            log_ratelimit: '- (Optional) The log rate limit.'
+            output_policy: '- (Optional) The default output policy (ACCEPT, DROP, REJECT).'
+            rate: |-
+                - (Optional) Frequency with which the burst bucket gets refilled
+                (defaults to 1/second).
+        importStatements: []
+    proxmox_virtual_environment_cluster_firewall_security_group:
+        subCategory: Virtual Environment
+        description: '|A security group is a collection of rules, defined at cluster level, which can be used in all VMs'' rules. For example, you can define a group named webserver with rules to open the http and https ports.'
+        name: proxmox_virtual_environment_cluster_firewall_security_group
+        title: proxmox_virtual_environment_cluster_firewall_security_group
+        examples:
+            - name: webserver
+              manifest: |-
+                {
+                  "comment": "Managed by Terraform",
+                  "name": "webserver",
+                  "rule": [
+                    {
+                      "action": "ACCEPT",
+                      "comment": "Allow HTTP",
+                      "dest": "192.168.1.5",
+                      "dport": "80",
+                      "log": "info",
+                      "proto": "tcp",
+                      "type": "in"
+                    },
+                    {
+                      "action": "ACCEPT",
+                      "comment": "Allow HTTPS",
+                      "dest": "192.168.1.5",
+                      "dport": "443",
+                      "log": "info",
+                      "proto": "tcp",
+                      "type": "in"
+                    }
+                  ]
+                }
+        argumentDocs:
+            action: '- (Required) Rule action (ACCEPT, DROP, REJECT).'
+            comment: '- (Optional) Security group comment.'
+            dest: |-
+                - (Optional) Restrict packet destination address. This can refer to
+                a single IP address, an IP set ('+ipsetname') or an IP alias
+                definition. You can also specify an address range like
+                20.34.101.207-201.3.9.99, or a list of IP addresses and networks
+                (entries are separated by comma). Please do not mix IPv4 and IPv6
+                addresses inside such lists.
+            dport: |-
+                - (Optional) Restrict TCP/UDP destination port. You can use
+                service names or simple numbers (0-65535), as defined in '/etc/
+                services'. Port ranges can be specified with '\d+:\d+', for example
+                80:85, and you can use comma separated list to match several ports or
+                ranges.
+            enabled: '- (Optional) Enable this rule. Defaults to true.'
+            iface: |-
+                - (Optional) Network interface name. You have to use network
+                configuration key names for VMs and containers ('net\d+'). Host related
+                rules can use arbitrary strings.
+            log: |-
+                - (Optional) Log level for this rule (emerg, alert, crit,
+                err, warning, notice, info, debug, nolog).
+            macro: |-
+                - (Optional) Macro name. Use predefined standard macro
+                from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
+            name: '- (Required) Security group name.'
+            pos: '- Position of the rule in the list.'
+            proto: |-
+                - (Optional) Restrict packet protocol. You can use protocol names
+                as defined in '/etc/protocols'.
+            rule: '- (Optional) Firewall rule block (multiple blocks supported).'
+            source: |-
+                - (Optional) Restrict packet source address. This can refer
+                to a single IP address, an IP set ('+ipsetname') or an IP alias
+                definition. You can also specify an address range like
+                20.34.101.207-201.3.9.99, or a list of IP addresses and networks (
+                entries are separated by comma). Please do not mix IPv4 and IPv6
+                addresses inside such lists.
+            sport: |-
+                - (Optional) Restrict TCP/UDP source port. You can use
+                service names or simple numbers (0-65535), as defined in '/etc/
+                services'. Port ranges can be specified with '\d+:\d+', for example
+                80:85, and you can use comma separated list to match several ports or
+                ranges.
+            type: '- (Required) Rule type (in, out).'
+        importStatements: []
+    proxmox_virtual_environment_cluster_options:
+        subCategory: Virtual Environment
+        description: Manages Proxmox VE Cluster Datacenter options.
+        name: proxmox_virtual_environment_cluster_options
+        title: proxmox_virtual_environment_cluster_options
+        examples:
+            - name: options
+              manifest: |-
+                {
+                  "bandwidth_limit_default": 666666,
+                  "bandwidth_limit_migration": 555555,
+                  "email_from": "ged@gont.earthsea",
+                  "keyboard": "pl",
+                  "language": "en",
+                  "max_workers": 5,
+                  "migration_cidr": "10.0.0.0/8",
+                  "migration_type": "secure",
+                  "next_id": {
+                    "lower": 100,
+                    "upper": 999999999
+                  },
+                  "notify": {
+                    "ha_fencing_mode": "never",
+                    "ha_fencing_target": "default-matcher",
+                    "package_replication": "always",
+                    "package_replication_target": "default-matcher",
+                    "package_updates": "always",
+                    "package_updates_target": "default-matcher"
+                  }
+                }
+        argumentDocs:
+            bandwidth_limit_clone: (Number) Clone I/O bandwidth limit in KiB/s.
+            bandwidth_limit_default: (Number) Default I/O bandwidth limit in KiB/s.
+            bandwidth_limit_migration: (Number) Migration I/O bandwidth limit in KiB/s.
+            bandwidth_limit_move: (Number) Move I/O bandwidth limit in KiB/s.
+            bandwidth_limit_restore: (Number) Restore I/O bandwidth limit in KiB/s.
+            console: (String) Select the default Console viewer. Must be applet | vv| html5 | xtermjs. You can either use the builtin java applet (VNC; deprecated and maps to html5), an external virt-viewer compatible application (SPICE), an HTML5 based vnc viewer (noVNC), or an HTML5 based console client (xtermjs). If the selected viewer is not available (e.g. SPICE not activated for the VM), the fallback is noVNC.
+            crs_ha: (String) Cluster resource scheduling setting for HA. Must be static | basic (default is basic).
+            crs_ha_rebalance_on_start: (Boolean) Cluster resource scheduling setting for HA rebalance on start.
+            description: (String) Datacenter description. Shown in the web-interface datacenter notes panel. This is saved as comment inside the configuration file.
+            email_from: (String) email address to send notification from (default is root@$hostname).
+            ha_fencing_mode: (String) Cluster-wide notification settings for the HA fencing mode. Must be always | never.
+            ha_fencing_target: (String) Cluster-wide notification settings for the HA fencing target.
+            ha_shutdown_policy: (String) Cluster wide HA shutdown policy (). Must be freeze | failover | migrate | conditional (default is conditional).
+            http_proxy: '(String) Specify external http proxy which is used for downloads (example: http://username:password@host:port/).'
+            id: (String) The unique identifier of this resource.
+            keyboard: (String) Default keyboard layout for vnc server. Must be de | de-ch | da | en-gb | en-us | es | fi | fr | fr-be | fr-ca | fr-ch | hu | is | it | ja | lt | mk | nl | no | pl | pt | pt-br | sv | sl | tr.
+            language: (String) Default GUI language. Must be ca | da | de | en | es | eu | fa | fr | he | it | ja | nb | nn | pl | pt_BR | ru | sl | sv | tr | zh_CN | zh_TW.
+            lower: (Number) The minimum number for the next free VM ID. Must be higher or equal to 100
+            mac_prefix: (String) Prefix for autogenerated MAC addresses.
+            max_workers: (Number) Defines how many workers (per node) are maximal started on actions like 'stopall VMs' or task from the ha-manager.
+            migration_cidr: (String) Cluster wide migration network CIDR.
+            migration_type: (String) Cluster wide migration type. Must be secure | insecure (default is secure).
+            next_id: (Attributes) The ranges for the next free VM ID auto-selection pool. (see below for nested schema)
+            notify: (Attributes) Cluster-wide notification settings. (see below for nested schema)
+            package_updates: (String) Cluster-wide notification settings for package updates. Must be auto | always | never.
+            package_updates_target: (String) Cluster-wide notification settings for the package updates target.
+            replication: (String) Cluster-wide notification settings for replication. Must be always | never.
+            replication_target: (String) Cluster-wide notification settings for the replication target.
+            upper: (Number) The maximum number for the next free VM ID. Must be less or equal to 999999999
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # Cluster options are global and can be imported using e.g.:
+              terraform import proxmox_virtual_environment_cluster_options.options cluster
+    proxmox_virtual_environment_container:
+        subCategory: Virtual Environment
+        description: '|Manages a container.'
+        name: proxmox_virtual_environment_container
+        title: proxmox_virtual_environment_container
+        examples:
+            - name: ubuntu_container
+              manifest: |-
+                {
+                  "description": "Managed by Terraform",
+                  "disk": [
+                    {
+                      "datastore_id": "local-lvm",
+                      "size": 4
+                    }
+                  ],
+                  "initialization": [
+                    {
+                      "hostname": "terraform-provider-proxmox-ubuntu-container",
+                      "ip_config": [
+                        {
+                          "ipv4": [
+                            {
+                              "address": "dhcp"
+                            }
+                          ]
+                        }
+                      ],
+                      "user_account": [
+                        {
+                          "keys": [
+                            "${trimspace(tls_private_key.ubuntu_container_key.public_key_openssh)}"
+                          ],
+                          "password": "${random_password.ubuntu_container_password.result}"
+                        }
+                      ]
+                    }
+                  ],
+                  "mount_point": [
+                    {
+                      "path": "/mnt/shared",
+                      "volume": "/mnt/bindmounts/shared"
+                    },
+                    {
+                      "path": "/mnt/volume",
+                      "size": "10G",
+                      "volume": "local-lvm"
+                    }
+                  ],
+                  "network_interface": [
+                    {
+                      "name": "veth0"
+                    }
+                  ],
+                  "node_name": "first-node",
+                  "operating_system": [
+                    {
+                      "template_file_id": "${proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_lxc_img.id}",
+                      "type": "ubuntu"
+                    }
+                  ],
+                  "startup": [
+                    {
+                      "down_delay": "60",
+                      "order": "3",
+                      "up_delay": "60"
+                    }
+                  ],
+                  "vm_id": 1234
+                }
+              references:
+                initialization.user_account.password: random_password.ubuntu_container_password.result
+                operating_system.template_file_id: proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_lxc_img.id
+              dependencies:
+                proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_lxc_img: |-
+                    {
+                      "content_type": "vztmpl",
+                      "datastore_id": "local",
+                      "node_name": "first-node",
+                      "url": "http://download.proxmox.com/images/system/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+                    }
+                random_password.ubuntu_container_password: |-
+                    {
+                      "length": 16,
+                      "override_special": "_%@",
+                      "special": true
+                    }
+                tls_private_key.ubuntu_container_key: |-
+                    {
+                      "algorithm": "RSA",
+                      "rsa_bits": 2048
+                    }
+        argumentDocs:
+            acl: (Optional) Explicitly enable or disable ACL support.
+            address: '- (Optional) The IPv4 address (use dhcp for auto-discovery).'
+            alpine: '- Alpine.'
+            amd64: '- x86 (64 bit).'
+            architecture: '- (Optional) The CPU architecture (defaults to amd64).'
+            archlinux: '- Arch Linux.'
+            arm64: '- ARM (64-bit).'
+            armhf: '- ARM (32 bit).'
+            backup: |-
+                (Optional) Whether to include the mount point in backups (only
+                used for volume mount points, defaults to false).
+            bridge: |-
+                - (Optional) The name of the network bridge (defaults
+                to vmbr0).
+            centos: '- CentOS.'
+            clone: '- (Optional) The cloning configuration.'
+            console: '- (Optional) The console configuration.'
+            cores: '- (Optional) The number of CPU cores (defaults to 1).'
+            cpu: '- (Optional) The CPU configuration.'
+            datastore_id: '- (Optional) The identifier for the target datastore.'
+            debian: '- Debian.'
+            dedicated: |-
+                - (Optional) The dedicated memory in megabytes (defaults
+                to 512).
+            deny_write: '- (Optional) Deny the container to write to the device (defaults to false).'
+            description: '- (Optional) The description.'
+            device_passthrough: '- (Optional) Device to pass through to the container (multiple blocks supported).'
+            devuan: '- Devuan.'
+            disk: '- (Optional) The disk configuration.'
+            dns: '- (Optional) The DNS configuration.'
+            domain: '- (Optional) The DNS search domain.'
+            down_delay: |-
+                - (Optional) A non-negative number defining the delay in
+                seconds before the next container is shut down.
+            enabled: |-
+                - (Optional) Whether to enable the console device (defaults
+                to true).
+            features: '- (Optional) The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.'
+            fedora: '- Fedora.'
+            firewall: |-
+                - (Optional) Whether this interface's firewall rules should be
+                used (defaults to false).
+            fuse: |-
+                - (Optional) Whether the container supports FUSE mounts (defaults
+                to false)
+            gateway: |-
+                - (Optional) The IPv4 gateway (must be omitted
+                when dhcp is used as the address).
+            gentoo: '- Gentoo.'
+            gid: '- (Optional) Group ID to be assigned to the device node.'
+            hook_script_file_id: '- (Optional) The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).'
+            hostname: '- (Optional) The hostname.'
+            i386: '- x86 (32 bit).'
+            initialization: '- (Optional) The initialization configuration.'
+            ip_config: |-
+                - (Optional) The IP configuration (one block per network
+                device).
+            ipv4: '- (Optional) The IPv4 configuration.'
+            ipv6: '- (Optional) The IPv4 configuration.'
+            keyctl: |-
+                - (Optional) Whether the container supports keyctl() system
+                call (defaults to false)
+            keys: '- (Optional) The SSH keys for the root account.'
+            mac_address: '- (Optional) The MAC address.'
+            memory: '- (Optional) The memory configuration.'
+            mode: |-
+                - (Optional) Access mode to be set on the device node. Must be a
+                4-digit octal number.
+            mount: '- (Optional) List of allowed mount types (cifs or nfs)'
+            mount_options: (Optional) List of extra mount options.
+            mount_point: ""
+            mtu: |-
+                - (Optional) Maximum transfer unit of the interface. Cannot be
+                larger than the bridge's MTU.
+            name: '- (Required) The network interface name.'
+            nesting: |-
+                - (Optional) Whether the container is nested (defaults
+                to false)
+            network_interface: |-
+                - (Optional) A network interface (multiple blocks
+                supported).
+            nixos: '- NixOS.'
+            node_name: |-
+                - (Optional) The name of the source node (leave blank, if
+                equal to the node_name argument).
+            opensuse: '- openSUSE.'
+            operating_system: '- (Required) The Operating System configuration.'
+            order: |-
+                - (Required) A non-negative number defining the general startup
+                order.
+            password: '- (Optional) The password for the root account.'
+            path: |-
+                (Required) Path to the mount point as seen from inside the
+                container.
+            pool_id: '- (Optional) The identifier for a pool to assign the container to.'
+            protection: '- (Optional) Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.'
+            quota: |-
+                (Optional) Enable user quotas inside the container (not supported
+                with ZFS subvolumes).
+            rate_limit: '- (Optional) The rate limit in megabytes per second.'
+            read_only: (Optional) Read-only mount point.
+            replicate: (Optional) Will include this volume to a storage replica job.
+            server: |-
+                - (Optional) The DNS server. The server attribute is
+                deprecated and will be removed in a future release. Please use
+                the servers attribute instead.
+            servers: '- (Optional) The list of DNS servers.'
+            shared: |-
+                (Optional) Mark this non-volume mount point as available on all
+                nodes.
+            shell: '- Shell.'
+            size: |-
+                - (Optional) The size of the root filesystem in gigabytes (defaults
+                to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                Requires datastore_id to be set.
+            start_on_boot: |-
+                - (Optional) Automatically start container when the host
+                system boots (defaults to true).
+            started: '- (Optional) Whether to start the container (defaults to true).'
+            startup: '- (Optional) Defines startup and shutdown behavior of the container.'
+            swap: '- (Optional) The swap size in megabytes (defaults to 0).'
+            tags: |-
+                - (Optional) A list of tags the container tags. This is only meta
+                information (defaults to []). Note: Proxmox always sorts the container tags and set them to lowercase.
+                If tag contains capital letters, then Proxmox will always report a
+                difference on the resource. You may use the ignore_changes lifecycle
+                meta-argument to ignore changes to this attribute.
+            template: '- (Optional) Whether to create a template (defaults to false).'
+            template_file_id: |-
+                - (Required) The identifier for an OS template file.
+                The ID format is <datastore_id>:<content_type>/<file_name>, for example local:iso/jammy-server-cloudimg-amd64.tar.gz.
+                Can be also taken from proxmox_virtual_environment_download_file resource, or from the output of pvesm list <storage>.
+            timeout_clone: '- (Optional) Timeout for cloning a container in seconds (defaults to 1800).'
+            timeout_create: '- (Optional) Timeout for creating a container in seconds (defaults to 1800).'
+            timeout_delete: '- (Optional) Timeout for deleting a container in seconds (defaults to 60).'
+            timeout_update: '- (Optional) Timeout for updating a container in seconds (defaults to 1800).'
+            tty: '- TTY.'
+            tty_count: '- (Optional) The number of available TTY (defaults to 2).'
+            type: '- (Optional) The console mode (defaults to tty).'
+            ubuntu: '- Ubuntu.'
+            uid: '- (Optional) User ID to be assigned to the device node.'
+            units: '- (Optional) The CPU units (defaults to 1024).'
+            unmanaged: '- Unmanaged.'
+            unprivileged: |-
+                - (Optional) Whether the container runs as unprivileged on
+                the host (defaults to false).
+            up_delay: |-
+                - (Optional) A non-negative number defining the delay in
+                seconds before the next container is started.
+            user_account: '- (Optional) The user account configuration.'
+            vlan_id: '- (Optional) The VLAN identifier.'
+            vm_id: '- (Required) The identifier for the source container.'
+            volume: |-
+                (Required) Volume, device or directory to mount into the
+                container.
+        importStatements: []
+    proxmox_virtual_environment_dns:
+        subCategory: Virtual Environment
+        description: '|Manages the DNS configuration for a specific node.'
+        name: proxmox_virtual_environment_dns
+        title: proxmox_virtual_environment_dns
+        examples:
+            - name: first_node_dns_configuration
+              manifest: |-
+                {
+                  "domain": "${data.proxmox_virtual_environment_dns.first_node_dns_configuration.domain}",
+                  "node_name": "${data.proxmox_virtual_environment_dns.first_node_dns_configuration.node_name}",
+                  "servers": [
+                    "1.1.1.1",
+                    "1.0.0.1"
+                  ]
+                }
+              references:
+                domain: data.proxmox_virtual_environment_dns.first_node_dns_configuration.domain
+                node_name: data.proxmox_virtual_environment_dns.first_node_dns_configuration.node_name
+        argumentDocs:
+            domain: '- (Required) The DNS search domain.'
+            node_name: '- (Required) A node name.'
+            servers: '- (Optional) The DNS servers.'
+        importStatements: []
+    proxmox_virtual_environment_download_file:
+        subCategory: Virtual Environment
+        description: Manages files upload using PVE download-url API. It can be fully compatible and faster replacement for image files created using proxmox_virtual_environment_file. Supports images for VMs (ISO images) and LXC (CT Templates).
+        name: proxmox_virtual_environment_download_file
+        title: proxmox_virtual_environment_download_file
+        examples:
+            - name: release_20231228_debian_12_bookworm_qcow2_img
+              manifest: |-
+                {
+                  "checksum": "d2fbcf11fb28795842e91364d8c7b69f1870db09ff299eb94e4fbbfa510eb78d141e74c1f4bf6dfa0b7e33d0c3b66e6751886feadb4e9916f778bab1776bdf1b",
+                  "checksum_algorithm": "sha512",
+                  "content_type": "iso",
+                  "datastore_id": "local",
+                  "file_name": "debian-12-generic-amd64-20231228-1609.img",
+                  "node_name": "pve",
+                  "url": "https://cloud.debian.org/images/cloud/bookworm/20231228-1609/debian-12-generic-amd64-20231228-1609.qcow2"
+                }
+            - name: latest_debian_12_bookworm_qcow2_img
+              manifest: |-
+                {
+                  "content_type": "iso",
+                  "datastore_id": "local",
+                  "file_name": "debian-12-generic-amd64.qcow2.img",
+                  "node_name": "pve",
+                  "url": "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
+                }
+            - name: latest_ubuntu_22_jammy_qcow2_img
+              manifest: |-
+                {
+                  "content_type": "iso",
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+                }
+            - name: latest_static_ubuntu_24_noble_qcow2_img
+              manifest: |-
+                {
+                  "content_type": "iso",
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "overwrite": false,
+                  "url": "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+                }
+            - name: release_20231211_ubuntu_22_jammy_lxc_img
+              manifest: |-
+                {
+                  "checksum": "c9997dcfea5d826fd04871f960c513665f2e87dd7450bba99f68a97e60e4586e",
+                  "checksum_algorithm": "sha256",
+                  "content_type": "vztmpl",
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "upload_timeout": 4444,
+                  "url": "https://cloud-images.ubuntu.com/releases/22.04/release-20231211/ubuntu-22.04-server-cloudimg-amd64-root.tar.xz"
+                }
+            - name: latest_ubuntu_22_jammy_lxc_img
+              manifest: |-
+                {
+                  "content_type": "vztmpl",
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.tar.gz"
+                }
+        argumentDocs:
+            checksum: (String) The expected checksum of the file.
+            checksum_algorithm: (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
+            content_type: (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
+            datastore_id: (String) The identifier for the target datastore.
+            decompression_algorithm: (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
+            file_name: (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
+            id: (String) The unique identifier of this resource.
+            node_name: (String) The node name.
+            overwrite: (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
+            overwrite_unmanaged: (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
+            size: (Number) The file size in PVE.
+            upload_timeout: (Number) The file download timeout seconds. Default is 600 (10min).
+            url: '(String) The URL to download the file from. Must match regex: https?://.*.'
+            verify: (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
+        importStatements: []
+    proxmox_virtual_environment_file:
+        subCategory: Virtual Environment
+        description: '|Use this resource to upload files to a Proxmox VE node. The file can be a backup, an ISO image, a snippet, or a container template depending on the content_type attribute.'
+        name: proxmox_virtual_environment_file
+        title: proxmox_virtual_environment_file
+        examples:
+            - name: backup
+              manifest: |-
+                {
+                  "content_type": "backup",
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "source_file": [
+                    {
+                      "path": "vzdump-lxc-100-2023_11_08-23_10_05.tar.zst"
+                    }
+                  ]
+                }
+            - name: ubuntu_container_template
+              manifest: |-
+                {
+                  "content_type": "iso",
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "source_file": [
+                    {
+                      "path": "https://cloud-images.ubuntu.com/jammy/20230929/jammy-server-cloudimg-amd64-disk-kvm.img"
+                    }
+                  ]
+                }
+            - name: cloud_config
+              manifest: |-
+                {
+                  "content_type": "snippets",
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "source_raw": [
+                    {
+                      "data": "#cloud-config\nchpasswd:\n  list: |\n    ubuntu:example\n  expire: false\nhostname: example-hostname\npackages:\n  - qemu-guest-agent\nusers:\n  - default\n  - name: ubuntu\n    groups: sudo\n    shell: /bin/bash\n    ssh-authorized-keys:\n      - ${trimspace(tls_private_key.example.public_key_openssh)}\n    sudo: ALL=(ALL) NOPASSWD:ALL\n",
+                      "file_name": "example.cloud-config.yaml"
+                    }
+                  ]
+                }
+            - name: hook_script
+              manifest: |-
+                {
+                  "content_type": "snippets",
+                  "datastore_id": "local",
+                  "file_mode": "0700",
+                  "node_name": "pve",
+                  "source_raw": [
+                    {
+                      "data": "#!/usr/bin/env bash\n\necho \"Running hook script\"\n",
+                      "file_name": "prepare-hook.sh"
+                    }
+                  ]
+                }
+            - name: ubuntu_container_template
+              manifest: |-
+                {
+                  "content_type": "vztmpl",
+                  "datastore_id": "local",
+                  "node_name": "first-node",
+                  "source_file": [
+                    {
+                      "path": "https://download.proxmox.com/images/system/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+                    }
+                  ]
+                }
+        argumentDocs:
+            backup: '(allowed extensions: .vzdump, .tar.gz, .tar.xz, tar.zst)'
+            checksum: '- (Optional) The SHA256 checksum of the source file.'
+            content_type: |-
+                - (Optional) The content type. If not specified, the content
+                type will be inferred from the file extension. Valid values are:
+            data: '- (Required) The raw data.'
+            datastore_id: '- (Required) The datastore id.'
+            file_mode: '- The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.'
+            file_modification_date: '- The file modification date (RFC 3339).'
+            file_name: |-
+                - (Optional) The file name to use instead of the source file
+                name. Useful when the source file does not have a valid file extension,
+                for example when the source file is a URL referencing a .qcow2 image.
+            file_size: '- The file size in bytes.'
+            file_tag: '- The file tag.'
+            insecure: |-
+                - (Optional) Whether to skip the TLS verification step for
+                HTTPS sources (defaults to false).
+            iso: '(allowed extensions: .iso, .img)'
+            min_tls: |-
+                - (Optional) The minimum required TLS version for HTTPS
+                sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
+            node_name: '- (Required) The node name.'
+            overwrite: |-
+                - (Optional) Whether to overwrite an existing file (defaults to
+                true).
+            path: '- (Required) A path to a local file or a URL.'
+            resize: '- (Optional) The number of bytes to resize the file to.'
+            snippets: '(allowed extensions: any)'
+            source_file: |-
+                - (Optional) The source file (conflicts with source_raw),
+                could be a local file or a URL. If the source file is a URL, the file will
+                be downloaded and stored locally before uploading it to Proxmox VE.
+            source_raw: '- (Optional) The raw source (conflicts with source_file).'
+            timeout_upload: |-
+                - (Optional) Timeout for uploading ISO/VSTMPL files in
+                seconds (defaults to 1800).
+            vztmpl: '(allowed extensions: .tar.gz, .tar.xz, tar.zst)'
+        importStatements: []
+    proxmox_virtual_environment_firewall_alias:
+        subCategory: Virtual Environment
+        description: '|Aliases are used to see what devices or group of devices are affected by a rule. We can create aliases to identify an IP address or a network. Aliases can be created on the cluster level, on VM / Container level.'
+        name: proxmox_virtual_environment_firewall_alias
+        title: proxmox_virtual_environment_firewall_alias
+        examples:
+            - name: local_network
+              manifest: |-
+                {
+                  "cidr": "192.168.0.0/23",
+                  "comment": "Managed by Terraform",
+                  "depends_on": [
+                    "${proxmox_virtual_environment_vm.example}"
+                  ],
+                  "name": "local_network",
+                  "node_name": "${proxmox_virtual_environment_vm.example.node_name}",
+                  "vm_id": "${proxmox_virtual_environment_vm.example.vm_id}"
+                }
+              references:
+                node_name: proxmox_virtual_environment_vm.example.node_name
+                vm_id: proxmox_virtual_environment_vm.example.vm_id
+            - name: ubuntu_vm
+              manifest: |-
+                {
+                  "cidr": "192.168.0.1",
+                  "comment": "Managed by Terraform",
+                  "name": "ubuntu"
+                }
+        argumentDocs:
+            cidr: '- (Required) Network/IP specification in CIDR format.'
+            comment: '- (Optional) Alias comment.'
+            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
+            name: '- (Required) Alias name.'
+            node_name: '- (Optional) Node name. Leave empty for cluster level aliases.'
+            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
+        importStatements: []
+    proxmox_virtual_environment_firewall_ipset:
+        subCategory: Virtual Environment
+        description: '|An IPSet allows us to group multiple IP addresses, IP subnets and aliases. Aliases can be created on the cluster level, on VM / Container level.'
+        name: proxmox_virtual_environment_firewall_ipset
+        title: proxmox_virtual_environment_firewall_ipset
+        examples:
+            - name: ipset
+              manifest: |-
+                {
+                  "cidr": [
+                    {
+                      "comment": "Local network 1",
+                      "name": "192.168.0.0/23"
+                    },
+                    {
+                      "comment": "Server 1",
+                      "name": "192.168.0.1",
+                      "nomatch": true
+                    },
+                    {
+                      "comment": "Server 1",
+                      "name": "192.168.2.1"
+                    }
+                  ],
+                  "comment": "Managed by Terraform",
+                  "depends_on": [
+                    "${proxmox_virtual_environment_vm.example}"
+                  ],
+                  "name": "local_network",
+                  "node_name": "${proxmox_virtual_environment_vm.example.node_name}",
+                  "vm_id": "${proxmox_virtual_environment_vm.example.vm_id}"
+                }
+              references:
+                node_name: proxmox_virtual_environment_vm.example.node_name
+                vm_id: proxmox_virtual_environment_vm.example.vm_id
+        argumentDocs:
+            cidr: '- (Optional) IP/CIDR block (multiple blocks supported).'
+            comment: '- (Optional) IPSet comment.'
+            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
+            name: '- (Required) IPSet name.'
+            node_name: '- (Optional) Node name. Leave empty for cluster level aliases.'
+            nomatch: |-
+                - (Optional) Entries marked as nomatch are skipped as if those
+                were not added to the set.
+            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
+        importStatements: []
+    proxmox_virtual_environment_firewall_options:
+        subCategory: Virtual Environment
+        description: '|Manages firewall options on VM / Container level.'
+        name: proxmox_virtual_environment_firewall_options
+        title: proxmox_virtual_environment_firewall_options
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${proxmox_virtual_environment_vm.example}"
+                  ],
+                  "dhcp": true,
+                  "enabled": false,
+                  "input_policy": "ACCEPT",
+                  "ipfilter": true,
+                  "log_level_in": "info",
+                  "log_level_out": "info",
+                  "macfilter": false,
+                  "ndp": true,
+                  "node_name": "${proxmox_virtual_environment_vm.example.node_name}",
+                  "output_policy": "ACCEPT",
+                  "radv": true,
+                  "vm_id": "${proxmox_virtual_environment_vm.example.vm_id}"
+                }
+              references:
+                node_name: proxmox_virtual_environment_vm.example.node_name
+                vm_id: proxmox_virtual_environment_vm.example.vm_id
+        argumentDocs:
+            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
+            dhcp: '- (Optional)Enable DHCP.'
+            enabled: '- (Optional) Enable or disable the firewall.'
+            input_policy: |-
+                - (Optional) The default input
+                policy (ACCEPT, DROP, REJECT).
+            ipfilter: |-
+                - (Optional) Enable default IP filters. This is equivalent to
+                adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
+                implicitly contain sane default restrictions such as restricting IPv6 link
+                local addresses to the one derived from the interface's MAC address. For
+                containers the configured IP addresses will be implicitly added.
+            log_level_in: |-
+                - (Optional) Log level for incoming
+                packets (emerg, alert, crit, err, warning, notice, info,
+                debug, nolog).
+            log_level_out: |-
+                - (Optional) Log level for outgoing
+                packets (emerg, alert, crit, err, warning, notice, info,
+                debug, nolog).
+            macfilter: '- (Optional) Enable/disable MAC address filter.'
+            ndp: '- (Optional) Enable NDP (Neighbor Discovery Protocol).'
+            node_name: '- (Required) Node name.'
+            output_policy: |-
+                - (Optional) The default output
+                policy (ACCEPT, DROP, REJECT).
+            radv: '- (Optional) Enable Router Advertisement.'
+            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
+        importStatements: []
+    proxmox_virtual_environment_firewall_rules:
+        subCategory: Virtual Environment
+        description: '|A security group is a collection of rules, defined at cluster level, which can be used in all VMs'' rules. For example, you can define a group named “webserver” with rules to open the http and https ports. Rules can be created on the cluster level, on VM / Container level.'
+        name: proxmox_virtual_environment_firewall_rules
+        title: proxmox_virtual_environment_firewall_rules
+        examples:
+            - name: inbound
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${proxmox_virtual_environment_vm.example}",
+                    "${proxmox_virtual_environment_cluster_firewall_security_group.example}"
+                  ],
+                  "node_name": "${proxmox_virtual_environment_vm.example.node_name}",
+                  "rule": [
+                    {
+                      "action": "ACCEPT",
+                      "comment": "Allow HTTP",
+                      "dest": "192.168.1.5",
+                      "dport": "80",
+                      "log": "info",
+                      "proto": "tcp",
+                      "type": "in"
+                    },
+                    {
+                      "action": "ACCEPT",
+                      "comment": "Allow HTTPS",
+                      "dest": "192.168.1.5",
+                      "dport": "443",
+                      "log": "info",
+                      "proto": "tcp",
+                      "type": "in"
+                    },
+                    {
+                      "comment": "From security group",
+                      "iface": "net0",
+                      "security_group": "${proxmox_virtual_environment_cluster_firewall_security_group.example.name}"
+                    }
+                  ],
+                  "vm_id": "${proxmox_virtual_environment_vm.example.vm_id}"
+                }
+              references:
+                node_name: proxmox_virtual_environment_vm.example.node_name
+                rule.security_group: proxmox_virtual_environment_cluster_firewall_security_group.example.name
+                vm_id: proxmox_virtual_environment_vm.example.vm_id
+        argumentDocs:
+            action: '- (Required) Rule action (ACCEPT, DROP, REJECT).'
+            comment: '- (Optional) Rule comment.'
+            container_id: |-
+                - (Optional) Container ID. Leave empty for cluster level
+                rules.
+            dest: |-
+                - (Optional) Restrict packet destination address. This can
+                refer to a single IP address, an IP set ('+ipsetname') or an IP
+                alias definition. You can also specify an address range
+                like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                networks (entries are separated by comma). Please do not mix IPv4
+                and IPv6 addresses inside such lists.
+            dport: |-
+                - (Optional) Restrict TCP/UDP destination port. You can use
+                service names or simple numbers (0-65535), as defined
+                in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                example 80:85, and you can use comma separated list to match
+                several ports or ranges.
+            enabled: '- (Optional) Enable this rule. Defaults to true.'
+            iface: |-
+                - (Optional) Network interface name. You have to use network
+                configuration key names for VMs and containers ('net\d+'). Host
+                related rules can use arbitrary strings.
+            log: |-
+                - (Optional) Log level for this rule (emerg, alert, crit,
+                err, warning, notice, info, debug, nolog).
+            macro: |-
+                - (Optional) Macro name. Use predefined standard macro
+                from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
+            node_name: '- (Optional) Node name. Leave empty for cluster level rules.'
+            pos: '- Position of the rule in the list.'
+            proto: |-
+                - (Optional) Restrict packet protocol. You can use protocol
+                names as defined in '/etc/protocols'.
+            rule: |-
+                - (Optional) Firewall rule block (multiple blocks supported).
+                The provider supports two types of the rule blocks:
+            security_group: '- (Required) Security group name.'
+            source: |-
+                - (Optional) Restrict packet source address. This can refer
+                to a single IP address, an IP set ('+ipsetname') or an IP alias
+                definition. You can also specify an address range
+                like 20.34.101.207-201.3.9.99, or a list of IP addresses and
+                networks (entries are separated by comma). Please do not mix IPv4
+                and IPv6 addresses inside such lists.
+            sport: |-
+                - (Optional) Restrict TCP/UDP source port. You can use
+                service names or simple numbers (0-65535), as defined
+                in /etc/services. Port ranges can be specified with '\d+:\d+', for
+                example 80:85, and you can use comma separated list to match
+                several ports or ranges.
+            type: '- (Required) Rule type (in, out).'
+            vm_id: '- (Optional) VM ID. Leave empty for cluster level rules.'
+        importStatements: []
+    proxmox_virtual_environment_group:
+        subCategory: Virtual Environment
+        description: '|Manages a user group.'
+        name: proxmox_virtual_environment_group
+        title: proxmox_virtual_environment_group
+        examples:
+            - name: operations_team
+              manifest: |-
+                {
+                  "comment": "Managed by Terraform",
+                  "group_id": "operations-team"
+                }
+        argumentDocs:
+            acl: '- (Optional) The access control list (multiple blocks supported).'
+            comment: '- (Optional) The group comment.'
+            group_id: '- (Required) The group identifier.'
+            members: '- The group members as a list of username@realm entries'
+            path: '- The path.'
+            propagate: '- Whether to propagate to child paths.'
+            role_id: '- The role identifier.'
+        importStatements: []
+    proxmox_virtual_environment_hagroup:
+        subCategory: Virtual Environment
+        description: Manages a High Availability group in a Proxmox VE cluster.
+        name: proxmox_virtual_environment_hagroup
+        title: proxmox_virtual_environment_hagroup
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "comment": "This is a comment.",
+                  "group": "example",
+                  "no_failback": false,
+                  "nodes": {
+                    "node1": null,
+                    "node2": 2,
+                    "node3": 1
+                  },
+                  "restricted": true
+                }
         argumentDocs:
             comment: (String) The comment associated with this group
             group: (String) The identifier of the High Availability group to manage.
@@ -17,11 +1152,24 @@ resources:
               #!/usr/bin/env sh
               # HA groups can be imported using their name, e.g.:
               terraform import proxmox_virtual_environment_hagroup.example example
-    /virtual_environment_hardware_mapping_dir Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment hardware mapping dir.
-        name: /virtual_environment_hardware_mapping_dir Resource - terraform-provider-proxmox
-        title: /virtual_environment_hardware_mapping_dir Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_hardware_mapping_dir:
+        subCategory: Virtual Environment
+        description: Manages a directory mapping in a Proxmox VE cluster.
+        name: proxmox_virtual_environment_hardware_mapping_dir
+        title: proxmox_virtual_environment_hardware_mapping_dir
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "comment": "This is a comment",
+                  "map": [
+                    {
+                      "node": "pve",
+                      "path": "/mnt/data"
+                    }
+                  ],
+                  "name": "example"
+                }
         argumentDocs:
             comment: (String) The comment of this directory mapping.
             id: (String) The unique identifier of this directory mapping resource.
@@ -34,11 +1182,29 @@ resources:
               #!/usr/bin/env sh
               # A directory mapping can be imported using their name, e.g.:
               terraform import proxmox_virtual_environment_hardware_mapping_dir.example example
-    /virtual_environment_hardware_mapping_pci Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment hardware mapping pci.
-        name: /virtual_environment_hardware_mapping_pci Resource - terraform-provider-proxmox
-        title: /virtual_environment_hardware_mapping_pci Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_hardware_mapping_pci:
+        subCategory: Virtual Environment
+        description: Manages a PCI hardware mapping in a Proxmox VE cluster.
+        name: proxmox_virtual_environment_hardware_mapping_pci
+        title: proxmox_virtual_environment_hardware_mapping_pci
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "comment": "This is a comment",
+                  "map": [
+                    {
+                      "comment": "This is a device specific comment",
+                      "id": "8086:5916",
+                      "iommu_group": 0,
+                      "node": "pve",
+                      "path": "0000:00:02.0",
+                      "subsystem_id": "8086:2068"
+                    }
+                  ],
+                  "mediated_devices": true,
+                  "name": "example"
+                }
         argumentDocs:
             comment: (String) The comment of this PCI hardware mapping.
             id: (String) The unique identifier of this PCI hardware mapping resource.
@@ -54,11 +1220,26 @@ resources:
               #!/usr/bin/env sh
               # A PCI hardware mapping can be imported using their name, e.g.:
               terraform import proxmox_virtual_environment_hardware_mapping_pci.example example
-    /virtual_environment_hardware_mapping_usb Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment hardware mapping usb.
-        name: /virtual_environment_hardware_mapping_usb Resource - terraform-provider-proxmox
-        title: /virtual_environment_hardware_mapping_usb Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_hardware_mapping_usb:
+        subCategory: Virtual Environment
+        description: Manages a USB hardware mapping in a Proxmox VE cluster.
+        name: proxmox_virtual_environment_hardware_mapping_usb
+        title: proxmox_virtual_environment_hardware_mapping_usb
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "comment": "This is a comment",
+                  "map": [
+                    {
+                      "comment": "This is a device specific comment",
+                      "id": "8087:0a2b",
+                      "node": "pve",
+                      "path": "1-8.2"
+                    }
+                  ],
+                  "name": "example"
+                }
         argumentDocs:
             comment: (String) The comment of this USB hardware mapping.
             id: (String) The unique identifier of this USB hardware mapping resource.
@@ -71,11 +1252,23 @@ resources:
               #!/usr/bin/env sh
               # A USB hardware mapping can be imported using their name, e.g.:
               terraform import proxmox_virtual_environment_hardware_mapping_usb.example example
-    /virtual_environment_haresource Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment hardware haresource.
-        name: /virtual_environment_haresource Resource - terraform-provider-proxmox
-        title: /virtual_environment_haresource Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_haresource:
+        subCategory: Virtual Environment
+        description: Manages Proxmox HA resources.
+        name: proxmox_virtual_environment_haresource
+        title: proxmox_virtual_environment_haresource
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "comment": "Managed by Terraform",
+                  "depends_on": [
+                    "${proxmox_virtual_environment_hagroup.example}"
+                  ],
+                  "group": "example",
+                  "resource_id": "vm:123",
+                  "state": "started"
+                }
         argumentDocs:
             comment: (String) The comment associated with this resource.
             group: (String) The identifier of the High Availability group this resource is a member of.
@@ -90,11 +1283,26 @@ resources:
               #!/usr/bin/env sh
               # HA resources can be imported using their identifiers, e.g.:
               terraform import proxmox_virtual_environment_haresource.example vm:123
-    /virtual_environment_hosts Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment hosts.
-        name: /virtual_environment_hosts Resource - terraform-provider-proxmox
-        title: /virtual_environment_hosts Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_hosts:
+        subCategory: Virtual Environment
+        description: '|Manages the host entries on a specific node.'
+        name: proxmox_virtual_environment_hosts
+        title: proxmox_virtual_environment_hosts
+        examples:
+            - name: first_node_host_entries
+              manifest: |-
+                {
+                  "entry": [
+                    {
+                      "address": "127.0.0.1",
+                      "hostnames": [
+                        "localhost",
+                        "localhost.localdomain"
+                      ]
+                    }
+                  ],
+                  "node_name": "first-node"
+                }
         argumentDocs:
             address: '- (Required) The IP address.'
             addresses: '- The IP addresses.'
@@ -106,11 +1314,28 @@ resources:
             hostnames: '- (Required) The hostnames.'
             node_name: '- (Required) A node name.'
         importStatements: []
-    /virtual_environment_metrics_server Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment metrics server.
-        name: /virtual_environment_metrics_server Resource - terraform-provider-proxmox
-        title: /virtual_environment_metrics_server Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_metrics_server:
+        subCategory: Virtual Environment
+        description: Manages PVE metrics server.
+        name: proxmox_virtual_environment_metrics_server
+        title: proxmox_virtual_environment_metrics_server
+        examples:
+            - name: influxdb_server
+              manifest: |-
+                {
+                  "name": "example_influxdb_server",
+                  "port": 8089,
+                  "server": "192.168.3.2",
+                  "type": "influxdb"
+                }
+            - name: graphite_server
+              manifest: |-
+                {
+                  "name": "example_graphite_server",
+                  "port": 2003,
+                  "server": "192.168.4.2",
+                  "type": "graphite"
+                }
         argumentDocs:
             disable: (Boolean) Set this to true to disable this metric server.
             graphite_path: '(String) Root graphite path (ex: proxmox.mycluster.mykey).'
@@ -133,11 +1358,32 @@ resources:
             - |-
               #!/usr/bin/env sh
               terraform import proxmox_virtual_environment_metrics_server.example example
-    /virtual_environment_network_linux_bridge Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment network linux bridge.
-        name: /virtual_environment_network_linux_bridge Resource - terraform-provider-proxmox
-        title: /virtual_environment_network_linux_bridge Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_network_linux_bridge:
+        subCategory: Virtual Environment
+        description: Manages a Linux Bridge network interface in a Proxmox VE node.
+        name: proxmox_virtual_environment_network_linux_bridge
+        title: proxmox_virtual_environment_network_linux_bridge
+        examples:
+            - name: vmbr99
+              manifest: |-
+                {
+                  "address": "99.99.99.99/16",
+                  "comment": "vmbr99 comment",
+                  "depends_on": [
+                    "${proxmox_virtual_environment_network_linux_vlan.vlan99}"
+                  ],
+                  "name": "vmbr99",
+                  "node_name": "pve",
+                  "ports": [
+                    "ens18.99"
+                  ]
+                }
+              dependencies:
+                proxmox_virtual_environment_network_linux_vlan.vlan99: |-
+                    {
+                      "name": "ens18.99",
+                      "node_name": "pve"
+                    }
         argumentDocs:
             address: (String) The interface IPv4/CIDR address.
             address6: (String) The interface IPv6/CIDR address.
@@ -156,11 +1402,28 @@ resources:
               #!/usr/bin/env sh
               #Interfaces can be imported using the `node_name:iface` format, e.g.
               terraform import proxmox_virtual_environment_network_linux_bridge.vmbr99 pve:vmbr99
-    /virtual_environment_network_linux_vlan Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment network linux vlan.
-        name: /virtual_environment_network_linux_vlan Resource - terraform-provider-proxmox
-        title: /virtual_environment_network_linux_vlan Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_network_linux_vlan:
+        subCategory: Virtual Environment
+        description: Manages a Linux VLAN network interface in a Proxmox VE node.
+        name: proxmox_virtual_environment_network_linux_vlan
+        title: proxmox_virtual_environment_network_linux_vlan
+        examples:
+            - name: vlan99
+              manifest: |-
+                {
+                  "comment": "VLAN 99",
+                  "name": "eno0.99",
+                  "node_name": "pve"
+                }
+            - name: vlan98
+              manifest: |-
+                {
+                  "comment": "VLAN 98",
+                  "interface": "eno0",
+                  "name": "vlan_lab",
+                  "node_name": "pve",
+                  "vlan": 98
+                }
         argumentDocs:
             address: (String) The interface IPv4/CIDR address.
             address6: (String) The interface IPv6/CIDR address.
@@ -179,11 +1442,18 @@ resources:
               #!/usr/bin/env sh
               #Interfaces can be imported using the `node_name:iface` format, e.g.
               terraform import proxmox_virtual_environment_network_linux_vlan.vlan99 pve:vlan99
-    /virtual_environment_pool Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment pool.
-        name: /virtual_environment_pool Resource - terraform-provider-proxmox
-        title: /virtual_environment_pool Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_pool:
+        subCategory: Virtual Environment
+        description: '|Manages a resource pool.'
+        name: proxmox_virtual_environment_pool
+        title: proxmox_virtual_environment_pool
+        examples:
+            - name: operations_pool
+              manifest: |-
+                {
+                  "comment": "Managed by Terraform",
+                  "pool_id": "operations-pool"
+                }
         argumentDocs:
             comment: '- (Optional) The pool comment.'
             datastore_id: '- The datastore identifier.'
@@ -194,31 +1464,113 @@ resources:
             type: '- The member type.'
             vm_id: '- The virtual machine identifier.'
         importStatements: []
-    /virtual_environment_role Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment role.
-        name: /virtual_environment_role Resource - terraform-provider-proxmox
-        title: /virtual_environment_role Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_role:
+        subCategory: Virtual Environment
+        description: '|Manages a role.'
+        name: proxmox_virtual_environment_role
+        title: proxmox_virtual_environment_role
+        examples:
+            - name: operations_monitoring
+              manifest: |-
+                {
+                  "privileges": [
+                    "VM.Monitor"
+                  ],
+                  "role_id": "operations-monitoring"
+                }
         argumentDocs:
             privileges: '- (Required) The role privileges.'
             role_id: '- (Required) The role identifier.'
         importStatements: []
-    /virtual_environment_time Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment time.
-        name: /virtual_environment_time Resource - terraform-provider-proxmox
-        title: /virtual_environment_time Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_time:
+        subCategory: Virtual Environment
+        description: '|Manages the time for a specific node.'
+        name: proxmox_virtual_environment_time
+        title: proxmox_virtual_environment_time
+        examples:
+            - name: first_node_time
+              manifest: |-
+                {
+                  "node_name": "first-node",
+                  "time_zone": "UTC"
+                }
         argumentDocs:
             local_time: '- The node''s local time.'
             node_name: '- (Required) A node name.'
             time_zone: '- (Required) The node''s time zone.'
             utc_time: '- The node''s local time formatted as UTC.'
         importStatements: []
-    /virtual_environment_user_token Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment tiuser token.
-        name: /virtual_environment_user_token Resource - terraform-provider-proxmox
-        title: /virtual_environment_user_token Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_user:
+        subCategory: Virtual Environment
+        description: '|Manages a user.'
+        name: proxmox_virtual_environment_user
+        title: proxmox_virtual_environment_user
+        examples:
+            - name: operations_automation
+              manifest: |-
+                {
+                  "acl": [
+                    {
+                      "path": "/vms/1234",
+                      "propagate": true,
+                      "role_id": "${proxmox_virtual_environment_role.operations_monitoring.role_id}"
+                    }
+                  ],
+                  "comment": "Managed by Terraform",
+                  "password": "a-strong-password",
+                  "user_id": "operations-automation@pve"
+                }
+              references:
+                acl.role_id: proxmox_virtual_environment_role.operations_monitoring.role_id
+              dependencies:
+                proxmox_virtual_environment_role.operations_monitoring: |-
+                    {
+                      "privileges": [
+                        "VM.Monitor"
+                      ],
+                      "role_id": "operations-monitoring"
+                    }
+        argumentDocs:
+            acl: '- (Optional) The access control list (multiple blocks supported).'
+            comment: '- (Optional) The user comment.'
+            email: '- (Optional) The user''s email address.'
+            enabled: '- (Optional) Whether the user account is enabled.'
+            expiration_date: '- (Optional) The user account''s expiration date (RFC 3339).'
+            first_name: '- (Optional) The user''s first name.'
+            groups: '- (Optional) The user''s groups.'
+            keys: '- (Optional) The user''s keys.'
+            last_name: '- (Optional) The user''s last name.'
+            password: '- (Optional) The user''s password. Required for PVE or PAM realms.'
+            path: '- The path.'
+            propagate: '- Whether to propagate to child paths.'
+            role_id: '- The role identifier.'
+            user_id: '- (Required) The user identifier.'
+        importStatements: []
+    proxmox_virtual_environment_user_token:
+        subCategory: Virtual Environment
+        description: User API tokens.
+        name: proxmox_virtual_environment_user_token
+        title: proxmox_virtual_environment_user_token
+        examples:
+            - name: user_token
+              manifest: |-
+                {
+                  "comment": "Managed by Terraform",
+                  "expiration_date": "2033-01-01T22:00:00Z",
+                  "token_name": "tk1",
+                  "user_id": "${proxmox_virtual_environment_user.user.user_id}"
+                }
+              references:
+                user_id: proxmox_virtual_environment_user.user.user_id
+              dependencies:
+                proxmox_virtual_environment_user.user: |-
+                    {
+                      "comment": "Managed by Terraform",
+                      "email": "user@pve",
+                      "enabled": true,
+                      "expiration_date": "2034-01-01T22:00:00Z",
+                      "user_id": "user@pve"
+                    }
         argumentDocs:
             comment: (String) Comment for the token.
             expiration_date: (String) Expiration date for the token.
@@ -232,11 +1584,196 @@ resources:
               #!/usr/bin/env sh
               #Tokens can be imported using they identifiers in format `user_id!token_name` format, e.g.:
               terraform import proxmox_virtual_environment_user_token.token1 user@pve!token1
-    /virtual_environment_vm Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment vm.
-        name: /virtual_environment_vm Resource - terraform-provider-proxmox
-        title: /virtual_environment_vm Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_vm:
+        subCategory: Virtual Environment
+        description: '|  Manages a virtual machine.'
+        name: proxmox_virtual_environment_vm
+        title: proxmox_virtual_environment_vm
+        examples:
+            - name: ubuntu_vm
+              manifest: |-
+                {
+                  "agent": [
+                    {
+                      "enabled": false
+                    }
+                  ],
+                  "cpu": [
+                    {
+                      "cores": 2,
+                      "type": "x86-64-v2-AES"
+                    }
+                  ],
+                  "description": "Managed by Terraform",
+                  "disk": [
+                    {
+                      "datastore_id": "local-lvm",
+                      "file_id": "${proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_qcow2_img.id}",
+                      "interface": "scsi0"
+                    }
+                  ],
+                  "initialization": [
+                    {
+                      "ip_config": [
+                        {
+                          "ipv4": [
+                            {
+                              "address": "dhcp"
+                            }
+                          ]
+                        }
+                      ],
+                      "user_account": [
+                        {
+                          "keys": [
+                            "${trimspace(tls_private_key.ubuntu_vm_key.public_key_openssh)}"
+                          ],
+                          "password": "${random_password.ubuntu_vm_password.result}",
+                          "username": "ubuntu"
+                        }
+                      ],
+                      "user_data_file_id": "${proxmox_virtual_environment_file.cloud_config.id}"
+                    }
+                  ],
+                  "memory": [
+                    {
+                      "dedicated": 2048,
+                      "floating": 2048
+                    }
+                  ],
+                  "name": "terraform-provider-proxmox-ubuntu-vm",
+                  "network_device": [
+                    {
+                      "bridge": "vmbr0"
+                    }
+                  ],
+                  "node_name": "first-node",
+                  "operating_system": [
+                    {
+                      "type": "l26"
+                    }
+                  ],
+                  "serial_device": [
+                    {}
+                  ],
+                  "startup": [
+                    {
+                      "down_delay": "60",
+                      "order": "3",
+                      "up_delay": "60"
+                    }
+                  ],
+                  "stop_on_destroy": true,
+                  "tags": [
+                    "terraform",
+                    "ubuntu"
+                  ],
+                  "tpm_state": [
+                    {
+                      "version": "v2.0"
+                    }
+                  ],
+                  "virtiofs": [
+                    {
+                      "cache": "always",
+                      "direct_io": true,
+                      "mapping": "data_share"
+                    }
+                  ],
+                  "vm_id": 4321
+                }
+              references:
+                disk.file_id: proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_qcow2_img.id
+                initialization.user_account.password: random_password.ubuntu_vm_password.result
+                initialization.user_data_file_id: proxmox_virtual_environment_file.cloud_config.id
+              dependencies:
+                proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_qcow2_img: |-
+                    {
+                      "content_type": "iso",
+                      "datastore_id": "local",
+                      "node_name": "pve",
+                      "url": "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
+                    }
+                random_password.ubuntu_vm_password: |-
+                    {
+                      "length": 16,
+                      "override_special": "_%@",
+                      "special": true
+                    }
+                tls_private_key.ubuntu_vm_key: |-
+                    {
+                      "algorithm": "RSA",
+                      "rsa_bits": 2048
+                    }
+            - name: ubuntu_vm
+              manifest: |-
+                {
+                  "name": "terraform-provider-proxmox-ubuntu-vm",
+                  "vm_id": 4321
+                }
+              dependencies:
+                proxmox_virtual_environment_haresource.ubuntu_vm: |-
+                    {
+                      "comment": "Managed by Terraform",
+                      "group": "node1",
+                      "resource_id": "vm:${proxmox_virtual_environment_vm.ubuntu_vm.vm_id}",
+                      "state": "started"
+                    }
+            - name: data_vm
+              manifest: |-
+                {
+                  "disk": [
+                    {
+                      "datastore_id": "local-zfs",
+                      "interface": "scsi0",
+                      "size": 1
+                    },
+                    {
+                      "datastore_id": "local-zfs",
+                      "interface": "scsi1",
+                      "size": 4
+                    }
+                  ],
+                  "node_name": "first-node",
+                  "on_boot": false,
+                  "started": false
+                }
+            - name: data_user_vm
+              manifest: |-
+                {
+                  "disk": [
+                    {
+                      "datastore_id": "local-zfs",
+                      "interface": "scsi0",
+                      "size": 8
+                    }
+                  ],
+                  "dynamic": {
+                    "disk": [
+                      {
+                        "content": [
+                          {
+                            "datastore_id": "${data_disk.value[\"datastore_id\"]}",
+                            "file_format": "${data_disk.value[\"file_format\"]}",
+                            "interface": "scsi${data_disk.key + 1}",
+                            "path_in_datastore": "${data_disk.value[\"path_in_datastore\"]}",
+                            "size": "${data_disk.value[\"size\"]}"
+                          }
+                        ],
+                        "for_each": "${{ for idx, val in proxmox_virtual_environment_vm.data_vm.disk : idx =\u003e val }}",
+                        "iterator": "${data_disk}"
+                      }
+                    ]
+                  }
+                }
+              references:
+                dynamic.content.datastore_id: data_disk.value["datastore_id"]
+                dynamic.content.file_format: data_disk.value["file_format"]
+                dynamic.content.path_in_datastore: data_disk.value["path_in_datastore"]
+                dynamic.content.size: data_disk.value["size"]
+                dynamic.iterator: data_disk
+            - name: test_vm
+              manifest: '{}'
         argumentDocs:
             +aes: /-aes - Activate AES instruction set for HW acceleration.
             +amd-no-ssb: |-
@@ -501,9 +2038,7 @@ resources:
             it: '- Italian.'
             ja: '- Japanese.'
             keep_hugepages: '- (Optional) Keep hugepages memory after the VM is stopped (defaults to false).'
-            kernel_hashes: |-
-                - (Optional) Add kernel hashes to guest firmware for measured
-                linux kernel launch (defaults to false).
+            kernel_hashes: '- (Optional) Add kernel hashes to guest firmware for measured linux kernel launch (defaults to false).'
             keyboard_layout: '- (Optional) The keyboard layout (defaults to en-us).'
             keys: '- (Optional) The SSH keys.'
             kvm_arguments: '- (Optional) Arbitrary arguments passed to kvm.'
@@ -563,9 +2098,7 @@ resources:
             no_debug: |-
                 - (Optional) Sets policy bit to disallow debugging of guest (defaults
                 to false).
-            no_key_sharing: |-
-                - (Optional) Sets policy bit to disallow key sharing with
-                other guests (Ignored for SEV-SNP) (defaults to false).
+            no_key_sharing: '- (Optional) Sets policy bit to disallow key sharing with other guests (Ignored for SEV-SNP) (defaults to false).'
             node_name: |-
                 - (Optional) The name of the source node (leave blank, if
                 equal to the node_name argument).
@@ -758,11 +2291,11 @@ resources:
                 See https://en.wikipedia.org/wiki/X86-64#Microarchitecture_levels
             x86_64: '- x86 (64-bit).'
         importStatements: []
-    /virtual_environment_vm2 Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment vm2.
-        name: /virtual_environment_vm2 Resource - terraform-provider-proxmox
-        title: /virtual_environment_vm2 Resource - terraform-provider-proxmox
+    proxmox_virtual_environment_vm2:
+        subCategory: Virtual Environment
+        description: This is an experimental implementation of a Proxmox VM resource using Plugin Framework.It is a Proof of Concept, highly experimental and will change in future. It does not support all features of the Proxmox API for VMs and MUST NOT be used in production.
+        name: proxmox_virtual_environment_vm2
+        title: proxmox_virtual_environment_vm2
         argumentDocs:
             affinity: (String) The CPU cores that are used to run the VM’s vCPU. The value is a list of CPU IDs, separated by commas. The CPU IDs are zero-based.  For example, 0,1,2,3 (which also can be shortened to 0-3) means that the VM’s vCPUs are run on the first four CPU cores. Setting affinity is only allowed for root@pam authenticated user.
             architecture: (String) The CPU architecture <aarch64 | x86_64> (defaults to the host). Setting affinity is only allowed for root@pam authenticated user.
@@ -798,629 +2331,4 @@ resources:
             units: (Number) CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
             update: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
             vga: (Attributes) Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is std for all OS types besides some Windows versions (XP and older) which use cirrus. The qxl option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays themself. You can also run without any graphic card, using a serial device as terminal. See the Proxmox documentation section 10.2.8 for more information and available configuration parameters. (see below for nested schema)
-        importStatements: []
-    virtual_environment_acl Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual enviroemtn acl .
-        name: virtual_environment_acl Resource - terraform-provider-proxmox
-        title: virtual_environment_acl Resource - terraform-provider-proxmox
-        argumentDocs:
-            group_id: (String) The group the ACL should apply to (mutually exclusive with token_id and user_id)
-            id: (String) The unique identifier of this resource.
-            path: (String) Access control path
-            propagate: (Boolean) Allow to propagate (inherit) permissions.
-            role_id: (String) The role to apply
-            token_id: (String) The token the ACL should apply to (mutually exclusive with group_id and user_id)
-            user_id: (String) The user the ACL should apply to (mutually exclusive with group_id and token_id)
-        importStatements:
-            - |-
-              #!/usr/bin/env sh
-              # ACL can be imported using its unique identifier, e.g.: {path}?{group|user@realm|user@realm!token}?{role}
-              terraform import proxmox_virtual_environment_acl.operations_automation_monitoring /?monitor@pve?operations-monitoring
-    virtual_environment_acme_account Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual enviroemtn acme account .
-        name: virtual_environment_acme_account Resource - terraform-provider-proxmox
-        title: virtual_environment_acme_account Resource - terraform-provider-proxmox
-        argumentDocs:
-            contact: (String) The contact email addresses.
-            created_at: (String) The timestamp of the ACME account creation.
-            directory: (String) The URL of the ACME CA directory endpoint.
-            eab_hmac_key: (String) The HMAC key for External Account Binding.
-            eab_kid: (String) The Key Identifier for External Account Binding.
-            location: (String) The location of the ACME account.
-            name: (String) The ACME account config file name.
-            tos: (String) The URL of CA TermsOfService - setting this indicates agreement.
-        importStatements:
-            - |-
-              #!/usr/bin/env sh
-              # ACME accounts can be imported using their name, e.g.:
-              terraform import proxmox_virtual_environment_acme_account.example example
-    virtual_environment_acme_dns_plugin Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual enviroemtn acme dns plugin .
-        name: virtual_environment_acme_dns_plugin Resource - terraform-provider-proxmox
-        title: virtual_environment_acme_dns_plugin Resource - terraform-provider-proxmox
-        argumentDocs:
-            api: (String) API plugin name.
-            data: (Map of String) DNS plugin data.
-            digest: (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
-            disable: (Boolean) Flag to disable the config.
-            plugin: (String) ACME Plugin ID name.
-            validation_delay: (Number) Extra delay in seconds to wait before requesting validation. Allows to cope with a long TTL of DNS records (0 - 172800).
-        importStatements:
-            - |-
-              #!/usr/bin/env sh
-              # ACME accounts can be imported using their name, e.g.:
-              terraform import proxmox_virtual_environment_acme_dns_plugin.example test
-    virtual_environment_apt_repository Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment apt repository .
-        name: virtual_environment_apt_repository Resource - terraform-provider-proxmox
-        title: virtual_environment_apt_repository Resource - terraform-provider-proxmox
-        argumentDocs:
-            comment: (String) The associated comment.
-            components: (List of String) The list of components.
-            enabled: (Boolean) Indicates the activation status.
-            file_path: (String) The absolute path of the source list file that contains this repository.
-            file_type: (String) The format of the defining source list file.
-            id: (String) The unique identifier of this APT repository resource.
-            index: (Number) The index within the defining source list file.
-            node: (String) The name of the target Proxmox VE node.
-            package_types: (List of String) The list of package types.
-            suites: (List of String) The list of package distributions.
-            uris: (List of String) The list of repository URIs.
-        importStatements:
-            - |-
-              #!/usr/bin/env sh
-              # An APT repository can be imported using a comma-separated list consisting of the name of the Proxmox VE node,
-              # the absolute source list file path, and the index in the exact same order, e.g.:
-              terraform import proxmox_virtual_environment_apt_repository.example pve,/etc/apt/sources.list,0
-    virtual_environment_apt_standard_repository Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment apt standard repository .
-        name: virtual_environment_apt_standard_repository Resource - terraform-provider-proxmox
-        title: virtual_environment_apt_standard_repository Resource - terraform-provider-proxmox
-        argumentDocs:
-            description: (String) The description of the APT standard repository.
-            file_path: (String) The absolute path of the source list file that contains this standard repository.
-            handle: (String) The handle of the APT standard repository. Must be ceph-quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
-            id: (String) The unique identifier of this APT standard repository resource.
-            index: (Number) The index within the defining source list file.
-            name: (String) The name of the APT standard repository.
-            node: (String) The name of the target Proxmox VE node.
-            status: (Number) Indicates the activation status.
-        importStatements:
-            - |-
-              #!/usr/bin/env sh
-              # An APT standard repository can be imported using a comma-separated list consisting of the name of the Proxmox VE node,
-              # and the standard repository handle in the exact same order, e.g.:
-              terraform import proxmox_virtual_environment_apt_standard_repository.example pve,no-subscription
-    virtual_environment_certificate Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment certificate .
-        name: virtual_environment_certificate Resource - terraform-provider-proxmox
-        title: virtual_environment_certificate Resource - terraform-provider-proxmox
-        argumentDocs:
-            certificate: '- (Required) The PEM encoded certificate.'
-            certificate_chain: '- (Optional) The PEM encoded certificate chain.'
-            expiration_date: '- The expiration date (RFC 3339).'
-            file_name: '- The file name.'
-            issuer: '- The issuer.'
-            node_name: '- (Required) A node name.'
-            private_key: '- (Required) The PEM encoded private key.'
-            public_key_size: '- The public key size.'
-            public_key_type: '- The public key type.'
-            ssl_fingerprint: '- The SSL fingerprint.'
-            start_date: '- The start date (RFC 3339).'
-            subject: '- The subject.'
-            subject_alternative_names: '- The subject alternative names.'
-        importStatements: []
-    virtual_environment_cluster_firewall Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment cluster firewall .
-        name: virtual_environment_cluster_firewall Resource - terraform-provider-proxmox
-        title: virtual_environment_cluster_firewall Resource - terraform-provider-proxmox
-        argumentDocs:
-            burst: |-
-                - (Optional) Initial burst of packages which will always get
-                logged before the rate is applied (defaults to 5).
-            ebtables: '- (Optional) Enable ebtables rules cluster wide.'
-            enabled: '- (Optional) Enable or disable the firewall cluster wide.'
-            input_policy: '- (Optional) The default input policy (ACCEPT, DROP, REJECT).'
-            log_ratelimit: '- (Optional) The log rate limit.'
-            output_policy: '- (Optional) The default output policy (ACCEPT, DROP, REJECT).'
-            rate: |-
-                - (Optional) Frequency with which the burst bucket gets refilled
-                (defaults to 1/second).
-        importStatements: []
-    virtual_environment_cluster_firewall_security_group Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment cluster firewall security group.
-        name: virtual_environment_cluster_firewall_security_group Resource - terraform-provider-proxmox
-        title: virtual_environment_cluster_firewall_security_group Resource - terraform-provider-proxmox
-        argumentDocs:
-            action: '- (Required) Rule action (ACCEPT, DROP, REJECT).'
-            comment: '- (Optional) Security group comment.'
-            dest: |-
-                - (Optional) Restrict packet destination address. This can refer to
-                a single IP address, an IP set ('+ipsetname') or an IP alias
-                definition. You can also specify an address range like
-                20.34.101.207-201.3.9.99, or a list of IP addresses and networks
-                (entries are separated by comma). Please do not mix IPv4 and IPv6
-                addresses inside such lists.
-            dport: |-
-                - (Optional) Restrict TCP/UDP destination port. You can use
-                service names or simple numbers (0-65535), as defined in '/etc/
-                services'. Port ranges can be specified with '\d+:\d+', for example
-                80:85, and you can use comma separated list to match several ports or
-                ranges.
-            enable: '- (Optional) Enable this rule. Defaults to true.'
-            iface: |-
-                - (Optional) Network interface name. You have to use network
-                configuration key names for VMs and containers ('net\d+'). Host related
-                rules can use arbitrary strings.
-            log: |-
-                - (Optional) Log level for this rule (emerg, alert, crit,
-                err, warning, notice, info, debug, nolog).
-            macro: |-
-                - (Optional) Macro name. Use predefined standard macro
-                from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
-            name: '- (Required) Security group name.'
-            pos: '- Position of the rule in the list.'
-            proto: |-
-                - (Optional) Restrict packet protocol. You can use protocol names
-                as defined in '/etc/protocols'.
-            rule: '- (Optional) Firewall rule block (multiple blocks supported).'
-            source: |-
-                - (Optional) Restrict packet source address. This can refer
-                to a single IP address, an IP set ('+ipsetname') or an IP alias
-                definition. You can also specify an address range like
-                20.34.101.207-201.3.9.99, or a list of IP addresses and networks (
-                entries are separated by comma). Please do not mix IPv4 and IPv6
-                addresses inside such lists.
-            sport: |-
-                - (Optional) Restrict TCP/UDP source port. You can use
-                service names or simple numbers (0-65535), as defined in '/etc/
-                services'. Port ranges can be specified with '\d+:\d+', for example
-                80:85, and you can use comma separated list to match several ports or
-                ranges.
-            type: '- (Required) Rule type (in, out).'
-        importStatements: []
-    virtual_environment_cluster_options Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment cluster options.
-        name: virtual_environment_cluster_options Resource - terraform-provider-proxmox
-        title: virtual_environment_cluster_options Resource - terraform-provider-proxmox
-        argumentDocs:
-            bandwidth_limit_clone: (Number) Clone I/O bandwidth limit in KiB/s.
-            bandwidth_limit_default: (Number) Default I/O bandwidth limit in KiB/s.
-            bandwidth_limit_migration: (Number) Migration I/O bandwidth limit in KiB/s.
-            bandwidth_limit_move: (Number) Move I/O bandwidth limit in KiB/s.
-            bandwidth_limit_restore: (Number) Restore I/O bandwidth limit in KiB/s.
-            console: (String) Select the default Console viewer. Must be applet | vv| html5 | xtermjs. You can either use the builtin java applet (VNC; deprecated and maps to html5), an external virt-viewer compatible application (SPICE), an HTML5 based vnc viewer (noVNC), or an HTML5 based console client (xtermjs). If the selected viewer is not available (e.g. SPICE not activated for the VM), the fallback is noVNC.
-            crs_ha: (String) Cluster resource scheduling setting for HA. Must be static | basic (default is basic).
-            crs_ha_rebalance_on_start: (Boolean) Cluster resource scheduling setting for HA rebalance on start.
-            description: (String) Datacenter description. Shown in the web-interface datacenter notes panel. This is saved as comment inside the configuration file.
-            email_from: (String) email address to send notification from (default is root@$hostname).
-            ha_fencing_mode: (String) Cluster-wide notification settings for the HA fencing mode. Must be always | never.
-            ha_fencing_target: (String) Cluster-wide notification settings for the HA fencing target.
-            ha_shutdown_policy: (String) Cluster wide HA shutdown policy (). Must be freeze | failover | migrate | conditional (default is conditional).
-            http_proxy: '(String) Specify external http proxy which is used for downloads (example: http://username:password@host:port/).'
-            id: (String) The unique identifier of this resource.
-            keyboard: (String) Default keyboard layout for vnc server. Must be de | de-ch | da | en-gb | en-us | es | fi | fr | fr-be | fr-ca | fr-ch | hu | is | it | ja | lt | mk | nl | no | pl | pt | pt-br | sv | sl | tr.
-            language: (String) Default GUI language. Must be ca | da | de | en | es | eu | fa | fr | he | it | ja | nb | nn | pl | pt_BR | ru | sl | sv | tr | zh_CN | zh_TW.
-            lower: (Number) The minimum number for the next free VM ID. Must be higher or equal to 100
-            mac_prefix: (String) Prefix for autogenerated MAC addresses.
-            max_workers: (Number) Defines how many workers (per node) are maximal started on actions like 'stopall VMs' or task from the ha-manager.
-            migration_cidr: (String) Cluster wide migration network CIDR.
-            migration_type: (String) Cluster wide migration type. Must be secure | insecure (default is secure).
-            next_id: (Attributes) The ranges for the next free VM ID auto-selection pool. (see below for nested schema)
-            notify: (Attributes) Cluster-wide notification settings. (see below for nested schema)
-            package_updates: (String) Cluster-wide notification settings for package updates. Must be auto | always | never.
-            package_updates_target: (String) Cluster-wide notification settings for the package updates target.
-            replication: (String) Cluster-wide notification settings for replication. Must be always | never.
-            replication_target: (String) Cluster-wide notification settings for the replication target.
-            upper: (Number) The maximum number for the next free VM ID. Must be less or equal to 999999999
-        importStatements:
-            - |-
-              #!/usr/bin/env sh
-              # Cluster options are global and can be imported using e.g.:
-              terraform import proxmox_virtual_environment_cluster_options.options cluster
-    virtual_environment_container Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment container.
-        name: virtual_environment_container Resource - terraform-provider-proxmox
-        title: virtual_environment_container Resource - terraform-provider-proxmox
-        argumentDocs:
-            acl: (Optional) Explicitly enable or disable ACL support.
-            address: '- (Optional) The IPv4 address (use dhcp for auto-discovery).'
-            alpine: '- Alpine.'
-            amd64: '- x86 (64 bit).'
-            architecture: '- (Optional) The CPU architecture (defaults to amd64).'
-            archlinux: '- Arch Linux.'
-            arm64: '- ARM (64-bit).'
-            armhf: '- ARM (32 bit).'
-            backup: |-
-                (Optional) Whether to include the mount point in backups (only
-                used for volume mount points, defaults to false).
-            bridge: |-
-                - (Optional) The name of the network bridge (defaults
-                to vmbr0).
-            centos: '- CentOS.'
-            clone: '- (Optional) The cloning configuration.'
-            console: '- (Optional) The console configuration.'
-            cores: '- (Optional) The number of CPU cores (defaults to 1).'
-            cpu: '- (Optional) The CPU configuration.'
-            datastore_id: '- (Optional) The identifier for the target datastore.'
-            debian: '- Debian.'
-            dedicated: |-
-                - (Optional) The dedicated memory in megabytes (defaults
-                to 512).
-            deny_write: '- (Optional) Deny the container to write to the device (defaults to false).'
-            description: '- (Optional) The description.'
-            device_passthrough: '- (Optional) Device to pass through to the container (multiple blocks supported).'
-            devuan: '- Devuan.'
-            disk: '- (Optional) The disk configuration.'
-            dns: '- (Optional) The DNS configuration.'
-            domain: '- (Optional) The DNS search domain.'
-            down_delay: |-
-                - (Optional) A non-negative number defining the delay in
-                seconds before the next container is shut down.
-            enabled: |-
-                - (Optional) Whether to enable the console device (defaults
-                to true).
-            features: '- (Optional) The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.'
-            fedora: '- Fedora.'
-            firewall: |-
-                - (Optional) Whether this interface's firewall rules should be
-                used (defaults to false).
-            fuse: |-
-                - (Optional) Whether the container supports FUSE mounts (defaults
-                to false)
-            gateway: |-
-                - (Optional) The IPv4 gateway (must be omitted
-                when dhcp is used as the address).
-            gentoo: '- Gentoo.'
-            gid: '- (Optional) Group ID to be assigned to the device node.'
-            hook_script_file_id: '- (Optional) The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).'
-            hostname: '- (Optional) The hostname.'
-            i386: '- x86 (32 bit).'
-            initialization: '- (Optional) The initialization configuration.'
-            ip_config: |-
-                - (Optional) The IP configuration (one block per network
-                device).
-            ipv4: '- (Optional) The IPv4 configuration.'
-            ipv6: '- (Optional) The IPv4 configuration.'
-            keyctl: |-
-                - (Optional) Whether the container supports keyctl() system
-                call (defaults to false)
-            keys: '- (Optional) The SSH keys for the root account.'
-            mac_address: '- (Optional) The MAC address.'
-            memory: '- (Optional) The memory configuration.'
-            mode: |-
-                - (Optional) Access mode to be set on the device node. Must be a
-                4-digit octal number.
-            mount: '- (Optional) List of allowed mount types (cifs or nfs)'
-            mount_options: (Optional) List of extra mount options.
-            mount_point: ""
-            mtu: |-
-                - (Optional) Maximum transfer unit of the interface. Cannot be
-                larger than the bridge's MTU.
-            name: '- (Required) The network interface name.'
-            nesting: |-
-                - (Optional) Whether the container is nested (defaults
-                to false)
-            network_interface: |-
-                - (Optional) A network interface (multiple blocks
-                supported).
-            nixos: '- NixOS.'
-            node_name: |-
-                - (Optional) The name of the source node (leave blank, if
-                equal to the node_name argument).
-            opensuse: '- openSUSE.'
-            operating_system: '- (Required) The Operating System configuration.'
-            order: |-
-                - (Required) A non-negative number defining the general startup
-                order.
-            password: '- (Optional) The password for the root account.'
-            path: |-
-                (Required) Path to the mount point as seen from inside the
-                container.
-            pool_id: '- (Optional) The identifier for a pool to assign the container to.'
-            protection: '- (Optional) Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.'
-            quota: |-
-                (Optional) Enable user quotas inside the container (not supported
-                with ZFS subvolumes).
-            rate_limit: '- (Optional) The rate limit in megabytes per second.'
-            read_only: (Optional) Read-only mount point.
-            replicate: (Optional) Will include this volume to a storage replica job.
-            server: |-
-                - (Optional) The DNS server. The server attribute is
-                deprecated and will be removed in a future release. Please use
-                the servers attribute instead.
-            servers: '- (Optional) The list of DNS servers.'
-            shared: |-
-                (Optional) Mark this non-volume mount point as available on all
-                nodes.
-            shell: '- Shell.'
-            size: |-
-                - (Optional) The size of the root filesystem in gigabytes (defaults
-                to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
-                Requires datastore_id to be set.
-            start_on_boot: |-
-                - (Optional) Automatically start container when the host
-                system boots (defaults to true).
-            started: '- (Optional) Whether to start the container (defaults to true).'
-            startup: '- (Optional) Defines startup and shutdown behavior of the container.'
-            swap: '- (Optional) The swap size in megabytes (defaults to 0).'
-            tags: |-
-                - (Optional) A list of tags the container tags. This is only meta
-                information (defaults to []). Note: Proxmox always sorts the container tags and set them to lowercase.
-                If tag contains capital letters, then Proxmox will always report a
-                difference on the resource. You may use the ignore_changes lifecycle
-                meta-argument to ignore changes to this attribute.
-            template: '- (Optional) Whether to create a template (defaults to false).'
-            template_file_id: |-
-                - (Required) The identifier for an OS template file.
-                The ID format is <datastore_id>:<content_type>/<file_name>, for example local:iso/jammy-server-cloudimg-amd64.tar.gz.
-                Can be also taken from proxmox_virtual_environment_download_file resource, or from the output of pvesm list <storage>.
-            timeout_clone: '- (Optional) Timeout for cloning a container in seconds (defaults to 1800).'
-            timeout_create: '- (Optional) Timeout for creating a container in seconds (defaults to 1800).'
-            timeout_delete: '- (Optional) Timeout for deleting a container in seconds (defaults to 60).'
-            timeout_update: '- (Optional) Timeout for updating a container in seconds (defaults to 1800).'
-            tty: '- TTY.'
-            tty_count: '- (Optional) The number of available TTY (defaults to 2).'
-            type: '- (Optional) The console mode (defaults to tty).'
-            ubuntu: '- Ubuntu.'
-            uid: '- (Optional) User ID to be assigned to the device node.'
-            units: '- (Optional) The CPU units (defaults to 1024).'
-            unmanaged: '- Unmanaged.'
-            unprivileged: |-
-                - (Optional) Whether the container runs as unprivileged on
-                the host (defaults to false).
-            up_delay: |-
-                - (Optional) A non-negative number defining the delay in
-                seconds before the next container is started.
-            user_account: '- (Optional) The user account configuration.'
-            vlan_id: '- (Optional) The VLAN identifier.'
-            vm_id: '- (Required) The identifier for the source container.'
-            volume: |-
-                (Required) Volume, device or directory to mount into the
-                container.
-        importStatements: []
-    virtual_environment_dns Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment dns.
-        name: virtual_environment_dns Resource - terraform-provider-proxmox
-        title: virtual_environment_dns Resource - terraform-provider-proxmox
-        argumentDocs:
-            domain: '- (Required) The DNS search domain.'
-            node_name: '- (Required) A node name.'
-            servers: '- (Optional) The DNS servers.'
-        importStatements: []
-    virtual_environment_download_file Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment file.
-        name: virtual_environment_download_file Resource - terraform-provider-proxmox
-        title: virtual_environment_download_file Resource - terraform-provider-proxmox
-        argumentDocs:
-            checksum: (String) The expected checksum of the file.
-            checksum_algorithm: (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
-            content_type: (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
-            datastore_id: (String) The identifier for the target datastore.
-            decompression_algorithm: (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
-            file_name: (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
-            id: (String) The unique identifier of this resource.
-            node_name: (String) The node name.
-            overwrite: (Boolean) If true and size of uploaded file is different, than size from url Content-Length header, file will be downloaded again. If false, there will be no checks.
-            overwrite_unmanaged: (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
-            size: (Number) The file size.
-            upload_timeout: (Number) The file download timeout seconds. Default is 600 (10min).
-            url: '(String) The URL to download the file from. Must match regex: https?://.*.'
-            verify: (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
-        importStatements: []
-    virtual_environment_file Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment file.
-        name: virtual_environment_file Resource - terraform-provider-proxmox
-        title: virtual_environment_file Resource - terraform-provider-proxmox
-        argumentDocs:
-            backup: '(allowed extensions: .vzdump, .tar.gz, .tar.xz, tar.zst)'
-            checksum: '- (Optional) The SHA256 checksum of the source file.'
-            content_type: |-
-                - (Optional) The content type. If not specified, the content
-                type will be inferred from the file extension. Valid values are:
-            data: '- (Required) The raw data.'
-            datastore_id: '- (Required) The datastore id.'
-            file_mode: '- The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.'
-            file_modification_date: '- The file modification date (RFC 3339).'
-            file_name: |-
-                - (Optional) The file name to use instead of the source file
-                name. Useful when the source file does not have a valid file extension,
-                for example when the source file is a URL referencing a .qcow2 image.
-            file_size: '- The file size in bytes.'
-            file_tag: '- The file tag.'
-            insecure: |-
-                - (Optional) Whether to skip the TLS verification step for
-                HTTPS sources (defaults to false).
-            iso: '(allowed extensions: .iso, .img)'
-            min_tls: |-
-                - (Optional) The minimum required TLS version for HTTPS
-                sources. "Supported values: 1.0|1.1|1.2|1.3 (defaults to 1.3).
-            node_name: '- (Required) The node name.'
-            overwrite: |-
-                - (Optional) Whether to overwrite an existing file (defaults to
-                true).
-            path: '- (Required) A path to a local file or a URL.'
-            resize: '- (Optional) The number of bytes to resize the file to.'
-            snippets: '(allowed extensions: any)'
-            source_file: |-
-                - (Optional) The source file (conflicts with source_raw),
-                could be a local file or a URL. If the source file is a URL, the file will
-                be downloaded and stored locally before uploading it to Proxmox VE.
-            source_raw: '- (Optional) The raw source (conflicts with source_file).'
-            timeout_upload: |-
-                - (Optional) Timeout for uploading ISO/VSTMPL files in
-                seconds (defaults to 1800).
-            vztmpl: '(allowed extensions: .tar.gz, .tar.xz, tar.zst)'
-        importStatements: []
-    virtual_environment_firewall_alias Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment firewall alias.
-        name: virtual_environment_firewall_alias Resource - terraform-provider-proxmox
-        title: virtual_environment_firewall_alias Resource - terraform-provider-proxmox
-        argumentDocs:
-            cidr: '- (Required) Network/IP specification in CIDR format.'
-            comment: '- (Optional) Alias comment.'
-            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
-            name: '- (Required) Alias name.'
-            node_name: '- (Optional) Node name. Leave empty for cluster level aliases.'
-            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
-        importStatements: []
-    virtual_environment_firewall_ipset Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment firewall ipset.
-        name: virtual_environment_firewall_ipset Resource - terraform-provider-proxmox
-        title: virtual_environment_firewall_ipset Resource - terraform-provider-proxmox
-        argumentDocs:
-            cidr: '- (Optional) IP/CIDR block (multiple blocks supported).'
-            comment: '- (Optional) IPSet comment.'
-            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
-            name: '- (Required) IPSet name.'
-            node_name: '- (Optional) Node name. Leave empty for cluster level aliases.'
-            nomatch: |-
-                - (Optional) Entries marked as nomatch are skipped as if those
-                were not added to the set.
-            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
-        importStatements: []
-    virtual_environment_firewall_options Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment firewall options.
-        name: virtual_environment_firewall_options Resource - terraform-provider-proxmox
-        title: virtual_environment_firewall_options Resource - terraform-provider-proxmox
-        argumentDocs:
-            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
-            dhcp: '- (Optional)Enable DHCP.'
-            enabled: '- (Optional) Enable or disable the firewall.'
-            input_policy: |-
-                - (Optional) The default input
-                policy (ACCEPT, DROP, REJECT).
-            ipfilter: |-
-                - (Optional) Enable default IP filters. This is equivalent to
-                adding an empty ipfilter-net<id> ipset for every interface. Such ipsets
-                implicitly contain sane default restrictions such as restricting IPv6 link
-                local addresses to the one derived from the interface's MAC address. For
-                containers the configured IP addresses will be implicitly added.
-            log_level_in: |-
-                - (Optional) Log level for incoming
-                packets (emerg, alert, crit, err, warning, notice, info,
-                debug, nolog).
-            log_level_out: |-
-                - (Optional) Log level for outgoing
-                packets (emerg, alert, crit, err, warning, notice, info,
-                debug, nolog).
-            macfilter: '- (Optional) Enable/disable MAC address filter.'
-            ndp: '- (Optional) Enable NDP (Neighbor Discovery Protocol).'
-            node_name: '- (Required) Node name.'
-            output_policy: |-
-                - (Optional) The default output
-                policy (ACCEPT, DROP, REJECT).
-            radv: '- (Optional) Enable Router Advertisement.'
-            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
-        importStatements: []
-    virtual_environment_firewall_rules Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment firewall rules.
-        name: virtual_environment_firewall_rules Resource - terraform-provider-proxmox
-        title: virtual_environment_firewall_rules Resource - terraform-provider-proxmox
-        argumentDocs:
-            action: '- (Required) Rule action (ACCEPT, DROP, REJECT).'
-            comment: '- (Optional) Rule comment.'
-            container_id: |-
-                - (Optional) Container ID. Leave empty for cluster level
-                rules.
-            dest: |-
-                - (Optional) Restrict packet destination address. This can
-                refer to a single IP address, an IP set ('+ipsetname') or an IP
-                alias definition. You can also specify an address range
-                like 20.34.101.207-201.3.9.99, or a list of IP addresses and
-                networks (entries are separated by comma). Please do not mix IPv4
-                and IPv6 addresses inside such lists.
-            dport: |-
-                - (Optional) Restrict TCP/UDP destination port. You can use
-                service names or simple numbers (0-65535), as defined
-                in /etc/services. Port ranges can be specified with '\d+:\d+', for
-                example 80:85, and you can use comma separated list to match
-                several ports or ranges.
-            enabled: '- (Optional) Enable this rule. Defaults to true.'
-            iface: |-
-                - (Optional) Network interface name. You have to use network
-                configuration key names for VMs and containers ('net\d+'). Host
-                related rules can use arbitrary strings.
-            log: |-
-                - (Optional) Log level for this rule (emerg, alert, crit,
-                err, warning, notice, info, debug, nolog).
-            macro: |-
-                - (Optional) Macro name. Use predefined standard macro
-                from https://pve.proxmox.com/pve-docs/pve-admin-guide.html#_firewall_macro_definitions
-            node_name: '- (Optional) Node name. Leave empty for cluster level rules.'
-            pos: '- Position of the rule in the list.'
-            proto: |-
-                - (Optional) Restrict packet protocol. You can use protocol
-                names as defined in '/etc/protocols'.
-            rule: |-
-                - (Optional) Firewall rule block (multiple blocks supported).
-                The provider supports two types of the rule blocks:
-            security_group: '- (Required) Security group name.'
-            source: |-
-                - (Optional) Restrict packet source address. This can refer
-                to a single IP address, an IP set ('+ipsetname') or an IP alias
-                definition. You can also specify an address range
-                like 20.34.101.207-201.3.9.99, or a list of IP addresses and
-                networks (entries are separated by comma). Please do not mix IPv4
-                and IPv6 addresses inside such lists.
-            sport: |-
-                - (Optional) Restrict TCP/UDP source port. You can use
-                service names or simple numbers (0-65535), as defined
-                in /etc/services. Port ranges can be specified with '\d+:\d+', for
-                example 80:85, and you can use comma separated list to match
-                several ports or ranges.
-            type: '- (Required) Rule type (in, out).'
-            vm_id: '- (Optional) VM ID. Leave empty for cluster level rules.'
-        importStatements: []
-    virtual_environment_group Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual environment group.
-        name: virtual_environment_group Resource - terraform-provider-proxmox
-        title: virtual_environment_group Resource - terraform-provider-proxmox
-        argumentDocs:
-            acl: '- (Optional) The access control list (multiple blocks supported).'
-            comment: '- (Optional) The group comment.'
-            group_id: '- (Required) The group identifier.'
-            members: '- The group members as a list of username@realm entries'
-            path: '- The path.'
-            propagate: '- Whether to propagate to child paths.'
-            role_id: '- The role identifier.'
-        importStatements: []
-    virtual_environment_user Resource - terraform-provider-proxmox:
-        subCategory: ""
-        description: This resource creates and manages a Proxmox virtual enviroemtn user .
-        name: virtual_environment_user Resource - terraform-provider-proxmox
-        title: virtual_environment_user Resource - terraform-provider-proxmox
-        argumentDocs:
-            acl: '- (Optional) The access control list (multiple blocks supported).'
-            comment: '- (Optional) The user comment.'
-            email: '- (Optional) The user''s email address.'
-            enabled: '- (Optional) Whether the user account is enabled.'
-            expiration_date: '- (Optional) The user account''s expiration date (RFC 3339).'
-            first_name: '- (Optional) The user''s first name.'
-            groups: '- (Optional) The user''s groups.'
-            keys: '- (Optional) The user''s keys.'
-            last_name: '- (Optional) The user''s last name.'
-            password: '- (Optional) The user''s password. Required for PVE or PAM realms.'
-            path: '- The path.'
-            propagate: '- Whether to propagate to child paths.'
-            role_id: '- The role identifier.'
-            user_id: '- (Required) The user identifier.'
         importStatements: []

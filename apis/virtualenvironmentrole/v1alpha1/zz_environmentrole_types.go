@@ -15,10 +15,12 @@ import (
 
 type EnvironmentRoleInitParameters struct {
 
+	// The role privileges.
 	// The role privileges
 	// +listType=set
 	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
 
+	// The role identifier.
 	// The role id
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 }
@@ -26,21 +28,25 @@ type EnvironmentRoleInitParameters struct {
 type EnvironmentRoleObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The role privileges.
 	// The role privileges
 	// +listType=set
 	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
 
+	// The role identifier.
 	// The role id
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
 }
 
 type EnvironmentRoleParameters struct {
 
+	// The role privileges.
 	// The role privileges
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
 
+	// The role identifier.
 	// The role id
 	// +kubebuilder:validation:Optional
 	RoleID *string `json:"roleId,omitempty" tf:"role_id,omitempty"`
@@ -73,7 +79,7 @@ type EnvironmentRoleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentRole is the Schema for the EnvironmentRoles API. <no value>
+// EnvironmentRole is the Schema for the EnvironmentRoles API. |Manages a role.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

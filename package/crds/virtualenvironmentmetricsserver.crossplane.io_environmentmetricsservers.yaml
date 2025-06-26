@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentMetricsServer is the Schema for the EnvironmentMetricsServers
-          API. <no value>
+          API. Manages PVE metrics server.
         properties:
           apiVersion:
             description: |-
@@ -75,41 +75,49 @@ spec:
               forProvider:
                 properties:
                   disable:
-                    description: Set this to `true` to disable this metric server.
+                    description: |-
+                      (Boolean) Set this to true to disable this metric server.
+                      Set this to `true` to disable this metric server.
                     type: boolean
                   graphitePath:
-                    description: 'Root graphite path (ex: `proxmox.mycluster.mykey`).'
+                    description: |-
+                      (String) Root graphite path (ex: proxmox.mycluster.mykey).
+                      Root graphite path (ex: `proxmox.mycluster.mykey`).
                     type: string
                   graphiteProto:
-                    description: Protocol to send graphite data. Choice is between
-                      `udp` | `tcp`. If not set, PVE default is `udp`.
+                    description: |-
+                      (String) Protocol to send graphite data. Choice is between udp | tcp. If not set, PVE default is udp.
+                      Protocol to send graphite data. Choice is between `udp` | `tcp`. If not set, PVE default is `udp`.
                     type: string
                   influxApiPathPrefix:
-                    description: An API path prefix inserted between `<host>:<port>/`
-                      and `/api2/`. Can be useful if the InfluxDB service runs behind
-                      a reverse proxy.
+                    description: |-
+                      (String) An API path prefix inserted between <host>:<port>/ and /api2/. Can be useful if the InfluxDB service runs behind a reverse proxy.
+                      An API path prefix inserted between `<host>:<port>/` and `/api2/`. Can be useful if the InfluxDB service runs behind a reverse proxy.
                     type: string
                   influxBucket:
-                    description: The InfluxDB bucket/db. Only necessary when using
-                      the http v2 api.
+                    description: |-
+                      (String) The InfluxDB bucket/db. Only necessary when using the http v2 api.
+                      The InfluxDB bucket/db. Only necessary when using the http v2 api.
                     type: string
                   influxDbProto:
-                    description: Protocol for InfluxDB. Choice is between `udp` |
-                      `http` | `https`. If not set, PVE default is `udp`.
+                    description: |-
+                      (String) Protocol for InfluxDB. Choice is between udp | http | https. If not set, PVE default is udp.
+                      Protocol for InfluxDB. Choice is between `udp` | `http` | `https`. If not set, PVE default is `udp`.
                     type: string
                   influxMaxBodySize:
-                    description: InfluxDB max-body-size in bytes. Requests are batched
-                      up to this size. If not set, PVE default is `25000000`.
+                    description: |-
+                      body-size in bytes. Requests are batched up to this size. If not set, PVE default is 25000000.
+                      InfluxDB max-body-size in bytes. Requests are batched up to this size. If not set, PVE default is `25000000`.
                     type: number
                   influxOrganization:
-                    description: The InfluxDB organization. Only necessary when using
-                      the http v2 api. Has no meaning when using v2 compatibility
-                      api.
+                    description: |-
+                      (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
+                      The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
                     type: string
                   influxTokenSecretRef:
-                    description: The InfluxDB access token. Only necessary when using
-                      the http v2 api. If the v2 compatibility api is used, use `user:password`
-                      instead.
+                    description: |-
+                      (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
+                      The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
                     properties:
                       key:
                         description: The key to select.
@@ -126,30 +134,39 @@ spec:
                     - namespace
                     type: object
                   influxVerify:
-                    description: Set to `false` to disable certificate verification
-                      for https endpoints.
+                    description: |-
+                      (Boolean) Set to false to disable certificate verification for https endpoints.
+                      Set to `false` to disable certificate verification for https endpoints.
                     type: boolean
                   mtu:
-                    description: MTU (maximum transmission unit) for metrics transmission
-                      over UDP. If not set, PVE default is `1500` (allowed `512` -
-                      `65536`).
+                    description: |-
+                      65536).
+                      MTU (maximum transmission unit) for metrics transmission over UDP. If not set, PVE default is `1500` (allowed `512` - `65536`).
                     type: number
                   name:
-                    description: Unique name that will be ID of this metric server
-                      in PVE.
+                    description: |-
+                      (String) Unique name that will be ID of this metric server in PVE.
+                      Unique name that will be ID of this metric server in PVE.
                     type: string
                   port:
-                    description: Server network port.
+                    description: |-
+                      (Number) Server network port.
+                      Server network port.
                     type: number
                   server:
-                    description: Server dns name or IP address.
+                    description: |-
+                      (String) Server dns name or IP address.
+                      Server dns name or IP address.
                     type: string
                   timeout:
-                    description: TCP socket timeout in seconds. If not set, PVE default
-                      is `1`.
+                    description: |-
+                      (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+                      TCP socket timeout in seconds. If not set, PVE default is `1`.
                     type: number
                   type:
-                    description: Plugin type. Choice is between `graphite` | `influxdb`.
+                    description: |-
+                      (String) Plugin type. Choice is between graphite | influxdb.
+                      Plugin type. Choice is between `graphite` | `influxdb`.
                     type: string
                 type: object
               initProvider:
@@ -166,41 +183,49 @@ spec:
                   autoscaler.
                 properties:
                   disable:
-                    description: Set this to `true` to disable this metric server.
+                    description: |-
+                      (Boolean) Set this to true to disable this metric server.
+                      Set this to `true` to disable this metric server.
                     type: boolean
                   graphitePath:
-                    description: 'Root graphite path (ex: `proxmox.mycluster.mykey`).'
+                    description: |-
+                      (String) Root graphite path (ex: proxmox.mycluster.mykey).
+                      Root graphite path (ex: `proxmox.mycluster.mykey`).
                     type: string
                   graphiteProto:
-                    description: Protocol to send graphite data. Choice is between
-                      `udp` | `tcp`. If not set, PVE default is `udp`.
+                    description: |-
+                      (String) Protocol to send graphite data. Choice is between udp | tcp. If not set, PVE default is udp.
+                      Protocol to send graphite data. Choice is between `udp` | `tcp`. If not set, PVE default is `udp`.
                     type: string
                   influxApiPathPrefix:
-                    description: An API path prefix inserted between `<host>:<port>/`
-                      and `/api2/`. Can be useful if the InfluxDB service runs behind
-                      a reverse proxy.
+                    description: |-
+                      (String) An API path prefix inserted between <host>:<port>/ and /api2/. Can be useful if the InfluxDB service runs behind a reverse proxy.
+                      An API path prefix inserted between `<host>:<port>/` and `/api2/`. Can be useful if the InfluxDB service runs behind a reverse proxy.
                     type: string
                   influxBucket:
-                    description: The InfluxDB bucket/db. Only necessary when using
-                      the http v2 api.
+                    description: |-
+                      (String) The InfluxDB bucket/db. Only necessary when using the http v2 api.
+                      The InfluxDB bucket/db. Only necessary when using the http v2 api.
                     type: string
                   influxDbProto:
-                    description: Protocol for InfluxDB. Choice is between `udp` |
-                      `http` | `https`. If not set, PVE default is `udp`.
+                    description: |-
+                      (String) Protocol for InfluxDB. Choice is between udp | http | https. If not set, PVE default is udp.
+                      Protocol for InfluxDB. Choice is between `udp` | `http` | `https`. If not set, PVE default is `udp`.
                     type: string
                   influxMaxBodySize:
-                    description: InfluxDB max-body-size in bytes. Requests are batched
-                      up to this size. If not set, PVE default is `25000000`.
+                    description: |-
+                      body-size in bytes. Requests are batched up to this size. If not set, PVE default is 25000000.
+                      InfluxDB max-body-size in bytes. Requests are batched up to this size. If not set, PVE default is `25000000`.
                     type: number
                   influxOrganization:
-                    description: The InfluxDB organization. Only necessary when using
-                      the http v2 api. Has no meaning when using v2 compatibility
-                      api.
+                    description: |-
+                      (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
+                      The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
                     type: string
                   influxTokenSecretRef:
-                    description: The InfluxDB access token. Only necessary when using
-                      the http v2 api. If the v2 compatibility api is used, use `user:password`
-                      instead.
+                    description: |-
+                      (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
+                      The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
                     properties:
                       key:
                         description: The key to select.
@@ -217,30 +242,39 @@ spec:
                     - namespace
                     type: object
                   influxVerify:
-                    description: Set to `false` to disable certificate verification
-                      for https endpoints.
+                    description: |-
+                      (Boolean) Set to false to disable certificate verification for https endpoints.
+                      Set to `false` to disable certificate verification for https endpoints.
                     type: boolean
                   mtu:
-                    description: MTU (maximum transmission unit) for metrics transmission
-                      over UDP. If not set, PVE default is `1500` (allowed `512` -
-                      `65536`).
+                    description: |-
+                      65536).
+                      MTU (maximum transmission unit) for metrics transmission over UDP. If not set, PVE default is `1500` (allowed `512` - `65536`).
                     type: number
                   name:
-                    description: Unique name that will be ID of this metric server
-                      in PVE.
+                    description: |-
+                      (String) Unique name that will be ID of this metric server in PVE.
+                      Unique name that will be ID of this metric server in PVE.
                     type: string
                   port:
-                    description: Server network port.
+                    description: |-
+                      (Number) Server network port.
+                      Server network port.
                     type: number
                   server:
-                    description: Server dns name or IP address.
+                    description: |-
+                      (String) Server dns name or IP address.
+                      Server dns name or IP address.
                     type: string
                   timeout:
-                    description: TCP socket timeout in seconds. If not set, PVE default
-                      is `1`.
+                    description: |-
+                      (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+                      TCP socket timeout in seconds. If not set, PVE default is `1`.
                     type: number
                   type:
-                    description: Plugin type. Choice is between `graphite` | `influxdb`.
+                    description: |-
+                      (String) Plugin type. Choice is between graphite | influxdb.
+                      Plugin type. Choice is between `graphite` | `influxdb`.
                     type: string
                 type: object
               managementPolicies:
@@ -434,64 +468,82 @@ spec:
               atProvider:
                 properties:
                   disable:
-                    description: Set this to `true` to disable this metric server.
+                    description: |-
+                      (Boolean) Set this to true to disable this metric server.
+                      Set this to `true` to disable this metric server.
                     type: boolean
                   graphitePath:
-                    description: 'Root graphite path (ex: `proxmox.mycluster.mykey`).'
+                    description: |-
+                      (String) Root graphite path (ex: proxmox.mycluster.mykey).
+                      Root graphite path (ex: `proxmox.mycluster.mykey`).
                     type: string
                   graphiteProto:
-                    description: Protocol to send graphite data. Choice is between
-                      `udp` | `tcp`. If not set, PVE default is `udp`.
+                    description: |-
+                      (String) Protocol to send graphite data. Choice is between udp | tcp. If not set, PVE default is udp.
+                      Protocol to send graphite data. Choice is between `udp` | `tcp`. If not set, PVE default is `udp`.
                     type: string
                   id:
+                    description: (String) The unique identifier of this resource.
                     type: string
                   influxApiPathPrefix:
-                    description: An API path prefix inserted between `<host>:<port>/`
-                      and `/api2/`. Can be useful if the InfluxDB service runs behind
-                      a reverse proxy.
+                    description: |-
+                      (String) An API path prefix inserted between <host>:<port>/ and /api2/. Can be useful if the InfluxDB service runs behind a reverse proxy.
+                      An API path prefix inserted between `<host>:<port>/` and `/api2/`. Can be useful if the InfluxDB service runs behind a reverse proxy.
                     type: string
                   influxBucket:
-                    description: The InfluxDB bucket/db. Only necessary when using
-                      the http v2 api.
+                    description: |-
+                      (String) The InfluxDB bucket/db. Only necessary when using the http v2 api.
+                      The InfluxDB bucket/db. Only necessary when using the http v2 api.
                     type: string
                   influxDbProto:
-                    description: Protocol for InfluxDB. Choice is between `udp` |
-                      `http` | `https`. If not set, PVE default is `udp`.
+                    description: |-
+                      (String) Protocol for InfluxDB. Choice is between udp | http | https. If not set, PVE default is udp.
+                      Protocol for InfluxDB. Choice is between `udp` | `http` | `https`. If not set, PVE default is `udp`.
                     type: string
                   influxMaxBodySize:
-                    description: InfluxDB max-body-size in bytes. Requests are batched
-                      up to this size. If not set, PVE default is `25000000`.
+                    description: |-
+                      body-size in bytes. Requests are batched up to this size. If not set, PVE default is 25000000.
+                      InfluxDB max-body-size in bytes. Requests are batched up to this size. If not set, PVE default is `25000000`.
                     type: number
                   influxOrganization:
-                    description: The InfluxDB organization. Only necessary when using
-                      the http v2 api. Has no meaning when using v2 compatibility
-                      api.
+                    description: |-
+                      (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
+                      The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
                     type: string
                   influxVerify:
-                    description: Set to `false` to disable certificate verification
-                      for https endpoints.
+                    description: |-
+                      (Boolean) Set to false to disable certificate verification for https endpoints.
+                      Set to `false` to disable certificate verification for https endpoints.
                     type: boolean
                   mtu:
-                    description: MTU (maximum transmission unit) for metrics transmission
-                      over UDP. If not set, PVE default is `1500` (allowed `512` -
-                      `65536`).
+                    description: |-
+                      65536).
+                      MTU (maximum transmission unit) for metrics transmission over UDP. If not set, PVE default is `1500` (allowed `512` - `65536`).
                     type: number
                   name:
-                    description: Unique name that will be ID of this metric server
-                      in PVE.
+                    description: |-
+                      (String) Unique name that will be ID of this metric server in PVE.
+                      Unique name that will be ID of this metric server in PVE.
                     type: string
                   port:
-                    description: Server network port.
+                    description: |-
+                      (Number) Server network port.
+                      Server network port.
                     type: number
                   server:
-                    description: Server dns name or IP address.
+                    description: |-
+                      (String) Server dns name or IP address.
+                      Server dns name or IP address.
                     type: string
                   timeout:
-                    description: TCP socket timeout in seconds. If not set, PVE default
-                      is `1`.
+                    description: |-
+                      (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+                      TCP socket timeout in seconds. If not set, PVE default is `1`.
                     type: number
                   type:
-                    description: Plugin type. Choice is between `graphite` | `influxdb`.
+                    description: |-
+                      (String) Plugin type. Choice is between graphite | influxdb.
+                      Plugin type. Choice is between `graphite` | `influxdb`.
                     type: string
                 type: object
               conditions:

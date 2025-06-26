@@ -15,133 +15,171 @@ import (
 
 type EnvironmentDownloadFileInitParameters struct {
 
+	// (String) The expected checksum of the file.
 	// The expected checksum of the file.
 	Checksum *string `json:"checksum,omitempty" tf:"checksum,omitempty"`
 
+	// (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
 	// The algorithm to calculate the checksum of the file. Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
 	ChecksumAlgorithm *string `json:"checksumAlgorithm,omitempty" tf:"checksum_algorithm,omitempty"`
 
+	// (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
 	// The file content type. Must be `iso` for VM images or `vztmpl` for LXC images.
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// (String) The identifier for the target datastore.
 	// The identifier for the target datastore.
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
 	// Decompress the downloaded file using the specified compression algorithm. Must be one of `gz` | `lzo` | `zst` | `bz2`.
 	DecompressionAlgorithm *string `json:"decompressionAlgorithm,omitempty" tf:"decompression_algorithm,omitempty"`
 
+	// (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
 	// The file name. If not provided, it is calculated using `url`. PVE will raise 'wrong file extension' error for some popular extensions file `.raw` or `.qcow2`. Workaround is to use e.g. `.img` instead.
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// (String) The node name.
 	// The node name.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
 	// If `true` and size of uploaded file is different, than size from `url` Content-Length header, file will be downloaded again. If `false`, there will be no checks.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
 	// If `true` and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If `false` and the file already exists, an error will be returned.
 	OverwriteUnmanaged *bool `json:"overwriteUnmanaged,omitempty" tf:"overwrite_unmanaged,omitempty"`
 
+	// (String) The URL to download the file from. Must match regex: https?://.*.
 	// The URL to download the file from. Must match regex: `https?://.*`.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// (Number) The file download timeout seconds. Default is 600 (10min).
 	// The file download timeout seconds. Default is 600 (10min).
 	UploadTimeout *float64 `json:"uploadTimeout,omitempty" tf:"upload_timeout,omitempty"`
 
+	// (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
 	// By default `true`. If `false`, no SSL/TLS certificates will be verified.
 	Verify *bool `json:"verify,omitempty" tf:"verify,omitempty"`
 }
 
 type EnvironmentDownloadFileObservation struct {
 
+	// (String) The expected checksum of the file.
 	// The expected checksum of the file.
 	Checksum *string `json:"checksum,omitempty" tf:"checksum,omitempty"`
 
+	// (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
 	// The algorithm to calculate the checksum of the file. Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
 	ChecksumAlgorithm *string `json:"checksumAlgorithm,omitempty" tf:"checksum_algorithm,omitempty"`
 
+	// (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
 	// The file content type. Must be `iso` for VM images or `vztmpl` for LXC images.
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// (String) The identifier for the target datastore.
 	// The identifier for the target datastore.
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
 	// Decompress the downloaded file using the specified compression algorithm. Must be one of `gz` | `lzo` | `zst` | `bz2`.
 	DecompressionAlgorithm *string `json:"decompressionAlgorithm,omitempty" tf:"decompression_algorithm,omitempty"`
 
+	// (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
 	// The file name. If not provided, it is calculated using `url`. PVE will raise 'wrong file extension' error for some popular extensions file `.raw` or `.qcow2`. Workaround is to use e.g. `.img` instead.
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// (String) The unique identifier of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The node name.
 	// The node name.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
 	// If `true` and size of uploaded file is different, than size from `url` Content-Length header, file will be downloaded again. If `false`, there will be no checks.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
 	// If `true` and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If `false` and the file already exists, an error will be returned.
 	OverwriteUnmanaged *bool `json:"overwriteUnmanaged,omitempty" tf:"overwrite_unmanaged,omitempty"`
 
+	// (Number) The file size in PVE.
 	// The file size.
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 
+	// (String) The URL to download the file from. Must match regex: https?://.*.
 	// The URL to download the file from. Must match regex: `https?://.*`.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// (Number) The file download timeout seconds. Default is 600 (10min).
 	// The file download timeout seconds. Default is 600 (10min).
 	UploadTimeout *float64 `json:"uploadTimeout,omitempty" tf:"upload_timeout,omitempty"`
 
+	// (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
 	// By default `true`. If `false`, no SSL/TLS certificates will be verified.
 	Verify *bool `json:"verify,omitempty" tf:"verify,omitempty"`
 }
 
 type EnvironmentDownloadFileParameters struct {
 
+	// (String) The expected checksum of the file.
 	// The expected checksum of the file.
 	// +kubebuilder:validation:Optional
 	Checksum *string `json:"checksum,omitempty" tf:"checksum,omitempty"`
 
+	// (String) The algorithm to calculate the checksum of the file. Must be md5 | sha1 | sha224 | sha256 | sha384 | sha512.
 	// The algorithm to calculate the checksum of the file. Must be `md5` | `sha1` | `sha224` | `sha256` | `sha384` | `sha512`.
 	// +kubebuilder:validation:Optional
 	ChecksumAlgorithm *string `json:"checksumAlgorithm,omitempty" tf:"checksum_algorithm,omitempty"`
 
+	// (String) The file content type. Must be iso for VM images or vztmpl for LXC images.
 	// The file content type. Must be `iso` for VM images or `vztmpl` for LXC images.
 	// +kubebuilder:validation:Optional
 	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
 
+	// (String) The identifier for the target datastore.
 	// The identifier for the target datastore.
 	// +kubebuilder:validation:Optional
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// (String) Decompress the downloaded file using the specified compression algorithm. Must be one of gz | lzo | zst | bz2.
 	// Decompress the downloaded file using the specified compression algorithm. Must be one of `gz` | `lzo` | `zst` | `bz2`.
 	// +kubebuilder:validation:Optional
 	DecompressionAlgorithm *string `json:"decompressionAlgorithm,omitempty" tf:"decompression_algorithm,omitempty"`
 
+	// (String) The file name. If not provided, it is calculated using url. PVE will raise 'wrong file extension' error for some popular extensions file .raw or .qcow2. Workaround is to use e.g. .img instead.
 	// The file name. If not provided, it is calculated using `url`. PVE will raise 'wrong file extension' error for some popular extensions file `.raw` or `.qcow2`. Workaround is to use e.g. `.img` instead.
 	// +kubebuilder:validation:Optional
 	FileName *string `json:"fileName,omitempty" tf:"file_name,omitempty"`
 
+	// (String) The node name.
 	// The node name.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
 	// If `true` and size of uploaded file is different, than size from `url` Content-Length header, file will be downloaded again. If `false`, there will be no checks.
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
+	// (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
 	// If `true` and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If `false` and the file already exists, an error will be returned.
 	// +kubebuilder:validation:Optional
 	OverwriteUnmanaged *bool `json:"overwriteUnmanaged,omitempty" tf:"overwrite_unmanaged,omitempty"`
 
+	// (String) The URL to download the file from. Must match regex: https?://.*.
 	// The URL to download the file from. Must match regex: `https?://.*`.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// (Number) The file download timeout seconds. Default is 600 (10min).
 	// The file download timeout seconds. Default is 600 (10min).
 	// +kubebuilder:validation:Optional
 	UploadTimeout *float64 `json:"uploadTimeout,omitempty" tf:"upload_timeout,omitempty"`
 
+	// (Boolean) By default true. If false, no SSL/TLS certificates will be verified.
 	// By default `true`. If `false`, no SSL/TLS certificates will be verified.
 	// +kubebuilder:validation:Optional
 	Verify *bool `json:"verify,omitempty" tf:"verify,omitempty"`
@@ -174,7 +212,7 @@ type EnvironmentDownloadFileStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentDownloadFile is the Schema for the EnvironmentDownloadFiles API. <no value>
+// EnvironmentDownloadFile is the Schema for the EnvironmentDownloadFiles API. Manages files upload using PVE download-url API. It can be fully compatible and faster replacement for image files created using proxmox_virtual_environment_file. Supports images for VMs (ISO images) and LXC (CT Templates).
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -123,14 +123,7 @@ Build binary:
 make build
 ```
 
-## Report a Bug
-
-For filing bugs, suggesting improvements, or requesting new features, please
-open an [issue](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues).
-
-
-## TODO list
-
+## Known Issues Without Solution (4 the moment)
 - Pending support due to schema error and not added (Upjet issue [#372](https://github.com/crossplane/upjet/issues/372)):
   - `proxmox_virtual_environment_cluster_options`
   - `proxmox_virtual_environment_hardware_mapping_dir`
@@ -144,12 +137,15 @@ open an [issue](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues)
 - Token creation fails with error: Error reading user token: error retrieving user token
   - `proxmox_virtual_environment_user_token`
 
-- Test upload functionality for resources using `"file"` fields
+## Report a Bug
 
-- Investigate `proxmox_virtual_environment_metrics_server`:
-  - See implementation in [`metrics/server.go`](https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go)
-  - Error during observe phase:  
-    `error unmarshalling json with lists; observe failed: cannot run refresh: refresh failed`
+For filing bugs, suggesting improvements, or requesting new features, please
+open an [issue](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues).
+
+
+## TODO list
+
+- Test upload functionality for resources using `"file"` fields
 
 - Test and adapt `Makefile` to use Terraform provider `v0.78.3`
   - Includes fixes for several broken resources

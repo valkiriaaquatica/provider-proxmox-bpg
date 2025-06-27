@@ -131,14 +131,18 @@ open an [issue](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues)
 
 ## TODO list
 
-- Pending support due to schema error (Upjet issue [#372](https://github.com/crossplane/upjet/issues/372)):
+- Pending support due to schema error and not added (Upjet issue [#372](https://github.com/crossplane/upjet/issues/372)):
   - `proxmox_virtual_environment_cluster_options`
   - `proxmox_virtual_environment_hardware_mapping_dir`
   - `proxmox_virtual_environment_hardware_mapping_usb`
+  - `proxmox_virtual_environment_hardware_mapping_pci`
 
 - Resources not implementing `Get` properly: -> TRY MORE
   - `proxmox_virtual_environment_virtualenvironmentcertificate`
   - `proxmox_virtual_environment_virtualenvironmentdatastores`
+
+- Token creation fails with error: Error reading user token: error retrieving user token
+  - `proxmox_virtual_environment_user_token`
 
 - Test upload functionality for resources using `"file"` fields
 

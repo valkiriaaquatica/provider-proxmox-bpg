@@ -23,6 +23,8 @@ spec:
 EOF
 ```
 
+In the folder examples/ and examples-generated/ you can have multiple examples to quick create. If you have any interesting example to add, feel free to contribute.
+
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 

@@ -129,12 +129,23 @@ For filing bugs, suggesting improvements, or requesting new features, please
 open an [issue](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues).
 
 
-## TODO list:
-  - proxmox_virtual_environment_cluster_options + proxmox_virtual_environment_hardware_mapping_dir + EnvironmentHardwareMappingPci + proxmox_virtual_environment_hardware_mapping_usb its pending because of error on schema.json asi ssaid in this issue https://github.com/crossplane/upjet/issues/372  when run make generate (this error reports cannot infer type from schema of field map: invalid schema type TypeInvalid)
-  - CI publish artifactd and use image
-  - virtualenvironmentcertificate,virtualenvironmentdatastores  its not getting get
-  - test tge ones wit "file" to try the upload
-  - add linting to examples
-  - proxmox_virtual_environment_metrics_server  check on the tf provider (see https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go) error unmarshalling json with lists observe failed: cannot run refresh: refresh failed: Unable to Refresh Resou -- pending to test with terraform
-│ rce: An unexpected error occurred while attempting to 
-  - Test and update the Makefile with the new terraform provider 0.78.3 as its have the fix error on some resources
+## TODO list
+
+- Pending support due to schema error (Upjet issue [#372](https://github.com/crossplane/upjet/issues/372)):
+  - `proxmox_virtual_environment_cluster_options`
+  - `proxmox_virtual_environment_hardware_mapping_dir`
+  - `proxmox_virtual_environment_hardware_mapping_usb`
+
+- Resources not implementing `Get` properly: -> TRY MORE
+  - `proxmox_virtual_environment_virtualenvironmentcertificate`
+  - `proxmox_virtual_environment_virtualenvironmentdatastores`
+
+- Test upload functionality for resources using `"file"` fields
+
+- Investigate `proxmox_virtual_environment_metrics_server`:
+  - See implementation in [`metrics/server.go`](https://github.com/bpg/terraform-provider-proxmox/blob/main/proxmox/cluster/metrics/server.go)
+  - Error during observe phase:  
+    `error unmarshalling json with lists; observe failed: cannot run refresh: refresh failed`
+
+- Test and adapt `Makefile` to use Terraform provider `v0.78.3`
+  - Includes fixes for several broken resources

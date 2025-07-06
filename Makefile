@@ -63,7 +63,7 @@ UPTEST_VERSION = v0.5.0
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/upbound
+REGISTRY_ORGS ?= xpkg.upbound.io/valkiriaaquaticamendi
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 

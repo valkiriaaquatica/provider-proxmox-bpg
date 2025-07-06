@@ -11,9 +11,3 @@ spec:
       - pve-node2
       - pve-node3
     restricted: false
-  compositionRef:
-    name: environmenthagroup-default
-  writeConnectionSecretToRef:
-    name: ha-group-main-connection
-  publishConnectionDetailsTo:
-    name: crossplane-secrets

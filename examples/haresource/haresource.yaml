@@ -4,9 +4,9 @@ metadata:
   name: example-haresource
 spec:
   forProvider:
-    resourceId: "vm:123"                  # ID del recurso Proxmox (por ejemplo, una VM)
-    state: "started"                      # Estado deseado: started | stopped
-    group: "example"                      # Nombre del grupo HA existente
+    resourceId: "vm:123"
+    state: "started"
+    group: "example"
     comment: "Managed by Crossplane"
   providerConfigRef:
     name: default

@@ -1,0 +1,77 @@
+apiVersion: virtualenvironmentvm.crossplane.io/v1alpha1
+kind: EnvironmentVM
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentvm/v1alpha1/environmentvm
+  labels:
+    testing.upbound.io/example-name: ubuntu_vm
+  name: ubuntu-vm
+spec:
+  forProvider:
+    agent:
+    - enabled: false
+    cpu:
+    - cores: 2
+      type: x86-64-v2-AES
+    description: Managed by Terraform
+    disk:
+    - datastoreId: local-lvm
+      importFrom: ${proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_qcow2_img.id}
+      interface: scsi0
+    initialization:
+    - ipConfig:
+      - ipv4:
+        - address: dhcp
+      userAccount:
+      - keys:
+        - ${trimspace(tls_private_key.ubuntu_vm_key.public_key_openssh)}
+        passwordSecretRef:
+          key: attribute.result
+          name: example-password
+          namespace: upbound-system
+        username: ubuntu
+      userDataFileId: ${proxmox_virtual_environment_file.cloud_config.id}
+    memory:
+    - dedicated: 2048
+      floating: 2048
+    name: terraform-provider-proxmox-ubuntu-vm
+    networkDevice:
+    - bridge: vmbr0
+    nodeName: first-node
+    operatingSystem:
+    - type: l26
+    serialDevice:
+    - {}
+    startup:
+    - downDelay: "60"
+      order: "3"
+      upDelay: "60"
+    stopOnDestroy: true
+    tags:
+    - terraform
+    - ubuntu
+    tpmState:
+    - version: v2.0
+    virtiofs:
+    - cache: always
+      directIo: true
+      mapping: data_share
+    vmId: 4321
+
+---
+
+apiVersion: virtualenvironmentdownloadfile.crossplane.io/v1alpha1
+kind: EnvironmentDownloadFile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentvm/v1alpha1/environmentvm
+  labels:
+    testing.upbound.io/example-name: latest_ubuntu_22_jammy_qcow2_img
+  name: latest-ubuntu-22-jammy-qcow2-img
+spec:
+  forProvider:
+    contentType: import
+    datastoreId: local
+    fileName: jammy-server-cloudimg-amd64.qcow2
+    nodeName: pve
+    url: https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img

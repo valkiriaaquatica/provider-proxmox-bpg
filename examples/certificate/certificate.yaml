@@ -1,0 +1,20 @@
+---
+apiVersion: virtualenvironmentcertificate.crossplane.io/v1alpha1
+kind: EnvironmentCertificate
+metadata:
+  name: proxmox-node-cert
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    nodeName: pve
+    certificate: "use-external-secret-here"
+    certificateChain: "use-external-secret-here"
+    overwrite: false
+    privateKeySecretRef:
+      name: proxmox-cert-secret
+      namespace: crossplane-system
+      key: privateKeyPem
+  writeConnectionSecretToRef:
+    name: proxmox-cert-output
+    namespace: crossplane-system

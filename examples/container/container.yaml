@@ -1,0 +1,43 @@
+apiVersion: virtualenvironmentcontainer.crossplane.io/v1alpha1
+kind: EnvironmentContainer
+metadata:
+  name: ubuntu-container-sample
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    nodeName: pve
+    vmId: 100
+    description: Managed by Crossplane
+    initialization:
+      - hostname: crossplane-proxmox-container
+        ipConfig:
+          - ipv4:
+              - address: dhcp
+        # userAccount:
+        #   - keys:
+        #       - "ssh-rsa AAAAB3Nza...user@host"
+        #     passwordSecretRef:
+        #       name: ubuntu-container-secret
+        #       namespace: crossplane-system
+        #       key: password
+    networkInterface:
+      - name: veth0
+    disk:
+      - datastoreId: local-lvm
+        size: 4
+    operatingSystem:
+      - templateFileId: local:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz
+        type: ubuntu
+    mountPoint:
+
+      - volume: local-lvm
+        size: 2G
+        path: /mnt/volume
+    startup:
+      - order: 3
+        upDelay: 60
+        downDelay: 60
+    startOnBoot: true
+    started: true
+    unprivileged: true

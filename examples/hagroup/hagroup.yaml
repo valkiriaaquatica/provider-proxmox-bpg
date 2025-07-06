@@ -1,0 +1,13 @@
+apiVersion: virtualenv.crossplane.io/v1alpha1
+kind: EnvironmentHaGroup
+metadata:
+  name: ha-group-main
+spec:
+  parameters:
+    groupId: ha-group-main
+    comment: HA group managed by Crossplane
+    nodes:
+      - pve
+      - pve-node2
+      - pve-node3
+    restricted: false

@@ -1,0 +1,13 @@
+apiVersion: virtualenvironmentrole.crossplane.io/v1alpha1
+kind: EnvironmentRole
+metadata:
+  name: example-role-crosplane
+spec:
+  providerConfigRef:
+    name: default
+  forProvider:
+    roleId: "example-role"
+    privileges:
+      - "Datastore.Allocate"
+      - "VM.Allocate"
+      - "Permissions.Modify"

@@ -1,0 +1,22 @@
+apiVersion: virtualenvironmentfirewallipset.crossplane.io/v1alpha1
+kind: EnvironmentFirewallIPSet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentfirewallipset/v1alpha1/environmentfirewallipset
+  labels:
+    testing.upbound.io/example-name: ipset
+  name: ipset
+spec:
+  forProvider:
+    cidr:
+    - comment: Local network 1
+      name: 192.168.0.0/23
+    - comment: Server 1
+      name: 192.168.0.1
+      nomatch: true
+    - comment: Server 1
+      name: 192.168.2.1
+    comment: Managed by Terraform
+    name: local_network
+    nodeName: ${proxmox_virtual_environment_vm.example.node_name}
+    vmId: ${proxmox_virtual_environment_vm.example.vm_id}

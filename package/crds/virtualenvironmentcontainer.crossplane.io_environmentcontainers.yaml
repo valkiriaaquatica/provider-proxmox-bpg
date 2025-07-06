@@ -1,0 +1,1963 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.14.0
+  name: environmentcontainers.virtualenvironmentcontainer.crossplane.io
+spec:
+  group: virtualenvironmentcontainer.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - proxmoxbpg
+    kind: EnvironmentContainer
+    listKind: EnvironmentContainerList
+    plural: environmentcontainers
+    singular: environmentcontainer
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: EnvironmentContainer is the Schema for the EnvironmentContainers
+          API. |  Manages a container.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: EnvironmentContainerSpec defines the desired state of EnvironmentContainer
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  clone:
+                    description: |-
+                      The cloning configuration.
+                      The cloning configuration
+                    items:
+                      properties:
+                        datastoreId:
+                          description: |-
+                            The identifier for the target datastore.
+                            The ID of the target datastore
+                          type: string
+                        nodeName:
+                          description: |-
+                            The name of the source node (leave blank, if
+                            equal to the node_name argument).
+                            The name of the source node
+                          type: string
+                        vmId:
+                          description: |-
+                            The identifier for the source container.
+                            The ID of the source container
+                          type: number
+                      type: object
+                    type: array
+                  console:
+                    description: |-
+                      The console configuration.
+                      The console configuration
+                    items:
+                      properties:
+                        enabled:
+                          description: |-
+                            Whether to enable the console device (defaults
+                            to true).
+                            Whether to enable the console device
+                          type: boolean
+                        ttyCount:
+                          description: |-
+                            The number of available TTY (defaults to 2).
+                            The number of available TTY
+                          type: number
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            The console mode
+                          type: string
+                      type: object
+                    type: array
+                  cpu:
+                    description: |-
+                      The CPU configuration.
+                      The CPU allocation
+                    items:
+                      properties:
+                        architecture:
+                          description: |-
+                            The CPU architecture (defaults to amd64).
+                            The CPU architecture
+                          type: string
+                        cores:
+                          description: |-
+                            The number of CPU cores (defaults to 1).
+                            The number of CPU cores
+                          type: number
+                        units:
+                          description: |-
+                            The CPU units (defaults to 1024).
+                            The CPU units
+                          type: number
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      The description.
+                      The description
+                    type: string
+                  devicePassthrough:
+                    description: |-
+                      Device to pass through to the container (multiple blocks supported).
+                      Device to pass through to the container
+                    items:
+                      properties:
+                        denyWrite:
+                          description: |-
+                            Deny the container to write to the device (defaults to false).
+                            Deny the container to write to the device
+                          type: boolean
+                        gid:
+                          description: |-
+                            Group ID to be assigned to the device node.
+                            Group ID to be assigned to the device node
+                          type: number
+                        mode:
+                          description: |-
+                            Access mode to be set on the device node. Must be a
+                            4-digit octal number.
+                            Access mode to be set on the device node (e.g. 0666)
+                          type: string
+                        path:
+                          description: |-
+                            Path to the mount point as seen from inside the
+                            container.
+                            Device to pass through to the container
+                          type: string
+                        uid:
+                          description: |-
+                            User ID to be assigned to the device node.
+                            Device UID in the container
+                          type: number
+                      type: object
+                    type: array
+                  disk:
+                    description: |-
+                      The disk configuration.
+                      The disks
+                    items:
+                      properties:
+                        datastoreId:
+                          description: |-
+                            The identifier for the target datastore.
+                            The datastore id
+                          type: string
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            The rootfs size in gigabytes
+                          type: number
+                      type: object
+                    type: array
+                  features:
+                    description: |-
+                      The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
+                      Features
+                    items:
+                      properties:
+                        fuse:
+                          description: |-
+                            Whether the container supports FUSE mounts (defaults
+                            to false)
+                            Whether the container supports FUSE mounts
+                          type: boolean
+                        keyctl:
+                          description: |-
+                            Whether the container supports keyctl() system
+                            call (defaults to false)
+                            Whether the container supports `keyctl()` system call
+                          type: boolean
+                        mount:
+                          description: |-
+                            List of allowed mount types (cifs or nfs)
+                            List of allowed mount types
+                          items:
+                            type: string
+                          type: array
+                        nesting:
+                          description: |-
+                            Whether the container is nested (defaults
+                            to false)
+                            Whether the container runs as nested
+                          type: boolean
+                      type: object
+                    type: array
+                  hookScriptFileId:
+                    description: |-
+                      The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).
+                      A hook script
+                    type: string
+                  initialization:
+                    description: |-
+                      The initialization configuration.
+                      The initialization configuration
+                    items:
+                      properties:
+                        dns:
+                          description: |-
+                            The DNS configuration.
+                            The DNS configuration
+                          items:
+                            properties:
+                              domain:
+                                description: |-
+                                  The DNS search domain.
+                                  The DNS search domain
+                                type: string
+                              server:
+                                description: |-
+                                  The DNS server. The server attribute is
+                                  deprecated and will be removed in a future release. Please use
+                                  the servers attribute instead.
+                                  The DNS server
+                                type: string
+                              servers:
+                                description: |-
+                                  The list of DNS servers.
+                                  The list of DNS servers
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                        hostname:
+                          description: |-
+                            The hostname.
+                            The hostname
+                          type: string
+                        ipConfig:
+                          description: |-
+                            The IP configuration (one block per network
+                            device).
+                            The IP configuration
+                          items:
+                            properties:
+                              ipv4:
+                                description: |-
+                                  The IPv4 configuration.
+                                  The IPv4 configuration
+                                items:
+                                  properties:
+                                    address:
+                                      description: |-
+                                        The IPv4 address (use dhcp for auto-discovery).
+                                        The IPv4 address
+                                      type: string
+                                    gateway:
+                                      description: |-
+                                        The IPv4 gateway (must be omitted
+                                        when dhcp is used as the address).
+                                        The IPv4 gateway
+                                      type: string
+                                  type: object
+                                type: array
+                              ipv6:
+                                description: |-
+                                  The IPv4 configuration.
+                                  The IPv6 configuration
+                                items:
+                                  properties:
+                                    address:
+                                      description: |-
+                                        The IPv4 address (use dhcp for auto-discovery).
+                                        The IPv6 address
+                                      type: string
+                                    gateway:
+                                      description: |-
+                                        The IPv4 gateway (must be omitted
+                                        when dhcp is used as the address).
+                                        The IPv6 gateway
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        userAccount:
+                          description: |-
+                            The user account configuration.
+                            The user account configuration
+                          items:
+                            properties:
+                              keys:
+                                description: |-
+                                  The SSH keys for the root account.
+                                  The SSH keys
+                                items:
+                                  type: string
+                                type: array
+                              passwordSecretRef:
+                                description: |-
+                                  The password for the root account.
+                                  The SSH password
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  memory:
+                    description: |-
+                      The memory configuration.
+                      The memory allocation
+                    items:
+                      properties:
+                        dedicated:
+                          description: |-
+                            The dedicated memory in megabytes (defaults
+                            to 512).
+                            The dedicated memory in megabytes
+                          type: number
+                        swap:
+                          description: |-
+                            The swap size in megabytes (defaults to 0).
+                            The swap size in megabytes
+                          type: number
+                      type: object
+                    type: array
+                  mountPoint:
+                    description: A mount point
+                    items:
+                      properties:
+                        acl:
+                          description: |-
+                            Explicitly enable or disable ACL support.
+                            Explicitly enable or disable ACL support
+                          type: boolean
+                        backup:
+                          description: |-
+                            Whether to include the mount point in backups (only
+                            used for volume mount points, defaults to false).
+                            Whether to include the mount point in backups (only used for volume mount points)
+                          type: boolean
+                        mountOptions:
+                          description: |-
+                            List of extra mount options.
+                            Extra mount options.
+                          items:
+                            type: string
+                          type: array
+                        path:
+                          description: |-
+                            Path to the mount point as seen from inside the
+                            container.
+                            Path to the mount point as seen from inside the container
+                          type: string
+                        quota:
+                          description: |-
+                            Enable user quotas inside the container (not supported
+                            with ZFS subvolumes).
+                            Enable user quotas inside the container (not supported with volume mounts)
+                          type: boolean
+                        readOnly:
+                          description: |-
+                            only mount point.
+                            Read-only mount point
+                          type: boolean
+                        replicate:
+                          description: |-
+                            Will include this volume to a storage replica job.
+                            Will include this volume to a storage replica job
+                          type: boolean
+                        shared:
+                          description: |-
+                            volume mount point as available on all
+                            nodes.
+                            Mark this non-volume mount point as available on all nodes
+                          type: boolean
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            Volume size (only used for volume mount points)
+                          type: string
+                        volume:
+                          description: |-
+                            Volume, device or directory to mount into the
+                            container.
+                            Volume, device or directory to mount into the container
+                          type: string
+                      type: object
+                    type: array
+                  networkInterface:
+                    description: |-
+                      A network interface (multiple blocks
+                      supported).
+                      The network interfaces
+                    items:
+                      properties:
+                        bridge:
+                          description: |-
+                            The name of the network bridge (defaults
+                            to vmbr0).
+                            The bridge
+                          type: string
+                        enabled:
+                          description: |-
+                            Whether to enable the console device (defaults
+                            to true).
+                            Whether to enable the network device
+                          type: boolean
+                        firewall:
+                          description: |-
+                            Whether this interface's firewall rules should be
+                            used (defaults to false).
+                            Whether this interface's firewall rules should be used.
+                          type: boolean
+                        macAddress:
+                          description: |-
+                            The MAC address.
+                            The MAC address
+                          type: string
+                        mtu:
+                          description: |-
+                            Maximum transfer unit of the interface. Cannot be
+                            larger than the bridge's MTU.
+                            Maximum transmission unit (MTU)
+                          type: number
+                        name:
+                          description: |-
+                            The network interface name.
+                            The network interface name
+                          type: string
+                        rateLimit:
+                          description: |-
+                            The rate limit in megabytes per second.
+                            The rate limit in megabytes per second
+                          type: number
+                        vlanId:
+                          description: |-
+                            The VLAN identifier.
+                            The VLAN identifier
+                          type: number
+                      type: object
+                    type: array
+                  nodeName:
+                    description: |-
+                      The name of the source node (leave blank, if
+                      equal to the node_name argument).
+                      The node name
+                    type: string
+                  operatingSystem:
+                    description: |-
+                      The Operating System configuration.
+                      The operating system configuration
+                    items:
+                      properties:
+                        templateFileId:
+                          description: |-
+                            The identifier for an OS template file.
+                            The ID format is <datastore_id>:<content_type>/<file_name>, for example local:iso/jammy-server-cloudimg-amd64.tar.gz.
+                            Can be also taken from proxmox_virtual_environment_download_file resource, or from the output of pvesm list <storage>.
+                            The ID of an OS template file
+                          type: string
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            The type
+                          type: string
+                      type: object
+                    type: array
+                  poolId:
+                    description: |-
+                      The identifier for a pool to assign the container to.
+                      The ID of the pool to assign the container to
+                    type: string
+                  protection:
+                    description: |-
+                      Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.
+                      Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
+                    type: boolean
+                  startOnBoot:
+                    description: |-
+                      Automatically start container when the host
+                      system boots (defaults to true).
+                      Automatically start container when the host system boots.
+                    type: boolean
+                  started:
+                    description: |-
+                      Whether to start the container (defaults to true).
+                      Whether to start the container
+                    type: boolean
+                  startup:
+                    description: |-
+                      Defines startup and shutdown behavior of the container.
+                      Defines startup and shutdown behavior of the container
+                    items:
+                      properties:
+                        downDelay:
+                          description: |-
+                            A non-negative number defining the delay in
+                            seconds before the next container is shut down.
+                            A non-negative number defining the delay in seconds before the next container is shut down
+                          type: number
+                        order:
+                          description: |-
+                            A non-negative number defining the general startup
+                            order.
+                            A non-negative number defining the general startup order
+                          type: number
+                        upDelay:
+                          description: |-
+                            A non-negative number defining the delay in
+                            seconds before the next container is started.
+                            A non-negative number defining the delay in seconds before the next container is started
+                          type: number
+                      type: object
+                    type: array
+                  tags:
+                    description: |-
+                      A list of tags the container tags. This is only meta
+                      information (defaults to []). Note: Proxmox always sorts the container tags and set them to lowercase.
+                      If tag contains capital letters, then Proxmox will always report a
+                      difference on the resource. You may use the ignore_changes lifecycle
+                      meta-argument to ignore changes to this attribute.
+                      Tags of the container. This is only meta information.
+                    items:
+                      type: string
+                    type: array
+                  template:
+                    description: |-
+                      Whether to create a template (defaults to false).
+                      Whether to create a template
+                    type: boolean
+                  timeoutClone:
+                    description: |-
+                      Timeout for cloning a container in seconds (defaults to 1800).
+                      Clone container timeout
+                    type: number
+                  timeoutCreate:
+                    description: |-
+                      Timeout for creating a container in seconds (defaults to 1800).
+                      Create container timeout
+                    type: number
+                  timeoutDelete:
+                    description: |-
+                      Timeout for deleting a container in seconds (defaults to 60).
+                      Delete container timeout
+                    type: number
+                  timeoutStart:
+                    description: Start container timeout
+                    type: number
+                  timeoutUpdate:
+                    description: |-
+                      Timeout for updating a container in seconds (defaults to 1800).
+                      Update container timeout
+                    type: number
+                  unprivileged:
+                    description: |-
+                      Whether the container runs as unprivileged on
+                      the host (defaults to false).
+                      Whether the container runs as unprivileged on the host
+                    type: boolean
+                  vmId:
+                    description: |-
+                      The identifier for the source container.
+                      The VM identifier
+                    type: number
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  clone:
+                    description: |-
+                      The cloning configuration.
+                      The cloning configuration
+                    items:
+                      properties:
+                        datastoreId:
+                          description: |-
+                            The identifier for the target datastore.
+                            The ID of the target datastore
+                          type: string
+                        nodeName:
+                          description: |-
+                            The name of the source node (leave blank, if
+                            equal to the node_name argument).
+                            The name of the source node
+                          type: string
+                        vmId:
+                          description: |-
+                            The identifier for the source container.
+                            The ID of the source container
+                          type: number
+                      type: object
+                    type: array
+                  console:
+                    description: |-
+                      The console configuration.
+                      The console configuration
+                    items:
+                      properties:
+                        enabled:
+                          description: |-
+                            Whether to enable the console device (defaults
+                            to true).
+                            Whether to enable the console device
+                          type: boolean
+                        ttyCount:
+                          description: |-
+                            The number of available TTY (defaults to 2).
+                            The number of available TTY
+                          type: number
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            The console mode
+                          type: string
+                      type: object
+                    type: array
+                  cpu:
+                    description: |-
+                      The CPU configuration.
+                      The CPU allocation
+                    items:
+                      properties:
+                        architecture:
+                          description: |-
+                            The CPU architecture (defaults to amd64).
+                            The CPU architecture
+                          type: string
+                        cores:
+                          description: |-
+                            The number of CPU cores (defaults to 1).
+                            The number of CPU cores
+                          type: number
+                        units:
+                          description: |-
+                            The CPU units (defaults to 1024).
+                            The CPU units
+                          type: number
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      The description.
+                      The description
+                    type: string
+                  devicePassthrough:
+                    description: |-
+                      Device to pass through to the container (multiple blocks supported).
+                      Device to pass through to the container
+                    items:
+                      properties:
+                        denyWrite:
+                          description: |-
+                            Deny the container to write to the device (defaults to false).
+                            Deny the container to write to the device
+                          type: boolean
+                        gid:
+                          description: |-
+                            Group ID to be assigned to the device node.
+                            Group ID to be assigned to the device node
+                          type: number
+                        mode:
+                          description: |-
+                            Access mode to be set on the device node. Must be a
+                            4-digit octal number.
+                            Access mode to be set on the device node (e.g. 0666)
+                          type: string
+                        path:
+                          description: |-
+                            Path to the mount point as seen from inside the
+                            container.
+                            Device to pass through to the container
+                          type: string
+                        uid:
+                          description: |-
+                            User ID to be assigned to the device node.
+                            Device UID in the container
+                          type: number
+                      type: object
+                    type: array
+                  disk:
+                    description: |-
+                      The disk configuration.
+                      The disks
+                    items:
+                      properties:
+                        datastoreId:
+                          description: |-
+                            The identifier for the target datastore.
+                            The datastore id
+                          type: string
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            The rootfs size in gigabytes
+                          type: number
+                      type: object
+                    type: array
+                  features:
+                    description: |-
+                      The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
+                      Features
+                    items:
+                      properties:
+                        fuse:
+                          description: |-
+                            Whether the container supports FUSE mounts (defaults
+                            to false)
+                            Whether the container supports FUSE mounts
+                          type: boolean
+                        keyctl:
+                          description: |-
+                            Whether the container supports keyctl() system
+                            call (defaults to false)
+                            Whether the container supports `keyctl()` system call
+                          type: boolean
+                        mount:
+                          description: |-
+                            List of allowed mount types (cifs or nfs)
+                            List of allowed mount types
+                          items:
+                            type: string
+                          type: array
+                        nesting:
+                          description: |-
+                            Whether the container is nested (defaults
+                            to false)
+                            Whether the container runs as nested
+                          type: boolean
+                      type: object
+                    type: array
+                  hookScriptFileId:
+                    description: |-
+                      The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).
+                      A hook script
+                    type: string
+                  initialization:
+                    description: |-
+                      The initialization configuration.
+                      The initialization configuration
+                    items:
+                      properties:
+                        dns:
+                          description: |-
+                            The DNS configuration.
+                            The DNS configuration
+                          items:
+                            properties:
+                              domain:
+                                description: |-
+                                  The DNS search domain.
+                                  The DNS search domain
+                                type: string
+                              server:
+                                description: |-
+                                  The DNS server. The server attribute is
+                                  deprecated and will be removed in a future release. Please use
+                                  the servers attribute instead.
+                                  The DNS server
+                                type: string
+                              servers:
+                                description: |-
+                                  The list of DNS servers.
+                                  The list of DNS servers
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                        hostname:
+                          description: |-
+                            The hostname.
+                            The hostname
+                          type: string
+                        ipConfig:
+                          description: |-
+                            The IP configuration (one block per network
+                            device).
+                            The IP configuration
+                          items:
+                            properties:
+                              ipv4:
+                                description: |-
+                                  The IPv4 configuration.
+                                  The IPv4 configuration
+                                items:
+                                  properties:
+                                    address:
+                                      description: |-
+                                        The IPv4 address (use dhcp for auto-discovery).
+                                        The IPv4 address
+                                      type: string
+                                    gateway:
+                                      description: |-
+                                        The IPv4 gateway (must be omitted
+                                        when dhcp is used as the address).
+                                        The IPv4 gateway
+                                      type: string
+                                  type: object
+                                type: array
+                              ipv6:
+                                description: |-
+                                  The IPv4 configuration.
+                                  The IPv6 configuration
+                                items:
+                                  properties:
+                                    address:
+                                      description: |-
+                                        The IPv4 address (use dhcp for auto-discovery).
+                                        The IPv6 address
+                                      type: string
+                                    gateway:
+                                      description: |-
+                                        The IPv4 gateway (must be omitted
+                                        when dhcp is used as the address).
+                                        The IPv6 gateway
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        userAccount:
+                          description: |-
+                            The user account configuration.
+                            The user account configuration
+                          items:
+                            properties:
+                              keys:
+                                description: |-
+                                  The SSH keys for the root account.
+                                  The SSH keys
+                                items:
+                                  type: string
+                                type: array
+                              passwordSecretRef:
+                                description: |-
+                                  The password for the root account.
+                                  The SSH password
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  memory:
+                    description: |-
+                      The memory configuration.
+                      The memory allocation
+                    items:
+                      properties:
+                        dedicated:
+                          description: |-
+                            The dedicated memory in megabytes (defaults
+                            to 512).
+                            The dedicated memory in megabytes
+                          type: number
+                        swap:
+                          description: |-
+                            The swap size in megabytes (defaults to 0).
+                            The swap size in megabytes
+                          type: number
+                      type: object
+                    type: array
+                  mountPoint:
+                    description: A mount point
+                    items:
+                      properties:
+                        acl:
+                          description: |-
+                            Explicitly enable or disable ACL support.
+                            Explicitly enable or disable ACL support
+                          type: boolean
+                        backup:
+                          description: |-
+                            Whether to include the mount point in backups (only
+                            used for volume mount points, defaults to false).
+                            Whether to include the mount point in backups (only used for volume mount points)
+                          type: boolean
+                        mountOptions:
+                          description: |-
+                            List of extra mount options.
+                            Extra mount options.
+                          items:
+                            type: string
+                          type: array
+                        path:
+                          description: |-
+                            Path to the mount point as seen from inside the
+                            container.
+                            Path to the mount point as seen from inside the container
+                          type: string
+                        quota:
+                          description: |-
+                            Enable user quotas inside the container (not supported
+                            with ZFS subvolumes).
+                            Enable user quotas inside the container (not supported with volume mounts)
+                          type: boolean
+                        readOnly:
+                          description: |-
+                            only mount point.
+                            Read-only mount point
+                          type: boolean
+                        replicate:
+                          description: |-
+                            Will include this volume to a storage replica job.
+                            Will include this volume to a storage replica job
+                          type: boolean
+                        shared:
+                          description: |-
+                            volume mount point as available on all
+                            nodes.
+                            Mark this non-volume mount point as available on all nodes
+                          type: boolean
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            Volume size (only used for volume mount points)
+                          type: string
+                        volume:
+                          description: |-
+                            Volume, device or directory to mount into the
+                            container.
+                            Volume, device or directory to mount into the container
+                          type: string
+                      type: object
+                    type: array
+                  networkInterface:
+                    description: |-
+                      A network interface (multiple blocks
+                      supported).
+                      The network interfaces
+                    items:
+                      properties:
+                        bridge:
+                          description: |-
+                            The name of the network bridge (defaults
+                            to vmbr0).
+                            The bridge
+                          type: string
+                        enabled:
+                          description: |-
+                            Whether to enable the console device (defaults
+                            to true).
+                            Whether to enable the network device
+                          type: boolean
+                        firewall:
+                          description: |-
+                            Whether this interface's firewall rules should be
+                            used (defaults to false).
+                            Whether this interface's firewall rules should be used.
+                          type: boolean
+                        macAddress:
+                          description: |-
+                            The MAC address.
+                            The MAC address
+                          type: string
+                        mtu:
+                          description: |-
+                            Maximum transfer unit of the interface. Cannot be
+                            larger than the bridge's MTU.
+                            Maximum transmission unit (MTU)
+                          type: number
+                        name:
+                          description: |-
+                            The network interface name.
+                            The network interface name
+                          type: string
+                        rateLimit:
+                          description: |-
+                            The rate limit in megabytes per second.
+                            The rate limit in megabytes per second
+                          type: number
+                        vlanId:
+                          description: |-
+                            The VLAN identifier.
+                            The VLAN identifier
+                          type: number
+                      type: object
+                    type: array
+                  nodeName:
+                    description: |-
+                      The name of the source node (leave blank, if
+                      equal to the node_name argument).
+                      The node name
+                    type: string
+                  operatingSystem:
+                    description: |-
+                      The Operating System configuration.
+                      The operating system configuration
+                    items:
+                      properties:
+                        templateFileId:
+                          description: |-
+                            The identifier for an OS template file.
+                            The ID format is <datastore_id>:<content_type>/<file_name>, for example local:iso/jammy-server-cloudimg-amd64.tar.gz.
+                            Can be also taken from proxmox_virtual_environment_download_file resource, or from the output of pvesm list <storage>.
+                            The ID of an OS template file
+                          type: string
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            The type
+                          type: string
+                      type: object
+                    type: array
+                  poolId:
+                    description: |-
+                      The identifier for a pool to assign the container to.
+                      The ID of the pool to assign the container to
+                    type: string
+                  protection:
+                    description: |-
+                      Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.
+                      Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
+                    type: boolean
+                  startOnBoot:
+                    description: |-
+                      Automatically start container when the host
+                      system boots (defaults to true).
+                      Automatically start container when the host system boots.
+                    type: boolean
+                  started:
+                    description: |-
+                      Whether to start the container (defaults to true).
+                      Whether to start the container
+                    type: boolean
+                  startup:
+                    description: |-
+                      Defines startup and shutdown behavior of the container.
+                      Defines startup and shutdown behavior of the container
+                    items:
+                      properties:
+                        downDelay:
+                          description: |-
+                            A non-negative number defining the delay in
+                            seconds before the next container is shut down.
+                            A non-negative number defining the delay in seconds before the next container is shut down
+                          type: number
+                        order:
+                          description: |-
+                            A non-negative number defining the general startup
+                            order.
+                            A non-negative number defining the general startup order
+                          type: number
+                        upDelay:
+                          description: |-
+                            A non-negative number defining the delay in
+                            seconds before the next container is started.
+                            A non-negative number defining the delay in seconds before the next container is started
+                          type: number
+                      type: object
+                    type: array
+                  tags:
+                    description: |-
+                      A list of tags the container tags. This is only meta
+                      information (defaults to []). Note: Proxmox always sorts the container tags and set them to lowercase.
+                      If tag contains capital letters, then Proxmox will always report a
+                      difference on the resource. You may use the ignore_changes lifecycle
+                      meta-argument to ignore changes to this attribute.
+                      Tags of the container. This is only meta information.
+                    items:
+                      type: string
+                    type: array
+                  template:
+                    description: |-
+                      Whether to create a template (defaults to false).
+                      Whether to create a template
+                    type: boolean
+                  timeoutClone:
+                    description: |-
+                      Timeout for cloning a container in seconds (defaults to 1800).
+                      Clone container timeout
+                    type: number
+                  timeoutCreate:
+                    description: |-
+                      Timeout for creating a container in seconds (defaults to 1800).
+                      Create container timeout
+                    type: number
+                  timeoutDelete:
+                    description: |-
+                      Timeout for deleting a container in seconds (defaults to 60).
+                      Delete container timeout
+                    type: number
+                  timeoutStart:
+                    description: Start container timeout
+                    type: number
+                  timeoutUpdate:
+                    description: |-
+                      Timeout for updating a container in seconds (defaults to 1800).
+                      Update container timeout
+                    type: number
+                  unprivileged:
+                    description: |-
+                      Whether the container runs as unprivileged on
+                      the host (defaults to false).
+                      Whether the container runs as unprivileged on the host
+                    type: boolean
+                  vmId:
+                    description: |-
+                      The identifier for the source container.
+                      The VM identifier
+                    type: number
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
+                        type: object
+                      type:
+                        description: |-
+                          Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.nodeName is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.nodeName)
+                || (has(self.initProvider) && has(self.initProvider.nodeName))'
+          status:
+            description: EnvironmentContainerStatus defines the observed state of
+              EnvironmentContainer.
+            properties:
+              atProvider:
+                properties:
+                  clone:
+                    description: |-
+                      The cloning configuration.
+                      The cloning configuration
+                    items:
+                      properties:
+                        datastoreId:
+                          description: |-
+                            The identifier for the target datastore.
+                            The ID of the target datastore
+                          type: string
+                        nodeName:
+                          description: |-
+                            The name of the source node (leave blank, if
+                            equal to the node_name argument).
+                            The name of the source node
+                          type: string
+                        vmId:
+                          description: |-
+                            The identifier for the source container.
+                            The ID of the source container
+                          type: number
+                      type: object
+                    type: array
+                  console:
+                    description: |-
+                      The console configuration.
+                      The console configuration
+                    items:
+                      properties:
+                        enabled:
+                          description: |-
+                            Whether to enable the console device (defaults
+                            to true).
+                            Whether to enable the console device
+                          type: boolean
+                        ttyCount:
+                          description: |-
+                            The number of available TTY (defaults to 2).
+                            The number of available TTY
+                          type: number
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            The console mode
+                          type: string
+                      type: object
+                    type: array
+                  cpu:
+                    description: |-
+                      The CPU configuration.
+                      The CPU allocation
+                    items:
+                      properties:
+                        architecture:
+                          description: |-
+                            The CPU architecture (defaults to amd64).
+                            The CPU architecture
+                          type: string
+                        cores:
+                          description: |-
+                            The number of CPU cores (defaults to 1).
+                            The number of CPU cores
+                          type: number
+                        units:
+                          description: |-
+                            The CPU units (defaults to 1024).
+                            The CPU units
+                          type: number
+                      type: object
+                    type: array
+                  description:
+                    description: |-
+                      The description.
+                      The description
+                    type: string
+                  devicePassthrough:
+                    description: |-
+                      Device to pass through to the container (multiple blocks supported).
+                      Device to pass through to the container
+                    items:
+                      properties:
+                        denyWrite:
+                          description: |-
+                            Deny the container to write to the device (defaults to false).
+                            Deny the container to write to the device
+                          type: boolean
+                        gid:
+                          description: |-
+                            Group ID to be assigned to the device node.
+                            Group ID to be assigned to the device node
+                          type: number
+                        mode:
+                          description: |-
+                            Access mode to be set on the device node. Must be a
+                            4-digit octal number.
+                            Access mode to be set on the device node (e.g. 0666)
+                          type: string
+                        path:
+                          description: |-
+                            Path to the mount point as seen from inside the
+                            container.
+                            Device to pass through to the container
+                          type: string
+                        uid:
+                          description: |-
+                            User ID to be assigned to the device node.
+                            Device UID in the container
+                          type: number
+                      type: object
+                    type: array
+                  disk:
+                    description: |-
+                      The disk configuration.
+                      The disks
+                    items:
+                      properties:
+                        datastoreId:
+                          description: |-
+                            The identifier for the target datastore.
+                            The datastore id
+                          type: string
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            The rootfs size in gigabytes
+                          type: number
+                      type: object
+                    type: array
+                  features:
+                    description: |-
+                      The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
+                      Features
+                    items:
+                      properties:
+                        fuse:
+                          description: |-
+                            Whether the container supports FUSE mounts (defaults
+                            to false)
+                            Whether the container supports FUSE mounts
+                          type: boolean
+                        keyctl:
+                          description: |-
+                            Whether the container supports keyctl() system
+                            call (defaults to false)
+                            Whether the container supports `keyctl()` system call
+                          type: boolean
+                        mount:
+                          description: |-
+                            List of allowed mount types (cifs or nfs)
+                            List of allowed mount types
+                          items:
+                            type: string
+                          type: array
+                        nesting:
+                          description: |-
+                            Whether the container is nested (defaults
+                            to false)
+                            Whether the container runs as nested
+                          type: boolean
+                      type: object
+                    type: array
+                  hookScriptFileId:
+                    description: |-
+                      The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).
+                      A hook script
+                    type: string
+                  id:
+                    type: string
+                  initialization:
+                    description: |-
+                      The initialization configuration.
+                      The initialization configuration
+                    items:
+                      properties:
+                        dns:
+                          description: |-
+                            The DNS configuration.
+                            The DNS configuration
+                          items:
+                            properties:
+                              domain:
+                                description: |-
+                                  The DNS search domain.
+                                  The DNS search domain
+                                type: string
+                              server:
+                                description: |-
+                                  The DNS server. The server attribute is
+                                  deprecated and will be removed in a future release. Please use
+                                  the servers attribute instead.
+                                  The DNS server
+                                type: string
+                              servers:
+                                description: |-
+                                  The list of DNS servers.
+                                  The list of DNS servers
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                        hostname:
+                          description: |-
+                            The hostname.
+                            The hostname
+                          type: string
+                        ipConfig:
+                          description: |-
+                            The IP configuration (one block per network
+                            device).
+                            The IP configuration
+                          items:
+                            properties:
+                              ipv4:
+                                description: |-
+                                  The IPv4 configuration.
+                                  The IPv4 configuration
+                                items:
+                                  properties:
+                                    address:
+                                      description: |-
+                                        The IPv4 address (use dhcp for auto-discovery).
+                                        The IPv4 address
+                                      type: string
+                                    gateway:
+                                      description: |-
+                                        The IPv4 gateway (must be omitted
+                                        when dhcp is used as the address).
+                                        The IPv4 gateway
+                                      type: string
+                                  type: object
+                                type: array
+                              ipv6:
+                                description: |-
+                                  The IPv4 configuration.
+                                  The IPv6 configuration
+                                items:
+                                  properties:
+                                    address:
+                                      description: |-
+                                        The IPv4 address (use dhcp for auto-discovery).
+                                        The IPv6 address
+                                      type: string
+                                    gateway:
+                                      description: |-
+                                        The IPv4 gateway (must be omitted
+                                        when dhcp is used as the address).
+                                        The IPv6 gateway
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        userAccount:
+                          description: |-
+                            The user account configuration.
+                            The user account configuration
+                          items:
+                            properties:
+                              keys:
+                                description: |-
+                                  The SSH keys for the root account.
+                                  The SSH keys
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  memory:
+                    description: |-
+                      The memory configuration.
+                      The memory allocation
+                    items:
+                      properties:
+                        dedicated:
+                          description: |-
+                            The dedicated memory in megabytes (defaults
+                            to 512).
+                            The dedicated memory in megabytes
+                          type: number
+                        swap:
+                          description: |-
+                            The swap size in megabytes (defaults to 0).
+                            The swap size in megabytes
+                          type: number
+                      type: object
+                    type: array
+                  mountPoint:
+                    description: A mount point
+                    items:
+                      properties:
+                        acl:
+                          description: |-
+                            Explicitly enable or disable ACL support.
+                            Explicitly enable or disable ACL support
+                          type: boolean
+                        backup:
+                          description: |-
+                            Whether to include the mount point in backups (only
+                            used for volume mount points, defaults to false).
+                            Whether to include the mount point in backups (only used for volume mount points)
+                          type: boolean
+                        mountOptions:
+                          description: |-
+                            List of extra mount options.
+                            Extra mount options.
+                          items:
+                            type: string
+                          type: array
+                        path:
+                          description: |-
+                            Path to the mount point as seen from inside the
+                            container.
+                            Path to the mount point as seen from inside the container
+                          type: string
+                        quota:
+                          description: |-
+                            Enable user quotas inside the container (not supported
+                            with ZFS subvolumes).
+                            Enable user quotas inside the container (not supported with volume mounts)
+                          type: boolean
+                        readOnly:
+                          description: |-
+                            only mount point.
+                            Read-only mount point
+                          type: boolean
+                        replicate:
+                          description: |-
+                            Will include this volume to a storage replica job.
+                            Will include this volume to a storage replica job
+                          type: boolean
+                        shared:
+                          description: |-
+                            volume mount point as available on all
+                            nodes.
+                            Mark this non-volume mount point as available on all nodes
+                          type: boolean
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            Volume size (only used for volume mount points)
+                          type: string
+                        volume:
+                          description: |-
+                            Volume, device or directory to mount into the
+                            container.
+                            Volume, device or directory to mount into the container
+                          type: string
+                      type: object
+                    type: array
+                  networkInterface:
+                    description: |-
+                      A network interface (multiple blocks
+                      supported).
+                      The network interfaces
+                    items:
+                      properties:
+                        bridge:
+                          description: |-
+                            The name of the network bridge (defaults
+                            to vmbr0).
+                            The bridge
+                          type: string
+                        enabled:
+                          description: |-
+                            Whether to enable the console device (defaults
+                            to true).
+                            Whether to enable the network device
+                          type: boolean
+                        firewall:
+                          description: |-
+                            Whether this interface's firewall rules should be
+                            used (defaults to false).
+                            Whether this interface's firewall rules should be used.
+                          type: boolean
+                        macAddress:
+                          description: |-
+                            The MAC address.
+                            The MAC address
+                          type: string
+                        mtu:
+                          description: |-
+                            Maximum transfer unit of the interface. Cannot be
+                            larger than the bridge's MTU.
+                            Maximum transmission unit (MTU)
+                          type: number
+                        name:
+                          description: |-
+                            The network interface name.
+                            The network interface name
+                          type: string
+                        rateLimit:
+                          description: |-
+                            The rate limit in megabytes per second.
+                            The rate limit in megabytes per second
+                          type: number
+                        vlanId:
+                          description: |-
+                            The VLAN identifier.
+                            The VLAN identifier
+                          type: number
+                      type: object
+                    type: array
+                  nodeName:
+                    description: |-
+                      The name of the source node (leave blank, if
+                      equal to the node_name argument).
+                      The node name
+                    type: string
+                  operatingSystem:
+                    description: |-
+                      The Operating System configuration.
+                      The operating system configuration
+                    items:
+                      properties:
+                        templateFileId:
+                          description: |-
+                            The identifier for an OS template file.
+                            The ID format is <datastore_id>:<content_type>/<file_name>, for example local:iso/jammy-server-cloudimg-amd64.tar.gz.
+                            Can be also taken from proxmox_virtual_environment_download_file resource, or from the output of pvesm list <storage>.
+                            The ID of an OS template file
+                          type: string
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            The type
+                          type: string
+                      type: object
+                    type: array
+                  poolId:
+                    description: |-
+                      The identifier for a pool to assign the container to.
+                      The ID of the pool to assign the container to
+                    type: string
+                  protection:
+                    description: |-
+                      Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.
+                      Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
+                    type: boolean
+                  startOnBoot:
+                    description: |-
+                      Automatically start container when the host
+                      system boots (defaults to true).
+                      Automatically start container when the host system boots.
+                    type: boolean
+                  started:
+                    description: |-
+                      Whether to start the container (defaults to true).
+                      Whether to start the container
+                    type: boolean
+                  startup:
+                    description: |-
+                      Defines startup and shutdown behavior of the container.
+                      Defines startup and shutdown behavior of the container
+                    items:
+                      properties:
+                        downDelay:
+                          description: |-
+                            A non-negative number defining the delay in
+                            seconds before the next container is shut down.
+                            A non-negative number defining the delay in seconds before the next container is shut down
+                          type: number
+                        order:
+                          description: |-
+                            A non-negative number defining the general startup
+                            order.
+                            A non-negative number defining the general startup order
+                          type: number
+                        upDelay:
+                          description: |-
+                            A non-negative number defining the delay in
+                            seconds before the next container is started.
+                            A non-negative number defining the delay in seconds before the next container is started
+                          type: number
+                      type: object
+                    type: array
+                  tags:
+                    description: |-
+                      A list of tags the container tags. This is only meta
+                      information (defaults to []). Note: Proxmox always sorts the container tags and set them to lowercase.
+                      If tag contains capital letters, then Proxmox will always report a
+                      difference on the resource. You may use the ignore_changes lifecycle
+                      meta-argument to ignore changes to this attribute.
+                      Tags of the container. This is only meta information.
+                    items:
+                      type: string
+                    type: array
+                  template:
+                    description: |-
+                      Whether to create a template (defaults to false).
+                      Whether to create a template
+                    type: boolean
+                  timeoutClone:
+                    description: |-
+                      Timeout for cloning a container in seconds (defaults to 1800).
+                      Clone container timeout
+                    type: number
+                  timeoutCreate:
+                    description: |-
+                      Timeout for creating a container in seconds (defaults to 1800).
+                      Create container timeout
+                    type: number
+                  timeoutDelete:
+                    description: |-
+                      Timeout for deleting a container in seconds (defaults to 60).
+                      Delete container timeout
+                    type: number
+                  timeoutStart:
+                    description: Start container timeout
+                    type: number
+                  timeoutUpdate:
+                    description: |-
+                      Timeout for updating a container in seconds (defaults to 1800).
+                      Update container timeout
+                    type: number
+                  unprivileged:
+                    description: |-
+                      Whether the container runs as unprivileged on
+                      the host (defaults to false).
+                      Whether the container runs as unprivileged on the host
+                    type: boolean
+                  vmId:
+                    description: |-
+                      The identifier for the source container.
+                      The VM identifier
+                    type: number
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

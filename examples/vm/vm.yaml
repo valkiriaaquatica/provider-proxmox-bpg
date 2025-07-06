@@ -1,0 +1,38 @@
+apiVersion: virtualenvironmentvm.crossplane.io/v1alpha1
+kind: EnvironmentVM
+metadata:
+  name: alpine-vm-from-iso
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    vmId: 99
+    name: alpine-vm-from-iso
+    nodeName: pve
+    memory:
+      - dedicated: 1024
+    cpu:
+      - cores: 1
+        sockets: 1
+    disk:
+      - datastoreId: local-lvm
+        size: 8
+        interface: scsi0
+        fileFormat: raw
+        cache: writeback
+        iothread: true
+        ssd: false
+    cdrom:
+      - enabled: true
+        fileId: local:iso/alpine-standard-3.22.0-x86_64.iso
+        interface: ide2
+    bootOrder:
+      - ide2
+      - scsi0
+    networkDevice:
+      - bridge: vmbr0
+        model: virtio
+        enabled: true
+    started: true
+  providerConfigRef:
+    name: default
+# -- add more exmaples here, like lunch from URL or from template

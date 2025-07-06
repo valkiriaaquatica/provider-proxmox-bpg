@@ -1,0 +1,18 @@
+apiVersion: virtual.crossplane.io/v1alpha1
+kind: EnvironmentClusterFirewall
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtual/v1alpha1/environmentclusterfirewall
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    ebtables: false
+    enabled: false
+    inputPolicy: DROP
+    logRatelimit:
+    - burst: 10
+      enabled: false
+      rate: 5/second
+    outputPolicy: ACCEPT

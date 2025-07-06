@@ -1,0 +1,12 @@
+apiVersion: virtualenvironmentharesource.crossplane.io/v1alpha1
+kind: EnvironmentHaresource
+metadata:
+  name: example-haresource
+spec:
+  forProvider:
+    resourceId: "vm:123"
+    state: "started"
+    group: "example"
+    comment: "Managed by Crossplane"
+  providerConfigRef:
+    name: default

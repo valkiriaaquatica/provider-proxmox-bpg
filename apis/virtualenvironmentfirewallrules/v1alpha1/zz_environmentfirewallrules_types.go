@@ -360,7 +360,7 @@ type EnvironmentFirewallRulesStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallRules is the Schema for the EnvironmentFirewallRuless API. |A security group is a collection of rules, defined at cluster level, which can be used in all VMs' rules. For example, you can define a group named “webserver” with rules to open the http and https ports. Rules can be created on the cluster level, on VM / Container level.
+// EnvironmentFirewallRules is the Schema for the EnvironmentFirewallRuless API. |  A security group is a collection of rules, defined at cluster level, which can be used in all VMs' rules. For example, you can define a group named “webserver” with rules to open the http and https ports. Rules can be created on the cluster level, on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

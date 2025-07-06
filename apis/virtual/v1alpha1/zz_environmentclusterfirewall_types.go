@@ -170,7 +170,7 @@ type EnvironmentClusterFirewallStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentClusterFirewall is the Schema for the EnvironmentClusterFirewalls API. |Manages firewall options on the cluster level.
+// EnvironmentClusterFirewall is the Schema for the EnvironmentClusterFirewalls API. |  Manages firewall options on the cluster level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

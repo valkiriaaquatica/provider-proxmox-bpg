@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentClusterFirewall is the Schema for the EnvironmentClusterFirewalls
-          API. |Manages firewall options on the cluster level.
+          API. |  Manages firewall options on the cluster level.
         properties:
           apiVersion:
             description: |-

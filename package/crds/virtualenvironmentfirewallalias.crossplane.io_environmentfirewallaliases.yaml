@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallAlias is the Schema for the EnvironmentFirewallAliass
-          API. |Aliases are used to see what devices or group of devices are affected
+          API. |  Aliases are used to see what devices or group of devices are affected
           by a rule. We can create aliases to identify an IP address or a network.
           Aliases can be created on the cluster level, on VM / Container level.
         properties:

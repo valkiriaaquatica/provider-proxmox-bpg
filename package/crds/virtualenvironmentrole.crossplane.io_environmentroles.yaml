@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentRole is the Schema for the EnvironmentRoles API. |Manages
+        description: EnvironmentRole is the Schema for the EnvironmentRoles API. |  Manages
           a role.
         properties:
           apiVersion:

@@ -16,7 +16,7 @@ spec:
     description: Managed by Terraform
     disk:
     - datastoreId: local-lvm
-      fileId: ${proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_qcow2_img.id}
+      importFrom: ${proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_qcow2_img.id}
       interface: scsi0
     initialization:
     - ipConfig:
@@ -70,7 +70,8 @@ metadata:
   name: latest-ubuntu-22-jammy-qcow2-img
 spec:
   forProvider:
-    contentType: iso
+    contentType: import
     datastoreId: local
+    fileName: jammy-server-cloudimg-amd64.qcow2
     nodeName: pve
     url: https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img

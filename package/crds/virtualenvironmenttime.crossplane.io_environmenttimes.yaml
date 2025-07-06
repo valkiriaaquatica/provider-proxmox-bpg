@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentTime is the Schema for the EnvironmentTimes API. |Manages
+        description: EnvironmentTime is the Schema for the EnvironmentTimes API. |  Manages
           the time for a specific node.
         properties:
           apiVersion:

@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentDNS is the Schema for the EnvironmentDNSs API. |Manages
+        description: EnvironmentDNS is the Schema for the EnvironmentDNSs API. |  Manages
           the DNS configuration for a specific node.
         properties:
           apiVersion:

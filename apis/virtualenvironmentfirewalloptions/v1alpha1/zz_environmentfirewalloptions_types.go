@@ -250,7 +250,7 @@ type EnvironmentFirewallOptionsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallOptions is the Schema for the EnvironmentFirewallOptionss API. |Manages firewall options on VM / Container level.
+// EnvironmentFirewallOptions is the Schema for the EnvironmentFirewallOptionss API. |  Manages firewall options on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentPool is the Schema for the EnvironmentPools API. |Manages
+        description: EnvironmentPool is the Schema for the EnvironmentPools API. |  Manages
           a resource pool.
         properties:
           apiVersion:

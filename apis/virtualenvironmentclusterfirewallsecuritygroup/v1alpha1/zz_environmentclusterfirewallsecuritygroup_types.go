@@ -371,7 +371,7 @@ type EnvironmentClusterFirewallSecurityGroupStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentClusterFirewallSecurityGroup is the Schema for the EnvironmentClusterFirewallSecurityGroups API. |A security group is a collection of rules, defined at cluster level, which can be used in all VMs' rules. For example, you can define a group named webserver with rules to open the http and https ports.
+// EnvironmentClusterFirewallSecurityGroup is the Schema for the EnvironmentClusterFirewallSecurityGroups API. |  A security group is a collection of rules, defined at cluster level, which can be used in all VMs' rules. For example, you can define a group named webserver with rules to open the http and https ports.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

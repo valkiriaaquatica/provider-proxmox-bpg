@@ -9,7 +9,7 @@ resources for the [Proxmox Virtual Environment](https://www.proxmox.com/) API.
   Install the provider by using the following command after changing the image tag
   to the [latest release](https://marketplace.upbound.io/providers/upbound/provider-proxmox-bpg):
   ```
-  up ctp provider install provider-proxmox-bpg:v0.1.0
+  up ctp provider install xpkg.upbound.io/valkiriaaquaticamendi/provider-proxmox-bpg:v0.1.0
   ```
 - Declarative installation
   ```
@@ -17,9 +17,9 @@ resources for the [Proxmox Virtual Environment](https://www.proxmox.com/) API.
   apiVersion: pkg.crossplane.io/v1
   kind: Provider
   metadata:
-    name: provider-proxmoxbpg
+    name: valkiriaaquaticamendi-provider-proxmox-bpg
   spec:
-    package: crossplane/provider-proxmoxbpg:v0.1.0
+    package: xpkg.upbound.io/valkiriaaquaticamendi/provider-proxmox-bpg:v0.1.0
   EOF
   ```
   or

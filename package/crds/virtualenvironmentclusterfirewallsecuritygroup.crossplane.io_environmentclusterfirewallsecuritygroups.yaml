@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentClusterFirewallSecurityGroup is the Schema for the
-          EnvironmentClusterFirewallSecurityGroups API. |A security group is a collection
+          EnvironmentClusterFirewallSecurityGroups API. |  A security group is a collection
           of rules, defined at cluster level, which can be used in all VMs' rules.
           For example, you can define a group named webserver with rules to open the
           http and https ports.

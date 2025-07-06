@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentHosts is the Schema for the EnvironmentHostss API.
-          |Manages the host entries on a specific node.
+          |  Manages the host entries on a specific node.
         properties:
           apiVersion:
             description: |-

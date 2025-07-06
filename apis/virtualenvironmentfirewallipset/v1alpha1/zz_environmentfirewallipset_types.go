@@ -180,7 +180,7 @@ type EnvironmentFirewallIPSetStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallIPSet is the Schema for the EnvironmentFirewallIPSets API. |An IPSet allows us to group multiple IP addresses, IP subnets and aliases. Aliases can be created on the cluster level, on VM / Container level.
+// EnvironmentFirewallIPSet is the Schema for the EnvironmentFirewallIPSets API. |  An IPSet allows us to group multiple IP addresses, IP subnets and aliases. Aliases can be created on the cluster level, on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

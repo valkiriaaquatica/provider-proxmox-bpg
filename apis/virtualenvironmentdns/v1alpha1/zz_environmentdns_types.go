@@ -90,7 +90,7 @@ type EnvironmentDNSStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentDNS is the Schema for the EnvironmentDNSs API. |Manages the DNS configuration for a specific node.
+// EnvironmentDNS is the Schema for the EnvironmentDNSs API. |  Manages the DNS configuration for a specific node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

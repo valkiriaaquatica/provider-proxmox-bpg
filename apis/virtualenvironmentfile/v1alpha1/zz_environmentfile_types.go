@@ -338,7 +338,7 @@ type EnvironmentFileStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFile is the Schema for the EnvironmentFiles API. |Use this resource to upload files to a Proxmox VE node. The file can be a backup, an ISO image, a snippet, or a container template depending on the content_type attribute.
+// EnvironmentFile is the Schema for the EnvironmentFiles API. |  Use this resource to upload files to a Proxmox VE node. The file can be a backup, an ISO image, a snippet, or a container template depending on the content_type attribute.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

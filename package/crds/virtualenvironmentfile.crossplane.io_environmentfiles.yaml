@@ -34,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: EnvironmentFile is the Schema for the EnvironmentFiles API. |Use
+        description: EnvironmentFile is the Schema for the EnvironmentFiles API. |  Use
           this resource to upload files to a Proxmox VE node. The file can be a backup,
           an ISO image, a snippet, or a container template depending on the content_type
           attribute.

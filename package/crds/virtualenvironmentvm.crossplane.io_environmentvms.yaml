@@ -354,8 +354,15 @@ spec:
                           description: |-
                             The file ID for a disk image when importing a disk into VM. The ID format is
                             <datastore_id>:<content_type>/<file_name>, for example local:iso/centos8.img. Can be also taken from
-                            proxmox_virtual_environment_download_file resource.
+                            proxmox_virtual_environment_download_file resource. Deprecated, use import_from instead.
                             The file id for a disk image
+                          type: string
+                        importFrom:
+                          description: |-
+                            The file ID for a disk image to import into VM. The image must be of import content type.
+                            The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
+                            proxmox_virtual_environment_download_file resource.
+                            The file id of a disk image to import from storage.
                           type: string
                         interface:
                           description: |-
@@ -1536,8 +1543,15 @@ spec:
                           description: |-
                             The file ID for a disk image when importing a disk into VM. The ID format is
                             <datastore_id>:<content_type>/<file_name>, for example local:iso/centos8.img. Can be also taken from
-                            proxmox_virtual_environment_download_file resource.
+                            proxmox_virtual_environment_download_file resource. Deprecated, use import_from instead.
                             The file id for a disk image
+                          type: string
+                        importFrom:
+                          description: |-
+                            The file ID for a disk image to import into VM. The image must be of import content type.
+                            The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
+                            proxmox_virtual_environment_download_file resource.
+                            The file id of a disk image to import from storage.
                           type: string
                         interface:
                           description: |-
@@ -2882,8 +2896,15 @@ spec:
                           description: |-
                             The file ID for a disk image when importing a disk into VM. The ID format is
                             <datastore_id>:<content_type>/<file_name>, for example local:iso/centos8.img. Can be also taken from
-                            proxmox_virtual_environment_download_file resource.
+                            proxmox_virtual_environment_download_file resource. Deprecated, use import_from instead.
                             The file id for a disk image
+                          type: string
+                        importFrom:
+                          description: |-
+                            The file ID for a disk image to import into VM. The image must be of import content type.
+                            The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
+                            proxmox_virtual_environment_download_file resource.
+                            The file id of a disk image to import from storage.
                           type: string
                         interface:
                           description: |-

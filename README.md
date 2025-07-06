@@ -3,32 +3,45 @@
 `provider-proxmox-bpg` is a [Crossplane](https://crossplane.io/) provider built using
 [Upjet](https://github.com/crossplane/upjet). It exposes XRM-conformant managed
 resources for the [Proxmox Virtual Environment](https://www.proxmox.com/) API.
-## Getting Started
 
-Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/upbound/provider-proxmox-bpg):
-```
-up ctp provider install provider-proxmox-bpg:v0.1.0
-```
+## Installation (make sure you have Crossplane before installed in your cluster)
+- Using [up](https://docs.upbound.io/reference/cli/):
+  Install the provider by using the following command after changing the image tag
+  to the [latest release](https://marketplace.upbound.io/providers/upbound/provider-proxmox-bpg):
+  ```
+  up ctp provider install provider-proxmox-bpg:v0.1.0
+  ```
+- Declarative installation
+  ```
+  cat <<EOF | kubectl apply -f -
+  apiVersion: pkg.crossplane.io/v1
+  kind: Provider
+  metadata:
+    name: provider-proxmoxbpg
+  spec:
+    package: crossplane/provider-proxmoxbpg:v0.1.0
+  EOF
+  ```
+  or
+  ```
+  kubectl apply -f examples/install.yaml
+  ```
+  Now create the seecret with your Proxmox credentials, filling the secret and apply it
+  ```
+  vi examples/providerconfig/secret.yaml.tmpl
+  kubectl apply -f examples/providerconfig/secret.yaml.tmpl
+  ```
+  Then create the Provider configuration using that secret
+  ```
+  kubectl apply -f examples/providerconfig/providerconfig.yaml
+  ```
 
-Alternatively, you can use declarative installation:
-```
-cat <<EOF | kubectl apply -f -
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: provider-proxmoxbpg
-spec:
-  package: crossplane/provider-proxmoxbpg:v0.1.0
-EOF
-```
-
-In the folder examples/ and examples-generated/ you can have multiple examples to quick create. If you have any interesting example to add, feel free to contribute.
+  In the folder examples/ and examples-generated/ you can have multiple examples to quick create. If you have any interesting example to add, feel free to contribute.
 
 
-Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
+  Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/valkiriaaquatica/provider-proxmox-bpg)
+  You can see the API reference [here](https://doc.crds.dev/github.com/valkiriaaquatica/provider-proxmox-bpg)
 
 ## Developing
 
@@ -59,6 +72,7 @@ Example error:
    ```bash
    make generate
    # This will pull the provider locally and likely return the above error
+   # take a look to your locak .work/ folder :)
    ```
 
 2. Make the fix script executable:
@@ -79,51 +93,35 @@ Example error:
    make generate
    ```
 
-It should now work correctly without `description`/`page_title` errors.
+It should now work correctly without `description`/`page_title` errors and others.
 
+## Developing
+1. Run the generator
+
+   ```bash
+   make generate
+   ```
+2. Run the image  against an existant Kubernetes cluster that has Crossplane already installed
+  Install the CRDs in the cluster:
+    ```
+    kubectl apply -f package/crds/
+    ```
+3. Run the image  against an existant Kubernetes cluster that has Crossplane already installed
+    and test it works well
+   ```bash
+   make run
+   ```
+4. Run the tests
+    and test it works well
+   ```bash
+   make test
+   ```
+4. Run the local docker build image
+    and test it works well
+   ```bash
+   make build
+   ```
 ---
-
-
-Run code-generation pipeline:
-```console
-go run cmd/generator/main.go "$PWD"
-```
-Checkout sub-repositories:
-
-```console
-make submodules
-```
-
-Execute code generation:
-
-```console
-make generate
-```
-
-
-Run against a Kubernetes cluster:
-
-Install the CRDs in the cluster:
-```console
-kubectl apply -f package/crds/
-```
-
-Run the image and keep this terminal to see the logs:
-```console
-make run
-```
-
-Build, push, and install:
-
-```console
-make all
-```
-
-Build binary:
-
-```console
-make build
-```
 
 ## Known Issues Without Solution (4 the moment)
 - Pending support due to schema error and not added (Upjet issue [#372](https://github.com/crossplane/upjet/issues/372)):
@@ -143,11 +141,3 @@ make build
 
 For filing bugs, suggesting improvements, or requesting new features, please
 open an [issue](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues).
-
-
-## TODO list
-
-- Test upload functionality for resources using `"file"` fields
-
-- Test and adapt `Makefile` to use Terraform provider `v0.78.3`
-  - Includes fixes for several broken resources

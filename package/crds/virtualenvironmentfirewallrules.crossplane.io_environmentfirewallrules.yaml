@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallRules is the Schema for the EnvironmentFirewallRuless
-          API. |A security group is a collection of rules, defined at cluster level,
+          API. |  A security group is a collection of rules, defined at cluster level,
           which can be used in all VMs' rules. For example, you can define a group
           named “webserver” with rules to open the http and https ports. Rules can
           be created on the cluster level, on VM / Container level.

@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallIPSet is the Schema for the EnvironmentFirewallIPSets
-          API. |An IPSet allows us to group multiple IP addresses, IP subnets and
+          API. |  An IPSet allows us to group multiple IP addresses, IP subnets and
           aliases. Aliases can be created on the cluster level, on VM / Container
           level.
         properties:

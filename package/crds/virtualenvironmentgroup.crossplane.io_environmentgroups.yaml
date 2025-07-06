@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentGroup is the Schema for the EnvironmentGroups API.
-          |Manages a user group.
+          |  Manages a user group.
         properties:
           apiVersion:
             description: |-

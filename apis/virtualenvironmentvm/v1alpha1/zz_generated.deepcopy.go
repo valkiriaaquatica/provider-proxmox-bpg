@@ -882,6 +882,11 @@ func (in *DiskInitParameters) DeepCopyInto(out *DiskInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ImportFrom != nil {
+		in, out := &in.ImportFrom, &out.ImportFrom
+		*out = new(string)
+		**out = **in
+	}
 	if in.Interface != nil {
 		in, out := &in.Interface, &out.Interface
 		*out = new(string)
@@ -974,6 +979,11 @@ func (in *DiskObservation) DeepCopyInto(out *DiskObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ImportFrom != nil {
+		in, out := &in.ImportFrom, &out.ImportFrom
+		*out = new(string)
+		**out = **in
+	}
 	if in.Interface != nil {
 		in, out := &in.Interface, &out.Interface
 		*out = new(string)
@@ -1063,6 +1073,11 @@ func (in *DiskParameters) DeepCopyInto(out *DiskParameters) {
 	}
 	if in.FileID != nil {
 		in, out := &in.FileID, &out.FileID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ImportFrom != nil {
+		in, out := &in.ImportFrom, &out.ImportFrom
 		*out = new(string)
 		**out = **in
 	}

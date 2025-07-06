@@ -568,9 +568,15 @@ type DiskInitParameters struct {
 
 	// The file ID for a disk image when importing a disk into VM. The ID format is
 	// <datastore_id>:<content_type>/<file_name>, for example local:iso/centos8.img. Can be also taken from
-	// proxmox_virtual_environment_download_file resource.
+	// proxmox_virtual_environment_download_file resource. Deprecated, use import_from instead.
 	// The file id for a disk image
 	FileID *string `json:"fileId,omitempty" tf:"file_id,omitempty"`
+
+	// The file ID for a disk image to import into VM. The image must be of import content type.
+	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
+	// proxmox_virtual_environment_download_file resource.
+	// The file id of a disk image to import from storage.
+	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 
 	// The disk interface for Proxmox, currently scsi,
 	// sata and virtio interfaces are supported. Append the disk index at
@@ -645,9 +651,15 @@ type DiskObservation struct {
 
 	// The file ID for a disk image when importing a disk into VM. The ID format is
 	// <datastore_id>:<content_type>/<file_name>, for example local:iso/centos8.img. Can be also taken from
-	// proxmox_virtual_environment_download_file resource.
+	// proxmox_virtual_environment_download_file resource. Deprecated, use import_from instead.
 	// The file id for a disk image
 	FileID *string `json:"fileId,omitempty" tf:"file_id,omitempty"`
+
+	// The file ID for a disk image to import into VM. The image must be of import content type.
+	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
+	// proxmox_virtual_environment_download_file resource.
+	// The file id of a disk image to import from storage.
+	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 
 	// The disk interface for Proxmox, currently scsi,
 	// sata and virtio interfaces are supported. Append the disk index at
@@ -728,10 +740,17 @@ type DiskParameters struct {
 
 	// The file ID for a disk image when importing a disk into VM. The ID format is
 	// <datastore_id>:<content_type>/<file_name>, for example local:iso/centos8.img. Can be also taken from
-	// proxmox_virtual_environment_download_file resource.
+	// proxmox_virtual_environment_download_file resource. Deprecated, use import_from instead.
 	// The file id for a disk image
 	// +kubebuilder:validation:Optional
 	FileID *string `json:"fileId,omitempty" tf:"file_id,omitempty"`
+
+	// The file ID for a disk image to import into VM. The image must be of import content type.
+	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
+	// proxmox_virtual_environment_download_file resource.
+	// The file id of a disk image to import from storage.
+	// +kubebuilder:validation:Optional
+	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 
 	// The disk interface for Proxmox, currently scsi,
 	// sata and virtio interfaces are supported. Append the disk index at

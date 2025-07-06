@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: EnvironmentFirewallOptions is the Schema for the EnvironmentFirewallOptionss
-          API. |Manages firewall options on VM / Container level.
+          API. |  Manages firewall options on VM / Container level.
         properties:
           apiVersion:
             description: |-

@@ -1455,7 +1455,7 @@ type EnvironmentContainerStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentContainer is the Schema for the EnvironmentContainers API. |Manages a container.
+// EnvironmentContainer is the Schema for the EnvironmentContainers API. |  Manages a container.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

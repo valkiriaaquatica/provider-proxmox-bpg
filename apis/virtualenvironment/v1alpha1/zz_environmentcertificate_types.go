@@ -145,7 +145,7 @@ type EnvironmentCertificateStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentCertificate is the Schema for the EnvironmentCertificates API. |Manages the custom SSL/TLS certificate for a specific node.
+// EnvironmentCertificate is the Schema for the EnvironmentCertificates API. |  Manages the custom SSL/TLS certificate for a specific node.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

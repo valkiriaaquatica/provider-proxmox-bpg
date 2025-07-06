@@ -129,7 +129,7 @@ type EnvironmentFirewallAliasStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// EnvironmentFirewallAlias is the Schema for the EnvironmentFirewallAliass API. |Aliases are used to see what devices or group of devices are affected by a rule. We can create aliases to identify an IP address or a network. Aliases can be created on the cluster level, on VM / Container level.
+// EnvironmentFirewallAlias is the Schema for the EnvironmentFirewallAliass API. |  Aliases are used to see what devices or group of devices are affected by a rule. We can create aliases to identify an IP address or a network. Aliases can be created on the cluster level, on VM / Container level.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

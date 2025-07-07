@@ -36,12 +36,7 @@ resources for the [Proxmox Virtual Environment](https://www.proxmox.com/) API.
   kubectl apply -f examples/providerconfig/providerconfig.yaml
   ```
 
-  In the folder examples/ and examples-generated/ you can have multiple examples to quick create. If you have any interesting example to add, feel free to contribute.
-
-
-  Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
-
-  You can see the API reference [here](https://doc.crds.dev/github.com/valkiriaaquatica/provider-proxmox-bpg)
+  In the folder examples/ and examples-generated/ you can have multiple examples to quick create. If you have any interesting example to add, feel free to contribute. examples/ folder is based on more testes examples while the examples-generated/ wrap the examples from Terraform docs  into Yamls.
 
 ## Developing
 

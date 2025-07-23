@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.2.0...v0.3.0) (2025-07-23)
+
+
+### Features
+
+* **docs:** add new docs for contributing and more CI ([4fd9b1c](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/4fd9b1ca7c47b14112beb06a7132e1fb01046e74))
+* **docs:** add new docs for contributing and more CI ([9e7b5ae](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/9e7b5ae028acf4e4ffe4ced32f99cac632d7101c))
+
 ## [0.2.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.1.0...v0.2.0) (2025-07-22)
 
 

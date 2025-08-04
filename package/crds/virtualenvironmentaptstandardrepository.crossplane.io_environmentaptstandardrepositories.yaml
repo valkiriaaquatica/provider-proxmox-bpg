@@ -76,8 +76,8 @@ spec:
                 properties:
                   handle:
                     description: |-
-                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
-                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `enterprise` | `no-subscription` | `test`.
+                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | ceph-squid-enterprise | ceph-squid-no-subscription | ceph-squid-test | enterprise | no-subscription | test.
+                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
                     type: string
                   node:
                     description: |-
@@ -100,8 +100,8 @@ spec:
                 properties:
                   handle:
                     description: |-
-                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
-                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `enterprise` | `no-subscription` | `test`.
+                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | ceph-squid-enterprise | ceph-squid-no-subscription | ceph-squid-test | enterprise | no-subscription | test.
+                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
                     type: string
                   node:
                     description: |-
@@ -303,8 +303,8 @@ spec:
                     type: string
                   handle:
                     description: |-
-                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
-                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `enterprise` | `no-subscription` | `test`.
+                      quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | ceph-squid-enterprise | ceph-squid-no-subscription | ceph-squid-test | enterprise | no-subscription | test.
+                      The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
                     type: string
                   id:
                     description: (String) The unique identifier of this APT standard

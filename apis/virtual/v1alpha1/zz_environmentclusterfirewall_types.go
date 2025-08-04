@@ -23,6 +23,10 @@ type EnvironmentClusterFirewallInitParameters struct {
 	// Enable or disable the firewall cluster-wide
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// The default forward policy (ACCEPT, DROP).
+	// Default policy for forwarded traffic
+	ForwardPolicy *string `json:"forwardPolicy,omitempty" tf:"forward_policy,omitempty"`
+
 	// The default input policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic
 	InputPolicy *string `json:"inputPolicy,omitempty" tf:"input_policy,omitempty"`
@@ -45,6 +49,10 @@ type EnvironmentClusterFirewallObservation struct {
 	// Enable or disable the firewall cluster wide.
 	// Enable or disable the firewall cluster-wide
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// The default forward policy (ACCEPT, DROP).
+	// Default policy for forwarded traffic
+	ForwardPolicy *string `json:"forwardPolicy,omitempty" tf:"forward_policy,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -72,6 +80,11 @@ type EnvironmentClusterFirewallParameters struct {
 	// Enable or disable the firewall cluster-wide
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// The default forward policy (ACCEPT, DROP).
+	// Default policy for forwarded traffic
+	// +kubebuilder:validation:Optional
+	ForwardPolicy *string `json:"forwardPolicy,omitempty" tf:"forward_policy,omitempty"`
 
 	// The default input policy (ACCEPT, DROP, REJECT).
 	// Default policy for incoming traffic

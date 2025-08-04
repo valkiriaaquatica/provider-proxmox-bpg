@@ -1110,7 +1110,6 @@ type EnvironmentVMInitParameters struct {
 	Virtiofs []VirtiofsInitParameters `json:"virtiofs,omitempty" tf:"virtiofs,omitempty"`
 
 	// The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).
-	// - enabled -  Whether the watchdog is enabled (defaults to false).
 	// The watchdog configuration
 	Watchdog []WatchdogInitParameters `json:"watchdog,omitempty" tf:"watchdog,omitempty"`
 }
@@ -1373,7 +1372,6 @@ type EnvironmentVMObservation struct {
 	Virtiofs []VirtiofsObservation `json:"virtiofs,omitempty" tf:"virtiofs,omitempty"`
 
 	// The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).
-	// - enabled -  Whether the watchdog is enabled (defaults to false).
 	// The watchdog configuration
 	Watchdog []WatchdogObservation `json:"watchdog,omitempty" tf:"watchdog,omitempty"`
 }
@@ -1670,7 +1668,6 @@ type EnvironmentVMParameters struct {
 	Virtiofs []VirtiofsParameters `json:"virtiofs,omitempty" tf:"virtiofs,omitempty"`
 
 	// The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).
-	// - enabled -  Whether the watchdog is enabled (defaults to false).
 	// The watchdog configuration
 	// +kubebuilder:validation:Optional
 	Watchdog []WatchdogParameters `json:"watchdog,omitempty" tf:"watchdog,omitempty"`

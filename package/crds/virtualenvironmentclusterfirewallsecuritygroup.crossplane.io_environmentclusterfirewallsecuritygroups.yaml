@@ -184,8 +184,8 @@ spec:
                           type: string
                         type:
                           description: |-
-                            Rule type (in, out).
-                            Rules type ('in', 'out')
+                            Rule type (in, out, forward).
+                            Rules type ('in', 'out', 'forward')
                           type: string
                       type: object
                     type: array
@@ -313,8 +313,8 @@ spec:
                           type: string
                         type:
                           description: |-
-                            Rule type (in, out).
-                            Rules type ('in', 'out')
+                            Rule type (in, out, forward).
+                            Rules type ('in', 'out', 'forward')
                           type: string
                       type: object
                     type: array
@@ -618,8 +618,8 @@ spec:
                           type: string
                         type:
                           description: |-
-                            Rule type (in, out).
-                            Rules type ('in', 'out')
+                            Rule type (in, out, forward).
+                            Rules type ('in', 'out', 'forward')
                           type: string
                       type: object
                     type: array

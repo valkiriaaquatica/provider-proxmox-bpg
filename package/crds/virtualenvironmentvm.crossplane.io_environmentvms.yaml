@@ -1227,7 +1227,6 @@ spec:
                   watchdog:
                     description: |-
                       The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).
-                      - enabled -  Whether the watchdog is enabled (defaults to false).
                       The watchdog configuration
                     items:
                       properties:
@@ -2416,7 +2415,6 @@ spec:
                   watchdog:
                     description: |-
                       The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).
-                      - enabled -  Whether the watchdog is enabled (defaults to false).
                       The watchdog configuration
                     items:
                       properties:
@@ -3784,7 +3782,6 @@ spec:
                   watchdog:
                     description: |-
                       The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).
-                      - enabled -  Whether the watchdog is enabled (defaults to false).
                       The watchdog configuration
                     items:
                       properties:

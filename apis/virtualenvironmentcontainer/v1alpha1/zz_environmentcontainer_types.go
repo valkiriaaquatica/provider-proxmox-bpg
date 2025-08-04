@@ -449,8 +449,7 @@ type EnvironmentContainerInitParameters struct {
 	// Update container timeout
 	TimeoutUpdate *float64 `json:"timeoutUpdate,omitempty" tf:"timeout_update,omitempty"`
 
-	// Whether the container runs as unprivileged on
-	// the host (defaults to false).
+	// Whether the container runs as unprivileged on the host (defaults to false).
 	// Whether the container runs as unprivileged on the host
 	Unprivileged *bool `json:"unprivileged,omitempty" tf:"unprivileged,omitempty"`
 
@@ -494,6 +493,16 @@ type EnvironmentContainerObservation struct {
 	HookScriptFileID *string `json:"hookScriptFileId,omitempty" tf:"hook_script_file_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The IPv4 configuration.
+	// The container's IPv4 addresses per network device
+	// +mapType=granular
+	IPv4 map[string]*string `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+
+	// The IPv4 configuration.
+	// The container's IPv6 addresses per network device
+	// +mapType=granular
+	IPv6 map[string]*string `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 
 	// The initialization configuration.
 	// The initialization configuration
@@ -572,8 +581,7 @@ type EnvironmentContainerObservation struct {
 	// Update container timeout
 	TimeoutUpdate *float64 `json:"timeoutUpdate,omitempty" tf:"timeout_update,omitempty"`
 
-	// Whether the container runs as unprivileged on
-	// the host (defaults to false).
+	// Whether the container runs as unprivileged on the host (defaults to false).
 	// Whether the container runs as unprivileged on the host
 	Unprivileged *bool `json:"unprivileged,omitempty" tf:"unprivileged,omitempty"`
 
@@ -719,8 +727,7 @@ type EnvironmentContainerParameters struct {
 	// +kubebuilder:validation:Optional
 	TimeoutUpdate *float64 `json:"timeoutUpdate,omitempty" tf:"timeout_update,omitempty"`
 
-	// Whether the container runs as unprivileged on
-	// the host (defaults to false).
+	// Whether the container runs as unprivileged on the host (defaults to false).
 	// Whether the container runs as unprivileged on the host
 	// +kubebuilder:validation:Optional
 	Unprivileged *bool `json:"unprivileged,omitempty" tf:"unprivileged,omitempty"`
@@ -733,13 +740,11 @@ type EnvironmentContainerParameters struct {
 
 type FeaturesInitParameters struct {
 
-	// Whether the container supports FUSE mounts (defaults
-	// to false)
+	// Whether the container supports FUSE mounts (defaults to false)
 	// Whether the container supports FUSE mounts
 	Fuse *bool `json:"fuse,omitempty" tf:"fuse,omitempty"`
 
-	// Whether the container supports keyctl() system
-	// call (defaults to false)
+	// Whether the container supports keyctl() system call (defaults to false)
 	// Whether the container supports `keyctl()` system call
 	Keyctl *bool `json:"keyctl,omitempty" tf:"keyctl,omitempty"`
 
@@ -747,21 +752,18 @@ type FeaturesInitParameters struct {
 	// List of allowed mount types
 	Mount []*string `json:"mount,omitempty" tf:"mount,omitempty"`
 
-	// Whether the container is nested (defaults
-	// to false)
+	// Whether the container is nested (defaults to false)
 	// Whether the container runs as nested
 	Nesting *bool `json:"nesting,omitempty" tf:"nesting,omitempty"`
 }
 
 type FeaturesObservation struct {
 
-	// Whether the container supports FUSE mounts (defaults
-	// to false)
+	// Whether the container supports FUSE mounts (defaults to false)
 	// Whether the container supports FUSE mounts
 	Fuse *bool `json:"fuse,omitempty" tf:"fuse,omitempty"`
 
-	// Whether the container supports keyctl() system
-	// call (defaults to false)
+	// Whether the container supports keyctl() system call (defaults to false)
 	// Whether the container supports `keyctl()` system call
 	Keyctl *bool `json:"keyctl,omitempty" tf:"keyctl,omitempty"`
 
@@ -769,22 +771,19 @@ type FeaturesObservation struct {
 	// List of allowed mount types
 	Mount []*string `json:"mount,omitempty" tf:"mount,omitempty"`
 
-	// Whether the container is nested (defaults
-	// to false)
+	// Whether the container is nested (defaults to false)
 	// Whether the container runs as nested
 	Nesting *bool `json:"nesting,omitempty" tf:"nesting,omitempty"`
 }
 
 type FeaturesParameters struct {
 
-	// Whether the container supports FUSE mounts (defaults
-	// to false)
+	// Whether the container supports FUSE mounts (defaults to false)
 	// Whether the container supports FUSE mounts
 	// +kubebuilder:validation:Optional
 	Fuse *bool `json:"fuse,omitempty" tf:"fuse,omitempty"`
 
-	// Whether the container supports keyctl() system
-	// call (defaults to false)
+	// Whether the container supports keyctl() system call (defaults to false)
 	// Whether the container supports `keyctl()` system call
 	// +kubebuilder:validation:Optional
 	Keyctl *bool `json:"keyctl,omitempty" tf:"keyctl,omitempty"`
@@ -794,8 +793,7 @@ type FeaturesParameters struct {
 	// +kubebuilder:validation:Optional
 	Mount []*string `json:"mount,omitempty" tf:"mount,omitempty"`
 
-	// Whether the container is nested (defaults
-	// to false)
+	// Whether the container is nested (defaults to false)
 	// Whether the container runs as nested
 	// +kubebuilder:validation:Optional
 	Nesting *bool `json:"nesting,omitempty" tf:"nesting,omitempty"`

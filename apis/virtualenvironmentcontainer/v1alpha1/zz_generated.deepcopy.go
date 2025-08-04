@@ -890,6 +890,38 @@ func (in *EnvironmentContainerObservation) DeepCopyInto(out *EnvironmentContaine
 		*out = new(string)
 		**out = **in
 	}
+	if in.IPv4 != nil {
+		in, out := &in.IPv4, &out.IPv4
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
+	if in.IPv6 != nil {
+		in, out := &in.IPv6, &out.IPv6
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.Initialization != nil {
 		in, out := &in.Initialization, &out.Initialization
 		*out = make([]InitializationObservation, len(*in))

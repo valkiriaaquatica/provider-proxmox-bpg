@@ -44,14 +44,14 @@ jobs:
         run: |
           go install golang.org/x/tools/cmd/goimports@latest
           echo "Running initial make generate"
-          make generate >/dev/null 2>&1 || true
+          make generate
+          echo "Listing actual directory"
+          ls -la
           echo "Checking .work/ directory was created"
           ls -la .work/
       
       - name: Run script fixies docs
         run: |
-          echo "Listing actual directory"
-          ls -la
           chmod +x ./pre-make-generate.sh
           ./pre-make-generate.sh
 

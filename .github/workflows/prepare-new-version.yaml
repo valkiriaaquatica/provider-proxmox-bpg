@@ -1,0 +1,89 @@
+# this PR runs when a PR from renovate.json opens with a new version of the Terraform provider
+# then a release please version will run a feat bump (minor version bump)
+name: Generate after Renovate
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+jobs:
+  generate-after-renovate:
+    if: |
+      startsWith(github.head_ref, 'renovate/') &&
+      (
+        contains(github.event.pull_request.labels.*.name, 'proxmox') ||
+        contains(github.event.pull_request.labels.*.name, 'bpg') ||
+        contains(github.event.pull_request.labels.*.name, 'provider')
+      )
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Renovate PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GH_RENOVATE_WRITER_TOKEN }}
+
+      - name: Debug the version in the Makefile
+        run: |
+          cat Makefile
+
+      - name: Set up Git
+        run: |
+          git config user.name "renovate-ci[bot]"
+          git config user.email "renovate-ci@users.noreply.github.com"
+
+      - name: Set up Go 1.21
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+
+      - name: First make generate (will fail for the docs problem, see README.md)
+        run: |
+          go install golang.org/x/tools/cmd/goimports@latest
+          echo "Running initial make generate"
+          make generate >/dev/null 2>&1 || true
+      
+      - name: Run script fixies docs
+        run: |
+          chmod +x ./pre-make-generate.sh
+          ./pre-make-generate.sh
+
+      - name: Second make generate (this will not fail)
+        run: |
+          make generate
+
+      - name: Check if changes were generated
+        id: check_diff
+        run: |
+          git status
+          git diff --quiet && echo "no_changes=true" >> $GITHUB_OUTPUT || echo "no_changes=false" >> $GITHUB_OUTPUT
+
+      - name: Create new branch and PR if needed
+        if: steps.check_diff.outputs.no_changes == 'false'
+        run: |
+          NEW_BRANCH="renovate/${GITHUB_HEAD_REF#renovate/}-generated"
+          git checkout -b "$NEW_BRANCH"
+          git add .
+          git commit -m "feat(version): bump to new version for the Terraform Provider from renovate bot"
+          git push origin "$NEW_BRANCH"
+          gh pr create \
+            --base "${GITHUB_HEAD_REF}" \
+            --head "$NEW_BRANCH" \
+            --title "ci: generate files after renovate update" \
+            --body "This pull request was auto-generated after a Renovate update to regenerate files using \`make generate\`.
+
+          ⚠️ **Important**: This PR depends on the original Renovate PR [${GITHUB_HEAD_REF}](${{ github.event.pull_request.html_url }}).  
+          It should only be merged after (or together with) the corresponding Renovate update.
+
+          Changes were generated automatically based on the version bump of \`bpg/terraform-provider-proxmox\`.
+
+          ---
+
+          _This PR was created by a CI workflow to keep generated files up to date._" \
+            --repo "${{ github.repository }}"
+
+        env:
+          GH_TOKEN: ${{ secrets.GH_RENOVATE_WRITER_TOKEN }}

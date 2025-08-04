@@ -1,0 +1,39 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "github>bpg/renovate-config",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^Makefile$/"
+      ],
+      "matchStrings": [
+        "export TERRAFORM_PROVIDER_VERSION \\?= (?<currentValue>\\d+\\.\\d+\\.\\d+)",
+        "export TERRAFORM_NATIVE_PROVIDER_BINARY \\?= terraform-provider-proxmox_v(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ],
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "bpg/terraform-provider-proxmox",
+      "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "bpg/terraform-provider-proxmox"
+      ],
+      "semanticCommitScope": "deps",
+      "labels": ["provider", "bpg", "proxmox"]
+    },
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "automerge": false,
+      "semanticCommitScope": "deps"
+    }
+  ]
+}

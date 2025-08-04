@@ -9,7 +9,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^Makefile$/"
+        "Makefile"
       ],
       "matchStrings": [
         "export TERRAFORM_PROVIDER_VERSION \\?= (?<currentValue>\\d+\\.\\d+\\.\\d+)",

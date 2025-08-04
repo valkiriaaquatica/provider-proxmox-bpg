@@ -25,6 +25,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GH_RENOVATE_WRITER_TOKEN }}
+          submodules: true
 
       - name: Debug the version in the Makefile
         run: |
@@ -43,12 +44,7 @@ jobs:
       - name: First make generate (will fail for the docs problem, see README.md)
         run: |
           go install golang.org/x/tools/cmd/goimports@latest
-          echo "Running initial make generate"
-          make generate
-          echo "Listing actual directory"
-          ls -la
-          echo "Checking .work/ directory was created"
-          ls -la .work/
+          make generate >/dev/null 2>&1 || true
       
       - name: Run script fixies docs
         run: |

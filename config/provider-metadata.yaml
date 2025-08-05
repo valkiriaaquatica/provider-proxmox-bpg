@@ -155,7 +155,7 @@ resources:
         argumentDocs:
             description: (String) The description of the APT standard repository.
             file_path: (String) The absolute path of the source list file that contains this standard repository.
-            handle: (String) The handle of the APT standard repository. Must be ceph-quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | enterprise | no-subscription | test.
+            handle: (String) The handle of the APT standard repository. Must be ceph-quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | ceph-squid-enterprise | ceph-squid-no-subscription | ceph-squid-test | enterprise | no-subscription | test.
             id: (String) The unique identifier of this APT standard repository resource.
             index: (Number) The index within the defining source list file.
             name: (String) The name of the APT standard repository.
@@ -232,6 +232,7 @@ resources:
                 {
                   "ebtables": false,
                   "enabled": false,
+                  "forward_policy": "ACCEPT",
                   "input_policy": "DROP",
                   "log_ratelimit": [
                     {
@@ -248,6 +249,7 @@ resources:
                 logged before the rate is applied (defaults to 5).
             ebtables: '- (Optional) Enable ebtables rules cluster wide.'
             enabled: '- (Optional) Enable or disable the firewall cluster wide.'
+            forward_policy: '- (Optional) The default forward policy (ACCEPT, DROP).'
             input_policy: '- (Optional) The default input policy (ACCEPT, DROP, REJECT).'
             log_ratelimit: '- (Optional) The log rate limit.'
             output_policy: '- (Optional) The default output policy (ACCEPT, DROP, REJECT).'
@@ -333,7 +335,7 @@ resources:
                 services'. Port ranges can be specified with '\d+:\d+', for example
                 80:85, and you can use comma separated list to match several ports or
                 ranges.
-            type: '- (Required) Rule type (in, out).'
+            type: '- (Required) Rule type (in, out, forward).'
         importStatements: []
     proxmox_virtual_environment_cluster_options:
         subCategory: Virtual Environment
@@ -535,9 +537,7 @@ resources:
             firewall: |-
                 - (Optional) Whether this interface's firewall rules should be
                 used (defaults to false).
-            fuse: |-
-                - (Optional) Whether the container supports FUSE mounts (defaults
-                to false)
+            fuse: '- (Optional) Whether the container supports FUSE mounts (defaults to false)'
             gateway: |-
                 - (Optional) The IPv4 gateway (must be omitted
                 when dhcp is used as the address).
@@ -552,9 +552,7 @@ resources:
                 device).
             ipv4: '- (Optional) The IPv4 configuration.'
             ipv6: '- (Optional) The IPv4 configuration.'
-            keyctl: |-
-                - (Optional) Whether the container supports keyctl() system
-                call (defaults to false)
+            keyctl: '- (Optional) Whether the container supports keyctl() system call (defaults to false)'
             keys: '- (Optional) The SSH keys for the root account.'
             mac_address: '- (Optional) The MAC address.'
             memory: '- (Optional) The memory configuration.'
@@ -568,9 +566,7 @@ resources:
                 - (Optional) Maximum transfer unit of the interface. Cannot be
                 larger than the bridge's MTU.
             name: '- (Required) The network interface name.'
-            nesting: |-
-                - (Optional) Whether the container is nested (defaults
-                to false)
+            nesting: '- (Optional) Whether the container is nested (defaults to false)'
             network_interface: |-
                 - (Optional) A network interface (multiple blocks
                 supported).
@@ -636,9 +632,7 @@ resources:
             uid: '- (Optional) User ID to be assigned to the device node.'
             units: '- (Optional) The CPU units (defaults to 1024).'
             unmanaged: '- Unmanaged.'
-            unprivileged: |-
-                - (Optional) Whether the container runs as unprivileged on
-                the host (defaults to false).
+            unprivileged: '- (Optional) Whether the container runs as unprivileged on the host (defaults to false).'
             up_delay: |-
                 - (Optional) A non-negative number defining the delay in
                 seconds before the next container is started.
@@ -848,7 +842,7 @@ resources:
                   "node_name": "first-node",
                   "source_file": [
                     {
-                      "path": "https://download.proxmox.com/images/system/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+                      "path": "http://download.proxmox.com/images/system/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
                     }
                   ]
                 }
@@ -967,13 +961,13 @@ resources:
         argumentDocs:
             cidr: '- (Optional) IP/CIDR block (multiple blocks supported).'
             comment: '- (Optional) IPSet comment.'
-            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
+            container_id: '- (Optional) Container ID. Leave empty for cluster level ipsets.'
             name: '- (Required) IPSet name.'
-            node_name: '- (Optional) Node name. Leave empty for cluster level aliases.'
+            node_name: '- (Optional) Node name. Leave empty for cluster level ipsets.'
             nomatch: |-
                 - (Optional) Entries marked as nomatch are skipped as if those
                 were not added to the set.
-            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
+            vm_id: '- (Optional) VM ID. Leave empty for cluster level ipsets.'
         importStatements: []
     proxmox_virtual_environment_firewall_options:
         subCategory: Virtual Environment
@@ -1004,8 +998,8 @@ resources:
                 node_name: proxmox_virtual_environment_vm.example.node_name
                 vm_id: proxmox_virtual_environment_vm.example.vm_id
         argumentDocs:
-            container_id: '- (Optional) Container ID. Leave empty for cluster level aliases.'
-            dhcp: '- (Optional)Enable DHCP.'
+            container_id: '- (Optional) Container ID.'
+            dhcp: '- (Optional) Enable DHCP.'
             enabled: '- (Optional) Enable or disable the firewall.'
             input_policy: |-
                 - (Optional) The default input
@@ -1031,7 +1025,7 @@ resources:
                 - (Optional) The default output
                 policy (ACCEPT, DROP, REJECT).
             radv: '- (Optional) Enable Router Advertisement.'
-            vm_id: '- (Optional) VM ID. Leave empty for cluster level aliases.'
+            vm_id: '- (Optional) VM ID.'
         importStatements: []
     proxmox_virtual_environment_firewall_rules:
         subCategory: Virtual Environment
@@ -1130,7 +1124,7 @@ resources:
                 in /etc/services. Port ranges can be specified with '\d+:\d+', for
                 example 80:85, and you can use comma separated list to match
                 several ports or ranges.
-            type: '- (Required) Rule type (in, out).'
+            type: '- (Required) Rule type (in, out, forward).'
             vm_id: '- (Optional) VM ID. Leave empty for cluster level rules.'
         importStatements: []
     proxmox_virtual_environment_group:
@@ -1515,6 +1509,199 @@ resources:
             privileges: '- (Required) The role privileges.'
             role_id: '- (Required) The role identifier.'
         importStatements: []
+    proxmox_virtual_environment_sdn_zone_evpn:
+        subCategory: Virtual Environment
+        description: EVPN Zone in Proxmox SDN. The EVPN zone creates a routable Layer 3 network, capable of spanning across multiple clusters.
+        name: proxmox_virtual_environment_sdn_zone_evpn
+        title: proxmox_virtual_environment_sdn_zone_evpn
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "advertise_subnets": true,
+                  "controller": "evpn-controller1",
+                  "disable_arp_nd_suppression": false,
+                  "dns": "1.1.1.1",
+                  "dns_zone": "example.com",
+                  "exit_nodes": [
+                    "pve-exit1",
+                    "pve-exit2"
+                  ],
+                  "exit_nodes_local_routing": true,
+                  "id": "evpn1",
+                  "ipam": "pve",
+                  "mtu": 1450,
+                  "nodes": [
+                    "pve"
+                  ],
+                  "primary_exit_node": "pve-exit1",
+                  "reverse_dns": "1.1.1.1",
+                  "rt_import": "65000:65000",
+                  "vrf_vxlan": 4000
+                }
+        argumentDocs:
+            advertise_subnets: (Boolean) Enable subnet advertisement for EVPN.
+            controller: (String) EVPN controller address.
+            disable_arp_nd_suppression: (Boolean) Disable ARP/ND suppression for EVPN.
+            dns: (String) DNS API server address.
+            dns_zone: (String) DNS domain name. Used to register hostnames, such as <hostname>.<domain>. The DNS zone must already exist on the DNS server.
+            exit_nodes: (Set of String) List of exit nodes for EVPN.
+            exit_nodes_local_routing: (Boolean) Enable local routing for EVPN exit nodes.
+            id: (String) The unique identifier of the SDN zone.
+            ipam: (String) IP Address Management system.
+            mtu: (Number) MTU value for the zone.
+            nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            primary_exit_node: (String) Primary exit node for EVPN.
+            reverse_dns: (String) Reverse DNS API server address.
+            rt_import: (String) Route target import for EVPN.
+            vrf_vxlan: (Number) VRF VXLAN-ID used for dedicated routing interconnect between VNets. It must be different than the VXLAN-ID of the VNets.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # EVPN SDN zone can be imported using its unique identifier (zone ID)
+              terraform import proxmox_virtual_environment_sdn_zone_evpn.example evpn1
+    proxmox_virtual_environment_sdn_zone_qinq:
+        subCategory: Virtual Environment
+        description: QinQ Zone in Proxmox SDN. QinQ also known as VLAN stacking, that uses multiple layers of VLAN tags for isolation. The QinQ zone defines the outer VLAN tag (the Service VLAN) whereas the inner VLAN tag is defined by the VNet. Your physical network switches must support stacked VLANs for this configuration. Due to the double stacking of tags, you need 4 more bytes for QinQ VLANs. For example, you must reduce the MTU to 1496 if you physical interface MTU is 1500.
+        name: proxmox_virtual_environment_sdn_zone_qinq
+        title: proxmox_virtual_environment_sdn_zone_qinq
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "bridge": "vmbr0",
+                  "dns": "1.1.1.1",
+                  "dns_zone": "example.com",
+                  "id": "qinq1",
+                  "ipam": "pve",
+                  "mtu": 1496,
+                  "nodes": [
+                    "pve"
+                  ],
+                  "reverse_dns": "1.1.1.1",
+                  "service_vlan": 100,
+                  "service_vlan_protocol": "802.1ad"
+                }
+        argumentDocs:
+            bridge: (String) A local, VLAN-aware bridge that is already configured on each local node
+            dns: (String) DNS API server address.
+            dns_zone: (String) DNS domain name. Used to register hostnames, such as <hostname>.<domain>. The DNS zone must already exist on the DNS server.
+            id: (String) The unique identifier of the SDN zone.
+            ipam: (String) IP Address Management system.
+            mtu: (Number) MTU value for the zone.
+            nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            reverse_dns: (String) Reverse DNS API server address.
+            service_vlan: (Number) Service VLAN tag for QinQ. The tag must be between 1 and 4094.
+            service_vlan_protocol: (String) Service VLAN protocol for QinQ. The protocol must be 802.1ad or 802.1q.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # QinQ SDN zone can be imported using its unique identifier (zone ID)
+              terraform import proxmox_virtual_environment_sdn_zone_qinq.example qinq1
+    proxmox_virtual_environment_sdn_zone_simple:
+        subCategory: Virtual Environment
+        description: Simple Zone in Proxmox SDN. It will create an isolated VNet bridge. This bridge is not linked to a physical interface, and VM traffic is only local on each the node. It can be used in NAT or routed setups.
+        name: proxmox_virtual_environment_sdn_zone_simple
+        title: proxmox_virtual_environment_sdn_zone_simple
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "dns": "1.1.1.1",
+                  "dns_zone": "example.com",
+                  "id": "simple1",
+                  "ipam": "pve",
+                  "mtu": 1500,
+                  "nodes": [
+                    "pve"
+                  ],
+                  "reverse_dns": "1.1.1.1"
+                }
+        argumentDocs:
+            dns: (String) DNS API server address.
+            dns_zone: (String) DNS domain name. Used to register hostnames, such as <hostname>.<domain>. The DNS zone must already exist on the DNS server.
+            id: (String) The unique identifier of the SDN zone.
+            ipam: (String) IP Address Management system.
+            mtu: (Number) MTU value for the zone.
+            nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            reverse_dns: (String) Reverse DNS API server address.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # Simple SDN zone can be imported using its unique identifier (zone ID)
+              terraform import proxmox_virtual_environment_sdn_zone_simple.example simple1
+    proxmox_virtual_environment_sdn_zone_vlan:
+        subCategory: Virtual Environment
+        description: VLAN Zone in Proxmox SDN. It uses an existing local Linux or OVS bridge to connect to the node's physical interface. It uses VLAN tagging defined in the VNet to isolate the network segments. This allows connectivity of VMs between different nodes.
+        name: proxmox_virtual_environment_sdn_zone_vlan
+        title: proxmox_virtual_environment_sdn_zone_vlan
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "bridge": "vmbr0",
+                  "dns": "1.1.1.1",
+                  "dns_zone": "example.com",
+                  "id": "vlan1",
+                  "ipam": "pve",
+                  "mtu": 1500,
+                  "nodes": [
+                    "pve"
+                  ],
+                  "reverse_dns": "1.1.1.1"
+                }
+        argumentDocs:
+            bridge: (String) The local bridge or OVS switch, already configured on each node that allows node-to-node connection.
+            dns: (String) DNS API server address.
+            dns_zone: (String) DNS domain name. Used to register hostnames, such as <hostname>.<domain>. The DNS zone must already exist on the DNS server.
+            id: (String) The unique identifier of the SDN zone.
+            ipam: (String) IP Address Management system.
+            mtu: (Number) MTU value for the zone.
+            nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            reverse_dns: (String) Reverse DNS API server address.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # VLAN SDN zone can be imported using its unique identifier (zone ID)
+              terraform import proxmox_virtual_environment_sdn_zone_vlan.example vlan1
+    proxmox_virtual_environment_sdn_zone_vxlan:
+        subCategory: Virtual Environment
+        description: VXLAN Zone in Proxmox SDN. It establishes a tunnel (overlay) on top of an existing network (underlay). This encapsulates layer 2 Ethernet frames within layer 4 UDP datagrams using the default destination port 4789. You have to configure the underlay network yourself to enable UDP connectivity between all peers. Because VXLAN encapsulation uses 50 bytes, the MTU needs to be 50 bytes lower than the outgoing physical interface.
+        name: proxmox_virtual_environment_sdn_zone_vxlan
+        title: proxmox_virtual_environment_sdn_zone_vxlan
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "dns": "1.1.1.1",
+                  "dns_zone": "example.com",
+                  "id": "vxlan1",
+                  "ipam": "pve",
+                  "mtu": 1450,
+                  "nodes": [
+                    "pve"
+                  ],
+                  "peers": [
+                    "10.0.0.1",
+                    "10.0.0.2",
+                    "10.0.0.3"
+                  ],
+                  "reverse_dns": "1.1.1.1"
+                }
+        argumentDocs:
+            dns: (String) DNS API server address.
+            dns_zone: (String) DNS domain name. Used to register hostnames, such as <hostname>.<domain>. The DNS zone must already exist on the DNS server.
+            id: (String) The unique identifier of the SDN zone.
+            ipam: (String) IP Address Management system.
+            mtu: (Number) MTU value for the zone.
+            nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            peers: (Set of String) A list of IP addresses of each node in the VXLAN zone. This can be external nodes reachable at this IP address. All nodes in the cluster need to be mentioned here
+            reverse_dns: (String) Reverse DNS API server address.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # VXLAN SDN zone can be imported using its unique identifier (zone ID)
+              terraform import proxmox_virtual_environment_sdn_zone_vxlan.example vxlan1
     proxmox_virtual_environment_time:
         subCategory: Virtual Environment
         description: '|  Manages the time for a specific node.'
@@ -1851,7 +2038,7 @@ resources:
             Conroe: '- Intel Celeron_4x0 (Conroe/Merom Class Core 2, 2006).'
             Cooperlake: /Cooperlake-v2
             EPYC: |-
-                /EPYC-IBPB/EPYC-Milan/EPYC-Rome/EPYC-Rome-v2/EPYC-v3 / EPYC-v4 -
+                /EPYC-Genoa/EPYC-IBPB/EPYC-Milan/EPYC-Rome/EPYC-Rome-v2/EPYC-v3/EPYC-v4/ -
                 AMD EPYC Processor (2017).
             Haswell: |-
                 /Haswell-IBRS/Haswell-noTSX/Haswell-noTSX-IBRS - Intel
@@ -2305,9 +2492,7 @@ resources:
             w2k: '- Windows 2000.'
             w2k3: '- Windows 2003.'
             w2k8: '- Windows 2008.'
-            watchdog: |-
-                - (Optional) The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).
-                - enabled - (Optional) Whether the watchdog is enabled (defaults to false).
+            watchdog: '- (Optional) The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).'
             win7: '- Windows 7.'
             win8: '- Windows 8, 2012 or 2012 R2.'
             win10: '- Windows 10 or 2016.'

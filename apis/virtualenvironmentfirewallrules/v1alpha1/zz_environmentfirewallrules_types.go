@@ -155,8 +155,8 @@ type RuleInitParameters struct {
 	// Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	Sport *string `json:"sport,omitempty" tf:"sport,omitempty"`
 
-	// Rule type (in, out).
-	// Rules type ('in', 'out')
+	// Rule type (in, out, forward).
+	// Rules type ('in', 'out', 'forward')
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -237,8 +237,8 @@ type RuleObservation struct {
 	// Restrict TCP/UDP source port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\d+:\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
 	Sport *string `json:"sport,omitempty" tf:"sport,omitempty"`
 
-	// Rule type (in, out).
-	// Rules type ('in', 'out')
+	// Rule type (in, out, forward).
+	// Rules type ('in', 'out', 'forward')
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -327,8 +327,8 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Sport *string `json:"sport,omitempty" tf:"sport,omitempty"`
 
-	// Rule type (in, out).
-	// Rules type ('in', 'out')
+	// Rule type (in, out, forward).
+	// Rules type ('in', 'out', 'forward')
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

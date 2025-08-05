@@ -212,14 +212,12 @@ spec:
                       properties:
                         fuse:
                           description: |-
-                            Whether the container supports FUSE mounts (defaults
-                            to false)
+                            Whether the container supports FUSE mounts (defaults to false)
                             Whether the container supports FUSE mounts
                           type: boolean
                         keyctl:
                           description: |-
-                            Whether the container supports keyctl() system
-                            call (defaults to false)
+                            Whether the container supports keyctl() system call (defaults to false)
                             Whether the container supports `keyctl()` system call
                           type: boolean
                         mount:
@@ -231,8 +229,7 @@ spec:
                           type: array
                         nesting:
                           description: |-
-                            Whether the container is nested (defaults
-                            to false)
+                            Whether the container is nested (defaults to false)
                             Whether the container runs as nested
                           type: boolean
                       type: object
@@ -614,8 +611,7 @@ spec:
                     type: number
                   unprivileged:
                     description: |-
-                      Whether the container runs as unprivileged on
-                      the host (defaults to false).
+                      Whether the container runs as unprivileged on the host (defaults to false).
                       Whether the container runs as unprivileged on the host
                     type: boolean
                   vmId:
@@ -776,14 +772,12 @@ spec:
                       properties:
                         fuse:
                           description: |-
-                            Whether the container supports FUSE mounts (defaults
-                            to false)
+                            Whether the container supports FUSE mounts (defaults to false)
                             Whether the container supports FUSE mounts
                           type: boolean
                         keyctl:
                           description: |-
-                            Whether the container supports keyctl() system
-                            call (defaults to false)
+                            Whether the container supports keyctl() system call (defaults to false)
                             Whether the container supports `keyctl()` system call
                           type: boolean
                         mount:
@@ -795,8 +789,7 @@ spec:
                           type: array
                         nesting:
                           description: |-
-                            Whether the container is nested (defaults
-                            to false)
+                            Whether the container is nested (defaults to false)
                             Whether the container runs as nested
                           type: boolean
                       type: object
@@ -1178,8 +1171,7 @@ spec:
                     type: number
                   unprivileged:
                     description: |-
-                      Whether the container runs as unprivileged on
-                      the host (defaults to false).
+                      Whether the container runs as unprivileged on the host (defaults to false).
                       Whether the container runs as unprivileged on the host
                     type: boolean
                   vmId:
@@ -1505,14 +1497,12 @@ spec:
                       properties:
                         fuse:
                           description: |-
-                            Whether the container supports FUSE mounts (defaults
-                            to false)
+                            Whether the container supports FUSE mounts (defaults to false)
                             Whether the container supports FUSE mounts
                           type: boolean
                         keyctl:
                           description: |-
-                            Whether the container supports keyctl() system
-                            call (defaults to false)
+                            Whether the container supports keyctl() system call (defaults to false)
                             Whether the container supports `keyctl()` system call
                           type: boolean
                         mount:
@@ -1524,8 +1514,7 @@ spec:
                           type: array
                         nesting:
                           description: |-
-                            Whether the container is nested (defaults
-                            to false)
+                            Whether the container is nested (defaults to false)
                             Whether the container runs as nested
                           type: boolean
                       type: object
@@ -1639,6 +1628,22 @@ spec:
                           type: array
                       type: object
                     type: array
+                  ipv4:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      The IPv4 configuration.
+                      The container's IPv4 addresses per network device
+                    type: object
+                    x-kubernetes-map-type: granular
+                  ipv6:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      The IPv4 configuration.
+                      The container's IPv6 addresses per network device
+                    type: object
+                    x-kubernetes-map-type: granular
                   memory:
                     description: |-
                       The memory configuration.
@@ -1890,8 +1895,7 @@ spec:
                     type: number
                   unprivileged:
                     description: |-
-                      Whether the container runs as unprivileged on
-                      the host (defaults to false).
+                      Whether the container runs as unprivileged on the host (defaults to false).
                       Whether the container runs as unprivileged on the host
                     type: boolean
                   vmId:

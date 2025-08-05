@@ -76,7 +76,7 @@ spec:
                 properties:
                   containerId:
                     description: |-
-                      Container ID. Leave empty for cluster level aliases.
+                      Container ID.
                       The ID of the container to manage the firewall for.
                     type: number
                   dhcp:
@@ -146,7 +146,7 @@ spec:
                     type: boolean
                   vmId:
                     description: |-
-                      VM ID. Leave empty for cluster level aliases.
+                      VM ID.
                       The ID of the VM to manage the firewall for.
                     type: number
                 type: object
@@ -165,7 +165,7 @@ spec:
                 properties:
                   containerId:
                     description: |-
-                      Container ID. Leave empty for cluster level aliases.
+                      Container ID.
                       The ID of the container to manage the firewall for.
                     type: number
                   dhcp:
@@ -235,7 +235,7 @@ spec:
                     type: boolean
                   vmId:
                     description: |-
-                      VM ID. Leave empty for cluster level aliases.
+                      VM ID.
                       The ID of the VM to manage the firewall for.
                     type: number
                 type: object
@@ -419,7 +419,7 @@ spec:
                 properties:
                   containerId:
                     description: |-
-                      Container ID. Leave empty for cluster level aliases.
+                      Container ID.
                       The ID of the container to manage the firewall for.
                     type: number
                   dhcp:
@@ -491,7 +491,7 @@ spec:
                     type: boolean
                   vmId:
                     description: |-
-                      VM ID. Leave empty for cluster level aliases.
+                      VM ID.
                       The ID of the VM to manage the firewall for.
                     type: number
                 type: object

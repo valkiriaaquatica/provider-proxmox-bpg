@@ -74,7 +74,7 @@ type EnvironmentFirewallIPSetInitParameters struct {
 	// IPSet comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Container ID. Leave empty for cluster level aliases.
+	// Container ID. Leave empty for cluster level ipsets.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
@@ -82,11 +82,11 @@ type EnvironmentFirewallIPSetInitParameters struct {
 	// IPSet name
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Node name. Leave empty for cluster level aliases.
+	// Node name. Leave empty for cluster level ipsets.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
-	// VM ID. Leave empty for cluster level aliases.
+	// VM ID. Leave empty for cluster level ipsets.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
@@ -101,7 +101,7 @@ type EnvironmentFirewallIPSetObservation struct {
 	// IPSet comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Container ID. Leave empty for cluster level aliases.
+	// Container ID. Leave empty for cluster level ipsets.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
@@ -111,11 +111,11 @@ type EnvironmentFirewallIPSetObservation struct {
 	// IPSet name
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Node name. Leave empty for cluster level aliases.
+	// Node name. Leave empty for cluster level ipsets.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
-	// VM ID. Leave empty for cluster level aliases.
+	// VM ID. Leave empty for cluster level ipsets.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
@@ -132,7 +132,7 @@ type EnvironmentFirewallIPSetParameters struct {
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Container ID. Leave empty for cluster level aliases.
+	// Container ID. Leave empty for cluster level ipsets.
 	// The ID of the container to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
@@ -142,12 +142,12 @@ type EnvironmentFirewallIPSetParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Node name. Leave empty for cluster level aliases.
+	// Node name. Leave empty for cluster level ipsets.
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
-	// VM ID. Leave empty for cluster level aliases.
+	// VM ID. Leave empty for cluster level ipsets.
 	// The ID of the VM to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`

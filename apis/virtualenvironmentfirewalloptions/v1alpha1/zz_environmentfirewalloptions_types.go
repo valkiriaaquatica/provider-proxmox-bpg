@@ -15,7 +15,7 @@ import (
 
 type EnvironmentFirewallOptionsInitParameters struct {
 
-	// Container ID. Leave empty for cluster level aliases.
+	// Container ID.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
@@ -73,14 +73,14 @@ type EnvironmentFirewallOptionsInitParameters struct {
 	// Allow sending Router Advertisement
 	Radv *bool `json:"radv,omitempty" tf:"radv,omitempty"`
 
-	// VM ID. Leave empty for cluster level aliases.
+	// VM ID.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallOptionsObservation struct {
 
-	// Container ID. Leave empty for cluster level aliases.
+	// Container ID.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
@@ -140,14 +140,14 @@ type EnvironmentFirewallOptionsObservation struct {
 	// Allow sending Router Advertisement
 	Radv *bool `json:"radv,omitempty" tf:"radv,omitempty"`
 
-	// VM ID. Leave empty for cluster level aliases.
+	// VM ID.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallOptionsParameters struct {
 
-	// Container ID. Leave empty for cluster level aliases.
+	// Container ID.
 	// The ID of the container to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
@@ -217,7 +217,7 @@ type EnvironmentFirewallOptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Radv *bool `json:"radv,omitempty" tf:"radv,omitempty"`
 
-	// VM ID. Leave empty for cluster level aliases.
+	// VM ID.
 	// The ID of the VM to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`

@@ -52,6 +52,11 @@ func (in *EnvironmentClusterFirewallInitParameters) DeepCopyInto(out *Environmen
 		*out = new(bool)
 		**out = **in
 	}
+	if in.ForwardPolicy != nil {
+		in, out := &in.ForwardPolicy, &out.ForwardPolicy
+		*out = new(string)
+		**out = **in
+	}
 	if in.InputPolicy != nil {
 		in, out := &in.InputPolicy, &out.InputPolicy
 		*out = new(string)
@@ -126,6 +131,11 @@ func (in *EnvironmentClusterFirewallObservation) DeepCopyInto(out *EnvironmentCl
 		*out = new(bool)
 		**out = **in
 	}
+	if in.ForwardPolicy != nil {
+		in, out := &in.ForwardPolicy, &out.ForwardPolicy
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -171,6 +181,11 @@ func (in *EnvironmentClusterFirewallParameters) DeepCopyInto(out *EnvironmentClu
 	if in.Enabled != nil {
 		in, out := &in.Enabled, &out.Enabled
 		*out = new(bool)
+		**out = **in
+	}
+	if in.ForwardPolicy != nil {
+		in, out := &in.ForwardPolicy, &out.ForwardPolicy
+		*out = new(string)
 		**out = **in
 	}
 	if in.InputPolicy != nil {

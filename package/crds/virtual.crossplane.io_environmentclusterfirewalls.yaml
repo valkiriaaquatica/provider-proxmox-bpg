@@ -84,6 +84,11 @@ spec:
                       Enable or disable the firewall cluster wide.
                       Enable or disable the firewall cluster-wide
                     type: boolean
+                  forwardPolicy:
+                    description: |-
+                      The default forward policy (ACCEPT, DROP).
+                      Default policy for forwarded traffic
+                    type: string
                   inputPolicy:
                     description: |-
                       The default input policy (ACCEPT, DROP, REJECT).
@@ -143,6 +148,11 @@ spec:
                       Enable or disable the firewall cluster wide.
                       Enable or disable the firewall cluster-wide
                     type: boolean
+                  forwardPolicy:
+                    description: |-
+                      The default forward policy (ACCEPT, DROP).
+                      Default policy for forwarded traffic
+                    type: string
                   inputPolicy:
                     description: |-
                       The default input policy (ACCEPT, DROP, REJECT).
@@ -362,6 +372,11 @@ spec:
                       Enable or disable the firewall cluster wide.
                       Enable or disable the firewall cluster-wide
                     type: boolean
+                  forwardPolicy:
+                    description: |-
+                      The default forward policy (ACCEPT, DROP).
+                      Default policy for forwarded traffic
+                    type: string
                   id:
                     type: string
                   inputPolicy:

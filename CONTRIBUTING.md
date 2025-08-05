@@ -42,3 +42,16 @@ git commit -m "fix(my-feature): fix crash when API token is empty"
 * `docs(readme): clarify dev setup instructions`
 
 > ℹ️ Commits that don’t follow the Conventional Commit standard will **fail CI checks**.
+
+
+### 4️⃣ Re-run CI on failure due to external issues
+
+After pushing your changes, GitHub Actions will automatically trigger the CI pipeline.
+
+If the pipeline fails due to **external issues** (e.g., network, authentication, infrastructure), you can **re-run the failed workflows from the Pull Request by commenting**:
+
+* `/rerun-all` → Re-run **all failed workflows**
+* `/rerun-workflow <workflow name>` → Re-run a **specific failed workflow**
+
+> This is powered by [`estroz/rerun-actions`](https://github.com/estroz/rerun-actions). Only repo contributors or PRs with the `ok-to-test` label can trigger reruns this way.
+

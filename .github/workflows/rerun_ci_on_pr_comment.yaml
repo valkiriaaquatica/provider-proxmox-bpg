@@ -1,0 +1,15 @@
+name: "Re run on Pull Request when comment"
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  rerun_pr_tests:
+    name: rerun_pr_tests
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: estroz/rerun-actions@main
+      with:
+        repo_token: ${{ secrets.GH_RENOVATE_WRITER_TOKEN }}
+        comment_id: ${{ github.event.comment.id }}

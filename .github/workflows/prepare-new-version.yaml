@@ -1,23 +1,35 @@
-# this PR runs when a PR from renovate.json opens with a new version of the Terraform provider
-# then a release please version will run a feat bump (minor version bump)
+# this PR commits on the same PR opened by renovate bot with the update manifests, code and example
+# this way we can auto generate new releass of the crossplane provider authomatically when a new terraform release is launched
 name: Generate after Renovate
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
     branches:
       - main
+
+concurrency:
+  group: generate-after-renovate-${{ github.event.pull_request.head.ref }}
+  cancel-in-progress: true
 
 jobs:
   generate-after-renovate:
     if: |
       startsWith(github.head_ref, 'renovate/') &&
+      github.actor == 'renovate[bot]' &&
       (
         contains(github.event.pull_request.labels.*.name, 'proxmox') ||
         contains(github.event.pull_request.labels.*.name, 'bpg') ||
         contains(github.event.pull_request.labels.*.name, 'provider')
-      )
+      ) &&
+      github.event.pull_request.head.repo.fork == false
     runs-on: ubuntu-latest
+
+    env:
+      GIT_AUTHOR_NAME: "renovate-ci[bot]"
+      GIT_AUTHOR_EMAIL: "renovate-ci@users.noreply.github.com"
+      GIT_COMMITTER_NAME: "renovate-ci[bot]"
+      GIT_COMMITTER_EMAIL: "renovate-ci@users.noreply.github.com"
 
     steps:
       - name: Checkout Renovate PR branch
@@ -31,19 +43,17 @@ jobs:
         run: |
           cat Makefile
 
-      - name: Set up Git
-        run: |
-          git config user.name "renovate-ci[bot]"
-          git config user.email "renovate-ci@users.noreply.github.com"
-
       - name: Set up Go 1.21
         uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5
         with:
           go-version: "1.21"
 
-      - name: First make generate (will fail for the docs problem, see README.md)
+      - name: Install necessary tooling for the CI
         run: |
           go install golang.org/x/tools/cmd/goimports@latest
+
+      - name: First make generate (will fail for the docs problem, see README.md)
+        run: |
           make generate >/dev/null 2>&1 || true
       
       - name: Run script fixies docs
@@ -58,32 +68,21 @@ jobs:
       - name: Check if changes were generated
         id: check_diff
         run: |
-          git status
-          git diff --quiet && echo "no_changes=true" >> $GITHUB_OUTPUT || echo "no_changes=false" >> $GITHUB_OUTPUT
+          if git diff --quiet; then
+            echo "no_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "no_changes=false" >> "$GITHUB_OUTPUT"
+          fi
+          git status --porcelain
 
-      - name: Create new branch and PR if needed
+      - name: Commit changes back to Renovate branch
         if: steps.check_diff.outputs.no_changes == 'false'
-        run: |
-          NEW_BRANCH="renovate/${GITHUB_HEAD_REF#renovate/}-generated"
-          git checkout -b "$NEW_BRANCH"
-          git add .
-          git commit -m "feat(version): bump to new version for the Terraform Provider from renovate bot"
-          git push origin "$NEW_BRANCH"
-          gh pr create \
-            --base "${GITHUB_HEAD_REF}" \
-            --head "$NEW_BRANCH" \
-            --title "ci: generate files after renovate update" \
-            --body "This pull request was auto-generated after a Renovate update to regenerate files using \`make generate\`.
-
-          ⚠️ **Important**: This PR depends on the original Renovate PR [${GITHUB_HEAD_REF}](${{ github.event.pull_request.html_url }}).  
-          It should only be merged after (or together with) the corresponding Renovate update.
-
-          Changes were generated automatically based on the version bump of \`bpg/terraform-provider-proxmox\`.
-
-          ---
-
-          _This PR was created by a CI workflow to keep generated files up to date._" \
-            --repo "${{ github.repository }}"
-
         env:
           GH_TOKEN: ${{ secrets.GH_RENOVATE_WRITER_TOKEN }}
+        run: |
+          git config user.name  "${GIT_AUTHOR_NAME}"
+          git config user.email "${GIT_AUTHOR_EMAIL}"
+          git add -A
+          git commit -m "chore(terraform-version): generate new docs, code, examples with new terraform provider version"
+          git remote set-url origin "https://${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git push origin "${GITHUB_HEAD_REF}"

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.3.0...v0.4.0) (2025-08-09)
+
+
+### Features
+
+* **ci:** add DCO and improve autorelease process ([620d9b8](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/620d9b8e230b71a60d38bbc6fc08ad4166b05263))
+
 ## [0.3.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.2.0...v0.3.0) (2025-08-05)
 
 

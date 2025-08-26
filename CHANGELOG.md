@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.3.0...v0.4.0) (2025-08-26)
+
+
+### Features
+
+* **ci:** add DCO and improve autorelease process ([620d9b8](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/620d9b8e230b71a60d38bbc6fc08ad4166b05263))
+* **terraform-version:** generate new docs, code, examples with new terraform provider version ([6fc308c](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/6fc308cd9ca480726d420666eaf97e56495c0e61))
+* **terraform-version:** update bpg/terraform-provider-proxmox (v0.81.0 → v0.82.1) ([751ef03](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/751ef03b9151b689d2c420b32e468395d6cbe830))
+
 ## [0.3.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.2.0...v0.3.0) (2025-08-05)
 
 

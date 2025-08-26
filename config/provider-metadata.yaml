@@ -21,7 +21,7 @@ resources:
                 proxmox_virtual_environment_role.operations_monitoring: |-
                     {
                       "privileges": [
-                        "VM.Monitor"
+                        "VM.GuestAgent.Audit"
                       ],
                       "role_id": "operations-monitoring"
                     }
@@ -1501,7 +1501,7 @@ resources:
               manifest: |-
                 {
                   "privileges": [
-                    "VM.Monitor"
+                    "VM.GuestAgent.Audit"
                   ],
                   "role_id": "operations-monitoring"
                 }
@@ -1746,7 +1746,7 @@ resources:
                 proxmox_virtual_environment_role.operations_monitoring: |-
                     {
                       "privileges": [
-                        "VM.Monitor"
+                        "VM.GuestAgent.Audit"
                       ],
                       "role_id": "operations-monitoring"
                     }

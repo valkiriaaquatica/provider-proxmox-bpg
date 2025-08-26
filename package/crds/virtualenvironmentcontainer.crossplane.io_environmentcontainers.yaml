@@ -190,11 +190,34 @@ spec:
                       The disks
                     items:
                       properties:
+                        acl:
+                          description: |-
+                            Explicitly enable or disable ACL support.
+                            Explicitly enable or disable ACL support
+                          type: boolean
                         datastoreId:
                           description: |-
                             The identifier for the target datastore.
                             The datastore id
                           type: string
+                        mountOptions:
+                          description: |-
+                            List of extra mount options.
+                            Extra mount options
+                          items:
+                            type: string
+                          type: array
+                        quota:
+                          description: |-
+                            Enable user quotas inside the container (not supported
+                            with ZFS subvolumes).
+                            Enable user quotas for the container rootfs
+                          type: boolean
+                        replicate:
+                          description: |-
+                            Will include this volume to a storage replica job.
+                            Will include this volume to a storage replica job
+                          type: boolean
                         size:
                           description: |-
                             The size of the root filesystem in gigabytes (defaults
@@ -750,11 +773,34 @@ spec:
                       The disks
                     items:
                       properties:
+                        acl:
+                          description: |-
+                            Explicitly enable or disable ACL support.
+                            Explicitly enable or disable ACL support
+                          type: boolean
                         datastoreId:
                           description: |-
                             The identifier for the target datastore.
                             The datastore id
                           type: string
+                        mountOptions:
+                          description: |-
+                            List of extra mount options.
+                            Extra mount options
+                          items:
+                            type: string
+                          type: array
+                        quota:
+                          description: |-
+                            Enable user quotas inside the container (not supported
+                            with ZFS subvolumes).
+                            Enable user quotas for the container rootfs
+                          type: boolean
+                        replicate:
+                          description: |-
+                            Will include this volume to a storage replica job.
+                            Will include this volume to a storage replica job
+                          type: boolean
                         size:
                           description: |-
                             The size of the root filesystem in gigabytes (defaults
@@ -1475,11 +1521,34 @@ spec:
                       The disks
                     items:
                       properties:
+                        acl:
+                          description: |-
+                            Explicitly enable or disable ACL support.
+                            Explicitly enable or disable ACL support
+                          type: boolean
                         datastoreId:
                           description: |-
                             The identifier for the target datastore.
                             The datastore id
                           type: string
+                        mountOptions:
+                          description: |-
+                            List of extra mount options.
+                            Extra mount options
+                          items:
+                            type: string
+                          type: array
+                        quota:
+                          description: |-
+                            Enable user quotas inside the container (not supported
+                            with ZFS subvolumes).
+                            Enable user quotas for the container rootfs
+                          type: boolean
+                        replicate:
+                          description: |-
+                            Will include this volume to a storage replica job.
+                            Will include this volume to a storage replica job
+                          type: boolean
                         size:
                           description: |-
                             The size of the root filesystem in gigabytes (defaults

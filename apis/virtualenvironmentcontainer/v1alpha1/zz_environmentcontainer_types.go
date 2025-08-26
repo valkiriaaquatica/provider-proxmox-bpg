@@ -299,9 +299,26 @@ type DevicePassthroughParameters struct {
 
 type DiskInitParameters struct {
 
+	// Explicitly enable or disable ACL support.
+	// Explicitly enable or disable ACL support
+	ACL *bool `json:"acl,omitempty" tf:"acl,omitempty"`
+
 	// The identifier for the target datastore.
 	// The datastore id
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
+
+	// List of extra mount options.
+	// Extra mount options
+	MountOptions []*string `json:"mountOptions,omitempty" tf:"mount_options,omitempty"`
+
+	// Enable user quotas inside the container (not supported
+	// with ZFS subvolumes).
+	// Enable user quotas for the container rootfs
+	Quota *bool `json:"quota,omitempty" tf:"quota,omitempty"`
+
+	// Will include this volume to a storage replica job.
+	// Will include this volume to a storage replica job
+	Replicate *bool `json:"replicate,omitempty" tf:"replicate,omitempty"`
 
 	// The size of the root filesystem in gigabytes (defaults
 	// to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
@@ -312,9 +329,26 @@ type DiskInitParameters struct {
 
 type DiskObservation struct {
 
+	// Explicitly enable or disable ACL support.
+	// Explicitly enable or disable ACL support
+	ACL *bool `json:"acl,omitempty" tf:"acl,omitempty"`
+
 	// The identifier for the target datastore.
 	// The datastore id
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
+
+	// List of extra mount options.
+	// Extra mount options
+	MountOptions []*string `json:"mountOptions,omitempty" tf:"mount_options,omitempty"`
+
+	// Enable user quotas inside the container (not supported
+	// with ZFS subvolumes).
+	// Enable user quotas for the container rootfs
+	Quota *bool `json:"quota,omitempty" tf:"quota,omitempty"`
+
+	// Will include this volume to a storage replica job.
+	// Will include this volume to a storage replica job
+	Replicate *bool `json:"replicate,omitempty" tf:"replicate,omitempty"`
 
 	// The size of the root filesystem in gigabytes (defaults
 	// to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
@@ -325,10 +359,31 @@ type DiskObservation struct {
 
 type DiskParameters struct {
 
+	// Explicitly enable or disable ACL support.
+	// Explicitly enable or disable ACL support
+	// +kubebuilder:validation:Optional
+	ACL *bool `json:"acl,omitempty" tf:"acl,omitempty"`
+
 	// The identifier for the target datastore.
 	// The datastore id
 	// +kubebuilder:validation:Optional
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
+
+	// List of extra mount options.
+	// Extra mount options
+	// +kubebuilder:validation:Optional
+	MountOptions []*string `json:"mountOptions,omitempty" tf:"mount_options,omitempty"`
+
+	// Enable user quotas inside the container (not supported
+	// with ZFS subvolumes).
+	// Enable user quotas for the container rootfs
+	// +kubebuilder:validation:Optional
+	Quota *bool `json:"quota,omitempty" tf:"quota,omitempty"`
+
+	// Will include this volume to a storage replica job.
+	// Will include this volume to a storage replica job
+	// +kubebuilder:validation:Optional
+	Replicate *bool `json:"replicate,omitempty" tf:"replicate,omitempty"`
 
 	// The size of the root filesystem in gigabytes (defaults
 	// to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.

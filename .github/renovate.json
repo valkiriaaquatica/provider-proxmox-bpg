@@ -25,6 +25,9 @@
       "matchPackageNames": [
         "bpg/terraform-provider-proxmox"
       ],
+      "branchTopic": "{{depName}}-{{newVersion}}",
+      "recreateClosed": false,
+      "schedule": [],
       "semanticCommitScope": "deps",
       "labels": ["provider", "bpg", "proxmox"]
     },

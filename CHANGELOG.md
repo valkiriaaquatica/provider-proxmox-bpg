@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.4.0...v0.5.0) (2025-09-01)
+
+
+### Features
+
+* **terraform-version:** generate new docs, code, examples with new terraform provider version ([f9d4a5f](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/f9d4a5fefbb8bb45ad80fb102849017f8219cc16))
+
 ## [0.4.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.3.0...v0.4.0) (2025-08-26)
 
 

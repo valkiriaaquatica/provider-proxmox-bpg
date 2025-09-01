@@ -39,7 +39,7 @@ type EnvironmentTimeObservation struct {
 	// The time zone
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
-	// The node's local time formatted as UTC.
+	// The node's time formatted as UTC.
 	// The UTC timestamp
 	UtcTime *string `json:"utcTime,omitempty" tf:"utc_time,omitempty"`
 }

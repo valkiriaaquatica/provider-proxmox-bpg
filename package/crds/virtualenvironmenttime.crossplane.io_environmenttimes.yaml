@@ -308,7 +308,7 @@ spec:
                     type: string
                   utcTime:
                     description: |-
-                      The node's local time formatted as UTC.
+                      The node's time formatted as UTC.
                       The UTC timestamp
                     type: string
                 type: object

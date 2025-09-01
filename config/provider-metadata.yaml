@@ -1509,6 +1509,79 @@ resources:
             privileges: '- (Required) The role privileges.'
             role_id: '- (Required) The role identifier.'
         importStatements: []
+    proxmox_virtual_environment_sdn_applier:
+        subCategory: Virtual Environment
+        description: EXPERIMENTAL Triggers Proxmox's SDN Apply (equivalent to PUT /cluster/sdn).Intended to be used with replace_triggered_by so it runs after SDN objects change.
+        name: proxmox_virtual_environment_sdn_applier
+        title: proxmox_virtual_environment_sdn_applier
+        examples:
+            - name: applier
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${proxmox_virtual_environment_sdn_zone_simple.test_zone_1}",
+                    "${proxmox_virtual_environment_sdn_zone_simple.test_zone_2}"
+                  ],
+                  "lifecycle": [
+                    {
+                      "replace_triggered_by": [
+                        "${proxmox_virtual_environment_sdn_zone_simple.test_zone_1}",
+                        "${proxmox_virtual_environment_sdn_zone_simple.test_zone_2}"
+                      ]
+                    }
+                  ]
+                }
+              dependencies:
+                proxmox_virtual_environment_sdn_zone_simple.test_zone_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "tZone1",
+                      "mtu": 1496,
+                      "nodes": [
+                        "${data.proxmox_virtual_environment_nodes.example.names}"
+                      ]
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.test_zone_2: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "tZone2",
+                      "mtu": 1496,
+                      "nodes": [
+                        "${data.proxmox_virtual_environment_nodes.example.names}"
+                      ]
+                    }
+            - name: finalizer
+              manifest: '{}'
+              dependencies:
+                proxmox_virtual_environment_sdn_zone_simple.test_zone_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "tZone1",
+                      "mtu": 1496,
+                      "nodes": [
+                        "${data.proxmox_virtual_environment_nodes.example.names}"
+                      ]
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.test_zone_2: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "tZone2",
+                      "mtu": 1496,
+                      "nodes": [
+                        "${data.proxmox_virtual_environment_nodes.example.names}"
+                      ]
+                    }
+        argumentDocs:
+            id: (String) Opaque identifier set to the Unix timestamp (milliseconds) when the apply was executed.
+        importStatements: []
     proxmox_virtual_environment_sdn_zone_evpn:
         subCategory: Virtual Environment
         description: EVPN Zone in Proxmox SDN. The EVPN zone creates a routable Layer 3 network, capable of spanning across multiple clusters.
@@ -1551,9 +1624,11 @@ resources:
             ipam: (String) IP Address Management system.
             mtu: (Number) MTU value for the zone.
             nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            pending: (Boolean) Indicates if the zone has pending configuration changes that need to be applied.
             primary_exit_node: (String) Primary exit node for EVPN.
             reverse_dns: (String) Reverse DNS API server address.
             rt_import: (String) Route target import for EVPN.
+            state: (String) Indicates the current state of the zone.
             vrf_vxlan: (Number) VRF VXLAN-ID used for dedicated routing interconnect between VNets. It must be different than the VXLAN-ID of the VNets.
         importStatements:
             - |-
@@ -1590,9 +1665,11 @@ resources:
             ipam: (String) IP Address Management system.
             mtu: (Number) MTU value for the zone.
             nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            pending: (Boolean) Indicates if the zone has pending configuration changes that need to be applied.
             reverse_dns: (String) Reverse DNS API server address.
             service_vlan: (Number) Service VLAN tag for QinQ. The tag must be between 1 and 4094.
             service_vlan_protocol: (String) Service VLAN protocol for QinQ. The protocol must be 802.1ad or 802.1q.
+            state: (String) Indicates the current state of the zone.
         importStatements:
             - |-
               #!/usr/bin/env sh
@@ -1624,7 +1701,9 @@ resources:
             ipam: (String) IP Address Management system.
             mtu: (Number) MTU value for the zone.
             nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            pending: (Boolean) Indicates if the zone has pending configuration changes that need to be applied.
             reverse_dns: (String) Reverse DNS API server address.
+            state: (String) Indicates the current state of the zone.
         importStatements:
             - |-
               #!/usr/bin/env sh
@@ -1658,7 +1737,9 @@ resources:
             ipam: (String) IP Address Management system.
             mtu: (Number) MTU value for the zone.
             nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
+            pending: (Boolean) Indicates if the zone has pending configuration changes that need to be applied.
             reverse_dns: (String) Reverse DNS API server address.
+            state: (String) Indicates the current state of the zone.
         importStatements:
             - |-
               #!/usr/bin/env sh
@@ -1696,7 +1777,9 @@ resources:
             mtu: (Number) MTU value for the zone.
             nodes: (Set of String) The Proxmox nodes which the zone and associated VNets should be deployed on
             peers: (Set of String) A list of IP addresses of each node in the VXLAN zone. This can be external nodes reachable at this IP address. All nodes in the cluster need to be mentioned here
+            pending: (Boolean) Indicates if the zone has pending configuration changes that need to be applied.
             reverse_dns: (String) Reverse DNS API server address.
+            state: (String) Indicates the current state of the zone.
         importStatements:
             - |-
               #!/usr/bin/env sh
@@ -1718,7 +1801,7 @@ resources:
             local_time: '- The node''s local time.'
             node_name: '- (Required) A node name.'
             time_zone: '- (Required) The node''s time zone.'
-            utc_time: '- The node''s local time formatted as UTC.'
+            utc_time: '- The node''s time formatted as UTC.'
         importStatements: []
     proxmox_virtual_environment_user:
         subCategory: Virtual Environment

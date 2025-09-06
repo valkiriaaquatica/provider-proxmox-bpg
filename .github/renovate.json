@@ -5,6 +5,8 @@
     "github>bpg/renovate-config",
     ":semanticCommitTypeAll(chore)"
   ],
+  "commitMessageAction": "update",
+
   "customManagers": [
     {
       "customType": "regex",
@@ -41,6 +43,10 @@
       ],
       "automerge": false,
       "semanticCommitScope": "deps"
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "{{semanticCommitType}}({{semanticCommitScope}}):"
     }
   ]
 }

@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.5.0...v1.0.0) (2025-09-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **ci:** update actions/setup-go action (v5 → v6)
+
+### Miscellaneous Chores
+
+* **ci:** update actions/setup-go action (v5 → v6) ([4c16f3d](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/4c16f3db8e287689bb028e92c53da2afb0a4a524))
+
 ## [0.5.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.4.0...v0.5.0) (2025-09-01)
 
 

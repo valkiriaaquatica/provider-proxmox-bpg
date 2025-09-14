@@ -12,6 +12,8 @@ spec:
     disk:
     - datastoreId: local-lvm
       size: 4
+    features:
+    - nesting: true
     initialization:
     - hostname: terraform-provider-proxmox-ubuntu-container
       ipConfig:
@@ -34,12 +36,13 @@ spec:
     - name: veth0
     nodeName: first-node
     operatingSystem:
-    - templateFileId: ${proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_lxc_img.id}
+    - templateFileId: ${proxmox_virtual_environment_download_file.ubuntu_2504_lxc_img.id}
       type: ubuntu
     startup:
     - downDelay: "60"
       order: "3"
       upDelay: "60"
+    unprivileged: true
     vmId: 1234
 
 ---
@@ -50,11 +53,11 @@ metadata:
   annotations:
     meta.upbound.io/example-id: virtualenvironmentcontainer/v1alpha1/environmentcontainer
   labels:
-    testing.upbound.io/example-name: latest_ubuntu_22_jammy_lxc_img
-  name: latest-ubuntu-22-jammy-lxc-img
+    testing.upbound.io/example-name: ubuntu_2504_lxc_img
+  name: ubuntu-2504-lxc-img
 spec:
   forProvider:
     contentType: vztmpl
     datastoreId: local
     nodeName: first-node
-    url: http://download.proxmox.com/images/system/ubuntu-20.04-standard_20.04-1_amd64.tar.gz
+    url: https://mirrors.servercentral.com/ubuntu-cloud-images/releases/25.04/release/ubuntu-25.04-server-cloudimg-amd64-root.tar.xz

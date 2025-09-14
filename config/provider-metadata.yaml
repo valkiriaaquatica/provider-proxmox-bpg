@@ -418,6 +418,11 @@ resources:
                       "size": 4
                     }
                   ],
+                  "features": [
+                    {
+                      "nesting": true
+                    }
+                  ],
                   "initialization": [
                     {
                       "hostname": "terraform-provider-proxmox-ubuntu-container",
@@ -459,7 +464,7 @@ resources:
                   "node_name": "first-node",
                   "operating_system": [
                     {
-                      "template_file_id": "${proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_lxc_img.id}",
+                      "template_file_id": "${proxmox_virtual_environment_download_file.ubuntu_2504_lxc_img.id}",
                       "type": "ubuntu"
                     }
                   ],
@@ -470,18 +475,19 @@ resources:
                       "up_delay": "60"
                     }
                   ],
+                  "unprivileged": true,
                   "vm_id": 1234
                 }
               references:
                 initialization.user_account.password: random_password.ubuntu_container_password.result
-                operating_system.template_file_id: proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_lxc_img.id
+                operating_system.template_file_id: proxmox_virtual_environment_download_file.ubuntu_2504_lxc_img.id
               dependencies:
-                proxmox_virtual_environment_download_file.latest_ubuntu_22_jammy_lxc_img: |-
+                proxmox_virtual_environment_download_file.ubuntu_2504_lxc_img: |-
                     {
                       "content_type": "vztmpl",
                       "datastore_id": "local",
                       "node_name": "first-node",
-                      "url": "http://download.proxmox.com/images/system/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+                      "url": "https://mirrors.servercentral.com/ubuntu-cloud-images/releases/25.04/release/ubuntu-25.04-server-cloudimg-amd64-root.tar.xz"
                     }
                 random_password.ubuntu_container_password: |-
                     {

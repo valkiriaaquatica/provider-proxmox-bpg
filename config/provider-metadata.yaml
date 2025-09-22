@@ -1521,73 +1521,370 @@ resources:
         name: proxmox_virtual_environment_sdn_applier
         title: proxmox_virtual_environment_sdn_applier
         examples:
-            - name: applier
+            - name: example_applier
               manifest: |-
                 {
                   "depends_on": [
-                    "${proxmox_virtual_environment_sdn_zone_simple.test_zone_1}",
-                    "${proxmox_virtual_environment_sdn_zone_simple.test_zone_2}"
+                    "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1}",
+                    "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2}"
                   ],
                   "lifecycle": [
                     {
                       "replace_triggered_by": [
-                        "${proxmox_virtual_environment_sdn_zone_simple.test_zone_1}",
-                        "${proxmox_virtual_environment_sdn_zone_simple.test_zone_2}"
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1}",
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2}"
                       ]
                     }
                   ]
                 }
               dependencies:
-                proxmox_virtual_environment_sdn_zone_simple.test_zone_1: |-
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_1: |-
                     {
                       "depends_on": [
                         "${proxmox_virtual_environment_sdn_applier.finalizer}"
                       ],
-                      "id": "tZone1",
-                      "mtu": 1496,
+                      "dns": "1.1.1.1",
+                      "dns_zone": "example.com",
+                      "id": "zone1",
+                      "ipam": "pve",
+                      "mtu": 1500,
                       "nodes": [
-                        "${data.proxmox_virtual_environment_nodes.example.names}"
-                      ]
+                        "pve"
+                      ],
+                      "reverse_dns": "1.1.1.1"
                     }
-                proxmox_virtual_environment_sdn_zone_simple.test_zone_2: |-
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
                     {
                       "depends_on": [
                         "${proxmox_virtual_environment_sdn_applier.finalizer}"
                       ],
-                      "id": "tZone2",
-                      "mtu": 1496,
+                      "id": "zone2",
+                      "mtu": 1500,
                       "nodes": [
-                        "${data.proxmox_virtual_environment_nodes.example.names}"
+                        "pve"
                       ]
                     }
             - name: finalizer
               manifest: '{}'
               dependencies:
-                proxmox_virtual_environment_sdn_zone_simple.test_zone_1: |-
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_1: |-
                     {
                       "depends_on": [
                         "${proxmox_virtual_environment_sdn_applier.finalizer}"
                       ],
-                      "id": "tZone1",
-                      "mtu": 1496,
+                      "dns": "1.1.1.1",
+                      "dns_zone": "example.com",
+                      "id": "zone1",
+                      "ipam": "pve",
+                      "mtu": 1500,
                       "nodes": [
-                        "${data.proxmox_virtual_environment_nodes.example.names}"
-                      ]
+                        "pve"
+                      ],
+                      "reverse_dns": "1.1.1.1"
                     }
-                proxmox_virtual_environment_sdn_zone_simple.test_zone_2: |-
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
                     {
                       "depends_on": [
                         "${proxmox_virtual_environment_sdn_applier.finalizer}"
                       ],
-                      "id": "tZone2",
-                      "mtu": 1496,
+                      "id": "zone2",
+                      "mtu": 1500,
                       "nodes": [
-                        "${data.proxmox_virtual_environment_nodes.example.names}"
+                        "pve"
                       ]
                     }
         argumentDocs:
             id: (String) Opaque identifier set to the Unix timestamp (milliseconds) when the apply was executed.
         importStatements: []
+    proxmox_virtual_environment_sdn_subnet:
+        subCategory: Virtual Environment
+        description: Manages SDN Subnets in Proxmox VE.
+        name: proxmox_virtual_environment_sdn_subnet
+        title: proxmox_virtual_environment_sdn_subnet
+        examples:
+            - name: basic_subnet
+              manifest: |-
+                {
+                  "cidr": "192.168.1.0/24",
+                  "depends_on": [
+                    "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                  ],
+                  "gateway": "192.168.1.1",
+                  "vnet": "${proxmox_virtual_environment_sdn_vnet.example_vnet_1.id}"
+                }
+              references:
+                vnet: proxmox_virtual_environment_sdn_vnet.example_vnet_1.id
+              dependencies:
+                proxmox_virtual_environment_sdn_applier.finalizer: '{}'
+                proxmox_virtual_environment_sdn_applier.subnet_applier: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1}",
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2}",
+                        "${proxmox_virtual_environment_sdn_vnet.example_vnet_1}",
+                        "${proxmox_virtual_environment_sdn_vnet.example_vnet_2}",
+                        "${proxmox_virtual_environment_sdn_subnet.basic_subnet}",
+                        "${proxmox_virtual_environment_sdn_subnet.dhcp_subnet}"
+                      ]
+                    }
+                proxmox_virtual_environment_sdn_vnet.example_vnet_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "vnet1",
+                      "zone": "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1.id}"
+                    }
+                proxmox_virtual_environment_sdn_vnet.example_vnet_2: |-
+                    {
+                      "alias": "Example VNet 2",
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "vnet2",
+                      "isolate_ports": true,
+                      "vlan_aware": false,
+                      "zone": "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2.id}"
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "dns": "1.1.1.1",
+                      "dns_zone": "example.com",
+                      "id": "zone1",
+                      "ipam": "pve",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ],
+                      "reverse_dns": "1.1.1.1"
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "zone2",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ]
+                    }
+            - name: dhcp_subnet
+              manifest: |-
+                {
+                  "cidr": "192.168.2.0/24",
+                  "depends_on": [
+                    "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                  ],
+                  "dhcp_dns_server": "192.168.2.53",
+                  "dhcp_range": {
+                    "end_address": "192.168.2.100",
+                    "start_address": "192.168.2.10"
+                  },
+                  "dns_zone_prefix": "internal.example.com",
+                  "gateway": "192.168.2.1",
+                  "snat": true,
+                  "vnet": "${proxmox_virtual_environment_sdn_vnet.example_vnet_2.id}"
+                }
+              references:
+                vnet: proxmox_virtual_environment_sdn_vnet.example_vnet_2.id
+              dependencies:
+                proxmox_virtual_environment_sdn_applier.finalizer: '{}'
+                proxmox_virtual_environment_sdn_applier.subnet_applier: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1}",
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2}",
+                        "${proxmox_virtual_environment_sdn_vnet.example_vnet_1}",
+                        "${proxmox_virtual_environment_sdn_vnet.example_vnet_2}",
+                        "${proxmox_virtual_environment_sdn_subnet.basic_subnet}",
+                        "${proxmox_virtual_environment_sdn_subnet.dhcp_subnet}"
+                      ]
+                    }
+                proxmox_virtual_environment_sdn_vnet.example_vnet_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "vnet1",
+                      "zone": "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1.id}"
+                    }
+                proxmox_virtual_environment_sdn_vnet.example_vnet_2: |-
+                    {
+                      "alias": "Example VNet 2",
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "vnet2",
+                      "isolate_ports": true,
+                      "vlan_aware": false,
+                      "zone": "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2.id}"
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "dns": "1.1.1.1",
+                      "dns_zone": "example.com",
+                      "id": "zone1",
+                      "ipam": "pve",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ],
+                      "reverse_dns": "1.1.1.1"
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "zone2",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ]
+                    }
+        argumentDocs:
+            cidr: (String) A CIDR network address, for example 10.0.0.0/8
+            dhcp_dns_server: (String) The DNS server used for DHCP.
+            dhcp_range: (Attributes) DHCP range (start and end IPs). (see below for nested schema)
+            dns_zone_prefix: (String) Prefix used for DNS zone delegation.
+            end_address: (String) End of the DHCP range.
+            gateway: (String) The gateway address for the subnet.
+            id: (String) The unique identifier of the SDN Subnet. Read only.
+            snat: (Boolean) Whether SNAT is enabled for the subnet.
+            start_address: (String) Start of the DHCP range.
+            vnet: (String) The VNet to which this subnet belongs.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # SDN subnet can be imported using its unique identifier in the format: <vnet>/<subnet-id>
+              # The <subnet-id> is the canonical ID from Proxmox, e.g., "zone1-192.168.1.0-24"
+              terraform import proxmox_virtual_environment_sdn_subnet.basic_subnet vnet1/zone1-192.168.1.0-24
+              terraform import proxmox_virtual_environment_sdn_subnet.dhcp_subnet vnet2/zone2-192.168.2.0-24
+    proxmox_virtual_environment_sdn_vnet:
+        subCategory: Virtual Environment
+        description: Manages Proxmox VE SDN VNet.
+        name: proxmox_virtual_environment_sdn_vnet
+        title: proxmox_virtual_environment_sdn_vnet
+        examples:
+            - name: basic_vnet
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                  ],
+                  "id": "vnet1",
+                  "zone": "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1.id}"
+                }
+              references:
+                zone: proxmox_virtual_environment_sdn_zone_simple.example_zone_1.id
+              dependencies:
+                proxmox_virtual_environment_sdn_applier.finalizer: '{}'
+                proxmox_virtual_environment_sdn_applier.vnet_applier: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1}",
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2}",
+                        "${proxmox_virtual_environment_sdn_vnet.basic_vnet}",
+                        "${proxmox_virtual_environment_sdn_vnet.isolated_vnet}"
+                      ]
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "dns": "1.1.1.1",
+                      "dns_zone": "example.com",
+                      "id": "zone1",
+                      "ipam": "pve",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ],
+                      "reverse_dns": "1.1.1.1"
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "zone2",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ]
+                    }
+            - name: isolated_vnet
+              manifest: |-
+                {
+                  "alias": "Isolated VNet",
+                  "depends_on": [
+                    "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                  ],
+                  "id": "vnet2",
+                  "isolate_ports": true,
+                  "vlan_aware": false,
+                  "zone": "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2.id}"
+                }
+              references:
+                zone: proxmox_virtual_environment_sdn_zone_simple.example_zone_2.id
+              dependencies:
+                proxmox_virtual_environment_sdn_applier.finalizer: '{}'
+                proxmox_virtual_environment_sdn_applier.vnet_applier: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_1}",
+                        "${proxmox_virtual_environment_sdn_zone_simple.example_zone_2}",
+                        "${proxmox_virtual_environment_sdn_vnet.basic_vnet}",
+                        "${proxmox_virtual_environment_sdn_vnet.isolated_vnet}"
+                      ]
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_1: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "dns": "1.1.1.1",
+                      "dns_zone": "example.com",
+                      "id": "zone1",
+                      "ipam": "pve",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ],
+                      "reverse_dns": "1.1.1.1"
+                    }
+                proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
+                    {
+                      "depends_on": [
+                        "${proxmox_virtual_environment_sdn_applier.finalizer}"
+                      ],
+                      "id": "zone2",
+                      "mtu": 1500,
+                      "nodes": [
+                        "pve"
+                      ]
+                    }
+        argumentDocs:
+            alias: (String) An optional alias for this VNet.
+            id: (String) The unique identifier of the SDN VNet.
+            isolate_ports: (Boolean) Isolate ports within this VNet.
+            tag: (Number) Tag value for VLAN/VXLAN (can't be used with other zone types).
+            vlan_aware: (Boolean) Allow VM VLANs to pass through this VNet.
+            zone: (String) The zone to which this VNet belongs.
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # SDN vnet can be imported using its unique identifier (vnet ID)
+              terraform import proxmox_virtual_environment_sdn_vnet.basic_vnet vnet1
+              terraform import proxmox_virtual_environment_sdn_vnet.isolated_vnet vnet2
     proxmox_virtual_environment_sdn_zone_evpn:
         subCategory: Virtual Environment
         description: EVPN Zone in Proxmox SDN. The EVPN zone creates a routable Layer 3 network, capable of spanning across multiple clusters.

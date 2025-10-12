@@ -1998,6 +1998,7 @@ resources:
                   "reverse_dns": "1.1.1.1"
                 }
         argumentDocs:
+            dhcp: (String) The type of the DHCP backend for this zone. Currently the only supported value is dnsmasq.
             dns: (String) DNS API server address.
             dns_zone: (String) DNS domain name. Used to register hostnames, such as <hostname>.<domain>. The DNS zone must already exist on the DNS server.
             id: (String) The unique identifier of the SDN zone.

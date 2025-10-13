@@ -502,7 +502,10 @@ resources:
                     }
         argumentDocs:
             acl: (Optional) Explicitly enable or disable ACL support.
-            address: '- (Optional) The IPv4 address (use dhcp for auto-discovery).'
+            address: |-
+                - (Optional) The IPv4 address in CIDR notation
+                (e.g. 192.168.2.2/24). Alternatively, set this to dhcp for
+                autodiscovery.
             alpine: '- Alpine.'
             amd64: '- x86 (64 bit).'
             architecture: '- (Optional) The CPU architecture (defaults to amd64).'
@@ -557,7 +560,7 @@ resources:
                 - (Optional) The IP configuration (one block per network
                 device).
             ipv4: '- (Optional) The IPv4 configuration.'
-            ipv6: '- (Optional) The IPv4 configuration.'
+            ipv6: '- (Optional) The IPv6 configuration.'
             keyctl: '- (Optional) Whether the container supports keyctl() system call (defaults to false)'
             keys: '- (Optional) The SSH keys for the root account.'
             mac_address: '- (Optional) The MAC address.'
@@ -1805,9 +1808,6 @@ resources:
                       "id": "zone1",
                       "ipam": "pve",
                       "mtu": 1500,
-                      "nodes": [
-                        "pve"
-                      ],
                       "reverse_dns": "1.1.1.1"
                     }
                 proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
@@ -1816,10 +1816,7 @@ resources:
                         "${proxmox_virtual_environment_sdn_applier.finalizer}"
                       ],
                       "id": "zone2",
-                      "mtu": 1500,
-                      "nodes": [
-                        "pve"
-                      ]
+                      "mtu": 1500
                     }
             - name: isolated_vnet
               manifest: |-
@@ -1856,9 +1853,6 @@ resources:
                       "id": "zone1",
                       "ipam": "pve",
                       "mtu": 1500,
-                      "nodes": [
-                        "pve"
-                      ],
                       "reverse_dns": "1.1.1.1"
                     }
                 proxmox_virtual_environment_sdn_zone_simple.example_zone_2: |-
@@ -1867,10 +1861,7 @@ resources:
                         "${proxmox_virtual_environment_sdn_applier.finalizer}"
                       ],
                       "id": "zone2",
-                      "mtu": 1500,
-                      "nodes": [
-                        "pve"
-                      ]
+                      "mtu": 1500
                     }
         argumentDocs:
             alias: (String) An optional alias for this VNet.
@@ -1953,9 +1944,6 @@ resources:
                   "id": "qinq1",
                   "ipam": "pve",
                   "mtu": 1496,
-                  "nodes": [
-                    "pve"
-                  ],
                   "reverse_dns": "1.1.1.1",
                   "service_vlan": 100,
                   "service_vlan_protocol": "802.1ad"
@@ -1998,6 +1986,7 @@ resources:
                   "reverse_dns": "1.1.1.1"
                 }
         argumentDocs:
+            dhcp: (String) The type of the DHCP backend for this zone. Currently the only supported value is dnsmasq.
             dns: (String) DNS API server address.
             dns_zone: (String) DNS domain name. Used to register hostnames, such as <hostname>.<domain>. The DNS zone must already exist on the DNS server.
             id: (String) The unique identifier of the SDN zone.
@@ -2027,9 +2016,6 @@ resources:
                   "id": "vlan1",
                   "ipam": "pve",
                   "mtu": 1500,
-                  "nodes": [
-                    "pve"
-                  ],
                   "reverse_dns": "1.1.1.1"
                 }
         argumentDocs:
@@ -2062,9 +2048,6 @@ resources:
                   "id": "vxlan1",
                   "ipam": "pve",
                   "mtu": 1450,
-                  "nodes": [
-                    "pve"
-                  ],
                   "peers": [
                     "10.0.0.1",
                     "10.0.0.2",

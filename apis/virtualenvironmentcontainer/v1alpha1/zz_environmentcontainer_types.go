@@ -554,7 +554,7 @@ type EnvironmentContainerObservation struct {
 	// +mapType=granular
 	IPv4 map[string]*string `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
-	// The IPv4 configuration.
+	// The IPv6 configuration.
 	// The container's IPv6 addresses per network device
 	// +mapType=granular
 	IPv6 map[string]*string `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
@@ -860,7 +860,7 @@ type IPConfigInitParameters struct {
 	// The IPv4 configuration
 	IPv4 []IPv4InitParameters `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
-	// The IPv4 configuration.
+	// The IPv6 configuration.
 	// The IPv6 configuration
 	IPv6 []IPv6InitParameters `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 }
@@ -871,7 +871,7 @@ type IPConfigObservation struct {
 	// The IPv4 configuration
 	IPv4 []IPv4Observation `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
-	// The IPv4 configuration.
+	// The IPv6 configuration.
 	// The IPv6 configuration
 	IPv6 []IPv6Observation `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 }
@@ -883,7 +883,7 @@ type IPConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	IPv4 []IPv4Parameters `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
-	// The IPv4 configuration.
+	// The IPv6 configuration.
 	// The IPv6 configuration
 	// +kubebuilder:validation:Optional
 	IPv6 []IPv6Parameters `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
@@ -891,7 +891,9 @@ type IPConfigParameters struct {
 
 type IPv4InitParameters struct {
 
-	// The IPv4 address (use dhcp for auto-discovery).
+	// The IPv4 address in CIDR notation
+	// (e.g. 192.168.2.2/24). Alternatively, set this to dhcp for
+	// autodiscovery.
 	// The IPv4 address
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
@@ -903,7 +905,9 @@ type IPv4InitParameters struct {
 
 type IPv4Observation struct {
 
-	// The IPv4 address (use dhcp for auto-discovery).
+	// The IPv4 address in CIDR notation
+	// (e.g. 192.168.2.2/24). Alternatively, set this to dhcp for
+	// autodiscovery.
 	// The IPv4 address
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
@@ -915,7 +919,9 @@ type IPv4Observation struct {
 
 type IPv4Parameters struct {
 
-	// The IPv4 address (use dhcp for auto-discovery).
+	// The IPv4 address in CIDR notation
+	// (e.g. 192.168.2.2/24). Alternatively, set this to dhcp for
+	// autodiscovery.
 	// The IPv4 address
 	// +kubebuilder:validation:Optional
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
@@ -929,7 +935,9 @@ type IPv4Parameters struct {
 
 type IPv6InitParameters struct {
 
-	// The IPv4 address (use dhcp for auto-discovery).
+	// The IPv4 address in CIDR notation
+	// (e.g. 192.168.2.2/24). Alternatively, set this to dhcp for
+	// autodiscovery.
 	// The IPv6 address
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
@@ -941,7 +949,9 @@ type IPv6InitParameters struct {
 
 type IPv6Observation struct {
 
-	// The IPv4 address (use dhcp for auto-discovery).
+	// The IPv4 address in CIDR notation
+	// (e.g. 192.168.2.2/24). Alternatively, set this to dhcp for
+	// autodiscovery.
 	// The IPv6 address
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`
 
@@ -953,7 +963,9 @@ type IPv6Observation struct {
 
 type IPv6Parameters struct {
 
-	// The IPv4 address (use dhcp for auto-discovery).
+	// The IPv4 address in CIDR notation
+	// (e.g. 192.168.2.2/24). Alternatively, set this to dhcp for
+	// autodiscovery.
 	// The IPv6 address
 	// +kubebuilder:validation:Optional
 	Address *string `json:"address,omitempty" tf:"address,omitempty"`

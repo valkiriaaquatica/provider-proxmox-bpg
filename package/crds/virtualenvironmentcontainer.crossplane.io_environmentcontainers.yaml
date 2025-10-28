@@ -281,8 +281,8 @@ spec:
                                 type: string
                               server:
                                 description: |-
-                                  The DNS server. The server attribute is
-                                  deprecated and will be removed in a future release. Please use
+                                  The DNS server.
+                                  The server attribute is deprecated and will be removed in a future release. Please use
                                   the servers attribute instead.
                                   The DNS server
                                 type: string
@@ -868,8 +868,8 @@ spec:
                                 type: string
                               server:
                                 description: |-
-                                  The DNS server. The server attribute is
-                                  deprecated and will be removed in a future release. Please use
+                                  The DNS server.
+                                  The server attribute is deprecated and will be removed in a future release. Please use
                                   the servers attribute instead.
                                   The DNS server
                                 type: string
@@ -1622,8 +1622,8 @@ spec:
                                 type: string
                               server:
                                 description: |-
-                                  The DNS server. The server attribute is
-                                  deprecated and will be removed in a future release. Please use
+                                  The DNS server.
+                                  The server attribute is deprecated and will be removed in a future release. Please use
                                   the servers attribute instead.
                                   The DNS server
                                 type: string

@@ -601,8 +601,8 @@ resources:
             read_only: (Optional) Read-only mount point.
             replicate: (Optional) Will include this volume to a storage replica job.
             server: |-
-                - (Optional) The DNS server. The server attribute is
-                deprecated and will be removed in a future release. Please use
+                - (Optional) The DNS server.
+                The server attribute is deprecated and will be removed in a future release. Please use
                 the servers attribute instead.
             servers: '- (Optional) The list of DNS servers.'
             shared: |-
@@ -1084,9 +1084,7 @@ resources:
         argumentDocs:
             action: '- (Required) Rule action (ACCEPT, DROP, REJECT).'
             comment: '- (Optional) Rule comment.'
-            container_id: |-
-                - (Optional) Container ID. Leave empty for cluster level
-                rules.
+            container_id: '- (Optional) Container ID. Leave empty for node/cluster level rules.'
             dest: |-
                 - (Optional) Restrict packet destination address. This can
                 refer to a single IP address, an IP set ('+ipsetname') or an IP
@@ -1134,7 +1132,7 @@ resources:
                 example 80:85, and you can use comma separated list to match
                 several ports or ranges.
             type: '- (Required) Rule type (in, out, forward).'
-            vm_id: '- (Optional) VM ID. Leave empty for cluster level rules.'
+            vm_id: '- (Optional) VM ID. Leave empty for node/cluster level rules.'
         importStatements: []
     proxmox_virtual_environment_group:
         subCategory: Virtual Environment
@@ -2792,6 +2790,7 @@ resources:
                 resource. You may use the ignore_changes lifecycle meta-argument to ignore
                 changes to this attribute.
             template: '- (Optional) Whether to create a template (defaults to false).'
+            terraform plan: regularly to detect any manual changes to VM pool assignments
             threads: '- Use thread-based AIO.'
             timeout: |-
                 - (Optional) The maximum amount of time to wait for data from

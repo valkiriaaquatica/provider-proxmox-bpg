@@ -15,8 +15,7 @@ import (
 
 type EnvironmentFirewallRulesInitParameters struct {
 
-	// Container ID. Leave empty for cluster level
-	// rules.
+	// Container ID. Leave empty for node/cluster level rules.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
@@ -29,15 +28,14 @@ type EnvironmentFirewallRulesInitParameters struct {
 	// List of rules
 	Rule []RuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 
-	// VM ID. Leave empty for cluster level rules.
+	// VM ID. Leave empty for node/cluster level rules.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallRulesObservation struct {
 
-	// Container ID. Leave empty for cluster level
-	// rules.
+	// Container ID. Leave empty for node/cluster level rules.
 	// The ID of the container to manage the firewall for.
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
@@ -52,15 +50,14 @@ type EnvironmentFirewallRulesObservation struct {
 	// List of rules
 	Rule []RuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
 
-	// VM ID. Leave empty for cluster level rules.
+	// VM ID. Leave empty for node/cluster level rules.
 	// The ID of the VM to manage the firewall for.
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
 }
 
 type EnvironmentFirewallRulesParameters struct {
 
-	// Container ID. Leave empty for cluster level
-	// rules.
+	// Container ID. Leave empty for node/cluster level rules.
 	// The ID of the container to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
@@ -76,7 +73,7 @@ type EnvironmentFirewallRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Rule []RuleParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 
-	// VM ID. Leave empty for cluster level rules.
+	// VM ID. Leave empty for node/cluster level rules.
 	// The ID of the VM to manage the firewall for.
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`

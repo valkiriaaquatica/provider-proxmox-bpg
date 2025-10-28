@@ -79,8 +79,7 @@ spec:
                 properties:
                   containerId:
                     description: |-
-                      Container ID. Leave empty for cluster level
-                      rules.
+                      Container ID. Leave empty for node/cluster level rules.
                       The ID of the container to manage the firewall for.
                     type: number
                   nodeName:
@@ -187,7 +186,7 @@ spec:
                     type: array
                   vmId:
                     description: |-
-                      VM ID. Leave empty for cluster level rules.
+                      VM ID. Leave empty for node/cluster level rules.
                       The ID of the VM to manage the firewall for.
                     type: number
                 type: object
@@ -206,8 +205,7 @@ spec:
                 properties:
                   containerId:
                     description: |-
-                      Container ID. Leave empty for cluster level
-                      rules.
+                      Container ID. Leave empty for node/cluster level rules.
                       The ID of the container to manage the firewall for.
                     type: number
                   nodeName:
@@ -314,7 +312,7 @@ spec:
                     type: array
                   vmId:
                     description: |-
-                      VM ID. Leave empty for cluster level rules.
+                      VM ID. Leave empty for node/cluster level rules.
                       The ID of the VM to manage the firewall for.
                     type: number
                 type: object
@@ -498,8 +496,7 @@ spec:
                 properties:
                   containerId:
                     description: |-
-                      Container ID. Leave empty for cluster level
-                      rules.
+                      Container ID. Leave empty for node/cluster level rules.
                       The ID of the container to manage the firewall for.
                     type: number
                   id:
@@ -613,7 +610,7 @@ spec:
                     type: array
                   vmId:
                     description: |-
-                      VM ID. Leave empty for cluster level rules.
+                      VM ID. Leave empty for node/cluster level rules.
                       The ID of the VM to manage the firewall for.
                     type: number
                 type: object

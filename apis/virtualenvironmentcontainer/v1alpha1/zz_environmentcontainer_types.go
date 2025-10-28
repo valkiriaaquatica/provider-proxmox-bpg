@@ -169,8 +169,8 @@ type DNSInitParameters struct {
 	// The DNS search domain
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// The DNS server. The server attribute is
-	// deprecated and will be removed in a future release. Please use
+	// The DNS server.
+	// The server attribute is deprecated and will be removed in a future release. Please use
 	// the servers attribute instead.
 	// The DNS server
 	Server *string `json:"server,omitempty" tf:"server,omitempty"`
@@ -186,8 +186,8 @@ type DNSObservation struct {
 	// The DNS search domain
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// The DNS server. The server attribute is
-	// deprecated and will be removed in a future release. Please use
+	// The DNS server.
+	// The server attribute is deprecated and will be removed in a future release. Please use
 	// the servers attribute instead.
 	// The DNS server
 	Server *string `json:"server,omitempty" tf:"server,omitempty"`
@@ -204,8 +204,8 @@ type DNSParameters struct {
 	// +kubebuilder:validation:Optional
 	Domain *string `json:"domain,omitempty" tf:"domain,omitempty"`
 
-	// The DNS server. The server attribute is
-	// deprecated and will be removed in a future release. Please use
+	// The DNS server.
+	// The server attribute is deprecated and will be removed in a future release. Please use
 	// the servers attribute instead.
 	// The DNS server
 	// +kubebuilder:validation:Optional

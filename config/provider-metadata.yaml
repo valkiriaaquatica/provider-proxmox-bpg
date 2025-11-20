@@ -592,7 +592,9 @@ resources:
             path: |-
                 (Required) Path to the mount point as seen from inside the
                 container.
-            pool_id: '- (Optional) The identifier for a pool to assign the container to.'
+            pool_id: |-
+                - (Optional, Deprecated) The identifier for a pool to assign the container to.
+                This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
             protection: '- (Optional) Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.'
             quota: |-
                 (Optional) Enable user quotas inside the container (not supported
@@ -1498,6 +1500,62 @@ resources:
             type: '- The member type.'
             vm_id: '- The virtual machine identifier.'
         importStatements: []
+    proxmox_virtual_environment_pool_membership:
+        subCategory: Virtual Environment
+        description: Manages resource pool memberships for containers, virtual machines and storages
+        name: proxmox_virtual_environment_pool_membership
+        title: proxmox_virtual_environment_pool_membership
+        examples:
+            - name: vm_membership
+              manifest: |-
+                {
+                  "pool_id": "${proxmox_virtual_environment_pool.test_pool.id}",
+                  "vm_id": "${proxmox_virtual_environment_vm.test_vm1.id}"
+                }
+              references:
+                pool_id: proxmox_virtual_environment_pool.test_pool.id
+                vm_id: proxmox_virtual_environment_vm.test_vm1.id
+              dependencies:
+                proxmox_virtual_environment_pool.test_pool: |-
+                    {
+                      "pool_id": "test-pool"
+                    }
+                proxmox_virtual_environment_vm.test_vm1: |-
+                    {
+                      "node_name": "pve",
+                      "started": false,
+                      "vm_id": 1234
+                    }
+            - name: storage_membership
+              manifest: |-
+                {
+                  "pool_id": "${proxmox_virtual_environment_pool.test_pool.id}",
+                  "storage_id": "local-lvm"
+                }
+              references:
+                pool_id: proxmox_virtual_environment_pool.test_pool.id
+              dependencies:
+                proxmox_virtual_environment_pool.test_pool: |-
+                    {
+                      "pool_id": "test-pool"
+                    }
+                proxmox_virtual_environment_vm.test_vm1: |-
+                    {
+                      "node_name": "pve",
+                      "started": false,
+                      "vm_id": 1234
+                    }
+        argumentDocs:
+            id: (String) The unique identifier of this resource.
+            pool_id: (String) Resource pool id
+            storage_id: (String) Storage id
+            type: (String) Resource pool membership type (can be vm for VMs and CTs or storage for storages)
+            vm_id: (Number) VM or CT id
+        importStatements:
+            - |-
+              #!/usr/bin/env sh
+              # Resource pool membership can be imported using its unique identifier, e.g.: {pool_id}/{type}/{member_id}
+              terraform import proxmox_virtual_environment_pool_membership.example_membership test-pool/vm/102
     proxmox_virtual_environment_role:
         subCategory: Virtual Environment
         description: '|  Manages a role.'
@@ -2483,6 +2541,7 @@ resources:
             de: '- German.'
             de-ch: '- Swiss German.'
             dedicated: '- (Optional) The dedicated memory in megabytes (defaults to 512).'
+            delete_unreferenced_disks_on_destroy: '- (Optional) Whether to delete unreferenced disks on destroy (defaults to true)'
             description: '- (Optional) The description.'
             device: '- (Optional) The device (defaults to intel-hda).'
             direct_io: '- (Optional) Whether to allow direct io'
@@ -2714,7 +2773,9 @@ resources:
             phenom: '- AMD Phenom (2010).'
             pl: '- Polish.'
             policy: '- (Optional) The NUMA policy (defaults to preferred).'
-            pool_id: '- (Optional) The identifier for a pool to assign the virtual machine to.'
+            pool_id: |-
+                - (Optional, Deprecated) The identifier for a pool to assign the virtual machine to.
+                This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
             pre_enrolled_keys: |-
                 (Optional) Use am EFI vars template with
                 distribution-specific and Microsoft Standard keys enrolled, if used with
@@ -2725,6 +2786,7 @@ resources:
             protection: '- (Optional) Sets the protection flag of the VM. This will disable the remove VM and remove disk operations (defaults to false).'
             pt: '- Portuguese.'
             pt-br: '- Brazilian Portuguese.'
+            purge_on_destroy: '- (Optional) Whether to purge the VM from backup configurations on destroy (defaults to true)'
             pvscsi: '- VMware Paravirtual SCSI.'
             q35: '- Standard PC (Q35 + ICH9, 2009). Optionally, you can enable VIOMMU by adding viommu=virtio|intel to the value, for example q35,viommu=virtio.'
             qcow2: '- QEMU Disk Image v2.'
@@ -2897,6 +2959,7 @@ resources:
             cpu: (Attributes) The CPU configuration. (see below for nested schema)
             create: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
             delete: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+            delete_unreferenced_disks_on_destroy: (Boolean) Set to true to delete unreferenced disks on destroy (defaults to true).
             description: (String) The description of the VM.
             file_id: (String) The file ID of the CD-ROM, or cdrom|none. Defaults to none to leave the CD-ROM empty. Use cdrom to connect to the physical drive.
             flags: '(Set of String) Set of additional CPU flags. Use +FLAG to enable, -FLAG to disable a flag. Custom CPU models can specify any flag supported by QEMU/KVM, VM-specific flags must be from the following set for security reasons: pcid, spec-ctrl, ibpb, ssbd, virt-ssbd, amd-ssbd, amd-no-ssb, pdpe1gb, md-clear, hv-tlbflush, hv-evmcs, aes.'
@@ -2909,6 +2972,7 @@ resources:
             node_name: (String) The name of the node where the VM is provisioned.
             numa: (Boolean) Enable NUMA (defaults to false).
             period: (Number) Period in milliseconds to limit entropy injection to the guest. Use 0 to disable limiting (potentially dangerous).
+            purge_on_destroy: (Boolean) Set to true to purge the VM from backup configurations on destroy (defaults to true).
             read: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
             retries: '(Number) The number of retries to perform when cloning the VM (default: 3).'
             rng: (Attributes) Configure the RNG (Random Number Generator) device. The RNG device provides entropy to guests to ensure good quality random numbers for guest applications that require them. Can only be set by root@pam.See the Proxmox documentation for more information. (see below for nested schema)

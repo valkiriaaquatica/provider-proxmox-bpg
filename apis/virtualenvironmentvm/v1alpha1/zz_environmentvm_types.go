@@ -911,6 +911,10 @@ type EnvironmentVMInitParameters struct {
 	// The cloning configuration
 	Clone []CloneInitParameters `json:"clone,omitempty" tf:"clone,omitempty"`
 
+	// Whether to delete unreferenced disks on destroy (defaults to true)
+	// Whether to delete unreferenced disks on destroy
+	DeleteUnreferencedDisksOnDestroy *bool `json:"deleteUnreferencedDisksOnDestroy,omitempty" tf:"delete_unreferenced_disks_on_destroy,omitempty"`
+
 	// The description.
 	// The description
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -988,12 +992,17 @@ type EnvironmentVMInitParameters struct {
 	OperatingSystem []OperatingSystemInitParameters `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the virtual machine to.
+	// This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the virtual machine to
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Sets the protection flag of the VM. This will disable the remove VM and remove disk operations (defaults to false).
 	// Sets the protection flag of the VM. This will disable the remove VM and remove disk operations
 	Protection *bool `json:"protection,omitempty" tf:"protection,omitempty"`
+
+	// Whether to purge the VM from backup configurations on destroy (defaults to true)
+	// Whether to purge the VM from backup configurations on destroy
+	PurgeOnDestroy *bool `json:"purgeOnDestroy,omitempty" tf:"purge_on_destroy,omitempty"`
 
 	// Reboot the VM after initial creation (defaults to false).
 	// Whether to reboot VM after creation
@@ -1153,6 +1162,10 @@ type EnvironmentVMObservation struct {
 	// The cloning configuration
 	Clone []CloneObservation `json:"clone,omitempty" tf:"clone,omitempty"`
 
+	// Whether to delete unreferenced disks on destroy (defaults to true)
+	// Whether to delete unreferenced disks on destroy
+	DeleteUnreferencedDisksOnDestroy *bool `json:"deleteUnreferencedDisksOnDestroy,omitempty" tf:"delete_unreferenced_disks_on_destroy,omitempty"`
+
 	// The description.
 	// The description
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -1250,12 +1263,17 @@ type EnvironmentVMObservation struct {
 	OperatingSystem []OperatingSystemObservation `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the virtual machine to.
+	// This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the virtual machine to
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
 	// Sets the protection flag of the VM. This will disable the remove VM and remove disk operations (defaults to false).
 	// Sets the protection flag of the VM. This will disable the remove VM and remove disk operations
 	Protection *bool `json:"protection,omitempty" tf:"protection,omitempty"`
+
+	// Whether to purge the VM from backup configurations on destroy (defaults to true)
+	// Whether to purge the VM from backup configurations on destroy
+	PurgeOnDestroy *bool `json:"purgeOnDestroy,omitempty" tf:"purge_on_destroy,omitempty"`
 
 	// Reboot the VM after initial creation (defaults to false).
 	// Whether to reboot VM after creation
@@ -1424,6 +1442,11 @@ type EnvironmentVMParameters struct {
 	// +kubebuilder:validation:Optional
 	Clone []CloneParameters `json:"clone,omitempty" tf:"clone,omitempty"`
 
+	// Whether to delete unreferenced disks on destroy (defaults to true)
+	// Whether to delete unreferenced disks on destroy
+	// +kubebuilder:validation:Optional
+	DeleteUnreferencedDisksOnDestroy *bool `json:"deleteUnreferencedDisksOnDestroy,omitempty" tf:"delete_unreferenced_disks_on_destroy,omitempty"`
+
 	// The description.
 	// The description
 	// +kubebuilder:validation:Optional
@@ -1519,6 +1542,7 @@ type EnvironmentVMParameters struct {
 	OperatingSystem []OperatingSystemParameters `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the virtual machine to.
+	// This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the virtual machine to
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
@@ -1527,6 +1551,11 @@ type EnvironmentVMParameters struct {
 	// Sets the protection flag of the VM. This will disable the remove VM and remove disk operations
 	// +kubebuilder:validation:Optional
 	Protection *bool `json:"protection,omitempty" tf:"protection,omitempty"`
+
+	// Whether to purge the VM from backup configurations on destroy (defaults to true)
+	// Whether to purge the VM from backup configurations on destroy
+	// +kubebuilder:validation:Optional
+	PurgeOnDestroy *bool `json:"purgeOnDestroy,omitempty" tf:"purge_on_destroy,omitempty"`
 
 	// Reboot the VM after initial creation (defaults to false).
 	// Whether to reboot VM after creation

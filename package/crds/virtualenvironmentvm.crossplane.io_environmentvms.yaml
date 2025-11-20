@@ -306,6 +306,11 @@ spec:
                           type: number
                       type: object
                     type: array
+                  deleteUnreferencedDisksOnDestroy:
+                    description: |-
+                      Whether to delete unreferenced disks on destroy (defaults to true)
+                      Whether to delete unreferenced disks on destroy
+                    type: boolean
                   description:
                     description: |-
                       The description.
@@ -910,12 +915,18 @@ spec:
                   poolId:
                     description: |-
                       The identifier for a pool to assign the virtual machine to.
+                      This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
                       The ID of the pool to assign the virtual machine to
                     type: string
                   protection:
                     description: |-
                       Sets the protection flag of the VM. This will disable the remove VM and remove disk operations (defaults to false).
                       Sets the protection flag of the VM. This will disable the remove VM and remove disk operations
+                    type: boolean
+                  purgeOnDestroy:
+                    description: |-
+                      Whether to purge the VM from backup configurations on destroy (defaults to true)
+                      Whether to purge the VM from backup configurations on destroy
                     type: boolean
                   reboot:
                     description: |-
@@ -1494,6 +1505,11 @@ spec:
                           type: number
                       type: object
                     type: array
+                  deleteUnreferencedDisksOnDestroy:
+                    description: |-
+                      Whether to delete unreferenced disks on destroy (defaults to true)
+                      Whether to delete unreferenced disks on destroy
+                    type: boolean
                   description:
                     description: |-
                       The description.
@@ -2098,12 +2114,18 @@ spec:
                   poolId:
                     description: |-
                       The identifier for a pool to assign the virtual machine to.
+                      This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
                       The ID of the pool to assign the virtual machine to
                     type: string
                   protection:
                     description: |-
                       Sets the protection flag of the VM. This will disable the remove VM and remove disk operations (defaults to false).
                       Sets the protection flag of the VM. This will disable the remove VM and remove disk operations
+                    type: boolean
+                  purgeOnDestroy:
+                    description: |-
+                      Whether to purge the VM from backup configurations on destroy (defaults to true)
+                      Whether to purge the VM from backup configurations on destroy
                     type: boolean
                   reboot:
                     description: |-
@@ -2846,6 +2868,11 @@ spec:
                           type: number
                       type: object
                     type: array
+                  deleteUnreferencedDisksOnDestroy:
+                    description: |-
+                      Whether to delete unreferenced disks on destroy (defaults to true)
+                      Whether to delete unreferenced disks on destroy
+                    type: boolean
                   description:
                     description: |-
                       The description.
@@ -3465,12 +3492,18 @@ spec:
                   poolId:
                     description: |-
                       The identifier for a pool to assign the virtual machine to.
+                      This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
                       The ID of the pool to assign the virtual machine to
                     type: string
                   protection:
                     description: |-
                       Sets the protection flag of the VM. This will disable the remove VM and remove disk operations (defaults to false).
                       Sets the protection flag of the VM. This will disable the remove VM and remove disk operations
+                    type: boolean
+                  purgeOnDestroy:
+                    description: |-
+                      Whether to purge the VM from backup configurations on destroy (defaults to true)
+                      Whether to purge the VM from backup configurations on destroy
                     type: boolean
                   reboot:
                     description: |-

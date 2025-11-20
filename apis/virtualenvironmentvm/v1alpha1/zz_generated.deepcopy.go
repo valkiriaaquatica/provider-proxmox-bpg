@@ -1333,6 +1333,11 @@ func (in *EnvironmentVMInitParameters) DeepCopyInto(out *EnvironmentVMInitParame
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DeleteUnreferencedDisksOnDestroy != nil {
+		in, out := &in.DeleteUnreferencedDisksOnDestroy, &out.DeleteUnreferencedDisksOnDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1452,6 +1457,11 @@ func (in *EnvironmentVMInitParameters) DeepCopyInto(out *EnvironmentVMInitParame
 	}
 	if in.Protection != nil {
 		in, out := &in.Protection, &out.Protection
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PurgeOnDestroy != nil {
+		in, out := &in.PurgeOnDestroy, &out.PurgeOnDestroy
 		*out = new(bool)
 		**out = **in
 	}
@@ -1719,6 +1729,11 @@ func (in *EnvironmentVMObservation) DeepCopyInto(out *EnvironmentVMObservation) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DeleteUnreferencedDisksOnDestroy != nil {
+		in, out := &in.DeleteUnreferencedDisksOnDestroy, &out.DeleteUnreferencedDisksOnDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1888,6 +1903,11 @@ func (in *EnvironmentVMObservation) DeepCopyInto(out *EnvironmentVMObservation) 
 	}
 	if in.Protection != nil {
 		in, out := &in.Protection, &out.Protection
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PurgeOnDestroy != nil {
+		in, out := &in.PurgeOnDestroy, &out.PurgeOnDestroy
 		*out = new(bool)
 		**out = **in
 	}
@@ -2123,6 +2143,11 @@ func (in *EnvironmentVMParameters) DeepCopyInto(out *EnvironmentVMParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DeleteUnreferencedDisksOnDestroy != nil {
+		in, out := &in.DeleteUnreferencedDisksOnDestroy, &out.DeleteUnreferencedDisksOnDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -2242,6 +2267,11 @@ func (in *EnvironmentVMParameters) DeepCopyInto(out *EnvironmentVMParameters) {
 	}
 	if in.Protection != nil {
 		in, out := &in.Protection, &out.Protection
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PurgeOnDestroy != nil {
+		in, out := &in.PurgeOnDestroy, &out.PurgeOnDestroy
 		*out = new(bool)
 		**out = **in
 	}

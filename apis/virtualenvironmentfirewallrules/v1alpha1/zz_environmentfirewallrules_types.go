@@ -366,9 +366,8 @@ type EnvironmentFirewallRulesStatus struct {
 type EnvironmentFirewallRules struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rule) || (has(self.initProvider) && has(self.initProvider.rule))",message="spec.forProvider.rule is a required parameter"
-	Spec   EnvironmentFirewallRulesSpec   `json:"spec"`
-	Status EnvironmentFirewallRulesStatus `json:"status,omitempty"`
+	Spec              EnvironmentFirewallRulesSpec   `json:"spec"`
+	Status            EnvironmentFirewallRulesStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -4,12 +4,33 @@
 [Upjet](https://github.com/crossplane/upjet). It exposes XRM-conformant managed
 resources for the [Proxmox Virtual Environment](https://www.proxmox.com/) API.
 
+## 🚀 Release Automation
+
+This repository automatically publishes a new release every time the upstream Terraform provider releases a new version:
+👉 **Original Terraform Provider:** [bpg/terraform-provider-proxmox](https://github.com/bpg/terraform-provider-proxmox)
+
+The automation works through a fully-integrated release pipeline:
+
+1. **Version Detection** – Handled by our configured [Renovate Bot](https://github.com/valkiriaaquatica/provider-proxmox-bpg/blob/main/.github/renovate.json), which tracks new upstream releases.
+2. **Version Preparation** – When Renovate opens a PR, the custom [Prepare New Version GitHub Action](https://github.com/valkiriaaquatica/provider-proxmox-bpg/blob/main/.github/workflows/prepare-new-version.yaml) adjusts the module and prepares the next tag.
+3. **Automated Publishing** – Once the PR is merged, [Release Please](https://github.com/valkiriaaquatica/provider-proxmox-bpg/blob/main/.github/workflows/release-please.yml) generates changelogs and publishes the release automaticaly
+
+Thanks to this pipeline, **this repository always stays up-to-date with the latest upstream provider version** — no manual intervention required.
+
+---
+
+## 🔧 For Upjet / Crossplane Developers
+
+If you’re building a Crossplane provider using **Upjet**, feel free to reuse or adapt this release configuration to automate your own provider’s lifecycle.
+Having an auto-syncing provider dramatically simplifies maintenance and ensures your Crossplane collection stays aligned with upstream changes.
+
+
 ## Installation (make sure you have Crossplane before installed in your cluster)
 - Using [up](https://docs.upbound.io/reference/cli/):
   Install the provider by using the following command after changing the image tag
   to the [latest release](https://marketplace.upbound.io/providers/upbound/provider-proxmox-bpg):
   ```
-  up ctp provider install xpkg.upbound.io/valkiriaaquaticamendi/provider-proxmox-bpg:v0.1.0
+  up ctp provider install xpkg.upbound.io/valkiriaaquaticamendi/provider-proxmox-bpg:v0.9.0
   ```
 - Declarative installation
   ```
@@ -19,7 +40,7 @@ resources for the [Proxmox Virtual Environment](https://www.proxmox.com/) API.
   metadata:
     name: valkiriaaquaticamendi-provider-proxmox-bpg
   spec:
-    package: xpkg.upbound.io/valkiriaaquaticamendi/provider-proxmox-bpg:v0.1.0
+    package: xpkg.upbound.io/valkiriaaquaticamendi/provider-proxmox-bpg:v0.9.0
   EOF
   ```
   or

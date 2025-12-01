@@ -515,9 +515,6 @@ resources:
             backup: |-
                 (Optional) Whether to include the mount point in backups (only
                 used for volume mount points, defaults to false).
-            bridge: |-
-                - (Optional) The name of the network bridge (defaults
-                to vmbr0).
             centos: '- CentOS.'
             clone: '- (Optional) The cloning configuration.'
             console: '- (Optional) The console configuration.'
@@ -528,9 +525,15 @@ resources:
             dedicated: |-
                 - (Optional) The dedicated memory in megabytes (defaults
                 to 512).
-            deny_write: '- (Optional) Deny the container to write to the device (defaults to false).'
             description: '- (Optional) The description.'
             device_passthrough: '- (Optional) Device to pass through to the container (multiple blocks supported).'
+            device_passthrough.deny_write: '- (Optional) Deny the container to write to the device (defaults to false).'
+            device_passthrough.gid: '- (Optional) Group ID to be assigned to the device node.'
+            device_passthrough.mode: |-
+                - (Optional) Access mode to be set on the device node. Must be a
+                4-digit octal number.
+            device_passthrough.path: '- (Required) Device to pass through to the container (e.g. /dev/sda).'
+            device_passthrough.uid: '- (Optional) User ID to be assigned to the device node.'
             devuan: '- Devuan.'
             disk: '- (Optional) The disk configuration.'
             dns: '- (Optional) The DNS configuration.'
@@ -543,15 +546,11 @@ resources:
                 to true).
             features: '- (Optional) The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.'
             fedora: '- Fedora.'
-            firewall: |-
-                - (Optional) Whether this interface's firewall rules should be
-                used (defaults to false).
             fuse: '- (Optional) Whether the container supports FUSE mounts (defaults to false)'
             gateway: |-
                 - (Optional) The IPv4 gateway (must be omitted
                 when dhcp is used as the address).
             gentoo: '- Gentoo.'
-            gid: '- (Optional) Group ID to be assigned to the device node.'
             hook_script_file_id: '- (Optional) The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).'
             hostname: '- (Optional) The hostname.'
             i386: '- x86 (32 bit).'
@@ -563,22 +562,29 @@ resources:
             ipv6: '- (Optional) The IPv6 configuration.'
             keyctl: '- (Optional) Whether the container supports keyctl() system call (defaults to false)'
             keys: '- (Optional) The SSH keys for the root account.'
-            mac_address: '- (Optional) The MAC address.'
             memory: '- (Optional) The memory configuration.'
-            mode: |-
-                - (Optional) Access mode to be set on the device node. Must be a
-                4-digit octal number.
             mount: '- (Optional) List of allowed mount types (cifs or nfs)'
             mount_options: (Optional) List of extra mount options.
-            mount_point: ""
-            mtu: |-
-                - (Optional) Maximum transfer unit of the interface. Cannot be
-                larger than the bridge's MTU.
-            name: '- (Required) The network interface name.'
             nesting: '- (Optional) Whether the container is nested (defaults to false)'
             network_interface: |-
                 - (Optional) A network interface (multiple blocks
                 supported).
+            network_interface.bridge: |-
+                - (Optional) The name of the network bridge (defaults
+                to vmbr0).
+            network_interface.enabled: |-
+                - (Optional) Whether to enable the network device (defaults
+                to true).
+            network_interface.firewall: |-
+                - (Optional) Whether this interface's firewall rules should be
+                used (defaults to false).
+            network_interface.mac_address: '- (Optional) The MAC address.'
+            network_interface.mtu: |-
+                - (Optional) Maximum transfer unit of the interface. Cannot be
+                larger than the bridge's MTU.
+            network_interface.name: '- (Required) The network interface name.'
+            network_interface.rate_limit: '- (Optional) The rate limit in megabytes per second.'
+            network_interface.vlan_id: '- (Optional) The VLAN identifier.'
             nixos: '- NixOS.'
             node_name: |-
                 - (Optional) The name of the source node (leave blank, if
@@ -599,7 +605,6 @@ resources:
             quota: |-
                 (Optional) Enable user quotas inside the container (not supported
                 with ZFS subvolumes).
-            rate_limit: '- (Optional) The rate limit in megabytes per second.'
             read_only: (Optional) Read-only mount point.
             replicate: (Optional) Will include this volume to a storage replica job.
             server: |-
@@ -640,7 +645,6 @@ resources:
             tty_count: '- (Optional) The number of available TTY (defaults to 2).'
             type: '- (Optional) The console mode (defaults to tty).'
             ubuntu: '- Ubuntu.'
-            uid: '- (Optional) User ID to be assigned to the device node.'
             units: '- (Optional) The CPU units (defaults to 1024).'
             unmanaged: '- Unmanaged.'
             unprivileged: '- (Optional) Whether the container runs as unprivileged on the host (defaults to false).'
@@ -648,11 +652,11 @@ resources:
                 - (Optional) A non-negative number defining the delay in
                 seconds before the next container is started.
             user_account: '- (Optional) The user account configuration.'
-            vlan_id: '- (Optional) The VLAN identifier.'
             vm_id: '- (Required) The identifier for the source container.'
             volume: |-
                 (Required) Volume, device or directory to mount into the
                 container.
+            wait_for_ip: '- (Optional) Configuration for waiting for specific IP address types when the container starts.'
         importStatements: []
     proxmox_virtual_environment_dns:
         subCategory: Virtual Environment
@@ -1372,6 +1376,16 @@ resources:
                   "server": "192.168.4.2",
                   "type": "graphite"
                 }
+            - name: opentelemetry_server
+              manifest: |-
+                {
+                  "name": "example_opentelemetry_server",
+                  "opentelemetry_path": "/v1/metrics",
+                  "opentelemetry_proto": "http",
+                  "port": 4318,
+                  "server": "192.168.5.2",
+                  "type": "opentelemetry"
+                }
         argumentDocs:
             disable: (Boolean) Set this to true to disable this metric server.
             graphite_path: '(String) Root graphite path (ex: proxmox.mycluster.mykey).'
@@ -1386,10 +1400,12 @@ resources:
             influx_verify: (Boolean) Set to false to disable certificate verification for https endpoints.
             mtu: (Number) MTU (maximum transmission unit) for metrics transmission over UDP. If not set, PVE default is 1500 (allowed 512 - 65536).
             name: (String) Unique name that will be ID of this metric server in PVE.
+            opentelemetry_path: (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
+            opentelemetry_proto: (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
             port: (Number) Server network port.
             server: (String) Server dns name or IP address.
             timeout: (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
-            type: (String) Plugin type. Choice is between graphite | influxdb.
+            type: (String) Plugin type. Choice is between graphite | influxdb | opentelemetry.
         importStatements:
             - |-
               #!/usr/bin/env sh
@@ -2520,9 +2536,7 @@ resources:
             audio_device: '- (Optional) An audio device.'
             bind: '- Only use the specified node.'
             bios: '- (Optional) The BIOS implementation (defaults to seabios).'
-            boot_order: |-
-                - (Optional) Specify a list of devices to boot from in the order
-                they appear in the list (defaults to []).
+            boot_order: '- (Optional) Specify a list of devices to boot from in the order they appear in the list.'
             cache: '- (Optional) The caching mode'
             cdrom: '- (Optional) The CD-ROM configuration.'
             cirrus: '- Cirrus (deprecated since QEMU 2.2).'
@@ -2565,7 +2579,7 @@ resources:
             disk.import_from: |-
                 - (Optional) The file ID for a disk image to import into VM. The image must be of import content type.
                 The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
-                proxmox_virtual_environment_download_file resource.
+                a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
             disk.interface: |-
                 - (Required) The disk interface for Proxmox, currently scsi,
                 sata and virtio interfaces are supported. Append the disk index at
@@ -2676,11 +2690,11 @@ resources:
             ip_config: |-
                 - (Optional) The IP configuration (one block per network
                 device).
-            ipv4: '- (Optional) The IPv4 configuration.'
+            ipv4: '- (Optional) Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).'
             ipv4_addresses: |-
                 - The IPv4 addresses per network interface published by the
                 QEMU agent (empty list when agent.enabled is false)
-            ipv6: '- (Optional) The IPv6 configuration.'
+            ipv6: '- (Optional) Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).'
             ipv6_addresses: |-
                 - The IPv6 addresses per network interface published by the
                 QEMU agent (empty list when agent.enabled is false)
@@ -2922,6 +2936,7 @@ resources:
             w2k: '- Windows 2000.'
             w2k3: '- Windows 2003.'
             w2k8: '- Windows 2008.'
+            wait_for_ip: '- (Optional) Configuration for waiting for specific IP address types when the VM starts.'
             watchdog: '- (Optional) The watchdog configuration. Once enabled (by a guest action), the watchdog must be periodically polled by an agent inside the guest or else the watchdog will reset the guest (or execute the respective action specified).'
             win7: '- Windows 7.'
             win8: '- Windows 8, 2012 or 2012 R2.'

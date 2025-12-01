@@ -63,6 +63,14 @@ type EnvironmentMetricsServerInitParameters struct {
 	// Unique name that will be ID of this metric server in PVE.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
+	// OpenTelemetry endpoint path (e.g., `/v1/metrics`).
+	OpentelemetryPath *string `json:"opentelemetryPath,omitempty" tf:"opentelemetry_path,omitempty"`
+
+	// (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
+	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+	OpentelemetryProto *string `json:"opentelemetryProto,omitempty" tf:"opentelemetry_proto,omitempty"`
+
 	// (Number) Server network port.
 	// Server network port.
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
@@ -75,8 +83,8 @@ type EnvironmentMetricsServerInitParameters struct {
 	// TCP socket timeout in seconds. If not set, PVE default is `1`.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
-	// (String) Plugin type. Choice is between graphite | influxdb.
-	// Plugin type. Choice is between `graphite` | `influxdb`.
+	// (String) Plugin type. Choice is between graphite | influxdb | opentelemetry.
+	// Plugin type. Choice is between `graphite` | `influxdb` | `opentelemetry`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -129,6 +137,14 @@ type EnvironmentMetricsServerObservation struct {
 	// Unique name that will be ID of this metric server in PVE.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
+	// OpenTelemetry endpoint path (e.g., `/v1/metrics`).
+	OpentelemetryPath *string `json:"opentelemetryPath,omitempty" tf:"opentelemetry_path,omitempty"`
+
+	// (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
+	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+	OpentelemetryProto *string `json:"opentelemetryProto,omitempty" tf:"opentelemetry_proto,omitempty"`
+
 	// (Number) Server network port.
 	// Server network port.
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
@@ -141,8 +157,8 @@ type EnvironmentMetricsServerObservation struct {
 	// TCP socket timeout in seconds. If not set, PVE default is `1`.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
-	// (String) Plugin type. Choice is between graphite | influxdb.
-	// Plugin type. Choice is between `graphite` | `influxdb`.
+	// (String) Plugin type. Choice is between graphite | influxdb | opentelemetry.
+	// Plugin type. Choice is between `graphite` | `influxdb` | `opentelemetry`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -208,6 +224,16 @@ type EnvironmentMetricsServerParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
+	// OpenTelemetry endpoint path (e.g., `/v1/metrics`).
+	// +kubebuilder:validation:Optional
+	OpentelemetryPath *string `json:"opentelemetryPath,omitempty" tf:"opentelemetry_path,omitempty"`
+
+	// (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
+	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+	// +kubebuilder:validation:Optional
+	OpentelemetryProto *string `json:"opentelemetryProto,omitempty" tf:"opentelemetry_proto,omitempty"`
+
 	// (Number) Server network port.
 	// Server network port.
 	// +kubebuilder:validation:Optional
@@ -223,8 +249,8 @@ type EnvironmentMetricsServerParameters struct {
 	// +kubebuilder:validation:Optional
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 
-	// (String) Plugin type. Choice is between graphite | influxdb.
-	// Plugin type. Choice is between `graphite` | `influxdb`.
+	// (String) Plugin type. Choice is between graphite | influxdb | opentelemetry.
+	// Plugin type. Choice is between `graphite` | `influxdb` | `opentelemetry`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

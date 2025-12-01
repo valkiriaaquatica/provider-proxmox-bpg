@@ -106,6 +106,24 @@ spec:
                             The QEMU agent interface type (defaults to virtio).
                             The QEMU agent interface type
                           type: string
+                        waitForIp:
+                          description: |-
+                            Configuration for waiting for specific IP address types when the VM starts.
+                            Configuration for waiting for specific IP address types
+                          items:
+                            properties:
+                              ipv4:
+                                description: |-
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local)
+                                type: boolean
+                              ipv6:
+                                description: |-
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local)
+                                type: boolean
+                            type: object
+                          type: array
                       type: object
                     type: array
                   amdSev:
@@ -173,8 +191,7 @@ spec:
                     type: string
                   bootOrder:
                     description: |-
-                      Specify a list of devices to boot from in the order
-                      they appear in the list (defaults to []).
+                      Specify a list of devices to boot from in the order they appear in the list.
                       The guest will attempt to boot from devices in the order they appear here
                     items:
                       type: string
@@ -366,7 +383,7 @@ spec:
                           description: |-
                             The file ID for a disk image to import into VM. The image must be of import content type.
                             The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
-                            proxmox_virtual_environment_download_file resource.
+                            a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
                             The file id of a disk image to import from storage.
                           type: string
                         interface:
@@ -590,6 +607,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        fileFormat:
+                          description: |-
+                            The file format (defaults to raw).
+                            The file format
+                          type: string
                         interface:
                           description: |-
                             A hardware interface to connect CD-ROM drive to (defaults to ide3).
@@ -606,7 +628,7 @@ spec:
                             properties:
                               ipv4:
                                 description: |-
-                                  The IPv4 configuration.
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
                                   The IPv4 configuration
                                 items:
                                   properties:
@@ -627,7 +649,7 @@ spec:
                                 type: array
                               ipv6:
                                 description: |-
-                                  The IPv6 configuration.
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
                                   The IPv6 configuration
                                 items:
                                   properties:
@@ -1104,7 +1126,7 @@ spec:
                   timeoutMoveDisk:
                     description: |-
                       A disk (multiple blocks supported).
-                      MoveDisk timeout
+                      Disk move timeout
                     type: number
                   timeoutReboot:
                     description: |-
@@ -1305,6 +1327,24 @@ spec:
                             The QEMU agent interface type (defaults to virtio).
                             The QEMU agent interface type
                           type: string
+                        waitForIp:
+                          description: |-
+                            Configuration for waiting for specific IP address types when the VM starts.
+                            Configuration for waiting for specific IP address types
+                          items:
+                            properties:
+                              ipv4:
+                                description: |-
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local)
+                                type: boolean
+                              ipv6:
+                                description: |-
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local)
+                                type: boolean
+                            type: object
+                          type: array
                       type: object
                     type: array
                   amdSev:
@@ -1372,8 +1412,7 @@ spec:
                     type: string
                   bootOrder:
                     description: |-
-                      Specify a list of devices to boot from in the order
-                      they appear in the list (defaults to []).
+                      Specify a list of devices to boot from in the order they appear in the list.
                       The guest will attempt to boot from devices in the order they appear here
                     items:
                       type: string
@@ -1565,7 +1604,7 @@ spec:
                           description: |-
                             The file ID for a disk image to import into VM. The image must be of import content type.
                             The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
-                            proxmox_virtual_environment_download_file resource.
+                            a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
                             The file id of a disk image to import from storage.
                           type: string
                         interface:
@@ -1789,6 +1828,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        fileFormat:
+                          description: |-
+                            The file format (defaults to raw).
+                            The file format
+                          type: string
                         interface:
                           description: |-
                             A hardware interface to connect CD-ROM drive to (defaults to ide3).
@@ -1805,7 +1849,7 @@ spec:
                             properties:
                               ipv4:
                                 description: |-
-                                  The IPv4 configuration.
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
                                   The IPv4 configuration
                                 items:
                                   properties:
@@ -1826,7 +1870,7 @@ spec:
                                 type: array
                               ipv6:
                                 description: |-
-                                  The IPv6 configuration.
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
                                   The IPv6 configuration
                                 items:
                                   properties:
@@ -2303,7 +2347,7 @@ spec:
                   timeoutMoveDisk:
                     description: |-
                       A disk (multiple blocks supported).
-                      MoveDisk timeout
+                      Disk move timeout
                     type: number
                   timeoutReboot:
                     description: |-
@@ -2668,6 +2712,24 @@ spec:
                             The QEMU agent interface type (defaults to virtio).
                             The QEMU agent interface type
                           type: string
+                        waitForIp:
+                          description: |-
+                            Configuration for waiting for specific IP address types when the VM starts.
+                            Configuration for waiting for specific IP address types
+                          items:
+                            properties:
+                              ipv4:
+                                description: |-
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local)
+                                type: boolean
+                              ipv6:
+                                description: |-
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local)
+                                type: boolean
+                            type: object
+                          type: array
                       type: object
                     type: array
                   amdSev:
@@ -2735,8 +2797,7 @@ spec:
                     type: string
                   bootOrder:
                     description: |-
-                      Specify a list of devices to boot from in the order
-                      they appear in the list (defaults to []).
+                      Specify a list of devices to boot from in the order they appear in the list.
                       The guest will attempt to boot from devices in the order they appear here
                     items:
                       type: string
@@ -2928,7 +2989,7 @@ spec:
                           description: |-
                             The file ID for a disk image to import into VM. The image must be of import content type.
                             The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
-                            proxmox_virtual_environment_download_file resource.
+                            a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
                             The file id of a disk image to import from storage.
                           type: string
                         interface:
@@ -3158,6 +3219,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        fileFormat:
+                          description: |-
+                            The file format (defaults to raw).
+                            The file format
+                          type: string
                         interface:
                           description: |-
                             A hardware interface to connect CD-ROM drive to (defaults to ide3).
@@ -3174,7 +3240,7 @@ spec:
                             properties:
                               ipv4:
                                 description: |-
-                                  The IPv4 configuration.
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
                                   The IPv4 configuration
                                 items:
                                   properties:
@@ -3195,7 +3261,7 @@ spec:
                                 type: array
                               ipv6:
                                 description: |-
-                                  The IPv6 configuration.
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
                                   The IPv6 configuration
                                 items:
                                   properties:
@@ -3681,7 +3747,7 @@ spec:
                   timeoutMoveDisk:
                     description: |-
                       A disk (multiple blocks supported).
-                      MoveDisk timeout
+                      Disk move timeout
                     type: number
                   timeoutReboot:
                     description: |-

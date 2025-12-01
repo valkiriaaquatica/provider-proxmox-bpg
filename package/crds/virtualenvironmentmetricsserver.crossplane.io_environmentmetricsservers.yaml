@@ -148,6 +148,16 @@ spec:
                       (String) Unique name that will be ID of this metric server in PVE.
                       Unique name that will be ID of this metric server in PVE.
                     type: string
+                  opentelemetryPath:
+                    description: |-
+                      (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
+                      OpenTelemetry endpoint path (e.g., `/v1/metrics`).
+                    type: string
+                  opentelemetryProto:
+                    description: |-
+                      (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
+                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+                    type: string
                   port:
                     description: |-
                       (Number) Server network port.
@@ -165,8 +175,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) Plugin type. Choice is between graphite | influxdb.
-                      Plugin type. Choice is between `graphite` | `influxdb`.
+                      (String) Plugin type. Choice is between graphite | influxdb | opentelemetry.
+                      Plugin type. Choice is between `graphite` | `influxdb` | `opentelemetry`.
                     type: string
                 type: object
               initProvider:
@@ -256,6 +266,16 @@ spec:
                       (String) Unique name that will be ID of this metric server in PVE.
                       Unique name that will be ID of this metric server in PVE.
                     type: string
+                  opentelemetryPath:
+                    description: |-
+                      (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
+                      OpenTelemetry endpoint path (e.g., `/v1/metrics`).
+                    type: string
+                  opentelemetryProto:
+                    description: |-
+                      (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
+                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+                    type: string
                   port:
                     description: |-
                       (Number) Server network port.
@@ -273,8 +293,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) Plugin type. Choice is between graphite | influxdb.
-                      Plugin type. Choice is between `graphite` | `influxdb`.
+                      (String) Plugin type. Choice is between graphite | influxdb | opentelemetry.
+                      Plugin type. Choice is between `graphite` | `influxdb` | `opentelemetry`.
                     type: string
                 type: object
               managementPolicies:
@@ -525,6 +545,16 @@ spec:
                       (String) Unique name that will be ID of this metric server in PVE.
                       Unique name that will be ID of this metric server in PVE.
                     type: string
+                  opentelemetryPath:
+                    description: |-
+                      (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
+                      OpenTelemetry endpoint path (e.g., `/v1/metrics`).
+                    type: string
+                  opentelemetryProto:
+                    description: |-
+                      (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
+                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+                    type: string
                   port:
                     description: |-
                       (Number) Server network port.
@@ -542,8 +572,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) Plugin type. Choice is between graphite | influxdb.
-                      Plugin type. Choice is between `graphite` | `influxdb`.
+                      (String) Plugin type. Choice is between graphite | influxdb | opentelemetry.
+                      Plugin type. Choice is between `graphite` | `influxdb` | `opentelemetry`.
                     type: string
                 type: object
               conditions:

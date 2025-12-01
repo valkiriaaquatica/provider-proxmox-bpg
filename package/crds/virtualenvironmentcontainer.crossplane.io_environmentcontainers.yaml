@@ -105,7 +105,7 @@ spec:
                       properties:
                         enabled:
                           description: |-
-                            Whether to enable the console device (defaults
+                            Whether to enable the network device (defaults
                             to true).
                             Whether to enable the console device
                           type: boolean
@@ -173,8 +173,7 @@ spec:
                           type: string
                         path:
                           description: |-
-                            Path to the mount point as seen from inside the
-                            container.
+                            Device to pass through to the container (e.g. /dev/sda).
                             Device to pass through to the container
                           type: string
                         uid:
@@ -486,7 +485,7 @@ spec:
                           type: string
                         enabled:
                           description: |-
-                            Whether to enable the console device (defaults
+                            Whether to enable the network device (defaults
                             to true).
                             Whether to enable the network device
                           type: boolean
@@ -647,6 +646,24 @@ spec:
                       The identifier for the source container.
                       The VM identifier
                     type: number
+                  waitForIp:
+                    description: |-
+                      Configuration for waiting for specific IP address types when the container starts.
+                      Configuration for waiting for specific IP address types
+                    items:
+                      properties:
+                        ipv4:
+                          description: |-
+                            The IPv4 configuration.
+                            Wait for at least one IPv4 address (non-loopback, non-link-local)
+                          type: boolean
+                        ipv6:
+                          description: |-
+                            The IPv6 configuration.
+                            Wait for at least one IPv6 address (non-loopback, non-link-local)
+                          type: boolean
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -693,7 +710,7 @@ spec:
                       properties:
                         enabled:
                           description: |-
-                            Whether to enable the console device (defaults
+                            Whether to enable the network device (defaults
                             to true).
                             Whether to enable the console device
                           type: boolean
@@ -761,8 +778,7 @@ spec:
                           type: string
                         path:
                           description: |-
-                            Path to the mount point as seen from inside the
-                            container.
+                            Device to pass through to the container (e.g. /dev/sda).
                             Device to pass through to the container
                           type: string
                         uid:
@@ -1074,7 +1090,7 @@ spec:
                           type: string
                         enabled:
                           description: |-
-                            Whether to enable the console device (defaults
+                            Whether to enable the network device (defaults
                             to true).
                             Whether to enable the network device
                           type: boolean
@@ -1235,6 +1251,24 @@ spec:
                       The identifier for the source container.
                       The VM identifier
                     type: number
+                  waitForIp:
+                    description: |-
+                      Configuration for waiting for specific IP address types when the container starts.
+                      Configuration for waiting for specific IP address types
+                    items:
+                      properties:
+                        ipv4:
+                          description: |-
+                            The IPv4 configuration.
+                            Wait for at least one IPv4 address (non-loopback, non-link-local)
+                          type: boolean
+                        ipv6:
+                          description: |-
+                            The IPv6 configuration.
+                            Wait for at least one IPv6 address (non-loopback, non-link-local)
+                          type: boolean
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -1446,7 +1480,7 @@ spec:
                       properties:
                         enabled:
                           description: |-
-                            Whether to enable the console device (defaults
+                            Whether to enable the network device (defaults
                             to true).
                             Whether to enable the console device
                           type: boolean
@@ -1514,8 +1548,7 @@ spec:
                           type: string
                         path:
                           description: |-
-                            Path to the mount point as seen from inside the
-                            container.
+                            Device to pass through to the container (e.g. /dev/sda).
                             Device to pass through to the container
                           type: string
                         uid:
@@ -1826,7 +1859,7 @@ spec:
                           type: string
                         enabled:
                           description: |-
-                            Whether to enable the console device (defaults
+                            Whether to enable the network device (defaults
                             to true).
                             Whether to enable the network device
                           type: boolean
@@ -1987,6 +2020,24 @@ spec:
                       The identifier for the source container.
                       The VM identifier
                     type: number
+                  waitForIp:
+                    description: |-
+                      Configuration for waiting for specific IP address types when the container starts.
+                      Configuration for waiting for specific IP address types
+                    items:
+                      properties:
+                        ipv4:
+                          description: |-
+                            The IPv4 configuration.
+                            Wait for at least one IPv4 address (non-loopback, non-link-local)
+                          type: boolean
+                        ipv6:
+                          description: |-
+                            The IPv6 configuration.
+                            Wait for at least one IPv6 address (non-loopback, non-link-local)
+                          type: boolean
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -32,6 +32,10 @@ type AgentInitParameters struct {
 	// The QEMU agent interface type (defaults to virtio).
 	// The QEMU agent interface type
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// Configuration for waiting for specific IP address types when the VM starts.
+	// Configuration for waiting for specific IP address types
+	WaitForIP []WaitForIPInitParameters `json:"waitForIp,omitempty" tf:"wait_for_ip,omitempty"`
 }
 
 type AgentObservation struct {
@@ -53,6 +57,10 @@ type AgentObservation struct {
 	// The QEMU agent interface type (defaults to virtio).
 	// The QEMU agent interface type
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// Configuration for waiting for specific IP address types when the VM starts.
+	// Configuration for waiting for specific IP address types
+	WaitForIP []WaitForIPObservation `json:"waitForIp,omitempty" tf:"wait_for_ip,omitempty"`
 }
 
 type AgentParameters struct {
@@ -78,6 +86,11 @@ type AgentParameters struct {
 	// The QEMU agent interface type
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// Configuration for waiting for specific IP address types when the VM starts.
+	// Configuration for waiting for specific IP address types
+	// +kubebuilder:validation:Optional
+	WaitForIP []WaitForIPParameters `json:"waitForIp,omitempty" tf:"wait_for_ip,omitempty"`
 }
 
 type AmdSevInitParameters struct {
@@ -574,7 +587,7 @@ type DiskInitParameters struct {
 
 	// The file ID for a disk image to import into VM. The image must be of import content type.
 	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
-	// proxmox_virtual_environment_download_file resource.
+	// a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
 	// The file id of a disk image to import from storage.
 	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 
@@ -657,7 +670,7 @@ type DiskObservation struct {
 
 	// The file ID for a disk image to import into VM. The image must be of import content type.
 	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
-	// proxmox_virtual_environment_download_file resource.
+	// a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
 	// The file id of a disk image to import from storage.
 	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 
@@ -747,7 +760,7 @@ type DiskParameters struct {
 
 	// The file ID for a disk image to import into VM. The image must be of import content type.
 	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
-	// proxmox_virtual_environment_download_file resource.
+	// a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
 	// The file id of a disk image to import from storage.
 	// +kubebuilder:validation:Optional
 	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
@@ -894,8 +907,7 @@ type EnvironmentVMInitParameters struct {
 	// The BIOS implementation
 	Bios *string `json:"bios,omitempty" tf:"bios,omitempty"`
 
-	// Specify a list of devices to boot from in the order
-	// they appear in the list (defaults to []).
+	// Specify a list of devices to boot from in the order they appear in the list.
 	// The guest will attempt to boot from devices in the order they appear here
 	BootOrder []*string `json:"bootOrder,omitempty" tf:"boot_order,omitempty"`
 
@@ -1075,7 +1087,7 @@ type EnvironmentVMInitParameters struct {
 	TimeoutMigrate *float64 `json:"timeoutMigrate,omitempty" tf:"timeout_migrate,omitempty"`
 
 	// A disk (multiple blocks supported).
-	// MoveDisk timeout
+	// Disk move timeout
 	TimeoutMoveDisk *float64 `json:"timeoutMoveDisk,omitempty" tf:"timeout_move_disk,omitempty"`
 
 	// Timeout for rebooting a VM in seconds (defaults
@@ -1145,8 +1157,7 @@ type EnvironmentVMObservation struct {
 	// The BIOS implementation
 	Bios *string `json:"bios,omitempty" tf:"bios,omitempty"`
 
-	// Specify a list of devices to boot from in the order
-	// they appear in the list (defaults to []).
+	// Specify a list of devices to boot from in the order they appear in the list.
 	// The guest will attempt to boot from devices in the order they appear here
 	BootOrder []*string `json:"bootOrder,omitempty" tf:"boot_order,omitempty"`
 
@@ -1346,7 +1357,7 @@ type EnvironmentVMObservation struct {
 	TimeoutMigrate *float64 `json:"timeoutMigrate,omitempty" tf:"timeout_migrate,omitempty"`
 
 	// A disk (multiple blocks supported).
-	// MoveDisk timeout
+	// Disk move timeout
 	TimeoutMoveDisk *float64 `json:"timeoutMoveDisk,omitempty" tf:"timeout_move_disk,omitempty"`
 
 	// Timeout for rebooting a VM in seconds (defaults
@@ -1421,8 +1432,7 @@ type EnvironmentVMParameters struct {
 	// +kubebuilder:validation:Optional
 	Bios *string `json:"bios,omitempty" tf:"bios,omitempty"`
 
-	// Specify a list of devices to boot from in the order
-	// they appear in the list (defaults to []).
+	// Specify a list of devices to boot from in the order they appear in the list.
 	// The guest will attempt to boot from devices in the order they appear here
 	// +kubebuilder:validation:Optional
 	BootOrder []*string `json:"bootOrder,omitempty" tf:"boot_order,omitempty"`
@@ -1643,7 +1653,7 @@ type EnvironmentVMParameters struct {
 	TimeoutMigrate *float64 `json:"timeoutMigrate,omitempty" tf:"timeout_migrate,omitempty"`
 
 	// A disk (multiple blocks supported).
-	// MoveDisk timeout
+	// Disk move timeout
 	// +kubebuilder:validation:Optional
 	TimeoutMoveDisk *float64 `json:"timeoutMoveDisk,omitempty" tf:"timeout_move_disk,omitempty"`
 
@@ -1844,34 +1854,34 @@ type HostpciParameters struct {
 
 type IPConfigInitParameters struct {
 
-	// The IPv4 configuration.
+	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// The IPv4 configuration
 	IPv4 []IPv4InitParameters `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
-	// The IPv6 configuration.
+	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
 	// The IPv6 configuration
 	IPv6 []IPv6InitParameters `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 }
 
 type IPConfigObservation struct {
 
-	// The IPv4 configuration.
+	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// The IPv4 configuration
 	IPv4 []IPv4Observation `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
-	// The IPv6 configuration.
+	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
 	// The IPv6 configuration
 	IPv6 []IPv6Observation `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 }
 
 type IPConfigParameters struct {
 
-	// The IPv4 configuration.
+	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// The IPv4 configuration
 	// +kubebuilder:validation:Optional
 	IPv4 []IPv4Parameters `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
-	// The IPv6 configuration.
+	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
 	// The IPv6 configuration
 	// +kubebuilder:validation:Optional
 	IPv6 []IPv6Parameters `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
@@ -1976,6 +1986,10 @@ type InitializationInitParameters struct {
 	// The datastore id
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// The file format (defaults to raw).
+	// The file format
+	FileFormat *string `json:"fileFormat,omitempty" tf:"file_format,omitempty"`
+
 	// The IP configuration (one block per network
 	// device).
 	// The IP configuration
@@ -2028,6 +2042,10 @@ type InitializationObservation struct {
 	// the disk in (defaults to local-lvm).
 	// The datastore id
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
+
+	// The file format (defaults to raw).
+	// The file format
+	FileFormat *string `json:"fileFormat,omitempty" tf:"file_format,omitempty"`
 
 	// The IP configuration (one block per network
 	// device).
@@ -2083,6 +2101,11 @@ type InitializationParameters struct {
 	// The datastore id
 	// +kubebuilder:validation:Optional
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
+
+	// The file format (defaults to raw).
+	// The file format
+	// +kubebuilder:validation:Optional
+	FileFormat *string `json:"fileFormat,omitempty" tf:"file_format,omitempty"`
 
 	// The IP configuration (one block per network
 	// device).
@@ -3073,6 +3096,41 @@ type VirtiofsParameters struct {
 	// Directory mapping identifier
 	// +kubebuilder:validation:Optional
 	Mapping *string `json:"mapping" tf:"mapping,omitempty"`
+}
+
+type WaitForIPInitParameters struct {
+
+	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
+	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+
+	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
+	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+}
+
+type WaitForIPObservation struct {
+
+	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
+	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+
+	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
+	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+}
+
+type WaitForIPParameters struct {
+
+	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
+	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	// +kubebuilder:validation:Optional
+	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+
+	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
+	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	// +kubebuilder:validation:Optional
+	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 }
 
 type WatchdogInitParameters struct {

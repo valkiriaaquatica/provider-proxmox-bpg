@@ -103,6 +103,16 @@ func (in *EnvironmentMetricsServerInitParameters) DeepCopyInto(out *EnvironmentM
 		*out = new(string)
 		**out = **in
 	}
+	if in.OpentelemetryPath != nil {
+		in, out := &in.OpentelemetryPath, &out.OpentelemetryPath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryProto != nil {
+		in, out := &in.OpentelemetryProto, &out.OpentelemetryProto
+		*out = new(string)
+		**out = **in
+	}
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)
@@ -230,6 +240,16 @@ func (in *EnvironmentMetricsServerObservation) DeepCopyInto(out *EnvironmentMetr
 		*out = new(string)
 		**out = **in
 	}
+	if in.OpentelemetryPath != nil {
+		in, out := &in.OpentelemetryPath, &out.OpentelemetryPath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryProto != nil {
+		in, out := &in.OpentelemetryProto, &out.OpentelemetryProto
+		*out = new(string)
+		**out = **in
+	}
 	if in.Port != nil {
 		in, out := &in.Port, &out.Port
 		*out = new(float64)
@@ -322,6 +342,16 @@ func (in *EnvironmentMetricsServerParameters) DeepCopyInto(out *EnvironmentMetri
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryPath != nil {
+		in, out := &in.OpentelemetryPath, &out.OpentelemetryPath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryProto != nil {
+		in, out := &in.OpentelemetryProto, &out.OpentelemetryProto
 		*out = new(string)
 		**out = **in
 	}

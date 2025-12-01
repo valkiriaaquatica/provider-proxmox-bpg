@@ -114,7 +114,7 @@ type CloneParameters struct {
 
 type ConsoleInitParameters struct {
 
-	// Whether to enable the console device (defaults
+	// Whether to enable the network device (defaults
 	// to true).
 	// Whether to enable the console device
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -130,7 +130,7 @@ type ConsoleInitParameters struct {
 
 type ConsoleObservation struct {
 
-	// Whether to enable the console device (defaults
+	// Whether to enable the network device (defaults
 	// to true).
 	// Whether to enable the console device
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -146,7 +146,7 @@ type ConsoleObservation struct {
 
 type ConsoleParameters struct {
 
-	// Whether to enable the console device (defaults
+	// Whether to enable the network device (defaults
 	// to true).
 	// Whether to enable the console device
 	// +kubebuilder:validation:Optional
@@ -232,8 +232,7 @@ type DevicePassthroughInitParameters struct {
 	// Access mode to be set on the device node (e.g. 0666)
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// Path to the mount point as seen from inside the
-	// container.
+	// Device to pass through to the container (e.g. /dev/sda).
 	// Device to pass through to the container
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
@@ -257,8 +256,7 @@ type DevicePassthroughObservation struct {
 	// Access mode to be set on the device node (e.g. 0666)
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// Path to the mount point as seen from inside the
-	// container.
+	// Device to pass through to the container (e.g. /dev/sda).
 	// Device to pass through to the container
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
@@ -285,8 +283,7 @@ type DevicePassthroughParameters struct {
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// Path to the mount point as seen from inside the
-	// container.
+	// Device to pass through to the container (e.g. /dev/sda).
 	// Device to pass through to the container
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path" tf:"path,omitempty"`
@@ -512,6 +509,10 @@ type EnvironmentContainerInitParameters struct {
 	// The identifier for the source container.
 	// The VM identifier
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
+
+	// Configuration for waiting for specific IP address types when the container starts.
+	// Configuration for waiting for specific IP address types
+	WaitForIP []WaitForIPInitParameters `json:"waitForIp,omitempty" tf:"wait_for_ip,omitempty"`
 }
 
 type EnvironmentContainerObservation struct {
@@ -645,6 +646,10 @@ type EnvironmentContainerObservation struct {
 	// The identifier for the source container.
 	// The VM identifier
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
+
+	// Configuration for waiting for specific IP address types when the container starts.
+	// Configuration for waiting for specific IP address types
+	WaitForIP []WaitForIPObservation `json:"waitForIp,omitempty" tf:"wait_for_ip,omitempty"`
 }
 
 type EnvironmentContainerParameters struct {
@@ -794,6 +799,11 @@ type EnvironmentContainerParameters struct {
 	// The VM identifier
 	// +kubebuilder:validation:Optional
 	VMID *float64 `json:"vmId,omitempty" tf:"vm_id,omitempty"`
+
+	// Configuration for waiting for specific IP address types when the container starts.
+	// Configuration for waiting for specific IP address types
+	// +kubebuilder:validation:Optional
+	WaitForIP []WaitForIPParameters `json:"waitForIp,omitempty" tf:"wait_for_ip,omitempty"`
 }
 
 type FeaturesInitParameters struct {
@@ -1249,7 +1259,7 @@ type NetworkInterfaceInitParameters struct {
 	// The bridge
 	Bridge *string `json:"bridge,omitempty" tf:"bridge,omitempty"`
 
-	// Whether to enable the console device (defaults
+	// Whether to enable the network device (defaults
 	// to true).
 	// Whether to enable the network device
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -1288,7 +1298,7 @@ type NetworkInterfaceObservation struct {
 	// The bridge
 	Bridge *string `json:"bridge,omitempty" tf:"bridge,omitempty"`
 
-	// Whether to enable the console device (defaults
+	// Whether to enable the network device (defaults
 	// to true).
 	// Whether to enable the network device
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -1328,7 +1338,7 @@ type NetworkInterfaceParameters struct {
 	// +kubebuilder:validation:Optional
 	Bridge *string `json:"bridge,omitempty" tf:"bridge,omitempty"`
 
-	// Whether to enable the console device (defaults
+	// Whether to enable the network device (defaults
 	// to true).
 	// Whether to enable the network device
 	// +kubebuilder:validation:Optional
@@ -1494,6 +1504,41 @@ type UserAccountParameters struct {
 	// The SSH password
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+}
+
+type WaitForIPInitParameters struct {
+
+	// The IPv4 configuration.
+	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+
+	// The IPv6 configuration.
+	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+}
+
+type WaitForIPObservation struct {
+
+	// The IPv4 configuration.
+	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+
+	// The IPv6 configuration.
+	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+}
+
+type WaitForIPParameters struct {
+
+	// The IPv4 configuration.
+	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	// +kubebuilder:validation:Optional
+	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
+
+	// The IPv6 configuration.
+	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	// +kubebuilder:validation:Optional
+	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 }
 
 // EnvironmentContainerSpec defines the desired state of EnvironmentContainer

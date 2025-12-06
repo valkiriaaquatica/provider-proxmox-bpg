@@ -544,6 +544,7 @@ resources:
             enabled: |-
                 - (Optional) Whether to enable the console device (defaults
                 to true).
+            environment_variables: '- (Optional) A map of runtime environment variables for the container init process.'
             features: '- (Optional) The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.'
             fedora: '- Fedora.'
             fuse: '- (Optional) Whether the container supports FUSE mounts (defaults to false)'
@@ -1494,6 +1495,48 @@ resources:
               #!/usr/bin/env sh
               #Interfaces can be imported using the `node_name:iface` format, e.g.
               terraform import proxmox_virtual_environment_network_linux_vlan.vlan99 pve:vlan99
+    proxmox_virtual_environment_oci_image:
+        subCategory: Virtual Environment
+        description: Manages OCI images pulled from OCI registries using PVE oci-registry-pull API. Pulls OCI container images and stores them as tar files in Proxmox VE datastores.
+        name: proxmox_virtual_environment_oci_image
+        title: proxmox_virtual_environment_oci_image
+        examples:
+            - name: ubuntu_latest
+              manifest: |-
+                {
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "reference": "docker.io/library/ubuntu:latest"
+                }
+            - name: nginx
+              manifest: |-
+                {
+                  "datastore_id": "local",
+                  "file_name": "custom_image_name.tar",
+                  "node_name": "pve",
+                  "reference": "docker.io/library/nginx:alpine"
+                }
+            - name: debian
+              manifest: |-
+                {
+                  "datastore_id": "local",
+                  "node_name": "pve",
+                  "overwrite": false,
+                  "overwrite_unmanaged": true,
+                  "reference": "docker.io/library/debian:bookworm",
+                  "upload_timeout": 900
+                }
+        argumentDocs:
+            datastore_id: (String) The identifier for the target datastore.
+            file_name: (String) The file name for the pulled OCI image. If not provided, it will be generated automatically. The file will be stored as a .tar file.
+            id: (String) The unique identifier of this resource.
+            node_name: (String) The node name.
+            overwrite: (Boolean) By default true. If true and the OCI image size has changed in the datastore, it will be replaced. If false, there will be no check.
+            overwrite_unmanaged: (Boolean) If true and an OCI image with the same name already exists in the datastore, it will be deleted and the new image will be pulled. If false and the image already exists, an error will be returned.
+            reference: (String) The reference to the OCI image.
+            size: (Number) The image size in PVE.
+            upload_timeout: (Number) The OCI image pull timeout in seconds. Default is 600 (10min).
+        importStatements: []
     proxmox_virtual_environment_pool:
         subCategory: Virtual Environment
         description: '|  Manages a resource pool.'
@@ -1670,6 +1713,8 @@ resources:
                     }
         argumentDocs:
             id: (String) Opaque identifier set to the Unix timestamp (milliseconds) when the apply was executed.
+            on_create: (Boolean) Whether to apply SDN configuration on resource creation. Defaults to true.
+            on_destroy: (Boolean) Whether to apply SDN configuration on resource destruction. Defaults to true.
         importStatements: []
     proxmox_virtual_environment_sdn_subnet:
         subCategory: Virtual Environment
@@ -2898,7 +2943,7 @@ resources:
                 - (Optional) Whether to enable the FSTRIM feature in the QEMU agent
                 (defaults to false).
             type: '- (Optional) The QEMU agent interface type (defaults to virtio).'
-            units: '- (Optional) The CPU units (defaults to 1024).'
+            units: '- (Optional) The CPU units. PVE default is 1024 for cgroups v1 and 100 for cgroups v2.'
             unsafe: '- Write directly to the disk bypassing the host cache.'
             up_delay: |-
                 - (Optional) A non-negative number defining the delay in

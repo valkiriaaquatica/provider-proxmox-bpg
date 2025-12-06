@@ -226,6 +226,14 @@ spec:
                           type: number
                       type: object
                     type: array
+                  environmentVariables:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      A map of runtime environment variables for the container init process.
+                      The runtime environment variables for the container init process.
+                    type: object
+                    x-kubernetes-map-type: granular
                   features:
                     description: |-
                       The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
@@ -831,6 +839,14 @@ spec:
                           type: number
                       type: object
                     type: array
+                  environmentVariables:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      A map of runtime environment variables for the container init process.
+                      The runtime environment variables for the container init process.
+                    type: object
+                    x-kubernetes-map-type: granular
                   features:
                     description: |-
                       The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
@@ -1601,6 +1617,14 @@ spec:
                           type: number
                       type: object
                     type: array
+                  environmentVariables:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      A map of runtime environment variables for the container init process.
+                      The runtime environment variables for the container init process.
+                    type: object
+                    x-kubernetes-map-type: granular
                   features:
                     description: |-
                       The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.

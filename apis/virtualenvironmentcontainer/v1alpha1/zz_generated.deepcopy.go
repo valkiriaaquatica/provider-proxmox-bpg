@@ -734,6 +734,22 @@ func (in *EnvironmentContainerInitParameters) DeepCopyInto(out *EnvironmentConta
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.EnvironmentVariables != nil {
+		in, out := &in.EnvironmentVariables, &out.EnvironmentVariables
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.Features != nil {
 		in, out := &in.Features, &out.Features
 		*out = make([]FeaturesInitParameters, len(*in))
@@ -956,6 +972,22 @@ func (in *EnvironmentContainerObservation) DeepCopyInto(out *EnvironmentContaine
 		*out = make([]DiskObservation, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.EnvironmentVariables != nil {
+		in, out := &in.EnvironmentVariables, &out.EnvironmentVariables
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
 		}
 	}
 	if in.Features != nil {
@@ -1185,6 +1217,22 @@ func (in *EnvironmentContainerParameters) DeepCopyInto(out *EnvironmentContainer
 		*out = make([]DiskParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.EnvironmentVariables != nil {
+		in, out := &in.EnvironmentVariables, &out.EnvironmentVariables
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
 		}
 	}
 	if in.Features != nil {

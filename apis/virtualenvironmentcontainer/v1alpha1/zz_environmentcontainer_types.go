@@ -416,6 +416,11 @@ type EnvironmentContainerInitParameters struct {
 	// The disks
 	Disk []DiskInitParameters `json:"disk,omitempty" tf:"disk,omitempty"`
 
+	// A map of runtime environment variables for the container init process.
+	// The runtime environment variables for the container init process.
+	// +mapType=granular
+	EnvironmentVariables map[string]*string `json:"environmentVariables,omitempty" tf:"environment_variables,omitempty"`
+
 	// The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
 	// Features
 	Features []FeaturesInitParameters `json:"features,omitempty" tf:"features,omitempty"`
@@ -540,6 +545,11 @@ type EnvironmentContainerObservation struct {
 	// The disk configuration.
 	// The disks
 	Disk []DiskObservation `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// A map of runtime environment variables for the container init process.
+	// The runtime environment variables for the container init process.
+	// +mapType=granular
+	EnvironmentVariables map[string]*string `json:"environmentVariables,omitempty" tf:"environment_variables,omitempty"`
 
 	// The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
 	// Features
@@ -683,6 +693,12 @@ type EnvironmentContainerParameters struct {
 	// The disks
 	// +kubebuilder:validation:Optional
 	Disk []DiskParameters `json:"disk,omitempty" tf:"disk,omitempty"`
+
+	// A map of runtime environment variables for the container init process.
+	// The runtime environment variables for the container init process.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	EnvironmentVariables map[string]*string `json:"environmentVariables,omitempty" tf:"environment_variables,omitempty"`
 
 	// The container feature flags. Changing flags (except nesting) is only allowed for root@pam authenticated user.
 	// Features

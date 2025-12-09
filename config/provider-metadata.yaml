@@ -599,9 +599,7 @@ resources:
             path: |-
                 (Required) Path to the mount point as seen from inside the
                 container.
-            pool_id: |-
-                - (Optional, Deprecated) The identifier for a pool to assign the container to.
-                This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
+            pool_id: '- (Optional) The identifier for a pool to assign the container to.'
             protection: '- (Optional) Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.'
             quota: |-
                 (Optional) Enable user quotas inside the container (not supported
@@ -2832,9 +2830,7 @@ resources:
             phenom: '- AMD Phenom (2010).'
             pl: '- Polish.'
             policy: '- (Optional) The NUMA policy (defaults to preferred).'
-            pool_id: |-
-                - (Optional, Deprecated) The identifier for a pool to assign the virtual machine to.
-                This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
+            pool_id: '- (Optional) The identifier for a pool to assign the virtual machine to.'
             pre_enrolled_keys: |-
                 (Optional) Use am EFI vars template with
                 distribution-specific and Microsoft Standard keys enrolled, if used with

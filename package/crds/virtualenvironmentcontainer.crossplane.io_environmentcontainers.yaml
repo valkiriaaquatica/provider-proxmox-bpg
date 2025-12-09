@@ -560,7 +560,6 @@ spec:
                   poolId:
                     description: |-
                       The identifier for a pool to assign the container to.
-                      This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
                       The ID of the pool to assign the container to
                     type: string
                   protection:
@@ -1173,7 +1172,6 @@ spec:
                   poolId:
                     description: |-
                       The identifier for a pool to assign the container to.
-                      This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
                       The ID of the pool to assign the container to
                     type: string
                   protection:
@@ -1950,7 +1948,6 @@ spec:
                   poolId:
                     description: |-
                       The identifier for a pool to assign the container to.
-                      This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
                       The ID of the pool to assign the container to
                     type: string
                   protection:

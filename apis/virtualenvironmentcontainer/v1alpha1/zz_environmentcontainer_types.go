@@ -455,7 +455,6 @@ type EnvironmentContainerInitParameters struct {
 	OperatingSystem []OperatingSystemInitParameters `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the container to.
-	// This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the container to
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
@@ -597,7 +596,6 @@ type EnvironmentContainerObservation struct {
 	OperatingSystem []OperatingSystemObservation `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the container to.
-	// This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the container to
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
@@ -742,7 +740,6 @@ type EnvironmentContainerParameters struct {
 	OperatingSystem []OperatingSystemParameters `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the container to.
-	// This field is deprecated and will be removed in a future release. To assign the container to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the container to
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`

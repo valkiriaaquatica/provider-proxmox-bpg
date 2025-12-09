@@ -1004,7 +1004,6 @@ type EnvironmentVMInitParameters struct {
 	OperatingSystem []OperatingSystemInitParameters `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the virtual machine to.
-	// This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the virtual machine to
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
@@ -1274,7 +1273,6 @@ type EnvironmentVMObservation struct {
 	OperatingSystem []OperatingSystemObservation `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the virtual machine to.
-	// This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the virtual machine to
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`
 
@@ -1552,7 +1550,6 @@ type EnvironmentVMParameters struct {
 	OperatingSystem []OperatingSystemParameters `json:"operatingSystem,omitempty" tf:"operating_system,omitempty"`
 
 	// The identifier for a pool to assign the virtual machine to.
-	// This field is deprecated and will be removed in a future release. To assign the VM to a pool, use the proxmox_virtual_environment_pool_membership resource instead.
 	// The ID of the pool to assign the virtual machine to
 	// +kubebuilder:validation:Optional
 	PoolID *string `json:"poolId,omitempty" tf:"pool_id,omitempty"`

@@ -96,37 +96,7 @@ func resolveModern(ctx context.Context, crClient client.Client, mg resource.Mode
 		return nil, errors.Wrap(err, errGetProviderConfig)
 	}
 
-	switch pc := pcObj.(type) {
-	case *namespacedv1beta1.ProviderConfig:
-		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
-			return nil, errors.Wrap(err, errTrackUsage)
-		}
-		if pc.Spec.Credentials.SecretRef != nil {
-			pc.Spec.Credentials.SecretRef.Namespace = mg.GetNamespace()
-		}
-		return &clusterv1beta1.ProviderCredentials{
-			Source:                    pc.Spec.Credentials.Source,
-			CommonCredentialSelectors: pc.Spec.Credentials.CommonCredentialSelectors,
-		}, nil
-	case *namespacedv1beta1.ClusterProviderConfig:
-		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
-			return nil, errors.Wrap(err, errTrackUsage)
-		}
-		return &clusterv1beta1.ProviderCredentials{
-			Source:                    pc.Spec.Credentials.Source,
-			CommonCredentialSelectors: pc.Spec.Credentials.CommonCredentialSelectors,
-		}, nil
-	case *clusterv1beta1.ProviderConfig:
-		t := resource.NewProviderConfigUsageTracker(crClient, &clusterv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
-			return nil, errors.Wrap(err, errTrackUsage)
-		}
-		return &pc.Spec.Credentials, nil
-	default:
-		return nil, errors.New("unknown provider config type")
-	}
+	return providerCredentialsFor(ctx, crClient, mg, pcObj)
 }
 
 func loadCredentials(ctx context.Context, c client.Client, credsSpec *clusterv1beta1.ProviderCredentials) (map[string]string, error) {
@@ -181,4 +151,38 @@ func buildConfiguration(creds map[string]string) map[string]any {
 	}
 
 	return cfg
+}
+
+func providerCredentialsFor(ctx context.Context, crClient client.Client, mg resource.ModernManaged, pc client.Object) (*clusterv1beta1.ProviderCredentials, error) {
+	switch cfg := pc.(type) {
+	case *namespacedv1beta1.ProviderConfig:
+		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
+		if err := t.Track(ctx, mg); err != nil {
+			return nil, errors.Wrap(err, errTrackUsage)
+		}
+		if cfg.Spec.Credentials.SecretRef != nil {
+			cfg.Spec.Credentials.SecretRef.Namespace = mg.GetNamespace()
+		}
+		return &clusterv1beta1.ProviderCredentials{
+			Source:                    cfg.Spec.Credentials.Source,
+			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
+		}, nil
+	case *namespacedv1beta1.ClusterProviderConfig:
+		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
+		if err := t.Track(ctx, mg); err != nil {
+			return nil, errors.Wrap(err, errTrackUsage)
+		}
+		return &clusterv1beta1.ProviderCredentials{
+			Source:                    cfg.Spec.Credentials.Source,
+			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
+		}, nil
+	case *clusterv1beta1.ProviderConfig:
+		t := resource.NewProviderConfigUsageTracker(crClient, &clusterv1beta1.ProviderConfigUsage{})
+		if err := t.Track(ctx, mg); err != nil {
+			return nil, errors.Wrap(err, errTrackUsage)
+		}
+		return &cfg.Spec.Credentials, nil
+	default:
+		return nil, errors.New("unknown provider config type")
+	}
 }

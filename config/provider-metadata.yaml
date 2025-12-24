@@ -221,6 +221,282 @@ resources:
             subject: '- The subject.'
             subject_alternative_names: '- The subject alternative names.'
         importStatements: []
+    proxmox_virtual_environment_cloned_vm:
+        subCategory: Virtual Environment
+        description: 'Clone a VM from a source template/VM and manage only explicitly-defined configuration. This resource uses explicit opt-in management: only configuration blocks and devices explicitly listed in your Terraform code are managed. Inherited settings from the template are preserved unless explicitly overridden or deleted. Removing a configuration from Terraform stops managing it but does not delete it from the VM.'
+        name: proxmox_virtual_environment_cloned_vm
+        title: proxmox_virtual_environment_cloned_vm
+        examples:
+            - name: basic_clone
+              manifest: |-
+                {
+                  "clone": {
+                    "full": true,
+                    "source_vm_id": 100
+                  },
+                  "cpu": {
+                    "cores": 4
+                  },
+                  "name": "basic-clone",
+                  "node_name": "pve"
+                }
+            - name: network_managed
+              manifest: |-
+                {
+                  "clone": {
+                    "source_vm_id": 100
+                  },
+                  "cpu": {
+                    "cores": 2
+                  },
+                  "name": "network-clone",
+                  "network": {
+                    "net0": {
+                      "bridge": "vmbr0",
+                      "model": "virtio",
+                      "tag": 100
+                    },
+                    "net1": {
+                      "bridge": "vmbr1",
+                      "firewall": true,
+                      "mac_address": "BC:24:11:2E:C5:00",
+                      "model": "virtio"
+                    }
+                  },
+                  "node_name": "pve"
+                }
+            - name: disk_managed
+              manifest: |-
+                {
+                  "clone": {
+                    "source_vm_id": 100,
+                    "target_datastore": "local-lvm"
+                  },
+                  "disk": {
+                    "scsi0": {
+                      "datastore_id": "local-lvm",
+                      "discard": "on",
+                      "size_gb": 50,
+                      "ssd": true
+                    },
+                    "scsi1": {
+                      "backup": false,
+                      "datastore_id": "local-lvm",
+                      "size_gb": 100
+                    }
+                  },
+                  "name": "disk-clone",
+                  "node_name": "pve"
+                }
+            - name: selective_delete
+              manifest: |-
+                {
+                  "clone": {
+                    "source_vm_id": 100
+                  },
+                  "delete": {
+                    "network": [
+                      "net1",
+                      "net2"
+                    ]
+                  },
+                  "name": "minimal-clone",
+                  "network": {
+                    "net0": {
+                      "bridge": "vmbr0",
+                      "model": "virtio"
+                    }
+                  },
+                  "node_name": "pve"
+                }
+            - name: full_featured
+              manifest: |-
+                {
+                  "clone": {
+                    "full": true,
+                    "retries": 3,
+                    "source_node_name": "pve",
+                    "source_vm_id": 100,
+                    "target_datastore": "local-lvm"
+                  },
+                  "cpu": {
+                    "architecture": "x86_64",
+                    "cores": 8,
+                    "sockets": 1,
+                    "type": "host"
+                  },
+                  "delete": {
+                    "disk": [
+                      "ide2"
+                    ]
+                  },
+                  "delete_unreferenced_disks_on_destroy": false,
+                  "description": "Production VM cloned from template",
+                  "disk": {
+                    "scsi0": {
+                      "cache": "writethrough",
+                      "datastore_id": "local-lvm",
+                      "discard": "on",
+                      "iothread": true,
+                      "size_gb": 100,
+                      "ssd": true
+                    }
+                  },
+                  "memory": {
+                    "balloon": 2048,
+                    "shares": 2000,
+                    "size": 8192
+                  },
+                  "name": "production-vm",
+                  "network": {
+                    "net0": {
+                      "bridge": "vmbr0",
+                      "firewall": true,
+                      "model": "virtio",
+                      "rate_limit": 100,
+                      "tag": 100
+                    }
+                  },
+                  "node_name": "pve",
+                  "purge_on_destroy": true,
+                  "stop_on_destroy": false,
+                  "tags": [
+                    "production",
+                    "web"
+                  ],
+                  "timeouts": {
+                    "create": "30m",
+                    "delete": "10m",
+                    "update": "30m"
+                  },
+                  "vga": {
+                    "memory": 16,
+                    "type": "std"
+                  }
+                }
+            - name: test_clone
+              manifest: |-
+                {
+                  "clone": {
+                    "full": false,
+                    "source_vm_id": 100
+                  },
+                  "cpu": {
+                    "cores": 2
+                  },
+                  "name": "test-vm",
+                  "network": {
+                    "net0": {
+                      "bridge": "vmbr0",
+                      "model": "virtio"
+                    }
+                  },
+                  "node_name": "pve"
+                }
+            - name: pooled_clone
+              manifest: |-
+                {
+                  "clone": {
+                    "pool_id": "production",
+                    "source_vm_id": 100
+                  },
+                  "cpu": {
+                    "cores": 4
+                  },
+                  "name": "pooled-vm",
+                  "node_name": "pve"
+                }
+            - name: imported
+              manifest: |-
+                {
+                  "clone": {
+                    "source_vm_id": 100
+                  },
+                  "cpu": {
+                    "cores": 4
+                  },
+                  "id": 123,
+                  "node_name": "pve"
+                }
+        argumentDocs:
+            "2": '- Use 2 MiB hugepages'
+            "1024": '- Use 1 GiB hugepages'
+            affinity: (String) The CPU cores that are used to run the VM’s vCPU. The value is a list of CPU IDs, separated by commas. The CPU IDs are zero-based.  For example, 0,1,2,3 (which also can be shortened to 0-3) means that the VM’s vCPUs are run on the first four CPU cores. Setting affinity is only allowed for root@pam authenticated user.
+            aio: (String) AIO mode (io_uring, native, threads).
+            any: '- Use any available hugepage size'
+            architecture: (String) The CPU architecture <aarch64 | x86_64> (defaults to the host). Setting architecture is only allowed for root@pam authenticated user.
+            backup: (Boolean) Include disk in backups.
+            balloon: (Number) Minimum guaranteed memory in MiB via balloon device. This is the floor amount of RAM that is always guaranteed to the VM. Setting to 0 disables the balloon driver entirely (defaults to 0).
+            bandwidth_limit: (Number) Clone bandwidth limit in MB/s.
+            bridge: (String) Bridge name.
+            cache: (String) Cache mode.
+            cdrom: (Attributes Map) The CD-ROM configuration. The key is the interface of the CD-ROM, could be one of ideN, sataN, scsiN, where N is the index of the interface. Note that q35 machine type only supports ide0 and ide2 of IDE interfaces. (see below for nested schema)
+            clipboard: (String) Enable a specific clipboard. If not set, depending on the display type the SPICE one will be added. Currently only vnc is available. Migration with VNC clipboard is not supported by Proxmox.
+            clone: (Attributes) Clone settings. Changes require recreation. (see below for nested schema)
+            cores: (Number) The number of CPU cores per socket (defaults to 1).
+            cpu: (Attributes) The CPU configuration. (see below for nested schema)
+            create: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+            datastore_id: (String) Target datastore for new disks when file is not provided.
+            delete: (Attributes) Explicit deletions to perform after cloning/updating. Entries persist across applies. (see below for nested schema)
+            delete_unreferenced_disks_on_destroy: '(Boolean) Delete unreferenced disks on destroy. WARNING: When set to true, any disks not explicitly managed by Terraform will be deleted on destroy, potentially causing data loss. Defaults to false for safety.'
+            description: (String) Optional VM description applied after cloning.
+            discard: (String) Discard/trim behavior.
+            disk: (Attributes Map) Disks keyed by slot (scsi0, virtio0, sata0, ide0, ...). Only listed keys are managed. (see below for nested schema)
+            file: (String) Existing volume reference (e.g., local-lvm:vm-100-disk-0).
+            file_id: (String) The file ID of the CD-ROM, or cdrom|none. Defaults to none to leave the CD-ROM empty. Use cdrom to connect to the physical drive.
+            firewall: (Boolean) Enable firewall on this interface.
+            flags: '(Set of String) Set of additional CPU flags. Use +FLAG to enable, -FLAG to disable a flag. Custom CPU models can specify any flag supported by QEMU/KVM, VM-specific flags must be from the following set for security reasons: pcid, spec-ctrl, ibpb, ssbd, virt-ssbd, amd-ssbd, amd-no-ssb, pdpe1gb, md-clear, hv-tlbflush, hv-evmcs, aes.'
+            format: (String) Disk format (raw, qcow2, vmdk).
+            full: (Boolean) Perform a full clone (true) or linked clone (false).
+            hotplugged: (Number) The number of hotplugged vCPUs (defaults to 0).
+            hugepages: (String) Enable hugepages for VM memory allocation. Hugepages can improve performance for memory-intensive workloads by reducing TLB misses.
+            id: (Number) The VM identifier in the Proxmox cluster.
+            import_from: (String) Import source volume/file id.
+            iothread: (Boolean) Use IO thread.
+            keep_hugepages: (Boolean) Don't release hugepages when the VM shuts down. By default, hugepages are released back to the host when the VM stops. Setting this to true keeps them allocated for faster VM startup (defaults to false).
+            limit: (Number) Limit of CPU usage (defaults to 0 which means no limit).
+            link_down: (Boolean) Keep link down.
+            mac_address: (String) MAC address (computed if omitted).
+            max_bytes: (Number) Maximum bytes of entropy allowed to get injected into the guest every period. Use 0 to disable limiting (potentially dangerous).
+            media: (String) Disk media (e.g., disk, cdrom).
+            memory: (Attributes) Memory configuration for the VM. Uses Proxmox memory ballooning to allow dynamic memory allocation. The size sets the total available RAM, while balloon sets the guaranteed floor. The host can reclaim memory between these values when needed. (see below for nested schema)
+            model: (String) NIC model (e.g., virtio, e1000).
+            mtu: (Number) Interface MTU.
+            name: (String) Optional VM name override applied after cloning.
+            network: (Attributes Map) Network devices keyed by slot (net0, net1, ...). Only listed keys are managed. (see below for nested schema)
+            node_name: (String) Target node for the cloned VM.
+            numa: (Boolean) Enable NUMA (defaults to false).
+            period: (Number) Period in milliseconds to limit entropy injection to the guest. Use 0 to disable limiting (potentially dangerous).
+            pool_id: (String) Pool to assign the cloned VM to.
+            purge_on_destroy: (Boolean) Purge backup configuration on destroy.
+            queues: (Number) Number of multiqueue NIC queues.
+            rate_limit: (Number) Rate limit (MB/s).
+            read: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+            replicate: (Boolean) Consider disk for replication.
+            retries: (Number) Number of retries for clone operations.
+            rng: (Attributes) Configure the RNG (Random Number Generator) device. The RNG device provides entropy to guests to ensure good quality random numbers for guest applications that require them. Can only be set by root@pam. See the Proxmox documentation for more information. (see below for nested schema)
+            serial: (String) Disk serial number.
+            shares: (Number) CPU scheduler priority for memory ballooning. This is used by the kernel fair scheduler. Higher values mean this VM gets more CPU time during memory ballooning operations. The value is relative to other running VMs (defaults to 1000).
+            size: (Number) Total memory available to the VM in MiB. This is the total RAM the VM can use. When ballooning is enabled (balloon > 0), memory between balloon and size can be reclaimed by the host. When ballooning is disabled (balloon = 0), this is the fixed amount of RAM allocated to the VM (defaults to 512 MiB).
+            size_gb: '(Number) Disk size (GiB) when creating new disks. Note: Disk shrinking is not supported. Attempting to set size_gb to a value smaller than the current disk size will result in an error. Only disk expansion is allowed.'
+            snapshot_name: (String) Snapshot name to clone from.
+            sockets: (Number) The number of CPU sockets (defaults to 1).
+            source: (String) The file on the host to gather entropy from. In most cases, /dev/urandom should be preferred over /dev/random to avoid entropy-starvation issues on the host.
+            source_node_name: (String) Source node of the VM/template. Defaults to target node if unset.
+            source_vm_id: (Number) Source VM/template ID to clone from.
+            ssd: (Boolean) Mark disk as SSD.
+            stop_on_destroy: (Boolean) Stop the VM on destroy (instead of shutdown).
+            tag: (Number) VLAN tag.
+            tags: (Set of String) Tags applied after cloning.
+            target_datastore: (String) Target datastore for cloned disks.
+            target_format: (String) Target disk format for clone (e.g., raw, qcow2).
+            timeouts: (Attributes) (see below for nested schema)
+            trunks: (Set of Number) Trunk VLAN IDs.
+            type: (String) Emulated CPU type, it's recommended to use x86-64-v2-AES or higher (defaults to kvm64). See https://pve.proxmox.com/pve-docs/pve-admin-guide.html#qm_virtual_machines_settings for more information.
+            units: (Number) CPU weight for a VM. Argument is used in the kernel fair scheduler. The larger the number is, the more CPU time this VM gets. Number is relative to weights of all the other running VMs.
+            update: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+            vga: (Attributes) Configure the VGA Hardware. If you want to use high resolution modes (>= 1280x1024x16) you may need to increase the vga memory option. Since QEMU 2.9 the default VGA display type is std for all OS types besides some Windows versions (XP and older) which use cirrus. The qxl option enables the SPICE display server. For win* OS you can select how many independent displays you want, Linux guests can add displays themself. You can also run without any graphic card, using a serial device as terminal. See the Proxmox documentation section 10.2.8 for more information and available configuration parameters. (see below for nested schema)
+        importStatements: []
     proxmox_virtual_environment_cluster_firewall:
         subCategory: Virtual Environment
         description: '|  Manages firewall options on the cluster level.'
@@ -3007,10 +3283,9 @@ resources:
         title: proxmox_virtual_environment_vm2
         argumentDocs:
             affinity: (String) The CPU cores that are used to run the VM’s vCPU. The value is a list of CPU IDs, separated by commas. The CPU IDs are zero-based.  For example, 0,1,2,3 (which also can be shortened to 0-3) means that the VM’s vCPUs are run on the first four CPU cores. Setting affinity is only allowed for root@pam authenticated user.
-            architecture: (String) The CPU architecture <aarch64 | x86_64> (defaults to the host). Setting affinity is only allowed for root@pam authenticated user.
+            architecture: (String) The CPU architecture <aarch64 | x86_64> (defaults to the host). Setting architecture is only allowed for root@pam authenticated user.
             cdrom: (Attributes Map) The CD-ROM configuration. The key is the interface of the CD-ROM, could be one of ideN, sataN, scsiN, where N is the index of the interface. Note that q35 machine type only supports ide0 and ide2 of IDE interfaces. (see below for nested schema)
             clipboard: (String) Enable a specific clipboard. If not set, depending on the display type the SPICE one will be added. Currently only vnc is available. Migration with VNC clipboard is not supported by Proxmox.
-            clone: (Attributes) The cloning configuration. (see below for nested schema)
             cores: (Number) The number of CPU cores per socket (defaults to 1).
             cpu: (Attributes) The CPU configuration. (see below for nested schema)
             create: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
@@ -3030,8 +3305,7 @@ resources:
             period: (Number) Period in milliseconds to limit entropy injection to the guest. Use 0 to disable limiting (potentially dangerous).
             purge_on_destroy: (Boolean) Set to true to purge the VM from backup configurations on destroy (defaults to true).
             read: (String) A string that can be parsed as a duration consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
-            retries: '(Number) The number of retries to perform when cloning the VM (default: 3).'
-            rng: (Attributes) Configure the RNG (Random Number Generator) device. The RNG device provides entropy to guests to ensure good quality random numbers for guest applications that require them. Can only be set by root@pam.See the Proxmox documentation for more information. (see below for nested schema)
+            rng: (Attributes) Configure the RNG (Random Number Generator) device. The RNG device provides entropy to guests to ensure good quality random numbers for guest applications that require them. Can only be set by root@pam. See the Proxmox documentation for more information. (see below for nested schema)
             sockets: (Number) The number of CPU sockets (defaults to 1).
             source: (String) The file on the host to gather entropy from. In most cases, /dev/urandom should be preferred over /dev/random to avoid entropy-starvation issues on the host.
             stop_on_destroy: (Boolean) Set to true to stop (rather than shutdown) the VM on destroy (defaults to false).

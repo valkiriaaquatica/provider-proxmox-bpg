@@ -147,16 +147,11 @@ jobs:
 
       - name: make generate
         run: |
-          make generate > /dev/null || true
+          make generate
 
       - name: debug
         run: |
           tree .work || true
-
-      - name: Run pre-make-generate patch
-        run: |
-          chmod +x ./pre-make-generate.sh
-          ./pre-make-generate.sh
 
       - name: Check Diff
         run: |

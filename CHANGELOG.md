@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.11.1...v1.0.0) (2025-12-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* move to crossplane v2.0 ([#137](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/137))
+
+### Code Refactoring
+
+* move to crossplane v2.0 ([#137](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/137)) ([283a229](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/283a229895b38153b8bd722ad870160712f5e20b))
+
 ## [0.11.1](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v0.11.0...v0.11.1) (2025-12-09)
 
 

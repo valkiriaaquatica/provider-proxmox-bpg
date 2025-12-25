@@ -1,0 +1,64 @@
+apiVersion: virtualenvironmentcontainer.proxmoxbpg.m.crossplane.io/v1alpha1
+kind: EnvironmentContainer
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentcontainer/v1alpha1/environmentcontainer
+  labels:
+    testing.upbound.io/example-name: ubuntu_container
+  name: ubuntu-container
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: Managed by Terraform
+    disk:
+    - datastoreId: local-lvm
+      size: 4
+    features:
+    - nesting: true
+    initialization:
+    - hostname: terraform-provider-proxmox-ubuntu-container
+      ipConfig:
+      - ipv4:
+        - address: dhcp
+      userAccount:
+      - keys:
+        - ${trimspace(tls_private_key.ubuntu_container_key.public_key_openssh)}
+        passwordSecretRef:
+          key: attribute.result
+          name: example-password
+    mountPoint:
+    - path: /mnt/shared
+      volume: /mnt/bindmounts/shared
+    - path: /mnt/volume
+      size: 10G
+      volume: local-lvm
+    networkInterface:
+    - name: veth0
+    nodeName: first-node
+    operatingSystem:
+    - templateFileId: ${proxmox_virtual_environment_download_file.ubuntu_2504_lxc_img.id}
+      type: ubuntu
+    startup:
+    - downDelay: "60"
+      order: "3"
+      upDelay: "60"
+    unprivileged: true
+    vmId: 1234
+
+---
+
+apiVersion: virtualenvironmentdownloadfile.proxmoxbpg.m.crossplane.io/v1alpha1
+kind: EnvironmentDownloadFile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentcontainer/v1alpha1/environmentcontainer
+  labels:
+    testing.upbound.io/example-name: ubuntu_2504_lxc_img
+  name: ubuntu-2504-lxc-img
+  namespace: crossplane-system
+spec:
+  forProvider:
+    contentType: vztmpl
+    datastoreId: local
+    nodeName: first-node
+    url: https://mirrors.servercentral.com/ubuntu-cloud-images/releases/25.04/release/ubuntu-25.04-server-cloudimg-amd64-root.tar.xz

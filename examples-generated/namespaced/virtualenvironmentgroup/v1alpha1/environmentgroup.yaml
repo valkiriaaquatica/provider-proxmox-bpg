@@ -1,0 +1,13 @@
+apiVersion: virtualenvironmentgroup.proxmoxbpg.m.crossplane.io/v1alpha1
+kind: EnvironmentGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: virtualenvironmentgroup/v1alpha1/environmentgroup
+  labels:
+    testing.upbound.io/example-name: operations_team
+  name: operations-team
+  namespace: crossplane-system
+spec:
+  forProvider:
+    comment: Managed by Terraform
+    groupId: operations-team

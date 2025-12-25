@@ -44,20 +44,23 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.21
-GOLANGCILINT_VERSION ?= 1.54.0
+GO_REQUIRED_VERSION ?= 1.24
+GOLANGCILINT_VERSION ?= 2.6.1
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis
+export PATH := $(shell go env GOPATH)/bin:$(PATH)
 -include build/makelib/golang.mk
 
 # ====================================================================================
 # Setup Kubernetes tools
 
-KIND_VERSION = v0.15.0
-UP_VERSION = v0.28.0
-UP_CHANNEL = stable
-UPTEST_VERSION = v0.5.0
+KIND_VERSION = v0.30.0
+UPTEST_VERSION = v2.2.0
+CRDDIFF_VERSION = v0.12.1
+CROSSPLANE_CLI_VERSION = v2.1.1
+# for e2e testing
+CROSSPLANE_VERSION = 2.1.1
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================
@@ -97,7 +100,7 @@ xpkg.build.provider-proxmox-bpg: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
-build.init: $(UP) check-terraform-version
+build.init: $(UP) $(CROSSPLANE_CLI) check-terraform-version
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema
@@ -174,8 +177,8 @@ run: go.build
 
 # ====================================================================================
 # End to End Testing
-CROSSPLANE_VERSION = 1.16.0
-CROSSPLANE_NAMESPACE = upbound-system
+CROSSPLANE_VERSION = 2.1.1
+CROSSPLANE_NAMESPACE = crossplane-system
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
 
@@ -201,7 +204,7 @@ uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
 local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 	@$(INFO) running locally built provider
 	@$(KUBECTL) wait provider.pkg $(PROJECT_NAME) --for condition=Healthy --timeout 5m
-	@$(KUBECTL) -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
+	@$(KUBECTL) -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 	@$(OK) running locally built provider
 
 e2e: local-deploy uptest

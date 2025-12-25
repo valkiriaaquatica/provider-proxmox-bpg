@@ -1,6 +1,6 @@
-/*
-Copyright 2021 Upbound Inc.
-*/
+// SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
 
 package clients
 
@@ -8,14 +8,15 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/crossplane/upjet/pkg/terraform"
+	"github.com/crossplane/upjet/v2/pkg/terraform"
 
-	"github.com/valkiriaaquatica/provider-proxmox-bpg/apis/v1beta1"
+	clusterv1beta1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/v1beta1"
+	namespacedv1beta1 "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/namespaced/v1beta1"
 )
 
 const (
@@ -24,7 +25,7 @@ const (
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal proxmox  credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal proxmox credentials as JSON"
 )
 
 const (
@@ -42,7 +43,7 @@ const (
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
-// returns Terraform provider setup configuration
+// returns Terraform provider setup configuration.
 func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
 	return func(ctx context.Context, c client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{
@@ -52,51 +53,70 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 				Version: providerVersion,
 			},
 		}
-		if err := populateProviderConfig(ctx, c, mg, &ps); err != nil {
-			return ps, err
+
+		credsSpec, err := resolveProviderConfig(ctx, c, mg)
+		if err != nil {
+			return terraform.Setup{}, errors.Wrap(err, "cannot resolve provider config")
 		}
+
+		creds, err := loadCredentials(ctx, c, credsSpec)
+		if err != nil {
+			return terraform.Setup{}, err
+		}
+
+		ps.Configuration = buildConfiguration(creds)
 		return ps, nil
 	}
 }
 
-func populateProviderConfig(ctx context.Context, c client.Client, mg resource.Managed, ps *terraform.Setup) error {
-	ref := mg.GetProviderConfigReference()
-	if ref == nil {
-		return errors.New(errNoProviderConfig)
+func resolveProviderConfig(ctx context.Context, crClient client.Client, mg resource.Managed) (*clusterv1beta1.ProviderCredentials, error) {
+	modern, ok := mg.(resource.ModernManaged)
+	if !ok {
+		return nil, errors.New("resource is not a managed resource")
+	}
+	return resolveModern(ctx, crClient, modern)
+}
+
+func resolveModern(ctx context.Context, crClient client.Client, mg resource.ModernManaged) (*clusterv1beta1.ProviderCredentials, error) {
+	configRef := mg.GetProviderConfigReference()
+	if configRef == nil {
+		return nil, errors.New(errNoProviderConfig)
 	}
 
-	pc := &v1beta1.ProviderConfig{}
-	if err := c.Get(ctx, types.NamespacedName{Name: ref.Name}, pc); err != nil {
-		return errors.Wrap(err, errGetProviderConfig)
-	}
-
-	if err := trackProviderUsage(ctx, c, mg); err != nil {
-		return err
-	}
-
-	creds, err := loadCredentials(ctx, c, pc)
+	pcRuntimeObj, err := crClient.Scheme().New(namespacedv1beta1.SchemeGroupVersion.WithKind(configRef.Kind))
 	if err != nil {
-		return err
+		return nil, errors.Wrap(err, "unknown GVK for ProviderConfig")
+	}
+	pcObj, ok := pcRuntimeObj.(client.Object)
+	if !ok {
+		return nil, errors.New("provider config type is not a client.Object")
 	}
 
-	ps.Configuration = buildConfiguration(creds)
-	return nil
+	if err := crClient.Get(ctx, types.NamespacedName{Name: configRef.Name, Namespace: mg.GetNamespace()}, pcObj); err != nil {
+		return nil, errors.Wrap(err, errGetProviderConfig)
+	}
+
+	return providerCredentialsFor(ctx, crClient, mg, pcObj)
 }
 
-func trackProviderUsage(ctx context.Context, c client.Client, mg resource.Managed) error {
-	tracker := resource.NewProviderConfigUsageTracker(c, &v1beta1.ProviderConfigUsage{})
-	return errors.Wrap(tracker.Track(ctx, mg), errTrackUsage)
-}
-
-func loadCredentials(ctx context.Context, c client.Client, pc *v1beta1.ProviderConfig) (map[string]string, error) {
-	data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, c, pc.Spec.Credentials.CommonCredentialSelectors)
+func loadCredentials(ctx context.Context, c client.Client, credsSpec *clusterv1beta1.ProviderCredentials) (map[string]string, error) {
+	data, err := resource.CommonCredentialExtractor(ctx, credsSpec.Source, c, credsSpec.CommonCredentialSelectors)
 	if err != nil {
 		return nil, errors.Wrap(err, errExtractCredentials)
 	}
+
 	creds := map[string]string{}
 	if err := json.Unmarshal(data, &creds); err != nil {
 		return nil, errors.Wrap(err, errUnmarshalCredentials)
 	}
+
+	// If the Secret does not contain API token, but contains auth ticket and
+	// CSRF token, then set the API token to empty string so that the provider
+	// will use the auth ticket and CSRF token.
+	if creds[keyAPIToken] == "" && creds[keyAuthTicket] != "" && creds[keyCSRFPreventionToken] != "" {
+		creds[keyAPIToken] = ""
+	}
+
 	return creds, nil
 }
 
@@ -131,4 +151,38 @@ func buildConfiguration(creds map[string]string) map[string]any {
 	}
 
 	return cfg
+}
+
+func providerCredentialsFor(ctx context.Context, crClient client.Client, mg resource.ModernManaged, pc client.Object) (*clusterv1beta1.ProviderCredentials, error) {
+	switch cfg := pc.(type) {
+	case *namespacedv1beta1.ProviderConfig:
+		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
+		if err := t.Track(ctx, mg); err != nil {
+			return nil, errors.Wrap(err, errTrackUsage)
+		}
+		if cfg.Spec.Credentials.SecretRef != nil {
+			cfg.Spec.Credentials.SecretRef.Namespace = mg.GetNamespace()
+		}
+		return &clusterv1beta1.ProviderCredentials{
+			Source:                    cfg.Spec.Credentials.Source,
+			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
+		}, nil
+	case *namespacedv1beta1.ClusterProviderConfig:
+		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
+		if err := t.Track(ctx, mg); err != nil {
+			return nil, errors.Wrap(err, errTrackUsage)
+		}
+		return &clusterv1beta1.ProviderCredentials{
+			Source:                    cfg.Spec.Credentials.Source,
+			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
+		}, nil
+	case *clusterv1beta1.ProviderConfig:
+		t := resource.NewProviderConfigUsageTracker(crClient, &clusterv1beta1.ProviderConfigUsage{})
+		if err := t.Track(ctx, mg); err != nil {
+			return nil, errors.Wrap(err, errTrackUsage)
+		}
+		return &cfg.Spec.Credentials, nil
+	default:
+		return nil, errors.New("unknown provider config type")
+	}
 }

@@ -4,11 +4,6 @@
 [Upjet](https://github.com/crossplane/upjet). It exposes XRM-conformant managed
 resources for the [Proxmox Virtual Environment](https://www.proxmox.com/) API.
 
-## ⚠️ Upcoming breaking changes
-Planning to do a mjor upgrade to crossplane v2.0 that includes crossplane, upjet (go) dependancies. 
-- See milestone: https://github.com/valkiriaaquatica/provider-proxmox-bpg/milestone/1
-- See issue: https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/136
-
 ## 🚀 Release Automation
 
 This repository automatically publishes a new release every time the upstream Terraform provider releases a new version:

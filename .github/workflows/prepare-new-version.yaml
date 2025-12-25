@@ -46,7 +46,7 @@ jobs:
       - name: Set up Go 1.21
         uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
-          go-version: "1.21"
+          go-version: "1.25"
 
       - name: Install necessary tooling for the CI
         run: |

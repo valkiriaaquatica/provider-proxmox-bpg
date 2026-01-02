@@ -5,6 +5,9 @@
     "github>bpg/renovate-config",
     ":semanticCommitTypeAll(chore)"
   ],
+  "platformAutomerge": true,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
   "commitMessageAction": "update",
 
   "customManagers": [
@@ -47,6 +50,11 @@
     {
       "matchUpdateTypes": ["major"],
       "commitMessagePrefix": "{{semanticCommitType}}({{semanticCommitScope}}):"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
     }
   ]
 }

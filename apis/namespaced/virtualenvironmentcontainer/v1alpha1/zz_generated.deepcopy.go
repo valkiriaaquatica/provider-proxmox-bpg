@@ -586,6 +586,11 @@ func (in *DiskObservation) DeepCopyInto(out *DiskObservation) {
 			}
 		}
 	}
+	if in.PathInDatastore != nil {
+		in, out := &in.PathInDatastore, &out.PathInDatastore
+		*out = new(string)
+		**out = **in
+	}
 	if in.Quota != nil {
 		in, out := &in.Quota, &out.Quota
 		*out = new(bool)
@@ -2074,6 +2079,11 @@ func (in *MountPointObservation) DeepCopyInto(out *MountPointObservation) {
 	}
 	if in.Path != nil {
 		in, out := &in.Path, &out.Path
+		*out = new(string)
+		**out = **in
+	}
+	if in.PathInDatastore != nil {
+		in, out := &in.PathInDatastore, &out.PathInDatastore
 		*out = new(string)
 		**out = **in
 	}

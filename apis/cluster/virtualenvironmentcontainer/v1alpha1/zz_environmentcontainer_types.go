@@ -338,6 +338,9 @@ type DiskObservation struct {
 	// Extra mount options
 	MountOptions []*string `json:"mountOptions,omitempty" tf:"mount_options,omitempty"`
 
+	// The in-datastore path to the disk image
+	PathInDatastore *string `json:"pathInDatastore,omitempty" tf:"path_in_datastore,omitempty"`
+
 	// Enable user quotas inside the container (not supported
 	// with ZFS subvolumes).
 	// Enable user quotas for the container rootfs
@@ -1174,6 +1177,9 @@ type MountPointObservation struct {
 	// container.
 	// Path to the mount point as seen from inside the container
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// The in-datastore path to the mount point volume
+	PathInDatastore *string `json:"pathInDatastore,omitempty" tf:"path_in_datastore,omitempty"`
 
 	// Enable user quotas inside the container (not supported
 	// with ZFS subvolumes).

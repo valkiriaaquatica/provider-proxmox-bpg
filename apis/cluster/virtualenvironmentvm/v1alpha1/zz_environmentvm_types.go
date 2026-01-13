@@ -947,6 +947,9 @@ type EnvironmentVMInitParameters struct {
 	// The Host PCI devices mapped to the VM
 	Hostpci []HostpciInitParameters `json:"hostpci,omitempty" tf:"hostpci,omitempty"`
 
+	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all.
+	Hotplug *string `json:"hotplug,omitempty" tf:"hotplug,omitempty"`
+
 	// The cloud-init configuration.
 	// The cloud-init configuration
 	Initialization []InitializationInitParameters `json:"initialization,omitempty" tf:"initialization,omitempty"`
@@ -1195,6 +1198,9 @@ type EnvironmentVMObservation struct {
 	// A host PCI device mapping (multiple blocks supported).
 	// The Host PCI devices mapped to the VM
 	Hostpci []HostpciObservation `json:"hostpci,omitempty" tf:"hostpci,omitempty"`
+
+	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all.
+	Hotplug *string `json:"hotplug,omitempty" tf:"hotplug,omitempty"`
 
 	// The PCI device ID. This parameter is not compatible
 	// with api_token and requires the root username and password
@@ -1479,6 +1485,10 @@ type EnvironmentVMParameters struct {
 	// The Host PCI devices mapped to the VM
 	// +kubebuilder:validation:Optional
 	Hostpci []HostpciParameters `json:"hostpci,omitempty" tf:"hostpci,omitempty"`
+
+	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all.
+	// +kubebuilder:validation:Optional
+	Hotplug *string `json:"hotplug,omitempty" tf:"hotplug,omitempty"`
 
 	// The cloud-init configuration.
 	// The cloud-init configuration

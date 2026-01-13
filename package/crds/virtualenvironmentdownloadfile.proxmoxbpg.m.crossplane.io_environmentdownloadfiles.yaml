@@ -100,7 +100,7 @@ spec:
                   overwrite:
                     description: |-
                       (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
-                      By default `true`. If `true` and file size has changed in the datastore, it will be replaced. If `false`, there will be no check.
+                      By default `true`. If `false`, no size checks are performed and the file is never automatically replaced.
                     type: boolean
                   overwriteUnmanaged:
                     description: |-
@@ -174,7 +174,7 @@ spec:
                   overwrite:
                     description: |-
                       (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
-                      By default `true`. If `true` and file size has changed in the datastore, it will be replaced. If `false`, there will be no check.
+                      By default `true`. If `false`, no size checks are performed and the file is never automatically replaced.
                     type: boolean
                   overwriteUnmanaged:
                     description: |-
@@ -319,7 +319,7 @@ spec:
                   overwrite:
                     description: |-
                       (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
-                      By default `true`. If `true` and file size has changed in the datastore, it will be replaced. If `false`, there will be no check.
+                      By default `true`. If `false`, no size checks are performed and the file is never automatically replaced.
                     type: boolean
                   overwriteUnmanaged:
                     description: |-

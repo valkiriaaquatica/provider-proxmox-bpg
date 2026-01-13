@@ -1462,6 +1462,9 @@ spec:
                           items:
                             type: string
                           type: array
+                        pathInDatastore:
+                          description: The in-datastore path to the disk image
+                          type: string
                         quota:
                           description: |-
                             Enable user quotas inside the container (not supported
@@ -1695,6 +1698,9 @@ spec:
                             Path to the mount point as seen from inside the
                             container.
                             Path to the mount point as seen from inside the container
+                          type: string
+                        pathInDatastore:
+                          description: The in-datastore path to the mount point volume
                           type: string
                         quota:
                           description: |-

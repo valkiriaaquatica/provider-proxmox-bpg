@@ -1390,6 +1390,11 @@ func (in *EnvironmentVMInitParameters) DeepCopyInto(out *EnvironmentVMInitParame
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Hotplug != nil {
+		in, out := &in.Hotplug, &out.Hotplug
+		*out = new(string)
+		**out = **in
+	}
 	if in.Initialization != nil {
 		in, out := &in.Initialization, &out.Initialization
 		*out = make([]InitializationInitParameters, len(*in))
@@ -1785,6 +1790,11 @@ func (in *EnvironmentVMObservation) DeepCopyInto(out *EnvironmentVMObservation) 
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Hotplug != nil {
+		in, out := &in.Hotplug, &out.Hotplug
+		*out = new(string)
+		**out = **in
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -2199,6 +2209,11 @@ func (in *EnvironmentVMParameters) DeepCopyInto(out *EnvironmentVMParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Hotplug != nil {
+		in, out := &in.Hotplug, &out.Hotplug
+		*out = new(string)
+		**out = **in
 	}
 	if in.Initialization != nil {
 		in, out := &in.Initialization, &out.Initialization

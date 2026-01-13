@@ -575,6 +575,10 @@ spec:
                           type: boolean
                       type: object
                     type: array
+                  hotplug:
+                    description: Selectively enable hotplug features. Use `0` to disable,
+                      `1` to enable all.
+                    type: string
                   initialization:
                     description: |-
                       The cloud-init configuration.
@@ -1795,6 +1799,10 @@ spec:
                           type: boolean
                       type: object
                     type: array
+                  hotplug:
+                    description: Selectively enable hotplug features. Use `0` to disable,
+                      `1` to enable all.
+                    type: string
                   initialization:
                     description: |-
                       The cloud-init configuration.
@@ -3098,6 +3106,10 @@ spec:
                           type: boolean
                       type: object
                     type: array
+                  hotplug:
+                    description: Selectively enable hotplug features. Use `0` to disable,
+                      `1` to enable all.
+                    type: string
                   id:
                     description: |-
                       The PCI device ID. This parameter is not compatible

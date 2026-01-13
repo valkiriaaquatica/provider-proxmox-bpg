@@ -44,7 +44,7 @@ type EnvironmentDownloadFileInitParameters struct {
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
 	// (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
-	// By default `true`. If `true` and file size has changed in the datastore, it will be replaced. If `false`, there will be no check.
+	// By default `true`. If `false`, no size checks are performed and the file is never automatically replaced.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
 	// (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
@@ -98,7 +98,7 @@ type EnvironmentDownloadFileObservation struct {
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
 	// (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
-	// By default `true`. If `true` and file size has changed in the datastore, it will be replaced. If `false`, there will be no check.
+	// By default `true`. If `false`, no size checks are performed and the file is never automatically replaced.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
 	// (Boolean) If true and a file with the same name already exists in the datastore, it will be deleted and the new file will be downloaded. If false and the file already exists, an error will be returned.
@@ -160,7 +160,7 @@ type EnvironmentDownloadFileParameters struct {
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
 	// (Boolean) By default true. If true and file size has changed in the datastore, it will be replaced. If false, there will be no check.
-	// By default `true`. If `true` and file size has changed in the datastore, it will be replaced. If `false`, there will be no check.
+	// By default `true`. If `false`, no size checks are performed and the file is never automatically replaced.
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 

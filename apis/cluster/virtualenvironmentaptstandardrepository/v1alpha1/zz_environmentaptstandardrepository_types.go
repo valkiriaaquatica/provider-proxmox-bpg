@@ -16,7 +16,7 @@ import (
 type EnvironmentAptStandardRepositoryInitParameters struct {
 
 	// quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | ceph-squid-enterprise | ceph-squid-no-subscription | ceph-squid-test | enterprise | no-subscription | test.
-	// The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
+	// The handle of the APT standard repository. Must be `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
 	Handle *string `json:"handle,omitempty" tf:"handle,omitempty"`
 
 	// (String) The name of the target Proxmox VE node.
@@ -35,7 +35,7 @@ type EnvironmentAptStandardRepositoryObservation struct {
 	FilePath *string `json:"filePath,omitempty" tf:"file_path,omitempty"`
 
 	// quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | ceph-squid-enterprise | ceph-squid-no-subscription | ceph-squid-test | enterprise | no-subscription | test.
-	// The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
+	// The handle of the APT standard repository. Must be `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
 	Handle *string `json:"handle,omitempty" tf:"handle,omitempty"`
 
 	// (String) The unique identifier of this APT standard repository resource.
@@ -61,7 +61,7 @@ type EnvironmentAptStandardRepositoryObservation struct {
 type EnvironmentAptStandardRepositoryParameters struct {
 
 	// quincy-enterprise | ceph-quincy-no-subscription | ceph-quincy-test | ceph-reef-enterprise | ceph-reef-no-subscription | ceph-reef-test | ceph-squid-enterprise | ceph-squid-no-subscription | ceph-squid-test | enterprise | no-subscription | test.
-	// The handle of the APT standard repository. Must be `ceph-quincy-enterprise` | `ceph-quincy-no-subscription` | `ceph-quincy-test` | `ceph-reef-enterprise` | `ceph-reef-no-subscription` | `ceph-reef-test` | `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
+	// The handle of the APT standard repository. Must be `ceph-squid-enterprise` | `ceph-squid-no-subscription` | `ceph-squid-test` | `enterprise` | `no-subscription` | `test`.
 	// +kubebuilder:validation:Optional
 	Handle *string `json:"handle,omitempty" tf:"handle,omitempty"`
 

@@ -34,6 +34,7 @@ import (
 	clustermetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/config/cluster/virtualenvironmentmetricsserver"
 	clusternetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/config/cluster/virtualenvironmentnetworklinuxbridge"
 	clusternetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/config/cluster/virtualenvironmentnetworklinuxvlan"
+	clusternodefirewall "github.com/valkiriaaquatica/provider-proxmox-bpg/config/cluster/virtualenvironmentnodefirewall"
 	clusterpool "github.com/valkiriaaquatica/provider-proxmox-bpg/config/cluster/virtualenvironmentpool"
 	clusterrole "github.com/valkiriaaquatica/provider-proxmox-bpg/config/cluster/virtualenvironmentrole"
 	clustertime "github.com/valkiriaaquatica/provider-proxmox-bpg/config/cluster/virtualenvironmenttime"
@@ -64,6 +65,7 @@ import (
 	nsmetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/config/namespaced/virtualenvironmentmetricsserver"
 	nsnetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/config/namespaced/virtualenvironmentnetworklinuxbridge"
 	nsnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/config/namespaced/virtualenvironmentnetworklinuxvlan"
+	nsnodefirewall "github.com/valkiriaaquatica/provider-proxmox-bpg/config/namespaced/virtualenvironmentnodefirewall"
 	nspool "github.com/valkiriaaquatica/provider-proxmox-bpg/config/namespaced/virtualenvironmentpool"
 	nsrole "github.com/valkiriaaquatica/provider-proxmox-bpg/config/namespaced/virtualenvironmentrole"
 	nstime "github.com/valkiriaaquatica/provider-proxmox-bpg/config/namespaced/virtualenvironmenttime"
@@ -112,6 +114,7 @@ func GetProvider() *ujconfig.Provider {
 		clusterfirewallalias.Configure,
 		clusterfirewallipset.Configure,
 		clusterfirewalloptions.Configure,
+		clusternodefirewall.Configure,
 		clustergroup.Configure,
 		clusterhagroup.Configure,
 		clusterfirewallrules.Configure,
@@ -164,6 +167,7 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		nsfirewallalias.Configure,
 		nsfirewallipset.Configure,
 		nsfirewalloptions.Configure,
+		nsnodefirewall.Configure,
 		nsgroup.Configure,
 		nshagroup.Configure,
 		nsfirewallrules.Configure,

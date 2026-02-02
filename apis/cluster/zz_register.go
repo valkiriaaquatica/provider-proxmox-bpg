@@ -35,6 +35,7 @@ import (
 	v1alpha1virtualenvironmentmetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/virtualenvironmentmetricsserver/v1alpha1"
 	v1alpha1virtualenvironmentnetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/virtualenvironmentnetworklinuxbridge/v1alpha1"
 	v1alpha1virtualenvironmentnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/virtualenvironmentnetworklinuxvlan/v1alpha1"
+	v1alpha1virtualenvironmentnodefirewall "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/virtualenvironmentnodefirewall/v1alpha1"
 	v1alpha1virtualenvironmentpool "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/virtualenvironmentpool/v1alpha1"
 	v1alpha1virtualenvironmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/virtualenvironmentrole/v1alpha1"
 	v1alpha1virtualenvironmenttime "github.com/valkiriaaquatica/provider-proxmox-bpg/apis/cluster/virtualenvironmenttime/v1alpha1"
@@ -70,6 +71,7 @@ func init() {
 		v1alpha1virtualenvironmentmetricsserver.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentnetworklinuxbridge.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentnetworklinuxvlan.SchemeBuilder.AddToScheme,
+		v1alpha1virtualenvironmentnodefirewall.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentpool.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmentrole.SchemeBuilder.AddToScheme,
 		v1alpha1virtualenvironmenttime.SchemeBuilder.AddToScheme,

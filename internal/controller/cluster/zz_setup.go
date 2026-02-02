@@ -33,6 +33,7 @@ import (
 	environmentmetricsserver "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/cluster/virtualenvironmentmetricsserver/environmentmetricsserver"
 	environmentnetworklinuxbridge "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/cluster/virtualenvironmentnetworklinuxbridge/environmentnetworklinuxbridge"
 	environmentnetworklinuxvlan "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/cluster/virtualenvironmentnetworklinuxvlan/environmentnetworklinuxvlan"
+	environmentnodefirewall "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/cluster/virtualenvironmentnodefirewall/environmentnodefirewall"
 	environmentpool "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/cluster/virtualenvironmentpool/environmentpool"
 	environmentrole "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/cluster/virtualenvironmentrole/environmentrole"
 	environmenttime "github.com/valkiriaaquatica/provider-proxmox-bpg/internal/controller/cluster/virtualenvironmenttime/environmenttime"
@@ -68,6 +69,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		environmentmetricsserver.Setup,
 		environmentnetworklinuxbridge.Setup,
 		environmentnetworklinuxvlan.Setup,
+		environmentnodefirewall.Setup,
 		environmentpool.Setup,
 		environmentrole.Setup,
 		environmenttime.Setup,
@@ -109,6 +111,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		environmentmetricsserver.SetupGated,
 		environmentnetworklinuxbridge.SetupGated,
 		environmentnetworklinuxvlan.SetupGated,
+		environmentnodefirewall.SetupGated,
 		environmentpool.SetupGated,
 		environmentrole.SetupGated,
 		environmenttime.SetupGated,

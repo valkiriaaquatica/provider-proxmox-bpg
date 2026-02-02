@@ -15,7 +15,7 @@ The automation works through a fully-integrated release pipeline:
 2. **Version Preparation** – When Renovate opens a PR, the custom [Prepare New Version GitHub Action](https://github.com/valkiriaaquatica/provider-proxmox-bpg/blob/main/.github/workflows/prepare-new-version.yaml) adjusts the module and prepares the next tag.
 3. **Automated Publishing** – Once the PR is merged, [Release Please](https://github.com/valkiriaaquatica/provider-proxmox-bpg/blob/main/.github/workflows/release-please.yml) generates changelogs and publishes the release automaticaly
 
-Thanks to this pipeline, **this repository always stays up-to-date with the latest upstream provider version** — no manual intervention required.
+Thanks to this pipeline, **this repository always stays up-to-date with the latest upstream provider version** — no manual intervention required, **JUST** when a new CRD (resource) is added (that will be future automated).
 
 ---
 
@@ -92,3 +92,6 @@ Having an auto-syncing provider dramatically simplifies maintenance and ensures 
 
 For filing bugs, suggesting improvements, or requesting new features, please
 open an [issue](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues).
+
+## TODO
+A action that can be maanually and launched once every day that checks if a new resource is created, as example of that is this: https://github.com/bpg/terraform-provider-proxmox/pull/2502. Note with that example and others that changes to trigger are: docs/resources (if it is documented :) 

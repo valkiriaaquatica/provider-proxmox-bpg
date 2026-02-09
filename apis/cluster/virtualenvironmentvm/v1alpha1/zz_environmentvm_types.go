@@ -947,7 +947,7 @@ type EnvironmentVMInitParameters struct {
 	// The Host PCI devices mapped to the VM
 	Hostpci []HostpciInitParameters `json:"hostpci,omitempty" tf:"hostpci,omitempty"`
 
-	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all.
+	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all. Valid features: `disk`, `network`, `usb`, `memory`, `cpu`. Memory hotplug requires NUMA to be enabled.
 	Hotplug *string `json:"hotplug,omitempty" tf:"hotplug,omitempty"`
 
 	// The cloud-init configuration.
@@ -1199,7 +1199,7 @@ type EnvironmentVMObservation struct {
 	// The Host PCI devices mapped to the VM
 	Hostpci []HostpciObservation `json:"hostpci,omitempty" tf:"hostpci,omitempty"`
 
-	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all.
+	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all. Valid features: `disk`, `network`, `usb`, `memory`, `cpu`. Memory hotplug requires NUMA to be enabled.
 	Hotplug *string `json:"hotplug,omitempty" tf:"hotplug,omitempty"`
 
 	// The PCI device ID. This parameter is not compatible
@@ -1486,7 +1486,7 @@ type EnvironmentVMParameters struct {
 	// +kubebuilder:validation:Optional
 	Hostpci []HostpciParameters `json:"hostpci,omitempty" tf:"hostpci,omitempty"`
 
-	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all.
+	// Selectively enable hotplug features. Use `0` to disable, `1` to enable all. Valid features: `disk`, `network`, `usb`, `memory`, `cpu`. Memory hotplug requires NUMA to be enabled.
 	// +kubebuilder:validation:Optional
 	Hotplug *string `json:"hotplug,omitempty" tf:"hotplug,omitempty"`
 

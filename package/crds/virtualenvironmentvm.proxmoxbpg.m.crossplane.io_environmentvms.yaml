@@ -562,8 +562,9 @@ spec:
                       type: object
                     type: array
                   hotplug:
-                    description: Selectively enable hotplug features. Use `0` to disable,
-                      `1` to enable all.
+                    description: 'Selectively enable hotplug features. Use `0` to
+                      disable, `1` to enable all. Valid features: `disk`, `network`,
+                      `usb`, `memory`, `cpu`. Memory hotplug requires NUMA to be enabled.'
                     type: string
                   initialization:
                     description: |-
@@ -1781,8 +1782,9 @@ spec:
                       type: object
                     type: array
                   hotplug:
-                    description: Selectively enable hotplug features. Use `0` to disable,
-                      `1` to enable all.
+                    description: 'Selectively enable hotplug features. Use `0` to
+                      disable, `1` to enable all. Valid features: `disk`, `network`,
+                      `usb`, `memory`, `cpu`. Memory hotplug requires NUMA to be enabled.'
                     type: string
                   initialization:
                     description: |-
@@ -3055,8 +3057,9 @@ spec:
                       type: object
                     type: array
                   hotplug:
-                    description: Selectively enable hotplug features. Use `0` to disable,
-                      `1` to enable all.
+                    description: 'Selectively enable hotplug features. Use `0` to
+                      disable, `1` to enable all. Valid features: `disk`, `network`,
+                      `usb`, `memory`, `cpu`. Memory hotplug requires NUMA to be enabled.'
                     type: string
                   id:
                     description: |-

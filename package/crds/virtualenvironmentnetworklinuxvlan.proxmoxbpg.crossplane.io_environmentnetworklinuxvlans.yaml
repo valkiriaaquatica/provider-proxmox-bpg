@@ -124,6 +124,10 @@ spec:
                       (String) The name of the node.
                       The name of the node.
                     type: string
+                  timeoutReload:
+                    description: Timeout for network reload operations in seconds
+                      (defaults to `100`).
+                    type: number
                   vlan:
                     description: |-
                       (Number) The VLAN tag. See also name.
@@ -193,6 +197,10 @@ spec:
                       (String) The name of the node.
                       The name of the node.
                     type: string
+                  timeoutReload:
+                    description: Timeout for network reload operations in seconds
+                      (defaults to `100`).
+                    type: number
                   vlan:
                     description: |-
                       (Number) The VLAN tag. See also name.
@@ -353,6 +361,10 @@ spec:
                       (String) The name of the node.
                       The name of the node.
                     type: string
+                  timeoutReload:
+                    description: Timeout for network reload operations in seconds
+                      (defaults to `100`).
+                    type: number
                   vlan:
                     description: |-
                       (Number) The VLAN tag. See also name.

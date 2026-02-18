@@ -148,6 +148,33 @@ spec:
                       (String) Unique name that will be ID of this metric server in PVE.
                       Unique name that will be ID of this metric server in PVE.
                     type: string
+                  opentelemetryCompression:
+                    description: OpenTelemetry compression algorithm for requests.
+                      Choice is between `none` | `gzip`. If not set, PVE default is
+                      `gzip`.
+                    type: string
+                  opentelemetryHeadersSecretRef:
+                    description: OpenTelemetry custom HTTP headers as JSON, base64
+                      encoded.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  opentelemetryMaxBodySize:
+                    description: OpenTelemetry maximum request body size in bytes.
+                      If not set, PVE default is `10000000`.
+                    type: number
                   opentelemetryPath:
                     description: |-
                       (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
@@ -156,8 +183,21 @@ spec:
                   opentelemetryProto:
                     description: |-
                       (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
-                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `https`.
                     type: string
+                  opentelemetryResourceAttributes:
+                    description: OpenTelemetry additional resource attributes as JSON,
+                      base64 encoded.
+                    type: string
+                  opentelemetryTimeout:
+                    description: |-
+                      (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+                      OpenTelemetry HTTP request timeout in seconds. If not set, PVE default is `5`.
+                    type: number
+                  opentelemetryVerifySsl:
+                    description: OpenTelemetry verify SSL certificates. If not set,
+                      PVE default is `true`.
+                    type: boolean
                   port:
                     description: |-
                       (Number) Server network port.
@@ -266,6 +306,33 @@ spec:
                       (String) Unique name that will be ID of this metric server in PVE.
                       Unique name that will be ID of this metric server in PVE.
                     type: string
+                  opentelemetryCompression:
+                    description: OpenTelemetry compression algorithm for requests.
+                      Choice is between `none` | `gzip`. If not set, PVE default is
+                      `gzip`.
+                    type: string
+                  opentelemetryHeadersSecretRef:
+                    description: OpenTelemetry custom HTTP headers as JSON, base64
+                      encoded.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  opentelemetryMaxBodySize:
+                    description: OpenTelemetry maximum request body size in bytes.
+                      If not set, PVE default is `10000000`.
+                    type: number
                   opentelemetryPath:
                     description: |-
                       (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
@@ -274,8 +341,21 @@ spec:
                   opentelemetryProto:
                     description: |-
                       (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
-                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `https`.
                     type: string
+                  opentelemetryResourceAttributes:
+                    description: OpenTelemetry additional resource attributes as JSON,
+                      base64 encoded.
+                    type: string
+                  opentelemetryTimeout:
+                    description: |-
+                      (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+                      OpenTelemetry HTTP request timeout in seconds. If not set, PVE default is `5`.
+                    type: number
+                  opentelemetryVerifySsl:
+                    description: OpenTelemetry verify SSL certificates. If not set,
+                      PVE default is `true`.
+                    type: boolean
                   port:
                     description: |-
                       (Number) Server network port.
@@ -464,6 +544,15 @@ spec:
                       (String) Unique name that will be ID of this metric server in PVE.
                       Unique name that will be ID of this metric server in PVE.
                     type: string
+                  opentelemetryCompression:
+                    description: OpenTelemetry compression algorithm for requests.
+                      Choice is between `none` | `gzip`. If not set, PVE default is
+                      `gzip`.
+                    type: string
+                  opentelemetryMaxBodySize:
+                    description: OpenTelemetry maximum request body size in bytes.
+                      If not set, PVE default is `10000000`.
+                    type: number
                   opentelemetryPath:
                     description: |-
                       (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
@@ -472,8 +561,21 @@ spec:
                   opentelemetryProto:
                     description: |-
                       (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
-                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+                      Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `https`.
                     type: string
+                  opentelemetryResourceAttributes:
+                    description: OpenTelemetry additional resource attributes as JSON,
+                      base64 encoded.
+                    type: string
+                  opentelemetryTimeout:
+                    description: |-
+                      (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+                      OpenTelemetry HTTP request timeout in seconds. If not set, PVE default is `5`.
+                    type: number
+                  opentelemetryVerifySsl:
+                    description: OpenTelemetry verify SSL certificates. If not set,
+                      PVE default is `true`.
+                    type: boolean
                   port:
                     description: |-
                       (Number) Server network port.

@@ -103,6 +103,21 @@ func (in *EnvironmentMetricsServerInitParameters) DeepCopyInto(out *EnvironmentM
 		*out = new(string)
 		**out = **in
 	}
+	if in.OpentelemetryCompression != nil {
+		in, out := &in.OpentelemetryCompression, &out.OpentelemetryCompression
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryHeadersSecretRef != nil {
+		in, out := &in.OpentelemetryHeadersSecretRef, &out.OpentelemetryHeadersSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.OpentelemetryMaxBodySize != nil {
+		in, out := &in.OpentelemetryMaxBodySize, &out.OpentelemetryMaxBodySize
+		*out = new(float64)
+		**out = **in
+	}
 	if in.OpentelemetryPath != nil {
 		in, out := &in.OpentelemetryPath, &out.OpentelemetryPath
 		*out = new(string)
@@ -111,6 +126,21 @@ func (in *EnvironmentMetricsServerInitParameters) DeepCopyInto(out *EnvironmentM
 	if in.OpentelemetryProto != nil {
 		in, out := &in.OpentelemetryProto, &out.OpentelemetryProto
 		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryResourceAttributes != nil {
+		in, out := &in.OpentelemetryResourceAttributes, &out.OpentelemetryResourceAttributes
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryTimeout != nil {
+		in, out := &in.OpentelemetryTimeout, &out.OpentelemetryTimeout
+		*out = new(float64)
+		**out = **in
+	}
+	if in.OpentelemetryVerifySSL != nil {
+		in, out := &in.OpentelemetryVerifySSL, &out.OpentelemetryVerifySSL
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Port != nil {
@@ -240,6 +270,16 @@ func (in *EnvironmentMetricsServerObservation) DeepCopyInto(out *EnvironmentMetr
 		*out = new(string)
 		**out = **in
 	}
+	if in.OpentelemetryCompression != nil {
+		in, out := &in.OpentelemetryCompression, &out.OpentelemetryCompression
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryMaxBodySize != nil {
+		in, out := &in.OpentelemetryMaxBodySize, &out.OpentelemetryMaxBodySize
+		*out = new(float64)
+		**out = **in
+	}
 	if in.OpentelemetryPath != nil {
 		in, out := &in.OpentelemetryPath, &out.OpentelemetryPath
 		*out = new(string)
@@ -248,6 +288,21 @@ func (in *EnvironmentMetricsServerObservation) DeepCopyInto(out *EnvironmentMetr
 	if in.OpentelemetryProto != nil {
 		in, out := &in.OpentelemetryProto, &out.OpentelemetryProto
 		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryResourceAttributes != nil {
+		in, out := &in.OpentelemetryResourceAttributes, &out.OpentelemetryResourceAttributes
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryTimeout != nil {
+		in, out := &in.OpentelemetryTimeout, &out.OpentelemetryTimeout
+		*out = new(float64)
+		**out = **in
+	}
+	if in.OpentelemetryVerifySSL != nil {
+		in, out := &in.OpentelemetryVerifySSL, &out.OpentelemetryVerifySSL
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Port != nil {
@@ -345,6 +400,21 @@ func (in *EnvironmentMetricsServerParameters) DeepCopyInto(out *EnvironmentMetri
 		*out = new(string)
 		**out = **in
 	}
+	if in.OpentelemetryCompression != nil {
+		in, out := &in.OpentelemetryCompression, &out.OpentelemetryCompression
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryHeadersSecretRef != nil {
+		in, out := &in.OpentelemetryHeadersSecretRef, &out.OpentelemetryHeadersSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.OpentelemetryMaxBodySize != nil {
+		in, out := &in.OpentelemetryMaxBodySize, &out.OpentelemetryMaxBodySize
+		*out = new(float64)
+		**out = **in
+	}
 	if in.OpentelemetryPath != nil {
 		in, out := &in.OpentelemetryPath, &out.OpentelemetryPath
 		*out = new(string)
@@ -353,6 +423,21 @@ func (in *EnvironmentMetricsServerParameters) DeepCopyInto(out *EnvironmentMetri
 	if in.OpentelemetryProto != nil {
 		in, out := &in.OpentelemetryProto, &out.OpentelemetryProto
 		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryResourceAttributes != nil {
+		in, out := &in.OpentelemetryResourceAttributes, &out.OpentelemetryResourceAttributes
+		*out = new(string)
+		**out = **in
+	}
+	if in.OpentelemetryTimeout != nil {
+		in, out := &in.OpentelemetryTimeout, &out.OpentelemetryTimeout
+		*out = new(float64)
+		**out = **in
+	}
+	if in.OpentelemetryVerifySSL != nil {
+		in, out := &in.OpentelemetryVerifySSL, &out.OpentelemetryVerifySSL
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Port != nil {

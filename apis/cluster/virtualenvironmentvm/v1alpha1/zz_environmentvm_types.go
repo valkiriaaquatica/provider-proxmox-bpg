@@ -588,7 +588,7 @@ type DiskInitParameters struct {
 	// The file ID for a disk image to import into VM. The image must be of import content type.
 	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
 	// a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
-	// The file id of a disk image to import from storage.
+	// The file id of a disk image to import from storage. Only used during initial creation; changes after creation are ignored.
 	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 
 	// The disk interface for Proxmox, currently scsi,
@@ -671,7 +671,7 @@ type DiskObservation struct {
 	// The file ID for a disk image to import into VM. The image must be of import content type.
 	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
 	// a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
-	// The file id of a disk image to import from storage.
+	// The file id of a disk image to import from storage. Only used during initial creation; changes after creation are ignored.
 	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 
 	// The disk interface for Proxmox, currently scsi,
@@ -761,7 +761,7 @@ type DiskParameters struct {
 	// The file ID for a disk image to import into VM. The image must be of import content type.
 	// The ID format is <datastore_id>:import/<file_name>, for example local:import/centos8.qcow2. Can be also taken from
 	// a disk replacement operation, which will require a VM reboot. Your original disks will remain as detached disks.
-	// The file id of a disk image to import from storage.
+	// The file id of a disk image to import from storage. Only used during initial creation; changes after creation are ignored.
 	// +kubebuilder:validation:Optional
 	ImportFrom *string `json:"importFrom,omitempty" tf:"import_from,omitempty"`
 

@@ -112,6 +112,10 @@ spec:
                     items:
                       type: string
                     type: array
+                  timeoutReload:
+                    description: Timeout for network reload operations in seconds
+                      (defaults to `100`).
+                    type: number
                   vlanAware:
                     description: |-
                       (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
@@ -183,6 +187,10 @@ spec:
                     items:
                       type: string
                     type: array
+                  timeoutReload:
+                    description: Timeout for network reload operations in seconds
+                      (defaults to `100`).
+                    type: number
                   vlanAware:
                     description: |-
                       (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
@@ -317,6 +325,10 @@ spec:
                     items:
                       type: string
                     type: array
+                  timeoutReload:
+                    description: Timeout for network reload operations in seconds
+                      (defaults to `100`).
+                    type: number
                   vlanAware:
                     description: |-
                       (Boolean) Whether the interface bridge is VLAN aware (defaults to false).

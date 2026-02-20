@@ -56,6 +56,9 @@ type EnvironmentNetworkLinuxBridgeInitParameters struct {
 	// The interface bridge ports.
 	Ports []*string `json:"ports,omitempty" tf:"ports,omitempty"`
 
+	// Timeout for network reload operations in seconds (defaults to `100`).
+	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
+
 	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).
 	VlanAware *bool `json:"vlanAware,omitempty" tf:"vlan_aware,omitempty"`
@@ -105,6 +108,9 @@ type EnvironmentNetworkLinuxBridgeObservation struct {
 	// (List of String) The interface bridge ports.
 	// The interface bridge ports.
 	Ports []*string `json:"ports,omitempty" tf:"ports,omitempty"`
+
+	// Timeout for network reload operations in seconds (defaults to `100`).
+	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
 
 	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).
@@ -162,6 +168,10 @@ type EnvironmentNetworkLinuxBridgeParameters struct {
 	// The interface bridge ports.
 	// +kubebuilder:validation:Optional
 	Ports []*string `json:"ports,omitempty" tf:"ports,omitempty"`
+
+	// Timeout for network reload operations in seconds (defaults to `100`).
+	// +kubebuilder:validation:Optional
+	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
 
 	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).

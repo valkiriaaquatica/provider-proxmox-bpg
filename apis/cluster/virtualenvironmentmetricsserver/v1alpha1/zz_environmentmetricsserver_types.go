@@ -63,13 +63,32 @@ type EnvironmentMetricsServerInitParameters struct {
 	// Unique name that will be ID of this metric server in PVE.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// OpenTelemetry compression algorithm for requests. Choice is between `none` | `gzip`. If not set, PVE default is `gzip`.
+	OpentelemetryCompression *string `json:"opentelemetryCompression,omitempty" tf:"opentelemetry_compression,omitempty"`
+
+	// OpenTelemetry custom HTTP headers as JSON, base64 encoded.
+	OpentelemetryHeadersSecretRef *v1.SecretKeySelector `json:"opentelemetryHeadersSecretRef,omitempty" tf:"-"`
+
+	// OpenTelemetry maximum request body size in bytes. If not set, PVE default is `10000000`.
+	OpentelemetryMaxBodySize *float64 `json:"opentelemetryMaxBodySize,omitempty" tf:"opentelemetry_max_body_size,omitempty"`
+
 	// (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
 	// OpenTelemetry endpoint path (e.g., `/v1/metrics`).
 	OpentelemetryPath *string `json:"opentelemetryPath,omitempty" tf:"opentelemetry_path,omitempty"`
 
 	// (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
-	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `https`.
 	OpentelemetryProto *string `json:"opentelemetryProto,omitempty" tf:"opentelemetry_proto,omitempty"`
+
+	// OpenTelemetry additional resource attributes as JSON, base64 encoded.
+	OpentelemetryResourceAttributes *string `json:"opentelemetryResourceAttributes,omitempty" tf:"opentelemetry_resource_attributes,omitempty"`
+
+	// (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+	// OpenTelemetry HTTP request timeout in seconds. If not set, PVE default is `5`.
+	OpentelemetryTimeout *float64 `json:"opentelemetryTimeout,omitempty" tf:"opentelemetry_timeout,omitempty"`
+
+	// OpenTelemetry verify SSL certificates. If not set, PVE default is `true`.
+	OpentelemetryVerifySSL *bool `json:"opentelemetryVerifySsl,omitempty" tf:"opentelemetry_verify_ssl,omitempty"`
 
 	// (Number) Server network port.
 	// Server network port.
@@ -137,13 +156,29 @@ type EnvironmentMetricsServerObservation struct {
 	// Unique name that will be ID of this metric server in PVE.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// OpenTelemetry compression algorithm for requests. Choice is between `none` | `gzip`. If not set, PVE default is `gzip`.
+	OpentelemetryCompression *string `json:"opentelemetryCompression,omitempty" tf:"opentelemetry_compression,omitempty"`
+
+	// OpenTelemetry maximum request body size in bytes. If not set, PVE default is `10000000`.
+	OpentelemetryMaxBodySize *float64 `json:"opentelemetryMaxBodySize,omitempty" tf:"opentelemetry_max_body_size,omitempty"`
+
 	// (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
 	// OpenTelemetry endpoint path (e.g., `/v1/metrics`).
 	OpentelemetryPath *string `json:"opentelemetryPath,omitempty" tf:"opentelemetry_path,omitempty"`
 
 	// (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
-	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `https`.
 	OpentelemetryProto *string `json:"opentelemetryProto,omitempty" tf:"opentelemetry_proto,omitempty"`
+
+	// OpenTelemetry additional resource attributes as JSON, base64 encoded.
+	OpentelemetryResourceAttributes *string `json:"opentelemetryResourceAttributes,omitempty" tf:"opentelemetry_resource_attributes,omitempty"`
+
+	// (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+	// OpenTelemetry HTTP request timeout in seconds. If not set, PVE default is `5`.
+	OpentelemetryTimeout *float64 `json:"opentelemetryTimeout,omitempty" tf:"opentelemetry_timeout,omitempty"`
+
+	// OpenTelemetry verify SSL certificates. If not set, PVE default is `true`.
+	OpentelemetryVerifySSL *bool `json:"opentelemetryVerifySsl,omitempty" tf:"opentelemetry_verify_ssl,omitempty"`
 
 	// (Number) Server network port.
 	// Server network port.
@@ -224,15 +259,40 @@ type EnvironmentMetricsServerParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// OpenTelemetry compression algorithm for requests. Choice is between `none` | `gzip`. If not set, PVE default is `gzip`.
+	// +kubebuilder:validation:Optional
+	OpentelemetryCompression *string `json:"opentelemetryCompression,omitempty" tf:"opentelemetry_compression,omitempty"`
+
+	// OpenTelemetry custom HTTP headers as JSON, base64 encoded.
+	// +kubebuilder:validation:Optional
+	OpentelemetryHeadersSecretRef *v1.SecretKeySelector `json:"opentelemetryHeadersSecretRef,omitempty" tf:"-"`
+
+	// OpenTelemetry maximum request body size in bytes. If not set, PVE default is `10000000`.
+	// +kubebuilder:validation:Optional
+	OpentelemetryMaxBodySize *float64 `json:"opentelemetryMaxBodySize,omitempty" tf:"opentelemetry_max_body_size,omitempty"`
+
 	// (String) OpenTelemetry endpoint path (e.g., /v1/metrics).
 	// OpenTelemetry endpoint path (e.g., `/v1/metrics`).
 	// +kubebuilder:validation:Optional
 	OpentelemetryPath *string `json:"opentelemetryPath,omitempty" tf:"opentelemetry_path,omitempty"`
 
 	// (String) Protocol for OpenTelemetry. Choice is between http | https. If not set, PVE default is http.
-	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `http`.
+	// Protocol for OpenTelemetry. Choice is between `http` | `https`. If not set, PVE default is `https`.
 	// +kubebuilder:validation:Optional
 	OpentelemetryProto *string `json:"opentelemetryProto,omitempty" tf:"opentelemetry_proto,omitempty"`
+
+	// OpenTelemetry additional resource attributes as JSON, base64 encoded.
+	// +kubebuilder:validation:Optional
+	OpentelemetryResourceAttributes *string `json:"opentelemetryResourceAttributes,omitempty" tf:"opentelemetry_resource_attributes,omitempty"`
+
+	// (Number) TCP socket timeout in seconds. If not set, PVE default is 1.
+	// OpenTelemetry HTTP request timeout in seconds. If not set, PVE default is `5`.
+	// +kubebuilder:validation:Optional
+	OpentelemetryTimeout *float64 `json:"opentelemetryTimeout,omitempty" tf:"opentelemetry_timeout,omitempty"`
+
+	// OpenTelemetry verify SSL certificates. If not set, PVE default is `true`.
+	// +kubebuilder:validation:Optional
+	OpentelemetryVerifySSL *bool `json:"opentelemetryVerifySsl,omitempty" tf:"opentelemetry_verify_ssl,omitempty"`
 
 	// (Number) Server network port.
 	// Server network port.

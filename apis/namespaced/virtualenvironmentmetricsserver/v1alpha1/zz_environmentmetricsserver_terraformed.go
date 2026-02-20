@@ -21,7 +21,7 @@ func (mg *EnvironmentMetricsServer) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this EnvironmentMetricsServer
 func (tr *EnvironmentMetricsServer) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"influx_token": "influxTokenSecretRef"}
+	return map[string]string{"influx_token": "influxTokenSecretRef", "opentelemetry_headers": "opentelemetryHeadersSecretRef"}
 }
 
 // GetObservation of this EnvironmentMetricsServer

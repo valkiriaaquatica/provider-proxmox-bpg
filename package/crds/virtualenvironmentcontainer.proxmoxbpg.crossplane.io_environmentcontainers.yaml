@@ -269,6 +269,30 @@ spec:
                       The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).
                       A hook script
                     type: string
+                  idmap:
+                    description: UID/GID mapping for unprivileged containers
+                    items:
+                      properties:
+                        containerId:
+                          description: Starting ID in the container namespace
+                          type: number
+                        hostId:
+                          description: Starting ID in the host namespace
+                          type: number
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            Number of IDs to map
+                          type: number
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            Mapping type (uid or gid)
+                          type: string
+                      type: object
+                    type: array
                   initialization:
                     description: |-
                       The initialization configuration.
@@ -881,6 +905,30 @@ spec:
                       The identifier for a file containing a hook script (needs to be executable, e.g. by using the proxmox_virtual_environment_file.file_mode attribute).
                       A hook script
                     type: string
+                  idmap:
+                    description: UID/GID mapping for unprivileged containers
+                    items:
+                      properties:
+                        containerId:
+                          description: Starting ID in the container namespace
+                          type: number
+                        hostId:
+                          description: Starting ID in the host namespace
+                          type: number
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            Number of IDs to map
+                          type: number
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            Mapping type (uid or gid)
+                          type: string
+                      type: object
+                    type: array
                   initialization:
                     description: |-
                       The initialization configuration.
@@ -1582,6 +1630,30 @@ spec:
                     type: string
                   id:
                     type: string
+                  idmap:
+                    description: UID/GID mapping for unprivileged containers
+                    items:
+                      properties:
+                        containerId:
+                          description: Starting ID in the container namespace
+                          type: number
+                        hostId:
+                          description: Starting ID in the host namespace
+                          type: number
+                        size:
+                          description: |-
+                            The size of the root filesystem in gigabytes (defaults
+                            to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+                            Requires datastore_id to be set.
+                            Number of IDs to map
+                          type: number
+                        type:
+                          description: |-
+                            The console mode (defaults to tty).
+                            Mapping type (uid or gid)
+                          type: string
+                      type: object
+                    type: array
                   initialization:
                     description: |-
                       The initialization configuration.

@@ -432,6 +432,9 @@ type EnvironmentContainerInitParameters struct {
 	// A hook script
 	HookScriptFileID *string `json:"hookScriptFileId,omitempty" tf:"hook_script_file_id,omitempty"`
 
+	// UID/GID mapping for unprivileged containers
+	Idmap []IdmapInitParameters `json:"idmap,omitempty" tf:"idmap,omitempty"`
+
 	// The initialization configuration.
 	// The initialization configuration
 	Initialization []InitializationInitParameters `json:"initialization,omitempty" tf:"initialization,omitempty"`
@@ -573,6 +576,9 @@ type EnvironmentContainerObservation struct {
 	// +mapType=granular
 	IPv6 map[string]*string `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
 
+	// UID/GID mapping for unprivileged containers
+	Idmap []IdmapObservation `json:"idmap,omitempty" tf:"idmap,omitempty"`
+
 	// The initialization configuration.
 	// The initialization configuration
 	Initialization []InitializationObservation `json:"initialization,omitempty" tf:"initialization,omitempty"`
@@ -710,6 +716,10 @@ type EnvironmentContainerParameters struct {
 	// A hook script
 	// +kubebuilder:validation:Optional
 	HookScriptFileID *string `json:"hookScriptFileId,omitempty" tf:"hook_script_file_id,omitempty"`
+
+	// UID/GID mapping for unprivileged containers
+	// +kubebuilder:validation:Optional
+	Idmap []IdmapParameters `json:"idmap,omitempty" tf:"idmap,omitempty"`
 
 	// The initialization configuration.
 	// The initialization configuration
@@ -1004,6 +1014,67 @@ type IPv6Parameters struct {
 	// The IPv6 gateway
 	// +kubebuilder:validation:Optional
 	Gateway *string `json:"gateway,omitempty" tf:"gateway,omitempty"`
+}
+
+type IdmapInitParameters struct {
+
+	// Starting ID in the container namespace
+	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
+
+	// Starting ID in the host namespace
+	HostID *float64 `json:"hostId,omitempty" tf:"host_id,omitempty"`
+
+	// The size of the root filesystem in gigabytes (defaults
+	// to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+	// Requires datastore_id to be set.
+	// Number of IDs to map
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// The console mode (defaults to tty).
+	// Mapping type (uid or gid)
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type IdmapObservation struct {
+
+	// Starting ID in the container namespace
+	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
+
+	// Starting ID in the host namespace
+	HostID *float64 `json:"hostId,omitempty" tf:"host_id,omitempty"`
+
+	// The size of the root filesystem in gigabytes (defaults
+	// to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+	// Requires datastore_id to be set.
+	// Number of IDs to map
+	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
+
+	// The console mode (defaults to tty).
+	// Mapping type (uid or gid)
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type IdmapParameters struct {
+
+	// Starting ID in the container namespace
+	// +kubebuilder:validation:Optional
+	ContainerID *float64 `json:"containerId" tf:"container_id,omitempty"`
+
+	// Starting ID in the host namespace
+	// +kubebuilder:validation:Optional
+	HostID *float64 `json:"hostId" tf:"host_id,omitempty"`
+
+	// The size of the root filesystem in gigabytes (defaults
+	// to 4). When set to 0 a directory or zfs/btrfs subvolume will be created.
+	// Requires datastore_id to be set.
+	// Number of IDs to map
+	// +kubebuilder:validation:Optional
+	Size *float64 `json:"size" tf:"size,omitempty"`
+
+	// The console mode (defaults to tty).
+	// Mapping type (uid or gid)
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 type InitializationInitParameters struct {

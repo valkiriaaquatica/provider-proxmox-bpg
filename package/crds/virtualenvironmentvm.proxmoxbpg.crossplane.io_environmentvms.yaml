@@ -814,7 +814,7 @@ spec:
                   name:
                     description: |-
                       The virtual machine name.
-                      The name
+                      The name of the VM. Must be a valid DNS name.
                     type: string
                   networkDevice:
                     description: |-
@@ -2039,7 +2039,7 @@ spec:
                   name:
                     description: |-
                       The virtual machine name.
-                      The name
+                      The name of the VM. Must be a valid DNS name.
                     type: string
                   networkDevice:
                     description: |-
@@ -3354,7 +3354,7 @@ spec:
                   name:
                     description: |-
                       The virtual machine name.
-                      The name
+                      The name of the VM. Must be a valid DNS name.
                     type: string
                   networkDevice:
                     description: |-

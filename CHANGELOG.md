@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.5.0...v1.5.1) (2026-02-28)
+
+
+### Bug Fixes
+
+* **deps:** update bpg/terraform-provider-proxmox (v0.97.0 → v0.97.1) ([#177](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/177)) ([60d586b](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/60d586b4c5dad1336ad1d82d33fb34a36a3212c2))
+
 ## [1.5.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.4.0...v1.5.0) (2026-02-23)
 
 

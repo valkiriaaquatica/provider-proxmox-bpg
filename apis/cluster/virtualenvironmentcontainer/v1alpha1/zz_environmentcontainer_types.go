@@ -1084,7 +1084,7 @@ type InitializationInitParameters struct {
 	DNS []DNSInitParameters `json:"dns,omitempty" tf:"dns,omitempty"`
 
 	// The hostname.
-	// The hostname
+	// The hostname. Must be a valid DNS name.
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
 	// The IP configuration (one block per network
@@ -1104,7 +1104,7 @@ type InitializationObservation struct {
 	DNS []DNSObservation `json:"dns,omitempty" tf:"dns,omitempty"`
 
 	// The hostname.
-	// The hostname
+	// The hostname. Must be a valid DNS name.
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 
 	// The IP configuration (one block per network
@@ -1125,7 +1125,7 @@ type InitializationParameters struct {
 	DNS []DNSParameters `json:"dns,omitempty" tf:"dns,omitempty"`
 
 	// The hostname.
-	// The hostname
+	// The hostname. Must be a valid DNS name.
 	// +kubebuilder:validation:Optional
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
 

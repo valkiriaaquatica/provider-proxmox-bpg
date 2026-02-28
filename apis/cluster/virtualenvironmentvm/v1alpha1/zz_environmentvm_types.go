@@ -981,7 +981,7 @@ type EnvironmentVMInitParameters struct {
 	Migrate *bool `json:"migrate,omitempty" tf:"migrate,omitempty"`
 
 	// The virtual machine name.
-	// The name
+	// The name of the VM. Must be a valid DNS name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// A network device (multiple blocks supported).
@@ -1248,7 +1248,7 @@ type EnvironmentVMObservation struct {
 	Migrate *bool `json:"migrate,omitempty" tf:"migrate,omitempty"`
 
 	// The virtual machine name.
-	// The name
+	// The name of the VM. Must be a valid DNS name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// A network device (multiple blocks supported).
@@ -1528,7 +1528,7 @@ type EnvironmentVMParameters struct {
 	Migrate *bool `json:"migrate,omitempty" tf:"migrate,omitempty"`
 
 	// The virtual machine name.
-	// The name
+	// The name of the VM. Must be a valid DNS name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

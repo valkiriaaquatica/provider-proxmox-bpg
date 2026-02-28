@@ -315,7 +315,7 @@ spec:
                         hostname:
                           description: |-
                             The hostname.
-                            The hostname
+                            The hostname. Must be a valid DNS name.
                           type: string
                         ipConfig:
                           description: |-
@@ -946,7 +946,7 @@ spec:
                         hostname:
                           description: |-
                             The hostname.
-                            The hostname
+                            The hostname. Must be a valid DNS name.
                           type: string
                         ipConfig:
                           description: |-
@@ -1638,7 +1638,7 @@ spec:
                         hostname:
                           description: |-
                             The hostname.
-                            The hostname
+                            The hostname. Must be a valid DNS name.
                           type: string
                         ipConfig:
                           description: |-

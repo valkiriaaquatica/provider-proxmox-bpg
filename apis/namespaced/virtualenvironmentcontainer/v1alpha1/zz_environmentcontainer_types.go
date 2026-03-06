@@ -1084,6 +1084,9 @@ type InitializationInitParameters struct {
 	// The DNS configuration
 	DNS []DNSInitParameters `json:"dns,omitempty" tf:"dns,omitempty"`
 
+	// Command to run as init, optionally with arguments. It may start with an absolute path, relative path, or a binary in `$PATH`.
+	Entrypoint *string `json:"entrypoint,omitempty" tf:"entrypoint,omitempty"`
+
 	// The hostname.
 	// The hostname. Must be a valid DNS name.
 	Hostname *string `json:"hostname,omitempty" tf:"hostname,omitempty"`
@@ -1103,6 +1106,9 @@ type InitializationObservation struct {
 	// The DNS configuration.
 	// The DNS configuration
 	DNS []DNSObservation `json:"dns,omitempty" tf:"dns,omitempty"`
+
+	// Command to run as init, optionally with arguments. It may start with an absolute path, relative path, or a binary in `$PATH`.
+	Entrypoint *string `json:"entrypoint,omitempty" tf:"entrypoint,omitempty"`
 
 	// The hostname.
 	// The hostname. Must be a valid DNS name.
@@ -1124,6 +1130,10 @@ type InitializationParameters struct {
 	// The DNS configuration
 	// +kubebuilder:validation:Optional
 	DNS []DNSParameters `json:"dns,omitempty" tf:"dns,omitempty"`
+
+	// Command to run as init, optionally with arguments. It may start with an absolute path, relative path, or a binary in `$PATH`.
+	// +kubebuilder:validation:Optional
+	Entrypoint *string `json:"entrypoint,omitempty" tf:"entrypoint,omitempty"`
 
 	// The hostname.
 	// The hostname. Must be a valid DNS name.

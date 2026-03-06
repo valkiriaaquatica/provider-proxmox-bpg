@@ -326,6 +326,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        entrypoint:
+                          description: Command to run as init, optionally with arguments.
+                            It may start with an absolute path, relative path, or
+                            a binary in `$PATH`.
+                          type: string
                         hostname:
                           description: |-
                             The hostname.
@@ -962,6 +967,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        entrypoint:
+                          description: Command to run as init, optionally with arguments.
+                            It may start with an absolute path, relative path, or
+                            a binary in `$PATH`.
+                          type: string
                         hostname:
                           description: |-
                             The hostname.
@@ -1687,6 +1697,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        entrypoint:
+                          description: Command to run as init, optionally with arguments.
+                            It may start with an absolute path, relative path, or
+                            a binary in `$PATH`.
+                          type: string
                         hostname:
                           description: |-
                             The hostname.

@@ -1920,6 +1920,11 @@ func (in *InitializationInitParameters) DeepCopyInto(out *InitializationInitPara
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Entrypoint != nil {
+		in, out := &in.Entrypoint, &out.Entrypoint
+		*out = new(string)
+		**out = **in
+	}
 	if in.Hostname != nil {
 		in, out := &in.Hostname, &out.Hostname
 		*out = new(string)
@@ -1961,6 +1966,11 @@ func (in *InitializationObservation) DeepCopyInto(out *InitializationObservation
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Entrypoint != nil {
+		in, out := &in.Entrypoint, &out.Entrypoint
+		*out = new(string)
+		**out = **in
+	}
 	if in.Hostname != nil {
 		in, out := &in.Hostname, &out.Hostname
 		*out = new(string)
@@ -2001,6 +2011,11 @@ func (in *InitializationParameters) DeepCopyInto(out *InitializationParameters) 
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Entrypoint != nil {
+		in, out := &in.Entrypoint, &out.Entrypoint
+		*out = new(string)
+		**out = **in
 	}
 	if in.Hostname != nil {
 		in, out := &in.Hostname, &out.Hostname

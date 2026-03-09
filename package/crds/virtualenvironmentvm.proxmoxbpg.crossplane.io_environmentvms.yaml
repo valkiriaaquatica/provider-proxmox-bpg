@@ -823,61 +823,45 @@ spec:
                     items:
                       properties:
                         bridge:
-                          description: |-
-                            The name of the network bridge (defaults to vmbr0).
-                            The bridge
+                          description: The name of the network bridge (defaults to
+                            vmbr0).
                           type: string
                         disconnected:
-                          description: |-
-                            Whether to disconnect the network device from the network (defaults to false).
-                            Whether the network device should be disconnected from the network
+                          description: Whether to disconnect the network device from
+                            the network (defaults to false).
                           type: boolean
                         enabled:
-                          description: |-
-                            Whether to enable the network device (defaults to true).
-                            Whether to enable the network device
+                          description: Whether to enable the network device (defaults
+                            to true).
                           type: boolean
                         firewall:
-                          description: |-
-                            Whether this interface's firewall rules should be used (defaults to false).
-                            Whether this interface's firewall rules should be used
+                          description: Whether this interface's firewall rules should
+                            be used (defaults to false).
                           type: boolean
                         macAddress:
-                          description: |-
-                            The MAC address.
-                            The MAC address
+                          description: The MAC address.
                           type: string
                         model:
-                          description: |-
-                            The network device model (defaults to virtio).
-                            The model
+                          description: The network device model (defaults to virtio).
                           type: string
                         mtu:
-                          description: |-
-                            Force MTU, for VirtIO only. Set to 1 to use the bridge MTU. Cannot be larger than the bridge MTU.
-                            Maximum transmission unit (MTU)
+                          description: Force MTU, for VirtIO only. Set to 1 to use
+                            the bridge MTU. Cannot be larger than the bridge MTU.
                           type: number
                         queues:
-                          description: |-
-                            The number of queues for VirtIO (1..64).
-                            Number of packet queues to be used on the device
+                          description: The number of queues for VirtIO (1..64).
                           type: number
                         rateLimit:
-                          description: |-
-                            The rate limit in megabytes per second.
-                            The rate limit in megabytes per second
+                          description: The rate limit in megabytes per second.
                           type: number
                         trunks:
                           description: |-
                             String containing a ; separated list of VLAN trunks
                             ("10;20;30"). Note that the VLAN-aware feature need to be enabled on the PVE
                             Linux Bridge to use trunks.
-                            List of VLAN trunks for the network interface
                           type: string
                         vlanId:
-                          description: |-
-                            The VLAN identifier.
-                            The VLAN identifier
+                          description: The VLAN identifier.
                           type: number
                       type: object
                     type: array
@@ -2048,61 +2032,45 @@ spec:
                     items:
                       properties:
                         bridge:
-                          description: |-
-                            The name of the network bridge (defaults to vmbr0).
-                            The bridge
+                          description: The name of the network bridge (defaults to
+                            vmbr0).
                           type: string
                         disconnected:
-                          description: |-
-                            Whether to disconnect the network device from the network (defaults to false).
-                            Whether the network device should be disconnected from the network
+                          description: Whether to disconnect the network device from
+                            the network (defaults to false).
                           type: boolean
                         enabled:
-                          description: |-
-                            Whether to enable the network device (defaults to true).
-                            Whether to enable the network device
+                          description: Whether to enable the network device (defaults
+                            to true).
                           type: boolean
                         firewall:
-                          description: |-
-                            Whether this interface's firewall rules should be used (defaults to false).
-                            Whether this interface's firewall rules should be used
+                          description: Whether this interface's firewall rules should
+                            be used (defaults to false).
                           type: boolean
                         macAddress:
-                          description: |-
-                            The MAC address.
-                            The MAC address
+                          description: The MAC address.
                           type: string
                         model:
-                          description: |-
-                            The network device model (defaults to virtio).
-                            The model
+                          description: The network device model (defaults to virtio).
                           type: string
                         mtu:
-                          description: |-
-                            Force MTU, for VirtIO only. Set to 1 to use the bridge MTU. Cannot be larger than the bridge MTU.
-                            Maximum transmission unit (MTU)
+                          description: Force MTU, for VirtIO only. Set to 1 to use
+                            the bridge MTU. Cannot be larger than the bridge MTU.
                           type: number
                         queues:
-                          description: |-
-                            The number of queues for VirtIO (1..64).
-                            Number of packet queues to be used on the device
+                          description: The number of queues for VirtIO (1..64).
                           type: number
                         rateLimit:
-                          description: |-
-                            The rate limit in megabytes per second.
-                            The rate limit in megabytes per second
+                          description: The rate limit in megabytes per second.
                           type: number
                         trunks:
                           description: |-
                             String containing a ; separated list of VLAN trunks
                             ("10;20;30"). Note that the VLAN-aware feature need to be enabled on the PVE
                             Linux Bridge to use trunks.
-                            List of VLAN trunks for the network interface
                           type: string
                         vlanId:
-                          description: |-
-                            The VLAN identifier.
-                            The VLAN identifier
+                          description: The VLAN identifier.
                           type: number
                       type: object
                     type: array
@@ -3363,61 +3331,45 @@ spec:
                     items:
                       properties:
                         bridge:
-                          description: |-
-                            The name of the network bridge (defaults to vmbr0).
-                            The bridge
+                          description: The name of the network bridge (defaults to
+                            vmbr0).
                           type: string
                         disconnected:
-                          description: |-
-                            Whether to disconnect the network device from the network (defaults to false).
-                            Whether the network device should be disconnected from the network
+                          description: Whether to disconnect the network device from
+                            the network (defaults to false).
                           type: boolean
                         enabled:
-                          description: |-
-                            Whether to enable the network device (defaults to true).
-                            Whether to enable the network device
+                          description: Whether to enable the network device (defaults
+                            to true).
                           type: boolean
                         firewall:
-                          description: |-
-                            Whether this interface's firewall rules should be used (defaults to false).
-                            Whether this interface's firewall rules should be used
+                          description: Whether this interface's firewall rules should
+                            be used (defaults to false).
                           type: boolean
                         macAddress:
-                          description: |-
-                            The MAC address.
-                            The MAC address
+                          description: The MAC address.
                           type: string
                         model:
-                          description: |-
-                            The network device model (defaults to virtio).
-                            The model
+                          description: The network device model (defaults to virtio).
                           type: string
                         mtu:
-                          description: |-
-                            Force MTU, for VirtIO only. Set to 1 to use the bridge MTU. Cannot be larger than the bridge MTU.
-                            Maximum transmission unit (MTU)
+                          description: Force MTU, for VirtIO only. Set to 1 to use
+                            the bridge MTU. Cannot be larger than the bridge MTU.
                           type: number
                         queues:
-                          description: |-
-                            The number of queues for VirtIO (1..64).
-                            Number of packet queues to be used on the device
+                          description: The number of queues for VirtIO (1..64).
                           type: number
                         rateLimit:
-                          description: |-
-                            The rate limit in megabytes per second.
-                            The rate limit in megabytes per second
+                          description: The rate limit in megabytes per second.
                           type: number
                         trunks:
                           description: |-
                             String containing a ; separated list of VLAN trunks
                             ("10;20;30"). Note that the VLAN-aware feature need to be enabled on the PVE
                             Linux Bridge to use trunks.
-                            List of VLAN trunks for the network interface
                           type: string
                         vlanId:
-                          description: |-
-                            The VLAN identifier.
-                            The VLAN identifier
+                          description: The VLAN identifier.
                           type: number
                       type: object
                     type: array

@@ -2247,159 +2247,126 @@ type MemoryParameters struct {
 type NetworkDeviceInitParameters struct {
 
 	// The name of the network bridge (defaults to vmbr0).
-	// The bridge
-	Bridge *string `json:"bridge,omitempty" tf:"bridge,omitempty"`
+	Bridge *string `json:"bridge,omitempty" tf:"bridge"`
 
 	// Whether to disconnect the network device from the network (defaults to false).
-	// Whether the network device should be disconnected from the network
-	Disconnected *bool `json:"disconnected,omitempty" tf:"disconnected,omitempty"`
+	Disconnected *bool `json:"disconnected,omitempty" tf:"disconnected"`
 
 	// Whether to enable the network device (defaults to true).
-	// Whether to enable the network device
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled"`
 
 	// Whether this interface's firewall rules should be used (defaults to false).
-	// Whether this interface's firewall rules should be used
-	Firewall *bool `json:"firewall,omitempty" tf:"firewall,omitempty"`
+	Firewall *bool `json:"firewall,omitempty" tf:"firewall"`
 
 	// The MAC address.
-	// The MAC address
-	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address,omitempty"`
+	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address"`
 
 	// The network device model (defaults to virtio).
-	// The model
-	Model *string `json:"model,omitempty" tf:"model,omitempty"`
+	Model *string `json:"model,omitempty" tf:"model"`
 
 	// Force MTU, for VirtIO only. Set to 1 to use the bridge MTU. Cannot be larger than the bridge MTU.
-	// Maximum transmission unit (MTU)
-	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
+	Mtu *float64 `json:"mtu,omitempty" tf:"mtu"`
 
 	// The number of queues for VirtIO (1..64).
-	// Number of packet queues to be used on the device
-	Queues *float64 `json:"queues,omitempty" tf:"queues,omitempty"`
+	Queues *float64 `json:"queues,omitempty" tf:"queues"`
 
 	// The rate limit in megabytes per second.
-	// The rate limit in megabytes per second
-	RateLimit *float64 `json:"rateLimit,omitempty" tf:"rate_limit,omitempty"`
+	RateLimit *float64 `json:"rateLimit,omitempty" tf:"rate_limit"`
 
 	// String containing a ; separated list of VLAN trunks
 	// ("10;20;30"). Note that the VLAN-aware feature need to be enabled on the PVE
 	// Linux Bridge to use trunks.
-	// List of VLAN trunks for the network interface
-	Trunks *string `json:"trunks,omitempty" tf:"trunks,omitempty"`
+	Trunks *string `json:"trunks,omitempty" tf:"trunks"`
 
 	// The VLAN identifier.
-	// The VLAN identifier
-	VlanID *float64 `json:"vlanId,omitempty" tf:"vlan_id,omitempty"`
+	VlanID *float64 `json:"vlanId,omitempty" tf:"vlan_id"`
 }
 
 type NetworkDeviceObservation struct {
 
 	// The name of the network bridge (defaults to vmbr0).
-	// The bridge
 	Bridge *string `json:"bridge,omitempty" tf:"bridge,omitempty"`
 
 	// Whether to disconnect the network device from the network (defaults to false).
-	// Whether the network device should be disconnected from the network
 	Disconnected *bool `json:"disconnected,omitempty" tf:"disconnected,omitempty"`
 
 	// Whether to enable the network device (defaults to true).
-	// Whether to enable the network device
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// Whether this interface's firewall rules should be used (defaults to false).
-	// Whether this interface's firewall rules should be used
 	Firewall *bool `json:"firewall,omitempty" tf:"firewall,omitempty"`
 
 	// The MAC address.
-	// The MAC address
 	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address,omitempty"`
 
 	// The network device model (defaults to virtio).
-	// The model
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
 	// Force MTU, for VirtIO only. Set to 1 to use the bridge MTU. Cannot be larger than the bridge MTU.
-	// Maximum transmission unit (MTU)
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
 	// The number of queues for VirtIO (1..64).
-	// Number of packet queues to be used on the device
 	Queues *float64 `json:"queues,omitempty" tf:"queues,omitempty"`
 
 	// The rate limit in megabytes per second.
-	// The rate limit in megabytes per second
 	RateLimit *float64 `json:"rateLimit,omitempty" tf:"rate_limit,omitempty"`
 
 	// String containing a ; separated list of VLAN trunks
 	// ("10;20;30"). Note that the VLAN-aware feature need to be enabled on the PVE
 	// Linux Bridge to use trunks.
-	// List of VLAN trunks for the network interface
 	Trunks *string `json:"trunks,omitempty" tf:"trunks,omitempty"`
 
 	// The VLAN identifier.
-	// The VLAN identifier
 	VlanID *float64 `json:"vlanId,omitempty" tf:"vlan_id,omitempty"`
 }
 
 type NetworkDeviceParameters struct {
 
 	// The name of the network bridge (defaults to vmbr0).
-	// The bridge
 	// +kubebuilder:validation:Optional
-	Bridge *string `json:"bridge,omitempty" tf:"bridge,omitempty"`
+	Bridge *string `json:"bridge,omitempty" tf:"bridge"`
 
 	// Whether to disconnect the network device from the network (defaults to false).
-	// Whether the network device should be disconnected from the network
 	// +kubebuilder:validation:Optional
-	Disconnected *bool `json:"disconnected,omitempty" tf:"disconnected,omitempty"`
+	Disconnected *bool `json:"disconnected,omitempty" tf:"disconnected"`
 
 	// Whether to enable the network device (defaults to true).
-	// Whether to enable the network device
 	// +kubebuilder:validation:Optional
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled"`
 
 	// Whether this interface's firewall rules should be used (defaults to false).
-	// Whether this interface's firewall rules should be used
 	// +kubebuilder:validation:Optional
-	Firewall *bool `json:"firewall,omitempty" tf:"firewall,omitempty"`
+	Firewall *bool `json:"firewall,omitempty" tf:"firewall"`
 
 	// The MAC address.
-	// The MAC address
 	// +kubebuilder:validation:Optional
-	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address,omitempty"`
+	MacAddress *string `json:"macAddress,omitempty" tf:"mac_address"`
 
 	// The network device model (defaults to virtio).
-	// The model
 	// +kubebuilder:validation:Optional
-	Model *string `json:"model,omitempty" tf:"model,omitempty"`
+	Model *string `json:"model,omitempty" tf:"model"`
 
 	// Force MTU, for VirtIO only. Set to 1 to use the bridge MTU. Cannot be larger than the bridge MTU.
-	// Maximum transmission unit (MTU)
 	// +kubebuilder:validation:Optional
-	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
+	Mtu *float64 `json:"mtu,omitempty" tf:"mtu"`
 
 	// The number of queues for VirtIO (1..64).
-	// Number of packet queues to be used on the device
 	// +kubebuilder:validation:Optional
-	Queues *float64 `json:"queues,omitempty" tf:"queues,omitempty"`
+	Queues *float64 `json:"queues,omitempty" tf:"queues"`
 
 	// The rate limit in megabytes per second.
-	// The rate limit in megabytes per second
 	// +kubebuilder:validation:Optional
-	RateLimit *float64 `json:"rateLimit,omitempty" tf:"rate_limit,omitempty"`
+	RateLimit *float64 `json:"rateLimit,omitempty" tf:"rate_limit"`
 
 	// String containing a ; separated list of VLAN trunks
 	// ("10;20;30"). Note that the VLAN-aware feature need to be enabled on the PVE
 	// Linux Bridge to use trunks.
-	// List of VLAN trunks for the network interface
 	// +kubebuilder:validation:Optional
-	Trunks *string `json:"trunks,omitempty" tf:"trunks,omitempty"`
+	Trunks *string `json:"trunks,omitempty" tf:"trunks"`
 
 	// The VLAN identifier.
-	// The VLAN identifier
 	// +kubebuilder:validation:Optional
-	VlanID *float64 `json:"vlanId,omitempty" tf:"vlan_id,omitempty"`
+	VlanID *float64 `json:"vlanId,omitempty" tf:"vlan_id"`
 }
 
 type NumaInitParameters struct {

@@ -1023,7 +1023,7 @@ type EnvironmentVMInitParameters struct {
 	Reboot *bool `json:"reboot,omitempty" tf:"reboot,omitempty"`
 
 	// Reboot the VM after update if needed (defaults to true).
-	// Whether to reboot VM after update if needed
+	// Whether the provider may automatically reboot or power off the VM during update operations when required to apply changes. If false, updates that require taking the VM offline fail instead of being applied automatically. Changes that are applied successfully but still need a later manual reboot emit a warning instead.
 	RebootAfterUpdate *bool `json:"rebootAfterUpdate,omitempty" tf:"reboot_after_update,omitempty"`
 
 	// The random number generator configuration. Can only be set by root@pam.
@@ -1070,7 +1070,7 @@ type EnvironmentVMInitParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Whether to create a template (defaults to false).
-	// Whether to create a template
+	// Whether the VM should be a template. Setting this from false to true converts an existing VM to a template in place. Converting a template back to a regular VM is not supported.
 	Template *bool `json:"template,omitempty" tf:"template,omitempty"`
 
 	// Timeout for cloning a VM in seconds (defaults to
@@ -1295,7 +1295,7 @@ type EnvironmentVMObservation struct {
 	Reboot *bool `json:"reboot,omitempty" tf:"reboot,omitempty"`
 
 	// Reboot the VM after update if needed (defaults to true).
-	// Whether to reboot VM after update if needed
+	// Whether the provider may automatically reboot or power off the VM during update operations when required to apply changes. If false, updates that require taking the VM offline fail instead of being applied automatically. Changes that are applied successfully but still need a later manual reboot emit a warning instead.
 	RebootAfterUpdate *bool `json:"rebootAfterUpdate,omitempty" tf:"reboot_after_update,omitempty"`
 
 	// The random number generator configuration. Can only be set by root@pam.
@@ -1342,7 +1342,7 @@ type EnvironmentVMObservation struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Whether to create a template (defaults to false).
-	// Whether to create a template
+	// Whether the VM should be a template. Setting this from false to true converts an existing VM to a template in place. Converting a template back to a regular VM is not supported.
 	Template *bool `json:"template,omitempty" tf:"template,omitempty"`
 
 	// Timeout for cloning a VM in seconds (defaults to
@@ -1580,7 +1580,7 @@ type EnvironmentVMParameters struct {
 	Reboot *bool `json:"reboot,omitempty" tf:"reboot,omitempty"`
 
 	// Reboot the VM after update if needed (defaults to true).
-	// Whether to reboot VM after update if needed
+	// Whether the provider may automatically reboot or power off the VM during update operations when required to apply changes. If false, updates that require taking the VM offline fail instead of being applied automatically. Changes that are applied successfully but still need a later manual reboot emit a warning instead.
 	// +kubebuilder:validation:Optional
 	RebootAfterUpdate *bool `json:"rebootAfterUpdate,omitempty" tf:"reboot_after_update,omitempty"`
 
@@ -1637,7 +1637,7 @@ type EnvironmentVMParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Whether to create a template (defaults to false).
-	// Whether to create a template
+	// Whether the VM should be a template. Setting this from false to true converts an existing VM to a template in place. Converting a template back to a regular VM is not supported.
 	// +kubebuilder:validation:Optional
 	Template *bool `json:"template,omitempty" tf:"template,omitempty"`
 

@@ -12,7 +12,7 @@ on:
 
 jobs:
   tag:
-    uses: upbound/official-providers-ci/.github/workflows/provider-tag.yml@standard-runners
+    uses: upbound/official-providers-ci/.github/workflows/provider-tag.yml@cd6215984633723be29e7709f39e3a83aaeb0baf # standard-runners
     with:
       version: ${{ github.event.inputs.version }}
       message: ${{ github.event.inputs.message }}

@@ -70,6 +70,12 @@ spec:
                             The identifier for the target datastore.
                             The ID of the target datastore
                           type: string
+                        full:
+                          description: When cloning, create a full copy of all disks.
+                            Set to false to create a linked clone. Linked clones require
+                            the source container to be a template on storage that
+                            supports copy-on-write (e.g. Ceph RBD). Defaults to true.
+                          type: boolean
                         nodeName:
                           description: |-
                             The name of the source node (leave blank, if
@@ -122,6 +128,10 @@ spec:
                           description: |-
                             The number of CPU cores (defaults to 1).
                             The number of CPU cores
+                          type: number
+                        limit:
+                          description: Limit of CPU usage. Value 0 indicates no limit
+                            (defaults to 0).
                           type: number
                         units:
                           description: |-
@@ -706,6 +716,12 @@ spec:
                             The identifier for the target datastore.
                             The ID of the target datastore
                           type: string
+                        full:
+                          description: When cloning, create a full copy of all disks.
+                            Set to false to create a linked clone. Linked clones require
+                            the source container to be a template on storage that
+                            supports copy-on-write (e.g. Ceph RBD). Defaults to true.
+                          type: boolean
                         nodeName:
                           description: |-
                             The name of the source node (leave blank, if
@@ -758,6 +774,10 @@ spec:
                           description: |-
                             The number of CPU cores (defaults to 1).
                             The number of CPU cores
+                          type: number
+                        limit:
+                          description: Limit of CPU usage. Value 0 indicates no limit
+                            (defaults to 0).
                           type: number
                         units:
                           description: |-
@@ -1398,6 +1418,12 @@ spec:
                             The identifier for the target datastore.
                             The ID of the target datastore
                           type: string
+                        full:
+                          description: When cloning, create a full copy of all disks.
+                            Set to false to create a linked clone. Linked clones require
+                            the source container to be a template on storage that
+                            supports copy-on-write (e.g. Ceph RBD). Defaults to true.
+                          type: boolean
                         nodeName:
                           description: |-
                             The name of the source node (leave blank, if
@@ -1450,6 +1476,10 @@ spec:
                           description: |-
                             The number of CPU cores (defaults to 1).
                             The number of CPU cores
+                          type: number
+                        limit:
+                          description: Limit of CPU usage. Value 0 indicates no limit
+                            (defaults to 0).
                           type: number
                         units:
                           description: |-

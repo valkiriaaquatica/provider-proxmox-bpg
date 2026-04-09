@@ -26,6 +26,11 @@ func (in *CPUInitParameters) DeepCopyInto(out *CPUInitParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.Limit != nil {
+		in, out := &in.Limit, &out.Limit
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Units != nil {
 		in, out := &in.Units, &out.Units
 		*out = new(float64)
@@ -53,6 +58,11 @@ func (in *CPUObservation) DeepCopyInto(out *CPUObservation) {
 	}
 	if in.Cores != nil {
 		in, out := &in.Cores, &out.Cores
+		*out = new(float64)
+		**out = **in
+	}
+	if in.Limit != nil {
+		in, out := &in.Limit, &out.Limit
 		*out = new(float64)
 		**out = **in
 	}
@@ -86,6 +96,11 @@ func (in *CPUParameters) DeepCopyInto(out *CPUParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.Limit != nil {
+		in, out := &in.Limit, &out.Limit
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Units != nil {
 		in, out := &in.Units, &out.Units
 		*out = new(float64)
@@ -109,6 +124,11 @@ func (in *CloneInitParameters) DeepCopyInto(out *CloneInitParameters) {
 	if in.DatastoreID != nil {
 		in, out := &in.DatastoreID, &out.DatastoreID
 		*out = new(string)
+		**out = **in
+	}
+	if in.Full != nil {
+		in, out := &in.Full, &out.Full
+		*out = new(bool)
 		**out = **in
 	}
 	if in.NodeName != nil {
@@ -141,6 +161,11 @@ func (in *CloneObservation) DeepCopyInto(out *CloneObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Full != nil {
+		in, out := &in.Full, &out.Full
+		*out = new(bool)
+		**out = **in
+	}
 	if in.NodeName != nil {
 		in, out := &in.NodeName, &out.NodeName
 		*out = new(string)
@@ -169,6 +194,11 @@ func (in *CloneParameters) DeepCopyInto(out *CloneParameters) {
 	if in.DatastoreID != nil {
 		in, out := &in.DatastoreID, &out.DatastoreID
 		*out = new(string)
+		**out = **in
+	}
+	if in.Full != nil {
+		in, out := &in.Full, &out.Full
+		*out = new(bool)
 		**out = **in
 	}
 	if in.NodeName != nil {

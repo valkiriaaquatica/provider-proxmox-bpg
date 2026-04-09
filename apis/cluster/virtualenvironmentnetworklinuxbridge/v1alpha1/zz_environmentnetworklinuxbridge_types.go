@@ -44,7 +44,7 @@ type EnvironmentNetworkLinuxBridgeInitParameters struct {
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
 	// vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
-	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any string containing only letters, numbers, and underscores (_), starting with a letter and at most 10 characters long.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The name of the node.
@@ -97,7 +97,7 @@ type EnvironmentNetworkLinuxBridgeObservation struct {
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
 	// vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
-	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any string containing only letters, numbers, and underscores (_), starting with a letter and at most 10 characters long.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The name of the node.
@@ -154,7 +154,7 @@ type EnvironmentNetworkLinuxBridgeParameters struct {
 	Mtu *float64 `json:"mtu,omitempty" tf:"mtu,omitempty"`
 
 	// vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
-	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any alphanumeric string that starts with a character and is at most 10 characters long.
+	// The interface name. Commonly vmbr[N], where 0 ≤ N ≤ 4094 (vmbr0 - vmbr4094), but can be any string containing only letters, numbers, and underscores (_), starting with a letter and at most 10 characters long.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

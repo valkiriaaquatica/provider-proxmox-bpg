@@ -23,6 +23,9 @@ type CPUInitParameters struct {
 	// The number of CPU cores
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
 
+	// Limit of CPU usage. Value 0 indicates no limit (defaults to 0).
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
 	// The CPU units (defaults to 1024).
 	// The CPU units
 	Units *float64 `json:"units,omitempty" tf:"units,omitempty"`
@@ -37,6 +40,9 @@ type CPUObservation struct {
 	// The number of CPU cores (defaults to 1).
 	// The number of CPU cores
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
+
+	// Limit of CPU usage. Value 0 indicates no limit (defaults to 0).
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
 
 	// The CPU units (defaults to 1024).
 	// The CPU units
@@ -55,6 +61,10 @@ type CPUParameters struct {
 	// +kubebuilder:validation:Optional
 	Cores *float64 `json:"cores,omitempty" tf:"cores,omitempty"`
 
+	// Limit of CPU usage. Value 0 indicates no limit (defaults to 0).
+	// +kubebuilder:validation:Optional
+	Limit *float64 `json:"limit,omitempty" tf:"limit,omitempty"`
+
 	// The CPU units (defaults to 1024).
 	// The CPU units
 	// +kubebuilder:validation:Optional
@@ -66,6 +76,9 @@ type CloneInitParameters struct {
 	// The identifier for the target datastore.
 	// The ID of the target datastore
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
+
+	// When cloning, create a full copy of all disks. Set to false to create a linked clone. Linked clones require the source container to be a template on storage that supports copy-on-write (e.g. Ceph RBD). Defaults to true.
+	Full *bool `json:"full,omitempty" tf:"full,omitempty"`
 
 	// The name of the source node (leave blank, if
 	// equal to the node_name argument).
@@ -83,6 +96,9 @@ type CloneObservation struct {
 	// The ID of the target datastore
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
+	// When cloning, create a full copy of all disks. Set to false to create a linked clone. Linked clones require the source container to be a template on storage that supports copy-on-write (e.g. Ceph RBD). Defaults to true.
+	Full *bool `json:"full,omitempty" tf:"full,omitempty"`
+
 	// The name of the source node (leave blank, if
 	// equal to the node_name argument).
 	// The name of the source node
@@ -99,6 +115,10 @@ type CloneParameters struct {
 	// The ID of the target datastore
 	// +kubebuilder:validation:Optional
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
+
+	// When cloning, create a full copy of all disks. Set to false to create a linked clone. Linked clones require the source container to be a template on storage that supports copy-on-write (e.g. Ceph RBD). Defaults to true.
+	// +kubebuilder:validation:Optional
+	Full *bool `json:"full,omitempty" tf:"full,omitempty"`
 
 	// The name of the source node (leave blank, if
 	// equal to the node_name argument).

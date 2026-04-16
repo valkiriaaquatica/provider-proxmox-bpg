@@ -2024,6 +2024,10 @@ type InitializationInitParameters struct {
 	// The cloud-init configuration format
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// German.
+	// Whether to do an automatic package upgrade after the first boot (defaults to `true` in Proxmox). Setting this is only allowed for `root@pam` authenticated user.
+	Upgrade *bool `json:"upgrade,omitempty" tf:"upgrade,omitempty"`
+
 	// The user account configuration (conflicts
 	// with user_data_file_id).
 	// The user account configuration
@@ -2080,6 +2084,10 @@ type InitializationObservation struct {
 	// The QEMU agent interface type (defaults to virtio).
 	// The cloud-init configuration format
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// German.
+	// Whether to do an automatic package upgrade after the first boot (defaults to `true` in Proxmox). Setting this is only allowed for `root@pam` authenticated user.
+	Upgrade *bool `json:"upgrade,omitempty" tf:"upgrade,omitempty"`
 
 	// The user account configuration (conflicts
 	// with user_data_file_id).
@@ -2145,6 +2153,11 @@ type InitializationParameters struct {
 	// The cloud-init configuration format
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// German.
+	// Whether to do an automatic package upgrade after the first boot (defaults to `true` in Proxmox). Setting this is only allowed for `root@pam` authenticated user.
+	// +kubebuilder:validation:Optional
+	Upgrade *bool `json:"upgrade,omitempty" tf:"upgrade,omitempty"`
 
 	// The user account configuration (conflicts
 	// with user_data_file_id).

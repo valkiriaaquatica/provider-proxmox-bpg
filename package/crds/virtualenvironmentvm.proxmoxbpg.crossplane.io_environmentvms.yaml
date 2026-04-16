@@ -693,6 +693,11 @@ spec:
                             The QEMU agent interface type (defaults to virtio).
                             The cloud-init configuration format
                           type: string
+                        upgrade:
+                          description: |-
+                            German.
+                            Whether to do an automatic package upgrade after the first boot (defaults to `true` in Proxmox). Setting this is only allowed for `root@pam` authenticated user.
+                          type: boolean
                         userAccount:
                           description: |-
                             The user account configuration (conflicts
@@ -1902,6 +1907,11 @@ spec:
                             The QEMU agent interface type (defaults to virtio).
                             The cloud-init configuration format
                           type: string
+                        upgrade:
+                          description: |-
+                            German.
+                            Whether to do an automatic package upgrade after the first boot (defaults to `true` in Proxmox). Setting this is only allowed for `root@pam` authenticated user.
+                          type: boolean
                         userAccount:
                           description: |-
                             The user account configuration (conflicts
@@ -3200,6 +3210,11 @@ spec:
                             The QEMU agent interface type (defaults to virtio).
                             The cloud-init configuration format
                           type: string
+                        upgrade:
+                          description: |-
+                            German.
+                            Whether to do an automatic package upgrade after the first boot (defaults to `true` in Proxmox). Setting this is only allowed for `root@pam` authenticated user.
+                          type: boolean
                         userAccount:
                           description: |-
                             The user account configuration (conflicts

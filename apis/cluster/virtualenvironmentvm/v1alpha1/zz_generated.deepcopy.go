@@ -2961,6 +2961,11 @@ func (in *InitializationInitParameters) DeepCopyInto(out *InitializationInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.Upgrade != nil {
+		in, out := &in.Upgrade, &out.Upgrade
+		*out = new(bool)
+		**out = **in
+	}
 	if in.UserAccount != nil {
 		in, out := &in.UserAccount, &out.UserAccount
 		*out = make([]UserAccountInitParameters, len(*in))
@@ -3037,6 +3042,11 @@ func (in *InitializationObservation) DeepCopyInto(out *InitializationObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.Upgrade != nil {
+		in, out := &in.Upgrade, &out.Upgrade
+		*out = new(bool)
+		**out = **in
+	}
 	if in.UserAccount != nil {
 		in, out := &in.UserAccount, &out.UserAccount
 		*out = make([]UserAccountObservation, len(*in))
@@ -3111,6 +3121,11 @@ func (in *InitializationParameters) DeepCopyInto(out *InitializationParameters) 
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
 		*out = new(string)
+		**out = **in
+	}
+	if in.Upgrade != nil {
+		in, out := &in.Upgrade, &out.Upgrade
+		*out = new(bool)
 		**out = **in
 	}
 	if in.UserAccount != nil {

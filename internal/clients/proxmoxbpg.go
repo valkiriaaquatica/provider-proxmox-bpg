@@ -70,11 +70,13 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 }
 
 func resolveProviderConfig(ctx context.Context, crClient client.Client, mg resource.Managed) (*clusterv1beta1.ProviderCredentials, error) {
-	modern, ok := mg.(resource.ModernManaged)
-	if !ok {
-		return nil, errors.New("resource is not a managed resource")
+	if modern, ok := mg.(resource.ModernManaged); ok {
+		return resolveModern(ctx, crClient, modern)
 	}
-	return resolveModern(ctx, crClient, modern)
+	if legacy, ok := mg.(resource.LegacyManaged); ok {
+		return resolveLegacy(ctx, crClient, legacy)
+	}
+	return nil, errors.New("resource is not a managed resource")
 }
 
 func resolveModern(ctx context.Context, crClient client.Client, mg resource.ModernManaged) (*clusterv1beta1.ProviderCredentials, error) {
@@ -93,6 +95,28 @@ func resolveModern(ctx context.Context, crClient client.Client, mg resource.Mode
 	}
 
 	if err := crClient.Get(ctx, types.NamespacedName{Name: configRef.Name, Namespace: mg.GetNamespace()}, pcObj); err != nil {
+		return nil, errors.Wrap(err, errGetProviderConfig)
+	}
+
+	return providerCredentialsFor(ctx, crClient, mg, pcObj)
+}
+
+func resolveLegacy(ctx context.Context, crClient client.Client, mg resource.LegacyManaged) (*clusterv1beta1.ProviderCredentials, error) {
+	configRef := mg.GetProviderConfigReference()
+	if configRef == nil {
+		return nil, errors.New(errNoProviderConfig)
+	}
+
+	pcRuntimeObj, err := crClient.Scheme().New(clusterv1beta1.ProviderConfigGroupVersionKind)
+	if err != nil {
+		return nil, errors.Wrap(err, "unknown GVK for ProviderConfig")
+	}
+	pcObj, ok := pcRuntimeObj.(client.Object)
+	if !ok {
+		return nil, errors.New("provider config type is not a client.Object")
+	}
+
+	if err := crClient.Get(ctx, types.NamespacedName{Name: configRef.Name}, pcObj); err != nil {
 		return nil, errors.Wrap(err, errGetProviderConfig)
 	}
 
@@ -153,11 +177,15 @@ func buildConfiguration(creds map[string]string) map[string]any {
 	return cfg
 }
 
-func providerCredentialsFor(ctx context.Context, crClient client.Client, mg resource.ModernManaged, pc client.Object) (*clusterv1beta1.ProviderCredentials, error) {
+func providerCredentialsFor(ctx context.Context, crClient client.Client, mg resource.Managed, pc client.Object) (*clusterv1beta1.ProviderCredentials, error) {
 	switch cfg := pc.(type) {
 	case *namespacedv1beta1.ProviderConfig:
+		modern, ok := mg.(resource.ModernManaged)
+		if !ok {
+			return nil, errors.New("managed resource does not implement ModernManaged interface")
+		}
 		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
+		if err := t.Track(ctx, modern); err != nil {
 			return nil, errors.Wrap(err, errTrackUsage)
 		}
 		if cfg.Spec.Credentials.SecretRef != nil {
@@ -168,8 +196,12 @@ func providerCredentialsFor(ctx context.Context, crClient client.Client, mg reso
 			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
 		}, nil
 	case *namespacedv1beta1.ClusterProviderConfig:
+		modern, ok := mg.(resource.ModernManaged)
+		if !ok {
+			return nil, errors.New("managed resource does not implement ModernManaged interface")
+		}
 		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
+		if err := t.Track(ctx, modern); err != nil {
 			return nil, errors.Wrap(err, errTrackUsage)
 		}
 		return &clusterv1beta1.ProviderCredentials{
@@ -177,8 +209,12 @@ func providerCredentialsFor(ctx context.Context, crClient client.Client, mg reso
 			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
 		}, nil
 	case *clusterv1beta1.ProviderConfig:
-		t := resource.NewProviderConfigUsageTracker(crClient, &clusterv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg); err != nil {
+		legacy, ok := mg.(resource.LegacyManaged)
+		if !ok {
+			return nil, errors.New("managed resource does not implement LegacyManaged interface")
+		}
+		t := resource.NewLegacyProviderConfigUsageTracker(crClient, &clusterv1beta1.ProviderConfigUsage{})
+		if err := t.Track(ctx, legacy); err != nil {
 			return nil, errors.Wrap(err, errTrackUsage)
 		}
 		return &cfg.Spec.Credentials, nil

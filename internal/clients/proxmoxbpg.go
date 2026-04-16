@@ -7,7 +7,6 @@ package clients
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/pkg/errors"
@@ -71,14 +70,12 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 }
 
 func resolveProviderConfig(ctx context.Context, crClient client.Client, mg resource.Managed) (*clusterv1beta1.ProviderCredentials, error) {
-	fmt.Printf("blub %T\n\n", mg)
 	if modern, ok := mg.(resource.ModernManaged); ok {
 		return resolveModern(ctx, crClient, modern)
 	}
 	if legacy, ok := mg.(resource.LegacyManaged); ok {
 		return resolveLegacy(ctx, crClient, legacy)
 	}
-
 	return nil, errors.New("resource is not a managed resource")
 }
 

@@ -116,7 +116,7 @@ func resolveLegacy(ctx context.Context, crClient client.Client, mg resource.Lega
 		return nil, errors.New("provider config type is not a client.Object")
 	}
 
-	if err := crClient.Get(ctx, types.NamespacedName{Name: configRef.Name, Namespace: mg.GetNamespace()}, pcObj); err != nil {
+	if err := crClient.Get(ctx, types.NamespacedName{Name: configRef.Name}, pcObj); err != nil {
 		return nil, errors.Wrap(err, errGetProviderConfig)
 	}
 
@@ -180,8 +180,12 @@ func buildConfiguration(creds map[string]string) map[string]any {
 func providerCredentialsFor(ctx context.Context, crClient client.Client, mg resource.Managed, pc client.Object) (*clusterv1beta1.ProviderCredentials, error) {
 	switch cfg := pc.(type) {
 	case *namespacedv1beta1.ProviderConfig:
+		modern, ok := mg.(resource.ModernManaged)
+		if !ok {
+			return nil, errors.New("managed resource does not implement ModernManaged interface")
+		}
 		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg.(resource.ModernManaged)); err != nil {
+		if err := t.Track(ctx, modern); err != nil {
 			return nil, errors.Wrap(err, errTrackUsage)
 		}
 		if cfg.Spec.Credentials.SecretRef != nil {
@@ -192,8 +196,12 @@ func providerCredentialsFor(ctx context.Context, crClient client.Client, mg reso
 			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
 		}, nil
 	case *namespacedv1beta1.ClusterProviderConfig:
+		modern, ok := mg.(resource.ModernManaged)
+		if !ok {
+			return nil, errors.New("managed resource does not implement ModernManaged interface")
+		}
 		t := resource.NewProviderConfigUsageTracker(crClient, &namespacedv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg.(resource.ModernManaged)); err != nil {
+		if err := t.Track(ctx, modern); err != nil {
 			return nil, errors.Wrap(err, errTrackUsage)
 		}
 		return &clusterv1beta1.ProviderCredentials{
@@ -201,8 +209,12 @@ func providerCredentialsFor(ctx context.Context, crClient client.Client, mg reso
 			CommonCredentialSelectors: cfg.Spec.Credentials.CommonCredentialSelectors,
 		}, nil
 	case *clusterv1beta1.ProviderConfig:
+		legacy, ok := mg.(resource.LegacyManaged)
+		if !ok {
+			return nil, errors.New("managed resource does not implement LegacyManaged interface")
+		}
 		t := resource.NewLegacyProviderConfigUsageTracker(crClient, &clusterv1beta1.ProviderConfigUsage{})
-		if err := t.Track(ctx, mg.(resource.LegacyManaged)); err != nil {
+		if err := t.Track(ctx, legacy); err != nil {
 			return nil, errors.Wrap(err, errTrackUsage)
 		}
 		return &cfg.Spec.Credentials, nil

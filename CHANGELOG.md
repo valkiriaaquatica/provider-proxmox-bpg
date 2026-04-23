@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.9.0...v1.9.1) (2026-04-23)
+
+
+### Bug Fixes
+
+* support legacy MRs again ([#188](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/188)) ([#211](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/211)) ([397a96b](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/397a96b55c36528fe0bd1f70da92a1d1d46ef7d4))
+
 ## [1.9.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.8.0...v1.9.0) (2026-04-16)
 
 

@@ -16,7 +16,7 @@ import (
 type EnvironmentMetricsServerInitParameters struct {
 
 	// (Boolean) Set this to true to disable this metric server.
-	// Set this to `true` to disable this metric server.
+	// Set this to `true` to disable this metric server. Defaults to `false`.
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
 	// (String) Root graphite path (ex: proxmox.mycluster.mykey).
@@ -52,7 +52,7 @@ type EnvironmentMetricsServerInitParameters struct {
 	InfluxTokenSecretRef *v1.SecretKeySelector `json:"influxTokenSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Set to false to disable certificate verification for https endpoints.
-	// Set to `false` to disable certificate verification for https endpoints.
+	// Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
 	InfluxVerify *bool `json:"influxVerify,omitempty" tf:"influx_verify,omitempty"`
 
 	// 65536).
@@ -110,7 +110,7 @@ type EnvironmentMetricsServerInitParameters struct {
 type EnvironmentMetricsServerObservation struct {
 
 	// (Boolean) Set this to true to disable this metric server.
-	// Set this to `true` to disable this metric server.
+	// Set this to `true` to disable this metric server. Defaults to `false`.
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
 	// (String) Root graphite path (ex: proxmox.mycluster.mykey).
@@ -145,7 +145,7 @@ type EnvironmentMetricsServerObservation struct {
 	InfluxOrganization *string `json:"influxOrganization,omitempty" tf:"influx_organization,omitempty"`
 
 	// (Boolean) Set to false to disable certificate verification for https endpoints.
-	// Set to `false` to disable certificate verification for https endpoints.
+	// Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
 	InfluxVerify *bool `json:"influxVerify,omitempty" tf:"influx_verify,omitempty"`
 
 	// 65536).
@@ -200,7 +200,7 @@ type EnvironmentMetricsServerObservation struct {
 type EnvironmentMetricsServerParameters struct {
 
 	// (Boolean) Set this to true to disable this metric server.
-	// Set this to `true` to disable this metric server.
+	// Set this to `true` to disable this metric server. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
@@ -245,7 +245,7 @@ type EnvironmentMetricsServerParameters struct {
 	InfluxTokenSecretRef *v1.SecretKeySelector `json:"influxTokenSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Set to false to disable certificate verification for https endpoints.
-	// Set to `false` to disable certificate verification for https endpoints.
+	// Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
 	// +kubebuilder:validation:Optional
 	InfluxVerify *bool `json:"influxVerify,omitempty" tf:"influx_verify,omitempty"`
 

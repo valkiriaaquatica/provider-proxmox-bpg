@@ -63,7 +63,7 @@ spec:
                   disable:
                     description: |-
                       (Boolean) Set this to true to disable this metric server.
-                      Set this to `true` to disable this metric server.
+                      Set this to `true` to disable this metric server. Defaults to `false`.
                     type: boolean
                   graphitePath:
                     description: |-
@@ -117,7 +117,7 @@ spec:
                   influxVerify:
                     description: |-
                       (Boolean) Set to false to disable certificate verification for https endpoints.
-                      Set to `false` to disable certificate verification for https endpoints.
+                      Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
                     type: boolean
                   mtu:
                     description: |-
@@ -211,7 +211,7 @@ spec:
                   disable:
                     description: |-
                       (Boolean) Set this to true to disable this metric server.
-                      Set this to `true` to disable this metric server.
+                      Set this to `true` to disable this metric server. Defaults to `false`.
                     type: boolean
                   graphitePath:
                     description: |-
@@ -265,7 +265,7 @@ spec:
                   influxVerify:
                     description: |-
                       (Boolean) Set to false to disable certificate verification for https endpoints.
-                      Set to `false` to disable certificate verification for https endpoints.
+                      Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
                     type: boolean
                   mtu:
                     description: |-
@@ -427,7 +427,7 @@ spec:
                   disable:
                     description: |-
                       (Boolean) Set this to true to disable this metric server.
-                      Set this to `true` to disable this metric server.
+                      Set this to `true` to disable this metric server. Defaults to `false`.
                     type: boolean
                   graphitePath:
                     description: |-
@@ -470,7 +470,7 @@ spec:
                   influxVerify:
                     description: |-
                       (Boolean) Set to false to disable certificate verification for https endpoints.
-                      Set to `false` to disable certificate verification for https endpoints.
+                      Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
                     type: boolean
                   mtu:
                     description: |-

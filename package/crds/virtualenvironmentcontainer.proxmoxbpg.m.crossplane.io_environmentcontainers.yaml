@@ -523,6 +523,10 @@ spec:
                             used (defaults to false).
                             Whether this interface's firewall rules should be used.
                           type: boolean
+                        hostManaged:
+                          description: Whether the host runs DHCP on this interface's
+                            behalf. Requires Proxmox VE 9.0+.
+                          type: boolean
                         macAddress:
                           description: |-
                             The MAC address.
@@ -1168,6 +1172,10 @@ spec:
                             Whether this interface's firewall rules should be
                             used (defaults to false).
                             Whether this interface's firewall rules should be used.
+                          type: boolean
+                        hostManaged:
+                          description: Whether the host runs DHCP on this interface's
+                            behalf. Requires Proxmox VE 9.0+.
                           type: boolean
                         macAddress:
                           description: |-
@@ -1880,6 +1888,10 @@ spec:
                             Whether this interface's firewall rules should be
                             used (defaults to false).
                             Whether this interface's firewall rules should be used.
+                          type: boolean
+                        hostManaged:
+                          description: Whether the host runs DHCP on this interface's
+                            behalf. Requires Proxmox VE 9.0+.
                           type: boolean
                         macAddress:
                           description: |-

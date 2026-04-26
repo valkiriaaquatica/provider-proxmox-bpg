@@ -2389,6 +2389,11 @@ func (in *NetworkInterfaceInitParameters) DeepCopyInto(out *NetworkInterfaceInit
 		*out = new(bool)
 		**out = **in
 	}
+	if in.HostManaged != nil {
+		in, out := &in.HostManaged, &out.HostManaged
+		*out = new(bool)
+		**out = **in
+	}
 	if in.MacAddress != nil {
 		in, out := &in.MacAddress, &out.MacAddress
 		*out = new(string)
@@ -2444,6 +2449,11 @@ func (in *NetworkInterfaceObservation) DeepCopyInto(out *NetworkInterfaceObserva
 		*out = new(bool)
 		**out = **in
 	}
+	if in.HostManaged != nil {
+		in, out := &in.HostManaged, &out.HostManaged
+		*out = new(bool)
+		**out = **in
+	}
 	if in.MacAddress != nil {
 		in, out := &in.MacAddress, &out.MacAddress
 		*out = new(string)
@@ -2496,6 +2506,11 @@ func (in *NetworkInterfaceParameters) DeepCopyInto(out *NetworkInterfaceParamete
 	}
 	if in.Firewall != nil {
 		in, out := &in.Firewall, &out.Firewall
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HostManaged != nil {
+		in, out := &in.HostManaged, &out.HostManaged
 		*out = new(bool)
 		**out = **in
 	}

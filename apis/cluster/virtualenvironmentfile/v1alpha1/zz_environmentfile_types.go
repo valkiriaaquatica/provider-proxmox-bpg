@@ -51,6 +51,9 @@ type EnvironmentFileInitParameters struct {
 	// seconds (defaults to 1800).
 	// Timeout for uploading ISO/VSTMPL files in seconds
 	TimeoutUpload *float64 `json:"timeoutUpload,omitempty" tf:"timeout_upload,omitempty"`
+
+	// The SSH upload mode for non-API content types (snippets, backups, etc.). `stream` pipes through an SSH shell session and uses sudo where required; `sftp` uploads via the SFTP subsystem and requires direct write permission to the target directory. Has no effect for `iso`, `vztmpl`, and `import` (those use the HTTP API).
+	UploadMode *string `json:"uploadMode,omitempty" tf:"upload_mode,omitempty"`
 }
 
 type EnvironmentFileObservation struct {
@@ -111,6 +114,9 @@ type EnvironmentFileObservation struct {
 	// seconds (defaults to 1800).
 	// Timeout for uploading ISO/VSTMPL files in seconds
 	TimeoutUpload *float64 `json:"timeoutUpload,omitempty" tf:"timeout_upload,omitempty"`
+
+	// The SSH upload mode for non-API content types (snippets, backups, etc.). `stream` pipes through an SSH shell session and uses sudo where required; `sftp` uploads via the SFTP subsystem and requires direct write permission to the target directory. Has no effect for `iso`, `vztmpl`, and `import` (those use the HTTP API).
+	UploadMode *string `json:"uploadMode,omitempty" tf:"upload_mode,omitempty"`
 }
 
 type EnvironmentFileParameters struct {
@@ -159,6 +165,10 @@ type EnvironmentFileParameters struct {
 	// Timeout for uploading ISO/VSTMPL files in seconds
 	// +kubebuilder:validation:Optional
 	TimeoutUpload *float64 `json:"timeoutUpload,omitempty" tf:"timeout_upload,omitempty"`
+
+	// The SSH upload mode for non-API content types (snippets, backups, etc.). `stream` pipes through an SSH shell session and uses sudo where required; `sftp` uploads via the SFTP subsystem and requires direct write permission to the target directory. Has no effect for `iso`, `vztmpl`, and `import` (those use the HTTP API).
+	// +kubebuilder:validation:Optional
+	UploadMode *string `json:"uploadMode,omitempty" tf:"upload_mode,omitempty"`
 }
 
 type SourceFileInitParameters struct {

@@ -70,16 +70,34 @@ spec:
                       (String) The URL of the ACME CA directory endpoint.
                       The URL of the ACME CA directory endpoint.
                     type: string
-                  eabHmacKey:
+                  eabHmacKeySecretRef:
                     description: |-
                       (String) The HMAC key for External Account Binding.
                       The HMAC key for External Account Binding.
-                    type: string
-                  eabKid:
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  eabKidSecretRef:
                     description: |-
                       (String) The Key Identifier for External Account Binding.
                       The Key Identifier for External Account Binding.
-                    type: string
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
                   name:
                     description: |-
                       (String) The ACME account config file name.
@@ -114,16 +132,34 @@ spec:
                       (String) The URL of the ACME CA directory endpoint.
                       The URL of the ACME CA directory endpoint.
                     type: string
-                  eabHmacKey:
+                  eabHmacKeySecretRef:
                     description: |-
                       (String) The HMAC key for External Account Binding.
                       The HMAC key for External Account Binding.
-                    type: string
-                  eabKid:
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  eabKidSecretRef:
                     description: |-
                       (String) The Key Identifier for External Account Binding.
                       The Key Identifier for External Account Binding.
-                    type: string
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
                   name:
                     description: |-
                       (String) The ACME account config file name.
@@ -218,16 +254,6 @@ spec:
                     description: |-
                       (String) The URL of the ACME CA directory endpoint.
                       The URL of the ACME CA directory endpoint.
-                    type: string
-                  eabHmacKey:
-                    description: |-
-                      (String) The HMAC key for External Account Binding.
-                      The HMAC key for External Account Binding.
-                    type: string
-                  eabKid:
-                    description: |-
-                      (String) The Key Identifier for External Account Binding.
-                      The Key Identifier for External Account Binding.
                     type: string
                   id:
                     type: string

@@ -59,6 +59,9 @@ type EnvironmentNetworkLinuxBridgeInitParameters struct {
 	// Timeout for network reload operations in seconds (defaults to `100`).
 	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
 
+	// VLAN IDs allowed on the bridge (Linux Bridge `bridge-vids`). Space-separated list of VLAN IDs and/or hyphenated ranges (e.g. `"2-4094"`, `"1 20 130"`, or `"1 10-20 30"`). Requires `vlan_aware = true`. PVE/ifupdown2 fills in `2-4094` as the implicit default for VLAN-aware bridges when this attribute is omitted; the provider surfaces that default in state.
+	Vids *string `json:"vids,omitempty" tf:"vids,omitempty"`
+
 	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).
 	VlanAware *bool `json:"vlanAware,omitempty" tf:"vlan_aware,omitempty"`
@@ -111,6 +114,9 @@ type EnvironmentNetworkLinuxBridgeObservation struct {
 
 	// Timeout for network reload operations in seconds (defaults to `100`).
 	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
+
+	// VLAN IDs allowed on the bridge (Linux Bridge `bridge-vids`). Space-separated list of VLAN IDs and/or hyphenated ranges (e.g. `"2-4094"`, `"1 20 130"`, or `"1 10-20 30"`). Requires `vlan_aware = true`. PVE/ifupdown2 fills in `2-4094` as the implicit default for VLAN-aware bridges when this attribute is omitted; the provider surfaces that default in state.
+	Vids *string `json:"vids,omitempty" tf:"vids,omitempty"`
 
 	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).
@@ -172,6 +178,10 @@ type EnvironmentNetworkLinuxBridgeParameters struct {
 	// Timeout for network reload operations in seconds (defaults to `100`).
 	// +kubebuilder:validation:Optional
 	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
+
+	// VLAN IDs allowed on the bridge (Linux Bridge `bridge-vids`). Space-separated list of VLAN IDs and/or hyphenated ranges (e.g. `"2-4094"`, `"1 20 130"`, or `"1 10-20 30"`). Requires `vlan_aware = true`. PVE/ifupdown2 fills in `2-4094` as the implicit default for VLAN-aware bridges when this attribute is omitted; the provider surfaces that default in state.
+	// +kubebuilder:validation:Optional
+	Vids *string `json:"vids,omitempty" tf:"vids,omitempty"`
 
 	// (Boolean) Whether the interface bridge is VLAN aware (defaults to false).
 	// Whether the interface bridge is VLAN aware (defaults to `false`).

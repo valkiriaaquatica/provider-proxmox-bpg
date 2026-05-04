@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -52,14 +53,14 @@ func (in *EnvironmentAcmeAccountInitParameters) DeepCopyInto(out *EnvironmentAcm
 		*out = new(string)
 		**out = **in
 	}
-	if in.EabHMACKey != nil {
-		in, out := &in.EabHMACKey, &out.EabHMACKey
-		*out = new(string)
+	if in.EabHMACKeySecretRef != nil {
+		in, out := &in.EabHMACKeySecretRef, &out.EabHMACKeySecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
-	if in.EabKid != nil {
-		in, out := &in.EabKid, &out.EabKid
-		*out = new(string)
+	if in.EabKidSecretRef != nil {
+		in, out := &in.EabKidSecretRef, &out.EabKidSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Name != nil {
@@ -134,16 +135,6 @@ func (in *EnvironmentAcmeAccountObservation) DeepCopyInto(out *EnvironmentAcmeAc
 		*out = new(string)
 		**out = **in
 	}
-	if in.EabHMACKey != nil {
-		in, out := &in.EabHMACKey, &out.EabHMACKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.EabKid != nil {
-		in, out := &in.EabKid, &out.EabKid
-		*out = new(string)
-		**out = **in
-	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -189,14 +180,14 @@ func (in *EnvironmentAcmeAccountParameters) DeepCopyInto(out *EnvironmentAcmeAcc
 		*out = new(string)
 		**out = **in
 	}
-	if in.EabHMACKey != nil {
-		in, out := &in.EabHMACKey, &out.EabHMACKey
-		*out = new(string)
+	if in.EabHMACKeySecretRef != nil {
+		in, out := &in.EabHMACKeySecretRef, &out.EabHMACKeySecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
-	if in.EabKid != nil {
-		in, out := &in.EabKid, &out.EabKid
-		*out = new(string)
+	if in.EabKidSecretRef != nil {
+		in, out := &in.EabKidSecretRef, &out.EabKidSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Name != nil {

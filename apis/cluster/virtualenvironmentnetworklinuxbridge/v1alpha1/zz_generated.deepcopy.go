@@ -103,6 +103,11 @@ func (in *EnvironmentNetworkLinuxBridgeInitParameters) DeepCopyInto(out *Environ
 		*out = new(float64)
 		**out = **in
 	}
+	if in.Vids != nil {
+		in, out := &in.Vids, &out.Vids
+		*out = new(string)
+		**out = **in
+	}
 	if in.VlanAware != nil {
 		in, out := &in.VlanAware, &out.VlanAware
 		*out = new(bool)
@@ -221,6 +226,11 @@ func (in *EnvironmentNetworkLinuxBridgeObservation) DeepCopyInto(out *Environmen
 		*out = new(float64)
 		**out = **in
 	}
+	if in.Vids != nil {
+		in, out := &in.Vids, &out.Vids
+		*out = new(string)
+		**out = **in
+	}
 	if in.VlanAware != nil {
 		in, out := &in.VlanAware, &out.VlanAware
 		*out = new(bool)
@@ -300,6 +310,11 @@ func (in *EnvironmentNetworkLinuxBridgeParameters) DeepCopyInto(out *Environment
 	if in.TimeoutReload != nil {
 		in, out := &in.TimeoutReload, &out.TimeoutReload
 		*out = new(float64)
+		**out = **in
+	}
+	if in.Vids != nil {
+		in, out := &in.Vids, &out.Vids
+		*out = new(string)
 		**out = **in
 	}
 	if in.VlanAware != nil {

@@ -21,7 +21,7 @@ func (mg *EnvironmentAcmeAccount) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this EnvironmentAcmeAccount
 func (tr *EnvironmentAcmeAccount) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"eab_hmac_key": "eabHmacKeySecretRef", "eab_kid": "eabKidSecretRef"}
 }
 
 // GetObservation of this EnvironmentAcmeAccount

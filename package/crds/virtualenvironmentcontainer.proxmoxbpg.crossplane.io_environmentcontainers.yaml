@@ -544,7 +544,7 @@ spec:
                           type: boolean
                         hostManaged:
                           description: Whether the host runs DHCP on this interface's
-                            behalf. Requires Proxmox VE 9.0+.
+                            behalf. Requires Proxmox VE 9.1+.
                           type: boolean
                         macAddress:
                           description: |-
@@ -1199,7 +1199,7 @@ spec:
                           type: boolean
                         hostManaged:
                           description: Whether the host runs DHCP on this interface's
-                            behalf. Requires Proxmox VE 9.0+.
+                            behalf. Requires Proxmox VE 9.1+.
                           type: boolean
                         macAddress:
                           description: |-
@@ -1943,7 +1943,7 @@ spec:
                           type: boolean
                         hostManaged:
                           description: Whether the host runs DHCP on this interface's
-                            behalf. Requires Proxmox VE 9.0+.
+                            behalf. Requires Proxmox VE 9.1+.
                           type: boolean
                         macAddress:
                           description: |-

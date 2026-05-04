@@ -162,6 +162,14 @@ spec:
                       seconds (defaults to 1800).
                       Timeout for uploading ISO/VSTMPL files in seconds
                     type: number
+                  uploadMode:
+                    description: The SSH upload mode for non-API content types (snippets,
+                      backups, etc.). `stream` pipes through an SSH shell session
+                      and uses sudo where required; `sftp` uploads via the SFTP subsystem
+                      and requires direct write permission to the target directory.
+                      Has no effect for `iso`, `vztmpl`, and `import` (those use the
+                      HTTP API).
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -277,6 +285,14 @@ spec:
                       seconds (defaults to 1800).
                       Timeout for uploading ISO/VSTMPL files in seconds
                     type: number
+                  uploadMode:
+                    description: The SSH upload mode for non-API content types (snippets,
+                      backups, etc.). `stream` pipes through an SSH shell session
+                      and uses sudo where required; `sftp` uploads via the SFTP subsystem
+                      and requires direct write permission to the target directory.
+                      Has no effect for `iso`, `vztmpl`, and `import` (those use the
+                      HTTP API).
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -475,6 +491,14 @@ spec:
                       seconds (defaults to 1800).
                       Timeout for uploading ISO/VSTMPL files in seconds
                     type: number
+                  uploadMode:
+                    description: The SSH upload mode for non-API content types (snippets,
+                      backups, etc.). `stream` pipes through an SSH shell session
+                      and uses sudo where required; `sftp` uploads via the SFTP subsystem
+                      and requires direct write permission to the target directory.
+                      Has no effect for `iso`, `vztmpl`, and `import` (those use the
+                      HTTP API).
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

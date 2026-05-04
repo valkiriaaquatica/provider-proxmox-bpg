@@ -1390,7 +1390,7 @@ type NetworkInterfaceInitParameters struct {
 	// Whether this interface's firewall rules should be used.
 	Firewall *bool `json:"firewall,omitempty" tf:"firewall,omitempty"`
 
-	// Whether the host runs DHCP on this interface's behalf. Requires Proxmox VE 9.0+.
+	// Whether the host runs DHCP on this interface's behalf. Requires Proxmox VE 9.1+.
 	HostManaged *bool `json:"hostManaged,omitempty" tf:"host_managed,omitempty"`
 
 	// The MAC address.
@@ -1432,7 +1432,7 @@ type NetworkInterfaceObservation struct {
 	// Whether this interface's firewall rules should be used.
 	Firewall *bool `json:"firewall,omitempty" tf:"firewall,omitempty"`
 
-	// Whether the host runs DHCP on this interface's behalf. Requires Proxmox VE 9.0+.
+	// Whether the host runs DHCP on this interface's behalf. Requires Proxmox VE 9.1+.
 	HostManaged *bool `json:"hostManaged,omitempty" tf:"host_managed,omitempty"`
 
 	// The MAC address.
@@ -1477,7 +1477,7 @@ type NetworkInterfaceParameters struct {
 	// +kubebuilder:validation:Optional
 	Firewall *bool `json:"firewall,omitempty" tf:"firewall,omitempty"`
 
-	// Whether the host runs DHCP on this interface's behalf. Requires Proxmox VE 9.0+.
+	// Whether the host runs DHCP on this interface's behalf. Requires Proxmox VE 9.1+.
 	// +kubebuilder:validation:Optional
 	HostManaged *bool `json:"hostManaged,omitempty" tf:"host_managed,omitempty"`
 

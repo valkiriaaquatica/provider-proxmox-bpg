@@ -26,11 +26,11 @@ type EnvironmentAcmeAccountInitParameters struct {
 
 	// (String) The HMAC key for External Account Binding.
 	// The HMAC key for External Account Binding.
-	EabHMACKey *string `json:"eabHmacKey,omitempty" tf:"eab_hmac_key,omitempty"`
+	EabHMACKeySecretRef *v1.LocalSecretKeySelector `json:"eabHmacKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The Key Identifier for External Account Binding.
 	// The Key Identifier for External Account Binding.
-	EabKid *string `json:"eabKid,omitempty" tf:"eab_kid,omitempty"`
+	EabKidSecretRef *v1.LocalSecretKeySelector `json:"eabKidSecretRef,omitempty" tf:"-"`
 
 	// (String) The ACME account config file name.
 	// The ACME account config file name.
@@ -54,14 +54,6 @@ type EnvironmentAcmeAccountObservation struct {
 	// (String) The URL of the ACME CA directory endpoint.
 	// The URL of the ACME CA directory endpoint.
 	Directory *string `json:"directory,omitempty" tf:"directory,omitempty"`
-
-	// (String) The HMAC key for External Account Binding.
-	// The HMAC key for External Account Binding.
-	EabHMACKey *string `json:"eabHmacKey,omitempty" tf:"eab_hmac_key,omitempty"`
-
-	// (String) The Key Identifier for External Account Binding.
-	// The Key Identifier for External Account Binding.
-	EabKid *string `json:"eabKid,omitempty" tf:"eab_kid,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -93,12 +85,12 @@ type EnvironmentAcmeAccountParameters struct {
 	// (String) The HMAC key for External Account Binding.
 	// The HMAC key for External Account Binding.
 	// +kubebuilder:validation:Optional
-	EabHMACKey *string `json:"eabHmacKey,omitempty" tf:"eab_hmac_key,omitempty"`
+	EabHMACKeySecretRef *v1.LocalSecretKeySelector `json:"eabHmacKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The Key Identifier for External Account Binding.
 	// The Key Identifier for External Account Binding.
 	// +kubebuilder:validation:Optional
-	EabKid *string `json:"eabKid,omitempty" tf:"eab_kid,omitempty"`
+	EabKidSecretRef *v1.LocalSecretKeySelector `json:"eabKidSecretRef,omitempty" tf:"-"`
 
 	// (String) The ACME account config file name.
 	// The ACME account config file name.

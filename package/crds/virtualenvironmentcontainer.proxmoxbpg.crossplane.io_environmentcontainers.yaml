@@ -260,6 +260,10 @@ spec:
                             Whether the container supports keyctl() system call (defaults to false)
                             Whether the container supports `keyctl()` system call
                           type: boolean
+                        mknod:
+                          description: Whether the container supports `mknod()` system
+                            call
+                          type: boolean
                         mount:
                           description: |-
                             List of allowed mount types (cifs or nfs)
@@ -914,6 +918,10 @@ spec:
                           description: |-
                             Whether the container supports keyctl() system call (defaults to false)
                             Whether the container supports `keyctl()` system call
+                          type: boolean
+                        mknod:
+                          description: Whether the container supports `mknod()` system
+                            call
                           type: boolean
                         mount:
                           description: |-
@@ -1656,6 +1664,10 @@ spec:
                           description: |-
                             Whether the container supports keyctl() system call (defaults to false)
                             Whether the container supports `keyctl()` system call
+                          type: boolean
+                        mknod:
+                          description: Whether the container supports `mknod()` system
+                            call
                           type: boolean
                         mount:
                           description: |-

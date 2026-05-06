@@ -862,6 +862,9 @@ type FeaturesInitParameters struct {
 	// Whether the container supports `keyctl()` system call
 	Keyctl *bool `json:"keyctl,omitempty" tf:"keyctl,omitempty"`
 
+	// Whether the container supports `mknod()` system call
+	Mknod *bool `json:"mknod,omitempty" tf:"mknod,omitempty"`
+
 	// List of allowed mount types (cifs or nfs)
 	// List of allowed mount types
 	Mount []*string `json:"mount,omitempty" tf:"mount,omitempty"`
@@ -880,6 +883,9 @@ type FeaturesObservation struct {
 	// Whether the container supports keyctl() system call (defaults to false)
 	// Whether the container supports `keyctl()` system call
 	Keyctl *bool `json:"keyctl,omitempty" tf:"keyctl,omitempty"`
+
+	// Whether the container supports `mknod()` system call
+	Mknod *bool `json:"mknod,omitempty" tf:"mknod,omitempty"`
 
 	// List of allowed mount types (cifs or nfs)
 	// List of allowed mount types
@@ -901,6 +907,10 @@ type FeaturesParameters struct {
 	// Whether the container supports `keyctl()` system call
 	// +kubebuilder:validation:Optional
 	Keyctl *bool `json:"keyctl,omitempty" tf:"keyctl,omitempty"`
+
+	// Whether the container supports `mknod()` system call
+	// +kubebuilder:validation:Optional
+	Mknod *bool `json:"mknod,omitempty" tf:"mknod,omitempty"`
 
 	// List of allowed mount types (cifs or nfs)
 	// List of allowed mount types

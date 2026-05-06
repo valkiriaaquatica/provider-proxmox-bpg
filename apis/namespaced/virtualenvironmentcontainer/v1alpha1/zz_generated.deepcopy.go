@@ -1488,6 +1488,11 @@ func (in *FeaturesInitParameters) DeepCopyInto(out *FeaturesInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Mknod != nil {
+		in, out := &in.Mknod, &out.Mknod
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Mount != nil {
 		in, out := &in.Mount, &out.Mount
 		*out = make([]*string, len(*in))
@@ -1529,6 +1534,11 @@ func (in *FeaturesObservation) DeepCopyInto(out *FeaturesObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Mknod != nil {
+		in, out := &in.Mknod, &out.Mknod
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Mount != nil {
 		in, out := &in.Mount, &out.Mount
 		*out = make([]*string, len(*in))
@@ -1567,6 +1577,11 @@ func (in *FeaturesParameters) DeepCopyInto(out *FeaturesParameters) {
 	}
 	if in.Keyctl != nil {
 		in, out := &in.Keyctl, &out.Keyctl
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Mknod != nil {
+		in, out := &in.Mknod, &out.Mknod
 		*out = new(bool)
 		**out = **in
 	}

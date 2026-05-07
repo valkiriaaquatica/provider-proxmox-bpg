@@ -40,6 +40,9 @@ const (
 	keySSHPassword         = "ssh_password"
 	keySSHPrivateKey       = "ssh_private_key"
 	keyTmpDir              = "tmp_dir"
+	keyRandomVMIDs         = "random_vm_ids"
+	keyRandomVMIDStart     = "random_vm_id_start"
+	keyRandomVMIDEnd       = "random_vm_id_end"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -156,6 +159,7 @@ func buildConfiguration(creds map[string]string) map[string]any {
 	for _, k := range []string{
 		keyEndpoint, keyUsername, keyPassword, keyAPIToken,
 		keyAuthTicket, keyCSRFPreventionToken, keyInsecure, keyTmpDir,
+		keyRandomVMIDs, keyRandomVMIDStart, keyRandomVMIDEnd,
 	} {
 		add(k)
 	}

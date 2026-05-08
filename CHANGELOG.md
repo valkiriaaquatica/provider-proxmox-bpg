@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.12.0...v1.13.0) (2026-05-08)
+
+
+### Features
+
+* support random VMIDs config parameters ([#224](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/224)) ([487f9bb](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/487f9bbffeae07d7f92d98a9389d12e46e502d55))
+
 ## [1.12.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.11.0...v1.12.0) (2026-05-06)
 
 

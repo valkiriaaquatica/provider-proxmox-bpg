@@ -20,6 +20,9 @@ type EnvironmentHaresourceInitParameters struct {
 	// The comment associated with this resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Automatic failback to the preferred node when it becomes available again (Proxmox VE 9+). Leave unset to use the cluster default.
+	Failback *bool `json:"failback,omitempty" tf:"failback,omitempty"`
+
 	// (String) The identifier of the High Availability group this resource is a member of.
 	// The identifier of the High Availability group this resource is a member of.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
@@ -50,6 +53,9 @@ type EnvironmentHaresourceObservation struct {
 	// (String) The comment associated with this resource.
 	// The comment associated with this resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	// Automatic failback to the preferred node when it becomes available again (Proxmox VE 9+). Leave unset to use the cluster default.
+	Failback *bool `json:"failback,omitempty" tf:"failback,omitempty"`
 
 	// (String) The identifier of the High Availability group this resource is a member of.
 	// The identifier of the High Availability group this resource is a member of.
@@ -85,6 +91,10 @@ type EnvironmentHaresourceParameters struct {
 	// The comment associated with this resource.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	// Automatic failback to the preferred node when it becomes available again (Proxmox VE 9+). Leave unset to use the cluster default.
+	// +kubebuilder:validation:Optional
+	Failback *bool `json:"failback,omitempty" tf:"failback,omitempty"`
 
 	// (String) The identifier of the High Availability group this resource is a member of.
 	// The identifier of the High Availability group this resource is a member of.

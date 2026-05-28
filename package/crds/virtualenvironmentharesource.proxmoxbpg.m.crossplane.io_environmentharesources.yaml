@@ -64,6 +64,11 @@ spec:
                       (String) The comment associated with this resource.
                       The comment associated with this resource.
                     type: string
+                  failback:
+                    description: Automatic failback to the preferred node when it
+                      becomes available again (Proxmox VE 9+). Leave unset to use
+                      the cluster default.
+                    type: boolean
                   group:
                     description: |-
                       (String) The identifier of the High Availability group this resource is a member of.
@@ -113,6 +118,11 @@ spec:
                       (String) The comment associated with this resource.
                       The comment associated with this resource.
                     type: string
+                  failback:
+                    description: Automatic failback to the preferred node when it
+                      becomes available again (Proxmox VE 9+). Leave unset to use
+                      the cluster default.
+                    type: boolean
                   group:
                     description: |-
                       (String) The identifier of the High Availability group this resource is a member of.
@@ -218,6 +228,11 @@ spec:
                       (String) The comment associated with this resource.
                       The comment associated with this resource.
                     type: string
+                  failback:
+                    description: Automatic failback to the preferred node when it
+                      becomes available again (Proxmox VE 9+). Leave unset to use
+                      the cluster default.
+                    type: boolean
                   group:
                     description: |-
                       (String) The identifier of the High Availability group this resource is a member of.

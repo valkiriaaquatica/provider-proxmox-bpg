@@ -47,6 +47,11 @@ func (in *EnvironmentHaresourceInitParameters) DeepCopyInto(out *EnvironmentHare
 		*out = new(string)
 		**out = **in
 	}
+	if in.Failback != nil {
+		in, out := &in.Failback, &out.Failback
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Group != nil {
 		in, out := &in.Group, &out.Group
 		*out = new(string)
@@ -129,6 +134,11 @@ func (in *EnvironmentHaresourceObservation) DeepCopyInto(out *EnvironmentHaresou
 		*out = new(string)
 		**out = **in
 	}
+	if in.Failback != nil {
+		in, out := &in.Failback, &out.Failback
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Group != nil {
 		in, out := &in.Group, &out.Group
 		*out = new(string)
@@ -182,6 +192,11 @@ func (in *EnvironmentHaresourceParameters) DeepCopyInto(out *EnvironmentHaresour
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
 		*out = new(string)
+		**out = **in
+	}
+	if in.Failback != nil {
+		in, out := &in.Failback, &out.Failback
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Group != nil {

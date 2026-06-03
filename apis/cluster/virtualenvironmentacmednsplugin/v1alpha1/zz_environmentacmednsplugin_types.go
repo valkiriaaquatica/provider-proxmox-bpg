@@ -33,7 +33,7 @@ type EnvironmentAcmeDNSPluginInitParameters struct {
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
 	// (String) ACME Plugin ID name.
-	// ACME Plugin ID name.
+	// ACME plugin ID name.
 	Plugin *string `json:"plugin,omitempty" tf:"plugin,omitempty"`
 
 	// 172800).
@@ -63,7 +63,7 @@ type EnvironmentAcmeDNSPluginObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) ACME Plugin ID name.
-	// ACME Plugin ID name.
+	// ACME plugin ID name.
 	Plugin *string `json:"plugin,omitempty" tf:"plugin,omitempty"`
 
 	// 172800).
@@ -95,7 +95,7 @@ type EnvironmentAcmeDNSPluginParameters struct {
 	Disable *bool `json:"disable,omitempty" tf:"disable,omitempty"`
 
 	// (String) ACME Plugin ID name.
-	// ACME Plugin ID name.
+	// ACME plugin ID name.
 	// +kubebuilder:validation:Optional
 	Plugin *string `json:"plugin,omitempty" tf:"plugin,omitempty"`
 

@@ -100,7 +100,7 @@ spec:
                   plugin:
                     description: |-
                       (String) ACME Plugin ID name.
-                      ACME Plugin ID name.
+                      ACME plugin ID name.
                     type: string
                   validationDelay:
                     description: |-
@@ -147,7 +147,7 @@ spec:
                   plugin:
                     description: |-
                       (String) ACME Plugin ID name.
-                      ACME Plugin ID name.
+                      ACME plugin ID name.
                     type: string
                   validationDelay:
                     description: |-
@@ -284,7 +284,7 @@ spec:
                   plugin:
                     description: |-
                       (String) ACME Plugin ID name.
-                      ACME Plugin ID name.
+                      ACME plugin ID name.
                     type: string
                   validationDelay:
                     description: |-

@@ -3088,6 +3088,10 @@ type VirtiofsParameters struct {
 
 type WaitForIPInitParameters struct {
 
+	// Whether to enable the network device (defaults to true).
+	// Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// Wait for at least one IPv4 address (non-loopback, non-link-local)
 	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
@@ -3099,6 +3103,10 @@ type WaitForIPInitParameters struct {
 
 type WaitForIPObservation struct {
 
+	// Whether to enable the network device (defaults to true).
+	// Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// Wait for at least one IPv4 address (non-loopback, non-link-local)
 	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
@@ -3109,6 +3117,11 @@ type WaitForIPObservation struct {
 }
 
 type WaitForIPParameters struct {
+
+	// Whether to enable the network device (defaults to true).
+	// Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// Wait for at least one IPv4 address (non-loopback, non-link-local)

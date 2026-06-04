@@ -112,6 +112,11 @@ spec:
                             Configuration for waiting for specific IP address types
                           items:
                             properties:
+                              enabled:
+                                description: |-
+                                  Whether to enable the network device (defaults to true).
+                                  Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
+                                type: boolean
                               ipv4:
                                 description: |-
                                   Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
@@ -1326,6 +1331,11 @@ spec:
                             Configuration for waiting for specific IP address types
                           items:
                             properties:
+                              enabled:
+                                description: |-
+                                  Whether to enable the network device (defaults to true).
+                                  Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
+                                type: boolean
                               ipv4:
                                 description: |-
                                   Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
@@ -2623,6 +2633,11 @@ spec:
                             Configuration for waiting for specific IP address types
                           items:
                             properties:
+                              enabled:
+                                description: |-
+                                  Whether to enable the network device (defaults to true).
+                                  Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
+                                type: boolean
                               ipv4:
                                 description: |-
                                   Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).

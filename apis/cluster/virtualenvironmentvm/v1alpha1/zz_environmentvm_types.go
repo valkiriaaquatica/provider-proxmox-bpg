@@ -610,6 +610,10 @@ type DiskInitParameters struct {
 	// The in-datastore path to disk image
 	PathInDatastore *string `json:"pathInDatastore,omitempty" tf:"path_in_datastore,omitempty"`
 
+	// The number of queues for VirtIO (1..64).
+	// Number of I/O queues for this disk, requires SCSI interface and `virtio-scsi-single` SCSI controller
+	Queues *float64 `json:"queues,omitempty" tf:"queues,omitempty"`
+
 	// Whether the drive should be considered for replication jobs (defaults to true).
 	// Whether the drive should be considered for replication jobs
 	Replicate *bool `json:"replicate,omitempty" tf:"replicate,omitempty"`
@@ -692,6 +696,10 @@ type DiskObservation struct {
 	// See "Example: Attached disks".
 	// The in-datastore path to disk image
 	PathInDatastore *string `json:"pathInDatastore,omitempty" tf:"path_in_datastore,omitempty"`
+
+	// The number of queues for VirtIO (1..64).
+	// Number of I/O queues for this disk, requires SCSI interface and `virtio-scsi-single` SCSI controller
+	Queues *float64 `json:"queues,omitempty" tf:"queues,omitempty"`
 
 	// Whether the drive should be considered for replication jobs (defaults to true).
 	// Whether the drive should be considered for replication jobs
@@ -786,6 +794,11 @@ type DiskParameters struct {
 	// The in-datastore path to disk image
 	// +kubebuilder:validation:Optional
 	PathInDatastore *string `json:"pathInDatastore,omitempty" tf:"path_in_datastore,omitempty"`
+
+	// The number of queues for VirtIO (1..64).
+	// Number of I/O queues for this disk, requires SCSI interface and `virtio-scsi-single` SCSI controller
+	// +kubebuilder:validation:Optional
+	Queues *float64 `json:"queues,omitempty" tf:"queues,omitempty"`
 
 	// Whether the drive should be considered for replication jobs (defaults to true).
 	// Whether the drive should be considered for replication jobs
@@ -3087,9 +3100,8 @@ type VirtiofsParameters struct {
 
 type WaitForIPInitParameters struct {
 
-	// Whether to enable the network device (defaults to true).
-	// Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// Disable waiting for the agent to report an IP address; set to true to skip the lookup entirely
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// Wait for at least one IPv4 address (non-loopback, non-link-local)
@@ -3102,9 +3114,8 @@ type WaitForIPInitParameters struct {
 
 type WaitForIPObservation struct {
 
-	// Whether to enable the network device (defaults to true).
-	// Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// Disable waiting for the agent to report an IP address; set to true to skip the lookup entirely
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// Wait for at least one IPv4 address (non-loopback, non-link-local)
@@ -3117,10 +3128,9 @@ type WaitForIPObservation struct {
 
 type WaitForIPParameters struct {
 
-	// Whether to enable the network device (defaults to true).
-	// Whether to wait for the agent to report an IP address; set to false to skip the lookup entirely
+	// Disable waiting for the agent to report an IP address; set to true to skip the lookup entirely
 	// +kubebuilder:validation:Optional
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
 	// Wait for at least one IPv4 address (non-loopback, non-link-local)

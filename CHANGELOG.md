@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.16.0...v1.17.0) (2026-06-19)
+
+
+### Features
+
+* enable SafeStart capabilities (for support of ManagedResourceActivationPolicies) ([#244](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/244)) ([0a7827c](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/0a7827ce9637a006fc8ce2d0b5247a2dc7e9ff3d))
+
 ## [1.16.0](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.15.0...v1.16.0) (2026-06-18)
 
 

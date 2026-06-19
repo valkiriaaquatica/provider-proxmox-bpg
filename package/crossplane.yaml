@@ -11,3 +11,6 @@ metadata:
     meta.crossplane.io/readme: |
       `provider-proxmox-bpg` is the Crossplane infrastructure provider for Proxmox VE 
     friendly-name.meta.crossplane.io: Provider Proxmox BPG
+spec:
+  capabilities:
+  - SafeStart

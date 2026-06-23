@@ -24,6 +24,13 @@ type EnvironmentAcmeDNSPluginInitParameters struct {
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
 
+	// DNS plugin data, supplied as a [write-only argument](https://developer.hashicorp.11+. Mutually exclusive with `data`. Pair with `data_wo_version` to push rotated values.
+	// +mapType=granular
+	DataWo map[string]*string `json:"dataWo,omitempty" tf:"data_wo,omitempty"`
+
+	// Version counter for `data_wo`.
+	DataWoVersion *float64 `json:"dataWoVersion,omitempty" tf:"data_wo_version,omitempty"`
+
 	// (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	// SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	Digest *string `json:"digest,omitempty" tf:"digest,omitempty"`
@@ -51,6 +58,13 @@ type EnvironmentAcmeDNSPluginObservation struct {
 	// DNS plugin data.
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
+
+	// DNS plugin data, supplied as a [write-only argument](https://developer.hashicorp.11+. Mutually exclusive with `data`. Pair with `data_wo_version` to push rotated values.
+	// +mapType=granular
+	DataWo map[string]*string `json:"dataWo,omitempty" tf:"data_wo,omitempty"`
+
+	// Version counter for `data_wo`.
+	DataWoVersion *float64 `json:"dataWoVersion,omitempty" tf:"data_wo_version,omitempty"`
 
 	// (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	// SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
@@ -83,6 +97,15 @@ type EnvironmentAcmeDNSPluginParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Data map[string]*string `json:"data,omitempty" tf:"data,omitempty"`
+
+	// DNS plugin data, supplied as a [write-only argument](https://developer.hashicorp.11+. Mutually exclusive with `data`. Pair with `data_wo_version` to push rotated values.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	DataWo map[string]*string `json:"dataWo,omitempty" tf:"data_wo,omitempty"`
+
+	// Version counter for `data_wo`.
+	// +kubebuilder:validation:Optional
+	DataWoVersion *float64 `json:"dataWoVersion,omitempty" tf:"data_wo_version,omitempty"`
 
 	// (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
 	// SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.

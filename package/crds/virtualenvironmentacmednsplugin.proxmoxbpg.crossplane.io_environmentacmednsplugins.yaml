@@ -87,6 +87,17 @@ spec:
                       DNS plugin data.
                     type: object
                     x-kubernetes-map-type: granular
+                  dataWo:
+                    additionalProperties:
+                      type: string
+                    description: DNS plugin data, supplied as a [write-only argument](https://developer.hashicorp.11+.
+                      Mutually exclusive with `data`. Pair with `data_wo_version`
+                      to push rotated values.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  dataWoVersion:
+                    description: Version counter for `data_wo`.
+                    type: number
                   digest:
                     description: |-
                       (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
@@ -134,6 +145,17 @@ spec:
                       DNS plugin data.
                     type: object
                     x-kubernetes-map-type: granular
+                  dataWo:
+                    additionalProperties:
+                      type: string
+                    description: DNS plugin data, supplied as a [write-only argument](https://developer.hashicorp.11+.
+                      Mutually exclusive with `data`. Pair with `data_wo_version`
+                      to push rotated values.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  dataWoVersion:
+                    description: Version counter for `data_wo`.
+                    type: number
                   digest:
                     description: |-
                       (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
@@ -269,6 +291,17 @@ spec:
                       DNS plugin data.
                     type: object
                     x-kubernetes-map-type: granular
+                  dataWo:
+                    additionalProperties:
+                      type: string
+                    description: DNS plugin data, supplied as a [write-only argument](https://developer.hashicorp.11+.
+                      Mutually exclusive with `data`. Pair with `data_wo_version`
+                      to push rotated values.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  dataWoVersion:
+                    description: Version counter for `data_wo`.
+                    type: number
                   digest:
                     description: |-
                       (String) SHA1 digest of the current configuration. Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.

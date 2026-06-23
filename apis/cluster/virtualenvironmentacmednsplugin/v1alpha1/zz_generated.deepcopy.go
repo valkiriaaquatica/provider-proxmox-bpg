@@ -63,6 +63,27 @@ func (in *EnvironmentAcmeDNSPluginInitParameters) DeepCopyInto(out *EnvironmentA
 			(*out)[key] = outVal
 		}
 	}
+	if in.DataWo != nil {
+		in, out := &in.DataWo, &out.DataWo
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
+	if in.DataWoVersion != nil {
+		in, out := &in.DataWoVersion, &out.DataWoVersion
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Digest != nil {
 		in, out := &in.Digest, &out.Digest
 		*out = new(string)
@@ -151,6 +172,27 @@ func (in *EnvironmentAcmeDNSPluginObservation) DeepCopyInto(out *EnvironmentAcme
 			(*out)[key] = outVal
 		}
 	}
+	if in.DataWo != nil {
+		in, out := &in.DataWo, &out.DataWo
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
+	if in.DataWoVersion != nil {
+		in, out := &in.DataWoVersion, &out.DataWoVersion
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Digest != nil {
 		in, out := &in.Digest, &out.Digest
 		*out = new(string)
@@ -211,6 +253,27 @@ func (in *EnvironmentAcmeDNSPluginParameters) DeepCopyInto(out *EnvironmentAcmeD
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.DataWo != nil {
+		in, out := &in.DataWo, &out.DataWo
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
+	if in.DataWoVersion != nil {
+		in, out := &in.DataWoVersion, &out.DataWoVersion
+		*out = new(float64)
+		**out = **in
 	}
 	if in.Digest != nil {
 		in, out := &in.Digest, &out.Digest

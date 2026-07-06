@@ -117,7 +117,7 @@ spec:
                   influxTokenSecretRef:
                     description: |-
                       (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
-                      The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
+                      The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead. Cannot be used together with `influx_token_wo`.
                     properties:
                       key:
                         description: The key to select.
@@ -133,6 +133,28 @@ spec:
                     - name
                     - namespace
                     type: object
+                  influxTokenWoSecretRef:
+                    description: The InfluxDB access token (write-only). Cannot be
+                      used together with `influx_token`.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  influxTokenWoVersion:
+                    description: Increment this counter to rotate `influx_token_wo`
+                      without changing other fields.
+                    type: number
                   influxVerify:
                     description: |-
                       (Boolean) Set to false to disable certificate verification for https endpoints.
@@ -275,7 +297,7 @@ spec:
                   influxTokenSecretRef:
                     description: |-
                       (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
-                      The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
+                      The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead. Cannot be used together with `influx_token_wo`.
                     properties:
                       key:
                         description: The key to select.
@@ -291,6 +313,28 @@ spec:
                     - name
                     - namespace
                     type: object
+                  influxTokenWoSecretRef:
+                    description: The InfluxDB access token (write-only). Cannot be
+                      used together with `influx_token`.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  influxTokenWoVersion:
+                    description: Increment this counter to rotate `influx_token_wo`
+                      without changing other fields.
+                    type: number
                   influxVerify:
                     description: |-
                       (Boolean) Set to false to disable certificate verification for https endpoints.
@@ -529,6 +573,10 @@ spec:
                       (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
                       The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
                     type: string
+                  influxTokenWoVersion:
+                    description: Increment this counter to rotate `influx_token_wo`
+                      without changing other fields.
+                    type: number
                   influxVerify:
                     description: |-
                       (Boolean) Set to false to disable certificate verification for https endpoints.

@@ -48,8 +48,14 @@ type EnvironmentMetricsServerInitParameters struct {
 	InfluxOrganization *string `json:"influxOrganization,omitempty" tf:"influx_organization,omitempty"`
 
 	// (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
-	// The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
+	// The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead. Cannot be used together with `influx_token_wo`.
 	InfluxTokenSecretRef *v1.SecretKeySelector `json:"influxTokenSecretRef,omitempty" tf:"-"`
+
+	// The InfluxDB access token (write-only). Cannot be used together with `influx_token`.
+	InfluxTokenWoSecretRef *v1.SecretKeySelector `json:"influxTokenWoSecretRef,omitempty" tf:"-"`
+
+	// Increment this counter to rotate `influx_token_wo` without changing other fields.
+	InfluxTokenWoVersion *float64 `json:"influxTokenWoVersion,omitempty" tf:"influx_token_wo_version,omitempty"`
 
 	// (Boolean) Set to false to disable certificate verification for https endpoints.
 	// Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
@@ -143,6 +149,9 @@ type EnvironmentMetricsServerObservation struct {
 	// (String) The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	// The InfluxDB organization. Only necessary when using the http v2 api. Has no meaning when using v2 compatibility api.
 	InfluxOrganization *string `json:"influxOrganization,omitempty" tf:"influx_organization,omitempty"`
+
+	// Increment this counter to rotate `influx_token_wo` without changing other fields.
+	InfluxTokenWoVersion *float64 `json:"influxTokenWoVersion,omitempty" tf:"influx_token_wo_version,omitempty"`
 
 	// (Boolean) Set to false to disable certificate verification for https endpoints.
 	// Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.
@@ -240,9 +249,17 @@ type EnvironmentMetricsServerParameters struct {
 	InfluxOrganization *string `json:"influxOrganization,omitempty" tf:"influx_organization,omitempty"`
 
 	// (String, Sensitive) The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use user:password instead.
-	// The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead.
+	// The InfluxDB access token. Only necessary when using the http v2 api. If the v2 compatibility api is used, use `user:password` instead. Cannot be used together with `influx_token_wo`.
 	// +kubebuilder:validation:Optional
 	InfluxTokenSecretRef *v1.SecretKeySelector `json:"influxTokenSecretRef,omitempty" tf:"-"`
+
+	// The InfluxDB access token (write-only). Cannot be used together with `influx_token`.
+	// +kubebuilder:validation:Optional
+	InfluxTokenWoSecretRef *v1.SecretKeySelector `json:"influxTokenWoSecretRef,omitempty" tf:"-"`
+
+	// Increment this counter to rotate `influx_token_wo` without changing other fields.
+	// +kubebuilder:validation:Optional
+	InfluxTokenWoVersion *float64 `json:"influxTokenWoVersion,omitempty" tf:"influx_token_wo_version,omitempty"`
 
 	// (Boolean) Set to false to disable certificate verification for https endpoints.
 	// Set to `false` to disable certificate verification for https endpoints. If not set, PVE default is `true`.

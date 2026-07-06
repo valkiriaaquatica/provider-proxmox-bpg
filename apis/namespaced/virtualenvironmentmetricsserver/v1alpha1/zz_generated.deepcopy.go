@@ -88,6 +88,16 @@ func (in *EnvironmentMetricsServerInitParameters) DeepCopyInto(out *EnvironmentM
 		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
+	if in.InfluxTokenWoSecretRef != nil {
+		in, out := &in.InfluxTokenWoSecretRef, &out.InfluxTokenWoSecretRef
+		*out = new(v1.LocalSecretKeySelector)
+		**out = **in
+	}
+	if in.InfluxTokenWoVersion != nil {
+		in, out := &in.InfluxTokenWoVersion, &out.InfluxTokenWoVersion
+		*out = new(float64)
+		**out = **in
+	}
 	if in.InfluxVerify != nil {
 		in, out := &in.InfluxVerify, &out.InfluxVerify
 		*out = new(bool)
@@ -255,6 +265,11 @@ func (in *EnvironmentMetricsServerObservation) DeepCopyInto(out *EnvironmentMetr
 		*out = new(string)
 		**out = **in
 	}
+	if in.InfluxTokenWoVersion != nil {
+		in, out := &in.InfluxTokenWoVersion, &out.InfluxTokenWoVersion
+		*out = new(float64)
+		**out = **in
+	}
 	if in.InfluxVerify != nil {
 		in, out := &in.InfluxVerify, &out.InfluxVerify
 		*out = new(bool)
@@ -383,6 +398,16 @@ func (in *EnvironmentMetricsServerParameters) DeepCopyInto(out *EnvironmentMetri
 	if in.InfluxTokenSecretRef != nil {
 		in, out := &in.InfluxTokenSecretRef, &out.InfluxTokenSecretRef
 		*out = new(v1.LocalSecretKeySelector)
+		**out = **in
+	}
+	if in.InfluxTokenWoSecretRef != nil {
+		in, out := &in.InfluxTokenWoSecretRef, &out.InfluxTokenWoSecretRef
+		*out = new(v1.LocalSecretKeySelector)
+		**out = **in
+	}
+	if in.InfluxTokenWoVersion != nil {
+		in, out := &in.InfluxTokenWoVersion, &out.InfluxTokenWoVersion
+		*out = new(float64)
 		**out = **in
 	}
 	if in.InfluxVerify != nil {

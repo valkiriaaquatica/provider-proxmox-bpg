@@ -12,6 +12,6 @@ jobs:
     - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       with:
         fetch-depth: 0
-    - uses: actions/labeler@f27b608878404679385c85cfa523b85ccb86e213 # v6
+    - uses: actions/labeler@b8dd2d9be0f68b860e7dae5dae7d772984eacd6d # v6
       with:
         repo-token: ${{ secrets.GH_RENOVATE_WRITER_TOKEN }}

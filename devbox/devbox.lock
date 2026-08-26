@@ -5,51 +5,41 @@
       "last_modified": "2025-06-06T12:35:49Z",
       "resolved": "github:NixOS/nixpkgs/a4ff0e3c64846abea89662bfbacf037ef4b34207?lastModified=1749213349&narHash=sha256-UAaWOyQhdp7nXzsbmLVC67fo%2BQetzoTm9hsPf9X3yr4%3D"
     },
-    "go@1.25.7": {
-      "last_modified": "2026-02-23T15:40:43Z",
-      "resolved": "github:NixOS/nixpkgs/80d901ec0377e19ac3f7bb8c035201e2e098cc97#go",
+    "go@1.27.0": {
+      "last_modified": "2026-08-20T07:12:19Z",
+      "resolved": "github:NixOS/nixpkgs/391b592eb44808b3bd0cb80bb71b63a5a118b8bb#go_1_27",
       "source": "devbox-search",
-      "version": "1.25.7",
+      "version": "1.27.0",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/hj3rkkp4azj65qvalnbl6ax0sgrfgmgh-go-1.25.7",
+              "path": "/nix/store/yc80gss7r296qnsyqcpv4vh8lyqfzgql-go-1.27.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/hj3rkkp4azj65qvalnbl6ax0sgrfgmgh-go-1.25.7"
+          "store_path": "/nix/store/yc80gss7r296qnsyqcpv4vh8lyqfzgql-go-1.27.0"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/2i6kcj0f0xirrblpl43k2yr673bhf2c5-go-1.25.7",
+              "path": "/nix/store/6ywlyfxa05qn37d5izyy5bkvmhi3p2gv-go-1.27.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/2i6kcj0f0xirrblpl43k2yr673bhf2c5-go-1.25.7"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/8yk4r9kmb00ra1r22cxvdwghr8v987nf-go-1.25.7",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/8yk4r9kmb00ra1r22cxvdwghr8v987nf-go-1.25.7"
+          "store_path": "/nix/store/6ywlyfxa05qn37d5izyy5bkvmhi3p2gv-go-1.27.0"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/pz4pxhmlqd3q72crp2sx90k85gf2rqyp-go-1.25.7",
+              "path": "/nix/store/9sz1nv010igaizprggzydbmybx8jm9ym-go-1.27.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/pz4pxhmlqd3q72crp2sx90k85gf2rqyp-go-1.25.7"
+          "store_path": "/nix/store/9sz1nv010igaizprggzydbmybx8jm9ym-go-1.27.0"
         }
       }
     },

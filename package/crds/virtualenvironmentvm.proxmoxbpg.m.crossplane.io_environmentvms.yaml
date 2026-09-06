@@ -382,7 +382,7 @@ spec:
                             sata and virtio interfaces are supported. Append the disk index at
                             the end, for example, virtio0 for the first virtio disk, virtio1 for
                             the second, etc.
-                            The datastore name
+                            The disk interface
                           type: string
                         iothread:
                           description: |-
@@ -1600,7 +1600,7 @@ spec:
                             sata and virtio interfaces are supported. Append the disk index at
                             the end, for example, virtio0 for the first virtio disk, virtio1 for
                             the second, etc.
-                            The datastore name
+                            The disk interface
                           type: string
                         iothread:
                           description: |-
@@ -2873,7 +2873,7 @@ spec:
                             sata and virtio interfaces are supported. Append the disk index at
                             the end, for example, virtio0 for the first virtio disk, virtio1 for
                             the second, etc.
-                            The datastore name
+                            The disk interface
                           type: string
                         iothread:
                           description: |-

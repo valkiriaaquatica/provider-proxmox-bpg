@@ -596,7 +596,7 @@ type DiskInitParameters struct {
 	// sata and virtio interfaces are supported. Append the disk index at
 	// the end, for example, virtio0 for the first virtio disk, virtio1 for
 	// the second, etc.
-	// The datastore name
+	// The disk interface
 	Interface *string `json:"interface,omitempty" tf:"interface,omitempty"`
 
 	// Whether to use iothreads for this disk (defaults
@@ -683,7 +683,7 @@ type DiskObservation struct {
 	// sata and virtio interfaces are supported. Append the disk index at
 	// the end, for example, virtio0 for the first virtio disk, virtio1 for
 	// the second, etc.
-	// The datastore name
+	// The disk interface
 	Interface *string `json:"interface,omitempty" tf:"interface,omitempty"`
 
 	// Whether to use iothreads for this disk (defaults
@@ -778,7 +778,7 @@ type DiskParameters struct {
 	// sata and virtio interfaces are supported. Append the disk index at
 	// the end, for example, virtio0 for the first virtio disk, virtio1 for
 	// the second, etc.
-	// The datastore name
+	// The disk interface
 	// +kubebuilder:validation:Optional
 	Interface *string `json:"interface" tf:"interface,omitempty"`
 

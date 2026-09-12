@@ -12,6 +12,7 @@ on:
 env:
   # Common versions
   GO_VERSION: '1.25.7'
+  GOIMPORTS_VERSION: 'v0.49.0'
   GOLANGCI_VERSION: 'v2.6.1'
   # DOCKER_BUILDX_VERSION: 'v0..2'
 
@@ -122,7 +123,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: Install goimports
-        run: go install golang.org/x/tools/cmd/goimports@latest
+        run: go install golang.org/x/tools/cmd/goimports@${{ env.GOIMPORTS_VERSION }}
 
       - name: Find the Go Build Cache
         id: go
@@ -156,7 +157,7 @@ jobs:
       - name: Check Diff
         run: |
           set +e
-          go install golang.org/x/tools/cmd/goimports@latest
+          go install golang.org/x/tools/cmd/goimports@${{ env.GOIMPORTS_VERSION }}
           make generate && make check-diff
           git status
 

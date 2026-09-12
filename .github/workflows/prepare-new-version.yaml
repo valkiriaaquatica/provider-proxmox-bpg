@@ -10,6 +10,7 @@ on:
 
 env:
   GO_VERSION: '1.25.7'
+  GOIMPORTS_VERSION: 'v0.49.0'
 
 concurrency:
   group: generate-after-renovate-${{ github.event.pull_request.head.ref }}
@@ -53,7 +54,7 @@ jobs:
 
       - name: Install necessary tooling for the CI
         run: |
-          go install golang.org/x/tools/cmd/goimports@latest
+          go install golang.org/x/tools/cmd/goimports@${{ env.GOIMPORTS_VERSION }}
 
       - name: Run Make Generate
         run: |

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.2](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.19.1...v1.19.2) (2026-09-14)
+
+
+### Bug Fixes
+
+* **provider:** honor spec.initProvider for ignore_changes and late-init ([#275](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/275)) ([6f208ec](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/6f208ec253c12700ada7ec2c75bb83a41f3f7532))
+
 ## [1.19.1](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.19.0...v1.19.1) (2026-09-12)
 
 

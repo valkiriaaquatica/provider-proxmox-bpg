@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.3](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.19.2...v1.19.3) (2026-09-14)
+
+
+### Bug Fixes
+
+* **haresource:** derive terraform ID from resource_id for pre-create refresh ([#274](https://github.com/valkiriaaquatica/provider-proxmox-bpg/issues/274)) ([9624ac1](https://github.com/valkiriaaquatica/provider-proxmox-bpg/commit/9624ac12f5a72049db118320245b48edd36c5503))
+
 ## [1.19.2](https://github.com/valkiriaaquatica/provider-proxmox-bpg/compare/v1.19.1...v1.19.2) (2026-09-14)
 
 

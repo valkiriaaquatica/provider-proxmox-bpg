@@ -138,13 +138,20 @@ func main() {
 	metrics.Registry.MustRegister(metricRecorder)
 	metrics.Registry.MustRegister(stateMetrics)
 
+	// The feature flags must also be passed to the workspace stores so that the
+	// Terraform file producers merge spec.initProvider into the configuration
+	// and emit the ignore_changes lifecycle block when management policies are
+	// enabled.
+	clusterFeatureFlags := &feature.Flags{}
+	namespacedFeatureFlags := &feature.Flags{}
+
 	clusterOpts := tjcontroller.Options{
 		Options: xpcontroller.Options{
 			Logger:                  log,
 			GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcileRate),
 			PollInterval:            *pollInterval,
 			MaxConcurrentReconciles: *maxReconcileRate,
-			Features:                &feature.Flags{},
+			Features:                clusterFeatureFlags,
 			MetricOptions: &xpcontroller.MetricOptions{
 				PollStateMetricInterval: *pollStateMetricInterval,
 				MRMetrics:               metricRecorder,
@@ -152,7 +159,7 @@ func main() {
 			},
 		},
 		Provider:       config.GetProvider(),
-		WorkspaceStore: terraform.NewWorkspaceStore(log),
+		WorkspaceStore: terraform.NewWorkspaceStore(log, terraform.WithFeatures(clusterFeatureFlags)),
 		SetupFn:        clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
 		StartWebhooks:  *certsDir != "",
 	}
@@ -163,7 +170,7 @@ func main() {
 			GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcileRate),
 			PollInterval:            *pollInterval,
 			MaxConcurrentReconciles: *maxReconcileRate,
-			Features:                &feature.Flags{},
+			Features:                namespacedFeatureFlags,
 			MetricOptions: &xpcontroller.MetricOptions{
 				PollStateMetricInterval: *pollStateMetricInterval,
 				MRMetrics:               metricRecorder,
@@ -171,7 +178,7 @@ func main() {
 			},
 		},
 		Provider:       config.GetProviderNamespaced(),
-		WorkspaceStore: terraform.NewWorkspaceStore(log),
+		WorkspaceStore: terraform.NewWorkspaceStore(log, terraform.WithFeatures(namespacedFeatureFlags)),
 		SetupFn:        clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
 		StartWebhooks:  *certsDir != "",
 	}

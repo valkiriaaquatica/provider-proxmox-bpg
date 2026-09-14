@@ -4,7 +4,11 @@ Copyright 2022 Upbound Inc.
 
 package config
 
-import "github.com/crossplane/upjet/v2/pkg/config"
+import (
+	"context"
+
+	"github.com/crossplane/upjet/v2/pkg/config"
+)
 
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
@@ -37,9 +41,27 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"proxmox_virtual_environment_pool":                            config.IdentifierFromProvider,
 	"proxmox_virtual_environment_time":                            config.IdentifierFromProvider,
 	"proxmox_virtual_environment_vm":                              config.IdentifierFromProvider,
-	"proxmox_virtual_environment_haresource":                      config.IdentifierFromProvider,
+	"proxmox_virtual_environment_haresource":                      haResourceExternalName(),
 	"proxmox_virtual_environment_hosts":                           config.IdentifierFromProvider,
 	"proxmox_virtual_environment_node_firewall":                   config.IdentifierFromProvider,
+}
+
+// haResourceExternalName derives the Terraform ID from spec.forProvider.resourceId
+// before creation, because the plugin-framework haresource errors on a blank ID
+// during upjet's pre-create refresh (SDKv2 treated blank IDs as "not found").
+// The Terraform ID of this resource is identical to its resource_id.
+func haResourceExternalName() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, externalName string, parameters map[string]any, _ map[string]any) (string, error) {
+		if externalName != "" {
+			return externalName, nil
+		}
+		if rid, ok := parameters["resource_id"].(string); ok {
+			return rid, nil
+		}
+		return "", nil
+	}
+	return e
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

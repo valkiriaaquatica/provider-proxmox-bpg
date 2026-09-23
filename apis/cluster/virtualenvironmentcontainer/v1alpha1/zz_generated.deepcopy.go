@@ -750,6 +750,11 @@ func (in *EnvironmentContainerInitParameters) DeepCopyInto(out *EnvironmentConta
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DeleteUnreferencedDisksOnDestroy != nil {
+		in, out := &in.DeleteUnreferencedDisksOnDestroy, &out.DeleteUnreferencedDisksOnDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -851,6 +856,11 @@ func (in *EnvironmentContainerInitParameters) DeepCopyInto(out *EnvironmentConta
 	}
 	if in.Protection != nil {
 		in, out := &in.Protection, &out.Protection
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PurgeOnDestroy != nil {
+		in, out := &in.PurgeOnDestroy, &out.PurgeOnDestroy
 		*out = new(bool)
 		**out = **in
 	}
@@ -997,6 +1007,11 @@ func (in *EnvironmentContainerObservation) DeepCopyInto(out *EnvironmentContaine
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DeleteUnreferencedDisksOnDestroy != nil {
+		in, out := &in.DeleteUnreferencedDisksOnDestroy, &out.DeleteUnreferencedDisksOnDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1138,6 +1153,11 @@ func (in *EnvironmentContainerObservation) DeepCopyInto(out *EnvironmentContaine
 		*out = new(bool)
 		**out = **in
 	}
+	if in.PurgeOnDestroy != nil {
+		in, out := &in.PurgeOnDestroy, &out.PurgeOnDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.StartOnBoot != nil {
 		in, out := &in.StartOnBoot, &out.StartOnBoot
 		*out = new(bool)
@@ -1249,6 +1269,11 @@ func (in *EnvironmentContainerParameters) DeepCopyInto(out *EnvironmentContainer
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DeleteUnreferencedDisksOnDestroy != nil {
+		in, out := &in.DeleteUnreferencedDisksOnDestroy, &out.DeleteUnreferencedDisksOnDestroy
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -1350,6 +1375,11 @@ func (in *EnvironmentContainerParameters) DeepCopyInto(out *EnvironmentContainer
 	}
 	if in.Protection != nil {
 		in, out := &in.Protection, &out.Protection
+		*out = new(bool)
+		**out = **in
+	}
+	if in.PurgeOnDestroy != nil {
+		in, out := &in.PurgeOnDestroy, &out.PurgeOnDestroy
 		*out = new(bool)
 		**out = **in
 	}

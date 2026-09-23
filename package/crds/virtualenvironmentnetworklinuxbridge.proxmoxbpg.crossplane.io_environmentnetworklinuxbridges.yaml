@@ -126,6 +126,14 @@ spec:
                     items:
                       type: string
                     type: array
+                  reload:
+                    description: Whether to reload the node network configuration
+                      after this interface is created, updated or deleted (defaults
+                      to `true`). When `false`, the change is only staged on the node
+                      and takes effect on the next reload. Any reload on the node,
+                      including one triggered by another resource, applies all staged
+                      changes.
+                    type: boolean
                   timeoutReload:
                     description: Timeout for network reload operations in seconds
                       (defaults to `100`).
@@ -209,6 +217,14 @@ spec:
                     items:
                       type: string
                     type: array
+                  reload:
+                    description: Whether to reload the node network configuration
+                      after this interface is created, updated or deleted (defaults
+                      to `true`). When `false`, the change is only staged on the node
+                      and takes effect on the next reload. Any reload on the node,
+                      including one triggered by another resource, applies all staged
+                      changes.
+                    type: boolean
                   timeoutReload:
                     description: Timeout for network reload operations in seconds
                       (defaults to `100`).
@@ -383,6 +399,14 @@ spec:
                     items:
                       type: string
                     type: array
+                  reload:
+                    description: Whether to reload the node network configuration
+                      after this interface is created, updated or deleted (defaults
+                      to `true`). When `false`, the change is only staged on the node
+                      and takes effect on the next reload. Any reload on the node,
+                      including one triggered by another resource, applies all staged
+                      changes.
+                    type: boolean
                   timeoutReload:
                     description: Timeout for network reload operations in seconds
                       (defaults to `100`).

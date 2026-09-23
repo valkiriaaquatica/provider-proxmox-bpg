@@ -56,6 +56,9 @@ type EnvironmentNetworkLinuxVlanInitParameters struct {
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
 
+	// Whether to reload the node network configuration after this interface is created, updated or deleted (defaults to `true`). When `false`, the change is only staged on the node and takes effect on the next reload. Any reload on the node, including one triggered by another resource, applies all staged changes.
+	Reload *bool `json:"reload,omitempty" tf:"reload,omitempty"`
+
 	// Timeout for network reload operations in seconds (defaults to `100`).
 	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
 
@@ -108,6 +111,9 @@ type EnvironmentNetworkLinuxVlanObservation struct {
 	// (String) The name of the node.
 	// The name of the node.
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
+
+	// Whether to reload the node network configuration after this interface is created, updated or deleted (defaults to `true`). When `false`, the change is only staged on the node and takes effect on the next reload. Any reload on the node, including one triggered by another resource, applies all staged changes.
+	Reload *bool `json:"reload,omitempty" tf:"reload,omitempty"`
 
 	// Timeout for network reload operations in seconds (defaults to `100`).
 	TimeoutReload *float64 `json:"timeoutReload,omitempty" tf:"timeout_reload,omitempty"`
@@ -168,6 +174,10 @@ type EnvironmentNetworkLinuxVlanParameters struct {
 	// The name of the node.
 	// +kubebuilder:validation:Optional
 	NodeName *string `json:"nodeName,omitempty" tf:"node_name,omitempty"`
+
+	// Whether to reload the node network configuration after this interface is created, updated or deleted (defaults to `true`). When `false`, the change is only staged on the node and takes effect on the next reload. Any reload on the node, including one triggered by another resource, applies all staged changes.
+	// +kubebuilder:validation:Optional
+	Reload *bool `json:"reload,omitempty" tf:"reload,omitempty"`
 
 	// Timeout for network reload operations in seconds (defaults to `100`).
 	// +kubebuilder:validation:Optional

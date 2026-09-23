@@ -428,6 +428,9 @@ type EnvironmentContainerInitParameters struct {
 	// The console configuration
 	Console []ConsoleInitParameters `json:"console,omitempty" tf:"console,omitempty"`
 
+	// Whether to also delete disks that carry the container ID but are not referenced in its configuration on destroy
+	DeleteUnreferencedDisksOnDestroy *bool `json:"deleteUnreferencedDisksOnDestroy,omitempty" tf:"delete_unreferenced_disks_on_destroy,omitempty"`
+
 	// The description.
 	// The description
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -488,6 +491,9 @@ type EnvironmentContainerInitParameters struct {
 	// Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.
 	// Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
 	Protection *bool `json:"protection,omitempty" tf:"protection,omitempty"`
+
+	// Whether to purge the container from backup, replication and HA configurations on destroy
+	PurgeOnDestroy *bool `json:"purgeOnDestroy,omitempty" tf:"purge_on_destroy,omitempty"`
 
 	// Automatically start container when the host
 	// system boots (defaults to true).
@@ -559,6 +565,9 @@ type EnvironmentContainerObservation struct {
 	// The console configuration.
 	// The console configuration
 	Console []ConsoleObservation `json:"console,omitempty" tf:"console,omitempty"`
+
+	// Whether to also delete disks that carry the container ID but are not referenced in its configuration on destroy
+	DeleteUnreferencedDisksOnDestroy *bool `json:"deleteUnreferencedDisksOnDestroy,omitempty" tf:"delete_unreferenced_disks_on_destroy,omitempty"`
 
 	// The description.
 	// The description
@@ -633,6 +642,9 @@ type EnvironmentContainerObservation struct {
 	// Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
 	Protection *bool `json:"protection,omitempty" tf:"protection,omitempty"`
 
+	// Whether to purge the container from backup, replication and HA configurations on destroy
+	PurgeOnDestroy *bool `json:"purgeOnDestroy,omitempty" tf:"purge_on_destroy,omitempty"`
+
 	// Automatically start container when the host
 	// system boots (defaults to true).
 	// Automatically start container when the host system boots.
@@ -706,6 +718,10 @@ type EnvironmentContainerParameters struct {
 	// The console configuration
 	// +kubebuilder:validation:Optional
 	Console []ConsoleParameters `json:"console,omitempty" tf:"console,omitempty"`
+
+	// Whether to also delete disks that carry the container ID but are not referenced in its configuration on destroy
+	// +kubebuilder:validation:Optional
+	DeleteUnreferencedDisksOnDestroy *bool `json:"deleteUnreferencedDisksOnDestroy,omitempty" tf:"delete_unreferenced_disks_on_destroy,omitempty"`
 
 	// The description.
 	// The description
@@ -782,6 +798,10 @@ type EnvironmentContainerParameters struct {
 	// Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
 	// +kubebuilder:validation:Optional
 	Protection *bool `json:"protection,omitempty" tf:"protection,omitempty"`
+
+	// Whether to purge the container from backup, replication and HA configurations on destroy
+	// +kubebuilder:validation:Optional
+	PurgeOnDestroy *bool `json:"purgeOnDestroy,omitempty" tf:"purge_on_destroy,omitempty"`
 
 	// Automatically start container when the host
 	// system boots (defaults to true).

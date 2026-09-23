@@ -98,6 +98,11 @@ func (in *EnvironmentNetworkLinuxBridgeInitParameters) DeepCopyInto(out *Environ
 			}
 		}
 	}
+	if in.Reload != nil {
+		in, out := &in.Reload, &out.Reload
+		*out = new(bool)
+		**out = **in
+	}
 	if in.TimeoutReload != nil {
 		in, out := &in.TimeoutReload, &out.TimeoutReload
 		*out = new(float64)
@@ -221,6 +226,11 @@ func (in *EnvironmentNetworkLinuxBridgeObservation) DeepCopyInto(out *Environmen
 			}
 		}
 	}
+	if in.Reload != nil {
+		in, out := &in.Reload, &out.Reload
+		*out = new(bool)
+		**out = **in
+	}
 	if in.TimeoutReload != nil {
 		in, out := &in.TimeoutReload, &out.TimeoutReload
 		*out = new(float64)
@@ -306,6 +316,11 @@ func (in *EnvironmentNetworkLinuxBridgeParameters) DeepCopyInto(out *Environment
 				**out = **in
 			}
 		}
+	}
+	if in.Reload != nil {
+		in, out := &in.Reload, &out.Reload
+		*out = new(bool)
+		**out = **in
 	}
 	if in.TimeoutReload != nil {
 		in, out := &in.TimeoutReload, &out.TimeoutReload

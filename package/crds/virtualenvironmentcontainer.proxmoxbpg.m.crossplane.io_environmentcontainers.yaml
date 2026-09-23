@@ -140,6 +140,10 @@ spec:
                           type: number
                       type: object
                     type: array
+                  deleteUnreferencedDisksOnDestroy:
+                    description: Whether to also delete disks that carry the container
+                      ID but are not referenced in its configuration on destroy
+                    type: boolean
                   description:
                     description: |-
                       The description.
@@ -594,6 +598,10 @@ spec:
                     description: |-
                       Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.
                       Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
+                    type: boolean
+                  purgeOnDestroy:
+                    description: Whether to purge the container from backup, replication
+                      and HA configurations on destroy
                     type: boolean
                   startOnBoot:
                     description: |-
@@ -794,6 +802,10 @@ spec:
                           type: number
                       type: object
                     type: array
+                  deleteUnreferencedDisksOnDestroy:
+                    description: Whether to also delete disks that carry the container
+                      ID but are not referenced in its configuration on destroy
+                    type: boolean
                   description:
                     description: |-
                       The description.
@@ -1248,6 +1260,10 @@ spec:
                     description: |-
                       Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.
                       Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
+                    type: boolean
+                  purgeOnDestroy:
+                    description: Whether to purge the container from backup, replication
+                      and HA configurations on destroy
                     type: boolean
                   startOnBoot:
                     description: |-
@@ -1504,6 +1520,10 @@ spec:
                           type: number
                       type: object
                     type: array
+                  deleteUnreferencedDisksOnDestroy:
+                    description: Whether to also delete disks that carry the container
+                      ID but are not referenced in its configuration on destroy
+                    type: boolean
                   description:
                     description: |-
                       The description.
@@ -1968,6 +1988,10 @@ spec:
                     description: |-
                       Whether to set the protection flag of the container (defaults to false). This will prevent the container itself and its disk for remove/update operations.
                       Whether to set the protection flag of the container. This will prevent the container itself and its disk for remove/update operations.
+                    type: boolean
+                  purgeOnDestroy:
+                    description: Whether to purge the container from backup, replication
+                      and HA configurations on destroy
                     type: boolean
                   startOnBoot:
                     description: |-

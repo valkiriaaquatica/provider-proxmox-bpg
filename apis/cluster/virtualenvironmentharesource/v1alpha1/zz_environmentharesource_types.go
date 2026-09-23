@@ -15,6 +15,9 @@ import (
 
 type EnvironmentHaresourceInitParameters struct {
 
+	// Whether this HA resource may be migrated during automatic rebalancing (Proxmox VE 9.2+). Leave unset to use the cluster default.
+	AutoRebalance *bool `json:"autoRebalance,omitempty" tf:"auto_rebalance,omitempty"`
+
 	// (String) The comment associated with this resource.
 	// The comment associated with this resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -48,6 +51,9 @@ type EnvironmentHaresourceInitParameters struct {
 }
 
 type EnvironmentHaresourceObservation struct {
+
+	// Whether this HA resource may be migrated during automatic rebalancing (Proxmox VE 9.2+). Leave unset to use the cluster default.
+	AutoRebalance *bool `json:"autoRebalance,omitempty" tf:"auto_rebalance,omitempty"`
 
 	// (String) The comment associated with this resource.
 	// The comment associated with this resource.
@@ -85,6 +91,10 @@ type EnvironmentHaresourceObservation struct {
 }
 
 type EnvironmentHaresourceParameters struct {
+
+	// Whether this HA resource may be migrated during automatic rebalancing (Proxmox VE 9.2+). Leave unset to use the cluster default.
+	// +kubebuilder:validation:Optional
+	AutoRebalance *bool `json:"autoRebalance,omitempty" tf:"auto_rebalance,omitempty"`
 
 	// (String) The comment associated with this resource.
 	// The comment associated with this resource.

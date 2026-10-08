@@ -823,6 +823,11 @@ func (in *EnvironmentContainerInitParameters) DeepCopyInto(out *EnvironmentConta
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Migrate != nil {
+		in, out := &in.Migrate, &out.Migrate
+		*out = new(bool)
+		**out = **in
+	}
 	if in.MountPoint != nil {
 		in, out := &in.MountPoint, &out.MountPoint
 		*out = make([]MountPointInitParameters, len(*in))
@@ -909,6 +914,11 @@ func (in *EnvironmentContainerInitParameters) DeepCopyInto(out *EnvironmentConta
 	}
 	if in.TimeoutDelete != nil {
 		in, out := &in.TimeoutDelete, &out.TimeoutDelete
+		*out = new(float64)
+		**out = **in
+	}
+	if in.TimeoutMigrate != nil {
+		in, out := &in.TimeoutMigrate, &out.TimeoutMigrate
 		*out = new(float64)
 		**out = **in
 	}
@@ -1117,6 +1127,11 @@ func (in *EnvironmentContainerObservation) DeepCopyInto(out *EnvironmentContaine
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Migrate != nil {
+		in, out := &in.Migrate, &out.Migrate
+		*out = new(bool)
+		**out = **in
+	}
 	if in.MountPoint != nil {
 		in, out := &in.MountPoint, &out.MountPoint
 		*out = make([]MountPointObservation, len(*in))
@@ -1203,6 +1218,11 @@ func (in *EnvironmentContainerObservation) DeepCopyInto(out *EnvironmentContaine
 	}
 	if in.TimeoutDelete != nil {
 		in, out := &in.TimeoutDelete, &out.TimeoutDelete
+		*out = new(float64)
+		**out = **in
+	}
+	if in.TimeoutMigrate != nil {
+		in, out := &in.TimeoutMigrate, &out.TimeoutMigrate
 		*out = new(float64)
 		**out = **in
 	}
@@ -1342,6 +1362,11 @@ func (in *EnvironmentContainerParameters) DeepCopyInto(out *EnvironmentContainer
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Migrate != nil {
+		in, out := &in.Migrate, &out.Migrate
+		*out = new(bool)
+		**out = **in
+	}
 	if in.MountPoint != nil {
 		in, out := &in.MountPoint, &out.MountPoint
 		*out = make([]MountPointParameters, len(*in))
@@ -1428,6 +1453,11 @@ func (in *EnvironmentContainerParameters) DeepCopyInto(out *EnvironmentContainer
 	}
 	if in.TimeoutDelete != nil {
 		in, out := &in.TimeoutDelete, &out.TimeoutDelete
+		*out = new(float64)
+		**out = **in
+	}
+	if in.TimeoutMigrate != nil {
+		in, out := &in.TimeoutMigrate, &out.TimeoutMigrate
 		*out = new(float64)
 		**out = **in
 	}

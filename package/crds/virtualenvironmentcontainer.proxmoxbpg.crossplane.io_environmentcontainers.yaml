@@ -460,6 +460,10 @@ spec:
                           type: number
                       type: object
                     type: array
+                  migrate:
+                    description: Whether to migrate the container on node change instead
+                      of re-creating it
+                    type: boolean
                   mountPoint:
                     description: A mount point
                     items:
@@ -689,6 +693,9 @@ spec:
                     description: |-
                       Timeout for deleting a container in seconds (defaults to 60).
                       Delete container timeout
+                    type: number
+                  timeoutMigrate:
+                    description: Migrate container timeout
                     type: number
                   timeoutStart:
                     description: Start container timeout
@@ -1127,6 +1134,10 @@ spec:
                           type: number
                       type: object
                     type: array
+                  migrate:
+                    description: Whether to migrate the container on node change instead
+                      of re-creating it
+                    type: boolean
                   mountPoint:
                     description: A mount point
                     items:
@@ -1356,6 +1367,9 @@ spec:
                     description: |-
                       Timeout for deleting a container in seconds (defaults to 60).
                       Delete container timeout
+                    type: number
+                  timeoutMigrate:
+                    description: Migrate container timeout
                     type: number
                   timeoutStart:
                     description: Start container timeout
@@ -1880,6 +1894,10 @@ spec:
                           type: number
                       type: object
                     type: array
+                  migrate:
+                    description: Whether to migrate the container on node change instead
+                      of re-creating it
+                    type: boolean
                   mountPoint:
                     description: A mount point
                     items:
@@ -2112,6 +2130,9 @@ spec:
                     description: |-
                       Timeout for deleting a container in seconds (defaults to 60).
                       Delete container timeout
+                    type: number
+                  timeoutMigrate:
+                    description: Migrate container timeout
                     type: number
                   timeoutStart:
                     description: Start container timeout

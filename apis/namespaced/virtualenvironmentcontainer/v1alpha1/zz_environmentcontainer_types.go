@@ -467,6 +467,9 @@ type EnvironmentContainerInitParameters struct {
 	// The memory allocation
 	Memory []MemoryInitParameters `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// Whether to migrate the container on node change instead of re-creating it
+	Migrate *bool `json:"migrate,omitempty" tf:"migrate,omitempty"`
+
 	// A mount point
 	MountPoint []MountPointInitParameters `json:"mountPoint,omitempty" tf:"mount_point,omitempty"`
 
@@ -531,6 +534,9 @@ type EnvironmentContainerInitParameters struct {
 	// Timeout for deleting a container in seconds (defaults to 60).
 	// Delete container timeout
 	TimeoutDelete *float64 `json:"timeoutDelete,omitempty" tf:"timeout_delete,omitempty"`
+
+	// Migrate container timeout
+	TimeoutMigrate *float64 `json:"timeoutMigrate,omitempty" tf:"timeout_migrate,omitempty"`
 
 	// Start container timeout
 	TimeoutStart *float64 `json:"timeoutStart,omitempty" tf:"timeout_start,omitempty"`
@@ -617,6 +623,9 @@ type EnvironmentContainerObservation struct {
 	// The memory allocation
 	Memory []MemoryObservation `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// Whether to migrate the container on node change instead of re-creating it
+	Migrate *bool `json:"migrate,omitempty" tf:"migrate,omitempty"`
+
 	// A mount point
 	MountPoint []MountPointObservation `json:"mountPoint,omitempty" tf:"mount_point,omitempty"`
 
@@ -681,6 +690,9 @@ type EnvironmentContainerObservation struct {
 	// Timeout for deleting a container in seconds (defaults to 60).
 	// Delete container timeout
 	TimeoutDelete *float64 `json:"timeoutDelete,omitempty" tf:"timeout_delete,omitempty"`
+
+	// Migrate container timeout
+	TimeoutMigrate *float64 `json:"timeoutMigrate,omitempty" tf:"timeout_migrate,omitempty"`
 
 	// Start container timeout
 	TimeoutStart *float64 `json:"timeoutStart,omitempty" tf:"timeout_start,omitempty"`
@@ -768,6 +780,10 @@ type EnvironmentContainerParameters struct {
 	// +kubebuilder:validation:Optional
 	Memory []MemoryParameters `json:"memory,omitempty" tf:"memory,omitempty"`
 
+	// Whether to migrate the container on node change instead of re-creating it
+	// +kubebuilder:validation:Optional
+	Migrate *bool `json:"migrate,omitempty" tf:"migrate,omitempty"`
+
 	// A mount point
 	// +kubebuilder:validation:Optional
 	MountPoint []MountPointParameters `json:"mountPoint,omitempty" tf:"mount_point,omitempty"`
@@ -847,6 +863,10 @@ type EnvironmentContainerParameters struct {
 	// Delete container timeout
 	// +kubebuilder:validation:Optional
 	TimeoutDelete *float64 `json:"timeoutDelete,omitempty" tf:"timeout_delete,omitempty"`
+
+	// Migrate container timeout
+	// +kubebuilder:validation:Optional
+	TimeoutMigrate *float64 `json:"timeoutMigrate,omitempty" tf:"timeout_migrate,omitempty"`
 
 	// Start container timeout
 	// +kubebuilder:validation:Optional

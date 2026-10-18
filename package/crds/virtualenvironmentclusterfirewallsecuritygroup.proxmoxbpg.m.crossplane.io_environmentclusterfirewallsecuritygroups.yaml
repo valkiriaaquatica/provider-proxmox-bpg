@@ -74,7 +74,7 @@ spec:
                   name:
                     description: |-
                       Security group name.
-                      Security group name
+                      Security group name. Must be lowercase, because PVE lowercases security group names.
                     type: string
                   nodeName:
                     description: |-
@@ -203,7 +203,7 @@ spec:
                   name:
                     description: |-
                       Security group name.
-                      Security group name
+                      Security group name. Must be lowercase, because PVE lowercases security group names.
                     type: string
                   nodeName:
                     description: |-
@@ -390,7 +390,7 @@ spec:
                   name:
                     description: |-
                       Security group name.
-                      Security group name
+                      Security group name. Must be lowercase, because PVE lowercases security group names.
                     type: string
                   nodeName:
                     description: |-

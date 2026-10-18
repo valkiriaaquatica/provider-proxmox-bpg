@@ -24,7 +24,7 @@ type EnvironmentClusterFirewallSecurityGroupInitParameters struct {
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
 	// Security group name.
-	// Security group name
+	// Security group name. Must be lowercase, because PVE lowercases security group names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Security group name.
@@ -51,7 +51,7 @@ type EnvironmentClusterFirewallSecurityGroupObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Security group name.
-	// Security group name
+	// Security group name. Must be lowercase, because PVE lowercases security group names.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Security group name.
@@ -78,7 +78,7 @@ type EnvironmentClusterFirewallSecurityGroupParameters struct {
 	ContainerID *float64 `json:"containerId,omitempty" tf:"container_id,omitempty"`
 
 	// Security group name.
-	// Security group name
+	// Security group name. Must be lowercase, because PVE lowercases security group names.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

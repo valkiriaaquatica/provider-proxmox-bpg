@@ -25,7 +25,7 @@ type EnvironmentFileInitParameters struct {
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
 	// The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
-	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
+	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!With a non-root SSH user, the provider sets the mode with "sudo chmod", which needs its own sudoers rule.
 	FileMode *string `json:"fileMode,omitempty" tf:"file_mode,omitempty"`
 
 	// The node name.
@@ -68,7 +68,7 @@ type EnvironmentFileObservation struct {
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
 	// The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
-	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
+	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!With a non-root SSH user, the provider sets the mode with "sudo chmod", which needs its own sudoers rule.
 	FileMode *string `json:"fileMode,omitempty" tf:"file_mode,omitempty"`
 
 	// The file modification date (RFC 3339).
@@ -133,7 +133,7 @@ type EnvironmentFileParameters struct {
 	DatastoreID *string `json:"datastoreId,omitempty" tf:"datastore_id,omitempty"`
 
 	// The file mode in octal format, e.g. 0700 or 600. Note that the prefixes 0o and 0x is not supported! Setting this attribute is also only allowed for root@pam authenticated user.
-	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!Setting this attribute is also only allowed for "root@pam" authenticated user.
+	// The file mode in octal format, e.g. "0700" or "600".Note that the prefixes "0o" and "0x" are not supported!With a non-root SSH user, the provider sets the mode with "sudo chmod", which needs its own sudoers rule.
 	// +kubebuilder:validation:Optional
 	FileMode *string `json:"fileMode,omitempty" tf:"file_mode,omitempty"`
 

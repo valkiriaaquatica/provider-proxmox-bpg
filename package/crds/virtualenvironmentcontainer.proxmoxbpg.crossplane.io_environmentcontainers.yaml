@@ -647,7 +647,7 @@ spec:
                           description: |-
                             A non-negative number defining the delay in
                             seconds before the next container is shut down.
-                            A non-negative number defining the delay in seconds before the next container is shut down
+                            A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the container to shut down before stopping it
                           type: number
                         order:
                           description: |-
@@ -721,16 +721,37 @@ spec:
                       Configuration for waiting for specific IP address types
                     items:
                       properties:
+                        cidrs:
+                          description: Only addresses inside one of these CIDRs count
+                            when waiting. Setting this disables the default loopback/link-local
+                            address exclusion; the `lo` interface is still skipped
+                            unless `interfaces` is also set
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        interfaces:
+                          description: Only addresses on interfaces whose name fully
+                            matches one of these regular expressions count when waiting.
+                            Setting this disables the default skip of the `lo` interface
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                         ipv4:
                           description: |-
                             The IPv4 configuration.
-                            Wait for at least one IPv4 address (non-loopback, non-link-local)
+                            Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
                           type: boolean
                         ipv6:
                           description: |-
                             The IPv6 configuration.
-                            Wait for at least one IPv6 address (non-loopback, non-link-local)
+                            Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
                           type: boolean
+                        timeout:
+                          description: How long to wait for an address after the provider
+                            starts or reboots the container (defaults to `5m`)
+                          type: string
                       type: object
                     type: array
                 type: object
@@ -1321,7 +1342,7 @@ spec:
                           description: |-
                             A non-negative number defining the delay in
                             seconds before the next container is shut down.
-                            A non-negative number defining the delay in seconds before the next container is shut down
+                            A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the container to shut down before stopping it
                           type: number
                         order:
                           description: |-
@@ -1395,16 +1416,37 @@ spec:
                       Configuration for waiting for specific IP address types
                     items:
                       properties:
+                        cidrs:
+                          description: Only addresses inside one of these CIDRs count
+                            when waiting. Setting this disables the default loopback/link-local
+                            address exclusion; the `lo` interface is still skipped
+                            unless `interfaces` is also set
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        interfaces:
+                          description: Only addresses on interfaces whose name fully
+                            matches one of these regular expressions count when waiting.
+                            Setting this disables the default skip of the `lo` interface
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                         ipv4:
                           description: |-
                             The IPv4 configuration.
-                            Wait for at least one IPv4 address (non-loopback, non-link-local)
+                            Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
                           type: boolean
                         ipv6:
                           description: |-
                             The IPv6 configuration.
-                            Wait for at least one IPv6 address (non-loopback, non-link-local)
+                            Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
                           type: boolean
+                        timeout:
+                          description: How long to wait for an address after the provider
+                            starts or reboots the container (defaults to `5m`)
+                          type: string
                       type: object
                     type: array
                 type: object
@@ -2084,7 +2126,7 @@ spec:
                           description: |-
                             A non-negative number defining the delay in
                             seconds before the next container is shut down.
-                            A non-negative number defining the delay in seconds before the next container is shut down
+                            A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the container to shut down before stopping it
                           type: number
                         order:
                           description: |-
@@ -2158,16 +2200,37 @@ spec:
                       Configuration for waiting for specific IP address types
                     items:
                       properties:
+                        cidrs:
+                          description: Only addresses inside one of these CIDRs count
+                            when waiting. Setting this disables the default loopback/link-local
+                            address exclusion; the `lo` interface is still skipped
+                            unless `interfaces` is also set
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        interfaces:
+                          description: Only addresses on interfaces whose name fully
+                            matches one of these regular expressions count when waiting.
+                            Setting this disables the default skip of the `lo` interface
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
                         ipv4:
                           description: |-
                             The IPv4 configuration.
-                            Wait for at least one IPv4 address (non-loopback, non-link-local)
+                            Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
                           type: boolean
                         ipv6:
                           description: |-
                             The IPv6 configuration.
-                            Wait for at least one IPv6 address (non-loopback, non-link-local)
+                            Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
                           type: boolean
+                        timeout:
+                          description: How long to wait for an address after the provider
+                            starts or reboots the container (defaults to `5m`)
+                          type: string
                       type: object
                     type: array
                 type: object

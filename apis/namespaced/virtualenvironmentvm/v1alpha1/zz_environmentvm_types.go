@@ -2788,7 +2788,7 @@ type StartupInitParameters struct {
 
 	// A non-negative number defining the delay in
 	// seconds before the next VM is shut down.
-	// A non-negative number defining the delay in seconds before the next VM is shut down
+	// A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the VM to shut down before stopping it. It is also the default timeout for a shutdown of this VM that doesn't set one
 	DownDelay *float64 `json:"downDelay,omitempty" tf:"down_delay,omitempty"`
 
 	// A non-negative number defining the general startup
@@ -2806,7 +2806,7 @@ type StartupObservation struct {
 
 	// A non-negative number defining the delay in
 	// seconds before the next VM is shut down.
-	// A non-negative number defining the delay in seconds before the next VM is shut down
+	// A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the VM to shut down before stopping it. It is also the default timeout for a shutdown of this VM that doesn't set one
 	DownDelay *float64 `json:"downDelay,omitempty" tf:"down_delay,omitempty"`
 
 	// A non-negative number defining the general startup
@@ -2824,7 +2824,7 @@ type StartupParameters struct {
 
 	// A non-negative number defining the delay in
 	// seconds before the next VM is shut down.
-	// A non-negative number defining the delay in seconds before the next VM is shut down
+	// A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the VM to shut down before stopping it. It is also the default timeout for a shutdown of this VM that doesn't set one
 	// +kubebuilder:validation:Optional
 	DownDelay *float64 `json:"downDelay,omitempty" tf:"down_delay,omitempty"`
 
@@ -3101,47 +3101,76 @@ type VirtiofsParameters struct {
 
 type WaitForIPInitParameters struct {
 
+	// Only addresses inside one of these CIDRs count when waiting. Setting this disables the default loopback/link-local address exclusion; the `lo` interface is still skipped unless `interfaces` is also set
+	// +listType=set
+	Cidrs []*string `json:"cidrs,omitempty" tf:"cidrs,omitempty"`
+
 	// Disable waiting for the agent to report an IP address; set to true to skip the lookup entirely
 	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
-	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	// Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
 	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
 	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
-	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	// Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
 	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+
+	// Spanish.
+	// Only addresses on interfaces whose name fully matches one of these regular expressions count when waiting. Setting this disables the default skip of the `lo` interface
+	// +listType=set
+	Interfaces []*string `json:"interfaces,omitempty" tf:"interfaces,omitempty"`
 }
 
 type WaitForIPObservation struct {
 
+	// Only addresses inside one of these CIDRs count when waiting. Setting this disables the default loopback/link-local address exclusion; the `lo` interface is still skipped unless `interfaces` is also set
+	// +listType=set
+	Cidrs []*string `json:"cidrs,omitempty" tf:"cidrs,omitempty"`
+
 	// Disable waiting for the agent to report an IP address; set to true to skip the lookup entirely
 	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
-	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	// Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
 	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
 	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
-	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	// Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
 	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+
+	// Spanish.
+	// Only addresses on interfaces whose name fully matches one of these regular expressions count when waiting. Setting this disables the default skip of the `lo` interface
+	// +listType=set
+	Interfaces []*string `json:"interfaces,omitempty" tf:"interfaces,omitempty"`
 }
 
 type WaitForIPParameters struct {
 
+	// Only addresses inside one of these CIDRs count when waiting. Setting this disables the default loopback/link-local address exclusion; the `lo` interface is still skipped unless `interfaces` is also set
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Cidrs []*string `json:"cidrs,omitempty" tf:"cidrs,omitempty"`
+
 	// Disable waiting for the agent to report an IP address; set to true to skip the lookup entirely
 	// +kubebuilder:validation:Optional
 	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
-	// Wait for at least one IPv4 address (non-loopback, non-link-local)
+	// Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
 	// +kubebuilder:validation:Optional
 	IPv4 *bool `json:"ipv4,omitempty" tf:"ipv4,omitempty"`
 
 	// Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
-	// Wait for at least one IPv6 address (non-loopback, non-link-local)
+	// Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
 	// +kubebuilder:validation:Optional
 	IPv6 *bool `json:"ipv6,omitempty" tf:"ipv6,omitempty"`
+
+	// Spanish.
+	// Only addresses on interfaces whose name fully matches one of these regular expressions count when waiting. Setting this disables the default skip of the `lo` interface
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Interfaces []*string `json:"interfaces,omitempty" tf:"interfaces,omitempty"`
 }
 
 type WatchdogInitParameters struct {

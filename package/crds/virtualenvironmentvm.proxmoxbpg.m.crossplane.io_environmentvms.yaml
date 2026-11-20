@@ -98,19 +98,37 @@ spec:
                             Configuration for waiting for specific IP address types
                           items:
                             properties:
+                              cidrs:
+                                description: Only addresses inside one of these CIDRs
+                                  count when waiting. Setting this disables the default
+                                  loopback/link-local address exclusion; the `lo`
+                                  interface is still skipped unless `interfaces` is
+                                  also set
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               disabled:
                                 description: Disable waiting for the agent to report
                                   an IP address; set to true to skip the lookup entirely
                                 type: boolean
+                              interfaces:
+                                description: |-
+                                  Spanish.
+                                  Only addresses on interfaces whose name fully matches one of these regular expressions count when waiting. Setting this disables the default skip of the `lo` interface
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               ipv4:
                                 description: |-
                                   Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
-                                  Wait for at least one IPv4 address (non-loopback, non-link-local)
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
                                 type: boolean
                               ipv6:
                                 description: |-
                                   Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
-                                  Wait for at least one IPv6 address (non-loopback, non-link-local)
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
                                 type: boolean
                             type: object
                           type: array
@@ -1045,7 +1063,7 @@ spec:
                           description: |-
                             A non-negative number defining the delay in
                             seconds before the next VM is shut down.
-                            A non-negative number defining the delay in seconds before the next VM is shut down
+                            A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the VM to shut down before stopping it. It is also the default timeout for a shutdown of this VM that doesn't set one
                           type: number
                         order:
                           description: |-
@@ -1316,19 +1334,37 @@ spec:
                             Configuration for waiting for specific IP address types
                           items:
                             properties:
+                              cidrs:
+                                description: Only addresses inside one of these CIDRs
+                                  count when waiting. Setting this disables the default
+                                  loopback/link-local address exclusion; the `lo`
+                                  interface is still skipped unless `interfaces` is
+                                  also set
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               disabled:
                                 description: Disable waiting for the agent to report
                                   an IP address; set to true to skip the lookup entirely
                                 type: boolean
+                              interfaces:
+                                description: |-
+                                  Spanish.
+                                  Only addresses on interfaces whose name fully matches one of these regular expressions count when waiting. Setting this disables the default skip of the `lo` interface
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               ipv4:
                                 description: |-
                                   Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
-                                  Wait for at least one IPv4 address (non-loopback, non-link-local)
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
                                 type: boolean
                               ipv6:
                                 description: |-
                                   Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
-                                  Wait for at least one IPv6 address (non-loopback, non-link-local)
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
                                 type: boolean
                             type: object
                           type: array
@@ -2263,7 +2299,7 @@ spec:
                           description: |-
                             A non-negative number defining the delay in
                             seconds before the next VM is shut down.
-                            A non-negative number defining the delay in seconds before the next VM is shut down
+                            A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the VM to shut down before stopping it. It is also the default timeout for a shutdown of this VM that doesn't set one
                           type: number
                         order:
                           description: |-
@@ -2589,19 +2625,37 @@ spec:
                             Configuration for waiting for specific IP address types
                           items:
                             properties:
+                              cidrs:
+                                description: Only addresses inside one of these CIDRs
+                                  count when waiting. Setting this disables the default
+                                  loopback/link-local address exclusion; the `lo`
+                                  interface is still skipped unless `interfaces` is
+                                  also set
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               disabled:
                                 description: Disable waiting for the agent to report
                                   an IP address; set to true to skip the lookup entirely
                                 type: boolean
+                              interfaces:
+                                description: |-
+                                  Spanish.
+                                  Only addresses on interfaces whose name fully matches one of these regular expressions count when waiting. Setting this disables the default skip of the `lo` interface
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
                               ipv4:
                                 description: |-
                                   Wait for at least one IPv4 address (non-loopback, non-link-local) (defaults to false).
-                                  Wait for at least one IPv4 address (non-loopback, non-link-local)
+                                  Wait for at least one IPv4 address (non-loopback, non-link-local unless allowed by `cidrs`)
                                 type: boolean
                               ipv6:
                                 description: |-
                                   Wait for at least one IPv6 address (non-loopback, non-link-local) (defaults to false).
-                                  Wait for at least one IPv6 address (non-loopback, non-link-local)
+                                  Wait for at least one IPv6 address (non-loopback, non-link-local unless allowed by `cidrs`)
                                 type: boolean
                             type: object
                           type: array
@@ -3556,7 +3610,7 @@ spec:
                           description: |-
                             A non-negative number defining the delay in
                             seconds before the next VM is shut down.
-                            A non-negative number defining the delay in seconds before the next VM is shut down
+                            A non-negative number defining the shutdown timeout in seconds. When the node stops all guests (e.g. on host shutdown), Proxmox VE waits this long for the VM to shut down before stopping it. It is also the default timeout for a shutdown of this VM that doesn't set one
                           type: number
                         order:
                           description: |-
